@@ -17,7 +17,7 @@ public class MainMenuController implements LoadListener {
     "\"The object of art is not to reproduce reality, but to create a reality of the same"
         + " intensity\"  – Alberto Giacometti",
     "\"The art of the artist is the art of the tools\"  – Pablo Picasso",
-    "Made with love by pumbas600 :)"
+    "Made with love by Team 9 :)"
   };
 
   @FXML private Label messageLabel;
