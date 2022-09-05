@@ -1,0 +1,88 @@
+* {
+  -fx-primary-border-color: #dedede;
+  -fx-primary-main: #1565c0;
+  -fx-primary-light: #5e92f3;
+  -fx-primary-dark: #003c8f;
+  -fx-dropshadow: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 3, 0.3, 0, 2);
+}
+
+.card {
+  -fx-border-color: -fx-primary-border-color;
+  -fx-border-width: 1px;
+  -fx-border-radius: 20px;
+  -fx-background-radius: 20px;
+  -fx-background-color: white;
+  -fx-effect: -fx-dropshadow;
+}
+
+.btn {
+  -fx-padding: 8px 24px 8px 24px;
+  -fx-min-width: 120px;
+  -fx-background-color: -fx-primary-main;
+  -fx-text-fill: white;
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-font-family: SansSerif;
+  -fx-background-radius: 8px;
+}
+
+.btn:hover {
+  -fx-background-color: -fx-primary-dark;
+}
+
+.app-bar {
+  -fx-background-color: -fx-primary-main;
+  -fx-padding: 8px 24px 8px 24px;
+  -fx-pref-height: 60px;
+}
+
+.app-bar > Label {
+  -fx-text-fill: white;
+}
+
+.prediction-container > Label {
+  -fx-font-family: SansSerif;
+  -fx-font-size: 18px;
+}
+
+.icon {
+  -fx-pref-width: 40px;
+  -fx-pref-height: 32px;
+}
+
+.icon > * {
+  -fx-background-color: -fx-primary-main;
+  -fx-pref-height: 24px;
+  -fx-pref-width: 24px;
+}
+
+.eraser-icon > * {
+  -fx-shape: "M480 416C497.7 416 512 430.3 512 448C512 465.7 497.7 480 480 480H150.6C133.7 480 117.4 473.3 105.4 461.3L25.37 381.3C.3786 356.3 .3786 315.7 25.37 290.7L258.7 57.37C283.7 32.38 324.3 32.38 349.3 57.37L486.6 194.7C511.6 219.7 511.6 260.3 486.6 285.3L355.9 416H480zM265.4 416L332.7 348.7L195.3 211.3L70.63 336L150.6 416L265.4 416z"
+}
+
+.pen-icon > * {
+  -fx-shape: "M362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32zM421.7 220.3L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3z"
+}
+
+.trashcan-icon > * {
+  -fx-shape: "M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM394.8 466.1C393.2 492.3 372.3 512 346.9 512H101.1C75.75 512 54.77 492.3 53.19 466.1L31.1 128H416L394.8 466.1z";
+  -fx-pref-width: 21px !important; /* Prevent horizontal stretching of the icon */
+}
+
+.icon-btn-row {
+  -fx-border-color: -fx-primary-border-color;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.icon-btn-row > .icon:hover {
+  -fx-background-color: -fx-primary-light;
+}
+
+.icon-btn-selected {
+  -fx-background-color: -fx-primary-main !important;
+}
+
+.icon-btn-row > .icon:hover > Pane, .icon-btn-selected > Pane {
+  -fx-background-color: white;
+}

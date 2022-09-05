@@ -19,12 +19,17 @@ import java.io.IOException;
 import java.util.List;
 import javax.imageio.ImageIO;
 import org.imgscalr.Scalr;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is responsible for querying the DL model to get the predictions. Code partially
  * adapted from https://github.com/deepjavalibrary/djl-demo.
  */
 public class DoodlePrediction {
+
+  private static final Logger logger = LoggerFactory.getLogger(DoodlePrediction.class);
+
   /**
    * Prints the top K predictions of a given image under test.
    *
@@ -54,20 +59,18 @@ public class DoodlePrediction {
     final StringBuilder sb = new StringBuilder();
 
     int i = 1;
-
     for (final Classifications.Classification classification : predictions) {
       sb.append("TOP ")
           .append(i)
           .append(" : ")
           .append(classification.getClassName())
           .append(" : ")
-          .append(String.format("%.2f%%", 100 * classification.getProbability()))
-          .append(System.lineSeparator());
-
+          .append(String.format("%.2f%%", 100 * classification.getProbability()));
+      logger.info(sb.toString());
+      // Clear the string builder for the next prediction.
+      sb.setLength(0);
       i++;
     }
-
-    System.out.println(sb);
   }
 
   private final ZooModel<Image, Classifications> model;
@@ -95,7 +98,7 @@ public class DoodlePrediction {
             .optTranslator(translator)
             .build();
 
-    model = ModelZoo.loadModel(criteria);
+    this.model = ModelZoo.loadModel(criteria);
   }
 
   /**
@@ -117,7 +120,7 @@ public class DoodlePrediction {
             bufImg, Scalr.Method.SPEED, Scalr.Mode.FIT_TO_WIDTH, 65, 65, Scalr.OP_ANTIALIAS);
 
     final Classifications classifications =
-        model.newPredictor().predict(new BufferedImageFactory().fromImage(bufImg));
+        this.model.newPredictor().predict(new BufferedImageFactory().fromImage(bufImg));
 
     return classifications.topK(k);
   }
@@ -137,6 +140,6 @@ public class DoodlePrediction {
       throw new FileNotFoundException("The file " + image.getAbsolutePath() + " does not exist");
     }
 
-    return getPredictions(ImageIO.read(image), k);
+    return this.getPredictions(ImageIO.read(image), k);
   }
 }

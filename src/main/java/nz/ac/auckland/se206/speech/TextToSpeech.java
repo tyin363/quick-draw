@@ -1,15 +1,25 @@
 package nz.ac.auckland.se206.speech;
 
+import java.util.Locale;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import javafx.concurrent.Task;
 import javax.speech.AudioException;
 import javax.speech.Central;
 import javax.speech.EngineException;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
+import nz.ac.auckland.se206.annotations.Inject;
+import nz.ac.auckland.se206.annotations.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Text-to-speech API using the JavaX speech library. */
+@Singleton
 public class TextToSpeech {
+
   /** Custom unchecked exception for Text-to-speech issues. */
   static class TextToSpeechException extends RuntimeException {
+
     public TextToSpeechException(final String message) {
       super(message);
     }
@@ -26,30 +36,55 @@ public class TextToSpeech {
           "You are not providing any arguments. You need to provide one or more sentences.");
     }
 
-    final TextToSpeech textToSpeech = new TextToSpeech();
+    final TextToSpeech textToSpeech = new TextToSpeech(LoggerFactory.getLogger(TextToSpeech.class));
 
     textToSpeech.speak(args);
     textToSpeech.terminate();
   }
 
+  private final Logger logger;
   private final Synthesizer synthesizer;
+  private final Task<Void> speakingTask;
+  private final ConcurrentLinkedQueue<String> sentencesQueue = new ConcurrentLinkedQueue<>();
 
   /**
    * Constructs the TextToSpeech object creating and allocating the speech synthesizer. English
    * voice: com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory
    */
-  public TextToSpeech() {
+  @Inject
+  public TextToSpeech(final Logger logger) {
+    this.logger = logger;
     try {
       System.setProperty(
           "freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
       Central.registerEngineCentral("com.sun.speech.freetts.jsapi.FreeTTSEngineCentral");
 
-      synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(java.util.Locale.ENGLISH));
+      this.synthesizer = Central.createSynthesizer(new SynthesizerModeDesc(Locale.ENGLISH));
 
-      synthesizer.allocate();
+      this.synthesizer.allocate();
     } catch (final EngineException e) {
       throw new TextToSpeechException(e.getMessage());
     }
+    this.speakingTask =
+        new Task<>() {
+          @Override
+          protected Void call() {
+            while (!this.isCancelled()) {
+              if (!TextToSpeech.this.sentencesQueue.isEmpty()) {
+                final String sentence = TextToSpeech.this.sentencesQueue.poll();
+                TextToSpeech.this.speak(sentence);
+                TextToSpeech.this.sleep(); // Pause between sentences
+              }
+            }
+            return null;
+          }
+        };
+
+    this.speakingTask.setOnFailed(
+        e ->
+            this.logger.error(
+                "There was an error speaking the sentences", e.getSource().getException()));
+    new Thread(this.speakingTask).start();
   }
 
   /**
@@ -65,10 +100,10 @@ public class TextToSpeech {
         isFirst = false;
       } else {
         // Add a pause between sentences.
-        sleep();
+        this.sleep();
       }
 
-      speak(sentence);
+      this.speak(sentence);
     }
   }
 
@@ -83,12 +118,21 @@ public class TextToSpeech {
     }
 
     try {
-      synthesizer.resume();
-      synthesizer.speakPlainText(sentence, null);
-      synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
+      this.synthesizer.resume();
+      this.synthesizer.speakPlainText(sentence, null);
+      this.synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
     } catch (final AudioException | InterruptedException e) {
       throw new TextToSpeechException(e.getMessage());
     }
+  }
+
+  /**
+   * Adds a sentence to the queue so that it can be spoken later on a different thread.
+   *
+   * @param sentence The sentence to speak.
+   */
+  public void queueSentence(final String sentence) {
+    this.sentencesQueue.add(sentence);
   }
 
   /** Sleeps a while to add some pause between sentences. */
@@ -96,7 +140,7 @@ public class TextToSpeech {
     try {
       Thread.sleep(100);
     } catch (final InterruptedException e) {
-      e.printStackTrace();
+      this.logger.error("There was an error while pausing between sentences", e);
     }
   }
 
@@ -106,7 +150,8 @@ public class TextToSpeech {
    */
   public void terminate() {
     try {
-      synthesizer.deallocate();
+      this.speakingTask.cancel();
+      this.synthesizer.deallocate();
     } catch (final EngineException e) {
       throw new TextToSpeechException(e.getMessage());
     }

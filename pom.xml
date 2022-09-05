@@ -116,9 +116,24 @@
       <version>5.8.1</version>
     </dependency>
     <dependency>
-      <artifactId>slf4j-simple</artifactId>
+      <artifactId>slf4j-api</artifactId>
       <groupId>org.slf4j</groupId>
-      <version>1.7.21</version>
+      <version>1.7.36</version>
+    </dependency>
+    <dependency>
+      <artifactId>logback-core</artifactId>
+      <groupId>ch.qos.logback</groupId>
+      <version>1.2.9</version>
+    </dependency>
+    <dependency>
+      <artifactId>logback-classic</artifactId>
+      <groupId>ch.qos.logback</groupId>
+      <version>1.2.11</version>
+    </dependency>
+    <dependency>
+      <groupId>com.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>5.6</version>
     </dependency>
   </dependencies>
   <groupId>nz.ac.auckland.se206</groupId>
