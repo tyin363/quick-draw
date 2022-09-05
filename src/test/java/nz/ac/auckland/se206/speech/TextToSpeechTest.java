@@ -3,13 +3,14 @@ package nz.ac.auckland.se206.speech;
 import nz.ac.auckland.se206.speech.TextToSpeech.TextToSpeechException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
 
 class TextToSpeechTest {
   private TextToSpeech textToSpeech;
 
   @BeforeEach
   void setUp() throws TextToSpeechException {
-    textToSpeech = new TextToSpeech();
+    textToSpeech = new TextToSpeech(LoggerFactory.getLogger(TextToSpeech.class));
   }
 
   @Test

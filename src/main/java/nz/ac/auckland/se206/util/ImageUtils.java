@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
  * methods, otherwise the prediction might not work properly
  */
 public class ImageUtils {
+
   /**
    * Generates a black image of a specified width and height.
    *
