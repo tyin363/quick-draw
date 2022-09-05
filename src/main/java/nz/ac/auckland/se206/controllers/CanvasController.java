@@ -73,7 +73,44 @@ public class CanvasController implements LoadListener, TerminationListener {
   private PredictionHandler predictionHandler;
   private Timeline timer;
   private int secondsRemaining;
-  private BrushType selectedBrushType = BrushType.DISABLED;
+
+  // Mouse coordinates
+  private double currentX;
+  private double currentY;
+
+  private final BrushType penBrush =
+      (e) -> {
+        final double x = e.getX() - Config.BRUSH_SIZE / 2;
+        final double y = e.getY() - Config.BRUSH_SIZE / 2;
+
+        this.graphic.setFill(Color.BLACK);
+        this.graphic.setLineWidth(Config.BRUSH_SIZE);
+
+        // Create a line that goes from the point (currentX, currentY) and (x,y)
+        this.graphic.strokeLine(this.currentX, this.currentY, x, y);
+
+        // Update the coordinates
+        this.currentX = x;
+        this.currentY = y;
+      };
+
+  private final BrushType eraserBrush =
+      (e) -> {
+        final double x = e.getX() - Config.BRUSH_SIZE;
+        final double y = e.getY() - Config.BRUSH_SIZE;
+        this.graphic.clearRect(x, y, Config.BRUSH_SIZE * 2, Config.BRUSH_SIZE * 2);
+        // Update the coordinates
+        this.currentX = x;
+        this.currentY = y;
+      };
+
+  private final BrushType disabledBrush =
+      (e) -> {
+        this.currentX = e.getX();
+        this.currentY = e.getY();
+      };
+
+  private BrushType selectedBrushType = this.disabledBrush;
 
   /**
    * This method is called everytime this view is switched to. It manages the resetting of any
@@ -116,8 +153,15 @@ public class CanvasController implements LoadListener, TerminationListener {
     Tooltip.install(this.clearPane, new Tooltip(this.clearPane.getAccessibleHelp()));
 
     this.graphic = this.canvas.getGraphicsContext2D();
+    // save coordinates when mouse is pressed on the canvas
+    this.canvas.setOnMousePressed(
+        e -> {
+          this.currentX = e.getX();
+          this.currentY = e.getY();
+        });
+
     // When the user draws on the canvas apply the relevant effect of the selected brush
-    this.canvas.setOnMouseDragged(e -> this.selectedBrushType.apply(e, this.graphic));
+    this.canvas.setOnMouseDragged(e -> this.selectedBrushType.accept(e));
 
     this.predictionHandler =
         new PredictionHandler(this::getCurrentSnapshot, this::onPredictSuccess);
@@ -152,10 +196,10 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onSelectEraser() {
     // So that you can't change the brush type if it's been disabled
-    if (this.selectedBrushType != BrushType.ERASER) {
+    if (this.selectedBrushType != this.eraserBrush) {
       this.penPane.getStyleClass().remove("icon-btn-selected");
       this.eraserPane.getStyleClass().add("icon-btn-selected");
-      this.selectedBrushType = BrushType.ERASER;
+      this.selectedBrushType = this.eraserBrush;
     }
   }
 
@@ -163,10 +207,10 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onSelectPen() {
     // So that you can't change the brush type if it's been disabled
-    if (this.selectedBrushType != BrushType.PEN) {
+    if (this.selectedBrushType != this.penBrush) {
       this.eraserPane.getStyleClass().remove("icon-btn-selected");
       this.penPane.getStyleClass().add("icon-btn-selected");
-      this.selectedBrushType = BrushType.PEN;
+      this.selectedBrushType = this.penBrush;
     }
   }
 
@@ -251,7 +295,7 @@ public class CanvasController implements LoadListener, TerminationListener {
    * brush type buttons.
    */
   private void disableBrush() {
-    this.selectedBrushType = BrushType.DISABLED;
+    this.selectedBrushType = this.disabledBrush;
     this.penPane.getStyleClass().remove("icon-btn-selected");
     this.eraserPane.getStyleClass().remove("icon-btn-selected");
     this.penPane.setDisable(true);
