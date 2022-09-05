@@ -80,11 +80,11 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   private final BrushType penBrush =
       (e) -> {
-        final double x = e.getX() - Config.BRUSH_SIZE / 2;
-        final double y = e.getY() - Config.BRUSH_SIZE / 2;
+        final double x = e.getX() - this.config.getBrushSize() / 2;
+        final double y = e.getY() - this.config.getBrushSize() / 2;
 
         this.graphic.setFill(Color.BLACK);
-        this.graphic.setLineWidth(Config.BRUSH_SIZE);
+        this.graphic.setLineWidth(this.config.getBrushSize());
 
         // Create a line that goes from the point (currentX, currentY) and (x,y)
         this.graphic.strokeLine(this.currentX, this.currentY, x, y);
@@ -96,9 +96,10 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   private final BrushType eraserBrush =
       (e) -> {
-        final double x = e.getX() - Config.BRUSH_SIZE;
-        final double y = e.getY() - Config.BRUSH_SIZE;
-        this.graphic.clearRect(x, y, Config.BRUSH_SIZE * 2, Config.BRUSH_SIZE * 2);
+        final double x = e.getX() - this.config.getBrushSize();
+        final double y = e.getY() - this.config.getBrushSize();
+        this.graphic.clearRect(
+            x, y, this.config.getBrushSize() * 2, this.config.getBrushSize() * 2);
         // Update the coordinates
         this.currentX = x;
         this.currentY = y;

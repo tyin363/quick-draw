@@ -15,8 +15,6 @@ import org.slf4j.Logger;
 @Singleton
 public class Config {
 
-  public static final double BRUSH_SIZE = 6.0;
-
   private final Logger logger;
   private final Map<ColourType, Color> colourMap = new EnumMap<>(ColourType.class);
 
@@ -150,5 +148,14 @@ public class Config {
    */
   public String getWordDifficultiesFileName() {
     return "category_difficulty.csv";
+  }
+
+  /**
+   * Retrieves the size of the brush.
+   *
+   * @return The size of the brush
+   */
+  public double getBrushSize() {
+    return 6;
   }
 }
