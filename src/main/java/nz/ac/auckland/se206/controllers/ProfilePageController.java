@@ -12,7 +12,7 @@ public class ProfilePageController {
   @FXML private Label gamesWonLabel;
   @FXML private Label usernameLabel;
   @FXML private ImageView profileImageView;
-  @FXML private Button mainMenuButtton;
+  @FXML private Button switchAccountButton;
 
   /** Switch to Main menu so user can choose what to do from there */
   @FXML
