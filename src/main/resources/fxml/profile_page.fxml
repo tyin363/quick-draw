@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -28,7 +29,10 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0">
                <children>
-                  <ImageView fitHeight="121.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="profileImageView" fitHeight="121.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/temporaryProfilePicture.PNG" />
+                     </image></ImageView>
                   <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" text="Username" />
                </children>
             </VBox>
