@@ -31,6 +31,12 @@ public class MainMenuController implements LoadListener {
     SceneManager.getInstance().switchToView(View.CONFIRMATION_SCREEN);
   }
 
+  /** Switch to the profile page, where the user can check their statistics. */
+  @FXML
+  private void onSwitchToProfile() {
+    SceneManager.getInstance().switchToView(View.PROFILE_PAGE);
+  }
+
   /** Everytime this scene is switched to select a new random message. */
   @Override
   public void onLoad() {

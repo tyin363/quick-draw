@@ -8,6 +8,7 @@ module SE206Project {
   requires org.slf4j;
   requires com.opencsv;
   requires javafx.graphics;
+  requires javafx.base;
 
   opens nz.ac.auckland.se206 to
       javafx.fxml;
