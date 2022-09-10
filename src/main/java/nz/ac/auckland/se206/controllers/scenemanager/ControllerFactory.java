@@ -13,6 +13,7 @@ import java.util.function.Function;
 import javafx.util.Callback;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -115,7 +116,7 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
               for (int i = 0; i < c.getParameterCount(); i++) {
                 final Parameter parameter = parameters[i];
                 // This might recursively call this method, so this implementation doesn't handle
-                // situations where the parameter requires an instance of this to be created.
+                // situations where the parameter requires an instance of this to be created
                 args[i] = this.getInstance(parameter.getType(), type);
               }
               // The constructor might be private, so we need to make it accessible
@@ -125,6 +126,11 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
                 // If we successfully created an instance of it, then we can check if it has any
                 // fields that need to be injected.
                 this.injectFields(instance);
+
+                // After all the fields have been injected see if it listens to onEnable
+                if (instance instanceof EnableListener enableListener) {
+                  enableListener.onEnable();
+                }
                 return instance;
               } catch (final InstantiationException
                   | IllegalAccessException
