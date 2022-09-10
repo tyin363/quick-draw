@@ -23,12 +23,13 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
   private final Map<Class<?>, Object> singletons = new ConcurrentHashMap<>();
 
   /**
-   * Creates a new instance of the controller factory and automatically adds the {@link Logger}
-   * supplier.
+   * Creates a new instance of the controller factory and automatically adds the {@link Logger} and
+   * {@link ObjectMapper} suppliers.
    */
   public ControllerFactory() {
+    final ObjectMapper objectMapper = new ObjectMapper();
     this.registerSupplier(Logger.class, LoggerFactory::getLogger);
-    this.singletons.put(ObjectMapper.class, new ObjectMapper());
+    this.registerSupplier(ObjectMapper.class, c -> objectMapper);
   }
 
   /**
