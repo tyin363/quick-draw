@@ -16,7 +16,8 @@ needs to function (I.e. Dependencies).
 
 There are 2 ways to inject dependencies into a class:
 1. Through the constructor. This can be done by annotating a constructor with `@Inject`. When
-   an instance of the class is created all the parameters in the constructor will be passed in.
+   an instance of the class is created all the parameters in the constructor will automatically be 
+   passed in.
 2. Through fields. This can be done by annotating a field with `@Inject`. When an instance of
    the class is created all the fields annotated with `@Inject` will be set. As the fields can't
    be modified until after an instance of the class is created, the fields will not be injected
@@ -44,32 +45,43 @@ There are 2 ways to inject dependencies into a class:
 >   }
 > }
 > ```
-> When it tries to create class A it will see that it needs an instance of B, so it will try to
-> create an instance of B, however, to create B it needs an instance of A, so it tries to create
-> an instance of A and so the cycle continues. This infinite loop will eventually cause a stack
-> overflow error.
+> When it tries to create an instance of `A` it will see that it needs an instance of `B`. It 
+> will attempt to create an instance of it to use, however, to create `B` it requires an 
+> instance of `A`, which it will also try and create and so the cycle continues. This infinite loop 
+> will eventually cause a stack overflow error.
 
 ### Singletons
 
 By default, whenever we need to inject a dependency into a class, it will create a completely
-new instance. However, most of the time we want to reuse the same instance of a class whenever
-we inject it. This is particularly important if we're creating classes that act as communication
-interfaces between controllers. This is where the singleton design pattern comes in.
-It ensures that only one instance of a class will be created and that the instance will be
-reused whenever we need to inject it. To make a class a singleton, we need to annotate it with
-`@Singleton`. This will tell the dependency injection to only create one instance of the class
-and then store it for future use.
+new instance each time. However, generally we want to reuse the same instance of a class 
+whenever we inject it. This is particularly important if we're creating classes that are 
+dependencies for multiple different classes, and we want each of these classes to be referencing 
+the same instance. This is where the singleton design pattern comes in. It ensures that only 
+one instance of a class will be created and that the instance will be reused whenever else we 
+need to access it. This design pattern is supported by dependency injection by annotating the 
+class we want to be a singleton with `@Singleton`. Whenever a singleton dependency is created, 
+it first checks if there's already a stored instance. If there is, it'll be reused, otherwise a 
+new instance is created and stored for future use.
+
+E.g:
+
+```java
+// Mark ServiceA as a singleton
+@Singleton
+public class ServiceA {
+}
+```
 
 ## Controller Lifecycle
 
 There are 2 interfaces that **controllers** can implement to respond to certain events.
 
-1. `LoadListener` - This requires you to implement an `onLoad` function which will be called
+1. `LoadListener` - This requires you to implement an `onLoad` method which will be called
    **everytime** the view associated with that controller is switched to. This is the method 
    where you should initialise/reset UI which can be changed while the user was previously on 
-   the same view. For example, with the canvas view after you complete a drawing, a button that 
-   allows you to start a new game is displayed. When we switch back to the
-   canvas view again, in this method we can reset it to make this button invisible.
+   the same view. For example with the canvas view, after you complete a drawing, a button that 
+   allows you to start a new game is displayed. When we switch back to the canvas view again, 
+   in this method we can reset it to make this button invisible.
 
 > **Note**
 > 
@@ -84,11 +96,9 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
 > **Note**
 > 
 > After [#9](https://github.com/SOFTENG206-2022/quick-draw-beta-final-team-09/issues/9), this will
-> change to use a non-static `SceneManager` instance which can be
-> injected, so
-> it will instead look like: `this.sceneManager.switchToView(View.CANVAS)`,
-> where `this.sceneManager`
-> is an injected field.
+> change to use a non-static `SceneManager` instance which can be injected, so it will instead 
+> look like: `this.sceneManager.switchToView(View.CANVAS)`, where `this.sceneManager` is an 
+> injected field.
 
 ### Ordering of Lifecycle
 
@@ -103,8 +113,9 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
 
 Switching between views is very easy. Each JavaFX view should have an associated value in the 
 `View` enum. By default, the `.fxml` file name for the view is the same as the name of the enum 
-but in lowercase. We can then switch between views whenever we need by calling `SceneManager.
-getInstance().switchToView(View.CANVAS)`.
+but in lowercase. If it is different, you can specify it like: `EXAMPLE_VIEW("i_have_a_different_name")`
+We can then switch between views whenever we need by passing it to the `switchToView` method:
+`SceneManager.getInstance().switchToView(View.CANVAS)`.
 
 ## Putting it all Together
 
