@@ -158,12 +158,12 @@ public class Config {
   }
 
   /**
-   * Retrieves the absolute path to where all the user data will be persisted.
+   * Retrieves the file where all the user data will be persisted.
    *
-   * @return The absolute path to where all the user data will be persisted
+   * @return The file where all the user data will be persisted
    */
-  public String getUserDataFile() {
-    return this.userDataFile.getAbsolutePath();
+  public File getUserDataFile() {
+    return this.userDataFile;
   }
 
   /**

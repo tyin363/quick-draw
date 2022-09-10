@@ -8,7 +8,6 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
-import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 
 @Singleton
@@ -39,6 +38,5 @@ public class MainMenuController implements LoadListener {
   @Override
   public void onLoad() {
     this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
-    this.userService.saveUser(new User("pumbas600"));
   }
 }
