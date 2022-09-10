@@ -8,6 +8,8 @@ module SE206Project {
   requires org.slf4j;
   requires com.opencsv;
   requires com.fasterxml.jackson.core;
+  requires com.fasterxml.jackson.databind;
+  requires com.fasterxml.jackson.annotation;
 
   opens nz.ac.auckland.se206 to
       javafx.fxml;
