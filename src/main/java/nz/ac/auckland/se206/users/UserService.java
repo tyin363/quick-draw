@@ -8,8 +8,7 @@ import nz.ac.auckland.se206.util.Config;
 @Singleton
 public class UserService {
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
-
+  @Inject private ObjectMapper objectMapper;
   @Inject private Config config;
 
   public void saveUser(final User user) {}

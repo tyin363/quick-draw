@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.controllers.scenemanager;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.Field;
 import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
@@ -27,6 +28,7 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
    */
   public ControllerFactory() {
     this.registerSupplier(Logger.class, LoggerFactory::getLogger);
+    this.singletons.put(ObjectMapper.class, new ObjectMapper());
   }
 
   /**
