@@ -32,6 +32,11 @@ public class Config {
     // Inject the logger into the constructor so that it's available while loading the colours.
     this.logger = logger;
     this.loadColours();
+
+    // Create the UserData directory if it doesn't exist
+    if (!this.userDataFile.exists()) {
+      this.userDataFile.mkdir();
+    }
   }
 
   /**
