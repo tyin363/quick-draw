@@ -7,6 +7,7 @@ module SE206Project {
   requires imgscalr.lib;
   requires org.slf4j;
   requires com.opencsv;
+  requires com.fasterxml.jackson.core;
 
   opens nz.ac.auckland.se206 to
       javafx.fxml;
