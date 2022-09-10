@@ -24,7 +24,8 @@ There are 2 ways to inject dependencies into a class:
    fields with `@FXML` works too!
 
 > **Warning**
-> Currently the dependency injection doesn't support circular dependencies. I.e. if you had 2
+> 
+> Currently, dependency injection doesn't support circular dependencies. I.e. if you had 2
 > classes, `A` and `B`:
 > ```java
 > public class A {
@@ -71,6 +72,7 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
    canvas view again, in this method we can reset it to make this button invisible.
 
 > **Note**
+> 
 > The `initialize` method is only called once when the controller is first created and should be
 > used for one-off initialisations, such as creating instances of classes that are used by the
 > controller.
@@ -80,6 +82,7 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
    of data should be handled.
 
 > **Note**
+> 
 > After [#9](https://github.com/SOFTENG206-2022/quick-draw-beta-final-team-09/issues/9), this will
 > change to use a non-static `SceneManager` instance which can be
 > injected, so
@@ -90,10 +93,11 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
 ### Ordering of Lifecycle
 
 1. Constructor dependencies are injected
-2. Field dependencies are injected
-3. `initialize` is called (Only occurs once)
-4. `onLoad` is called (This happens whenever the view is switched to)
-5. `onTerminate` is called (This happens just before the application is closed)
+2. Constructor is called
+3. Field dependencies are injected
+4. `initialize` is called (Only occurs once)
+5. `onLoad` is called (This happens whenever the view is switched to)
+6. `onTerminate` is called (This happens just before the application is closed)
 
 ## Switching Views
 
@@ -107,12 +111,13 @@ getInstance().switchToView(View.CANVAS)`.
 Let's consider an example where we want to create a `WordService` that manages the current word 
 being drawn. We want this class to be a singleton so that we can access the same instance of it 
 from two different controllers. One controller will be responsible for generating a new random 
-word everytime it's view is switched to and the other will need to be able to read it and 
-display it in a label. We can do that by creating a class like:
+word everytime it's switched to and the other will need to be able to read the word and display it 
+in a label.
 
 ```java
 import java.awt.Label;
 import javafx.fxml.FXML;
+import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 
 @Singleton
@@ -127,9 +132,10 @@ public class WordService {
   public String getTargetWord() {
     return this.targetWord;
   }
-  
+
 }
 
+@Singleton
 public class ControllerA implements LoadListener {
 
   @Inject private WordService wordService;
@@ -141,7 +147,8 @@ public class ControllerA implements LoadListener {
   }
 }
 
-public class ControllerB implements LoadListener{
+@Singleton
+public class ControllerB implements LoadListener {
 
   @FXML private Label wordLabel;
   @Inject private WordService wordService;
