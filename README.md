@@ -83,22 +83,22 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
    allows you to start a new game is displayed. When we switch back to the canvas view again, 
    in this method we can reset it to make this button invisible.
 
-> **Note**
-> 
-> The `initialize` method is only called once when the controller is first created and should be
-> used for one-off initialisations, such as creating instances of classes that are used by the
-> controller.
+   > **Note**
+   > 
+   > The `initialize` method is only called once when the controller is first created and should be
+   > used for one-off initialisations, such as creating instances of classes that are used by the
+   > controller.
 
 2. `TerminationListener` - This requires you to implement an `onTerminate` method that is called
    just before the application is closed. This is where any termination of processes or saving 
    of data should be handled.
 
-> **Note**
-> 
-> After [#9](https://github.com/SOFTENG206-2022/quick-draw-beta-final-team-09/issues/9), this will
-> change to use a non-static `SceneManager` instance which can be injected, so it will instead 
-> look like: `this.sceneManager.switchToView(View.CANVAS)`, where `this.sceneManager` is an 
-> injected field.
+   > **Note**
+   > 
+   > After [#9](https://github.com/SOFTENG206-2022/quick-draw-beta-final-team-09/issues/9), this 
+   > will change to use a non-static `SceneManager` instance which can be injected, so it will 
+   > instead look like: `this.sceneManager.switchToView(View.CANVAS)`, where `this.
+   > sceneManager` is an injected field.
 
 ### Ordering of Lifecycle
 
