@@ -1,5 +1,14 @@
 # SE206 - 2022 - Beta & Final Releases
 
+## Summary
+
+- [Dependency Injection](#dependency-injection)
+  - [Singletons](#singletons)
+- [Controller Lifecycle](#controller-lifecycle)
+  - [Ordering of Lifecycle](#ordering-of-lifecycle)
+- [Switching Views](#switching-views)
+- [Putting it all Together](#putting-it-all-together)
+
 ## Dependency Injection
 
 Dependency injection is the process of providing a class with instances of other classes it
@@ -88,10 +97,10 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
 
 ## Switching Views
 
-Switching between views is very easy. Each JavaFX view has an associated value in the `View` enum.
-By default, the `.fxml` file name for the view is the same as the name of the enum but in
-lowercase. We can then switch between views whenever we need by calling `SceneManager.getInstance
-().switchToView(View.CANVAS)`.
+Switching between views is very easy. Each JavaFX view should have an associated value in the 
+`View` enum. By default, the `.fxml` file name for the view is the same as the name of the enum 
+but in lowercase. We can then switch between views whenever we need by calling `SceneManager.
+getInstance().switchToView(View.CANVAS)`.
 
 ## Putting it all Together
 
