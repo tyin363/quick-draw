@@ -113,9 +113,9 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
 
 Switching between views is very easy. Each JavaFX view should have an associated value in the 
 `View` enum. By default, the `.fxml` file name for the view is the same as the name of the enum 
-but in lowercase. If it is different, you can specify it like: `EXAMPLE_VIEW("i_have_a_different_name")`
-We can then switch between views whenever we need by passing it to the `switchToView` method:
-`SceneManager.getInstance().switchToView(View.CANVAS)`.
+but in lowercase. If it is different, you can specify it like: 
+`EXAMPLE_VIEW("i_have_a_different_name")`. We can then switch between views whenever we need by
+passing it to the `switchToView` method: `SceneManager.getInstance().switchToView(View.CANVAS)`.
 
 ## Putting it all Together
 
