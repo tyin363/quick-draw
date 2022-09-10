@@ -1,11 +1,31 @@
 package nz.ac.auckland.se206.users;
 
 import java.util.Set;
+import java.util.UUID;
 
 public class User {
 
+  private UUID id;
   private String username;
   private Set<String> pastWords;
+
+  public User() {
+    this.id = UUID.randomUUID();
+  }
+
+  public User(final String username) {
+    this.id = UUID.randomUUID();
+    this.username = username;
+  }
+
+  /**
+   * Retrieves the unique-user-id (UUID) for the user.
+   *
+   * @return The UUID for the user.
+   */
+  public UUID getId() {
+    return this.id;
+  }
 
   /**
    * Retrieves the username of the user.
