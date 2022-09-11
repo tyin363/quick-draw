@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.users;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -13,11 +14,13 @@ public class User {
   /** An empty constructor is required to deserialize the user from JSON. */
   public User() {
     this.id = UUID.randomUUID();
+    this.pastWords = new HashSet<>();
   }
 
   public User(final String username) {
     this.id = UUID.randomUUID();
     this.username = username;
+    this.pastWords = new HashSet<>();
   }
 
   /**
@@ -66,9 +69,14 @@ public class User {
     this.pastWords.add(word);
   }
 
+  public Set<String> getPastWords() {
+    return this.pastWords;
+  }
+
   @Override
   public String toString() {
-    return "User{id=%s, username='%s'}".formatted(this.id, this.username);
+    return "User{id=%s, username='%s', pastWords='%s'}"
+        .formatted(this.id, this.username, this.pastWords);
   }
 
   @Override
