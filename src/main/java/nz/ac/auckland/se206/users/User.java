@@ -10,16 +10,43 @@ public class User {
   private final UUID id;
   private final Set<String> pastWords;
   private String username;
+  private String profilePicture;
+  private int gamesWon;
+  private int gamesLost;
 
   /** An empty constructor is required to deserialize the user from JSON. */
   private User() {
     this(null);
   }
 
+  /**
+   * Creates a new user with the given username and automatically generates a random UUID for them.
+   *
+   * @param username The username of the user
+   */
   public User(final String username) {
     this.id = UUID.randomUUID();
     this.username = username;
     this.pastWords = new HashSet<>();
+  }
+
+  /**
+   * Returns whether the user has previously had to draw the specified word.
+   *
+   * @param word The word to check.
+   * @return Whether the user has previously had to draw the specified word.
+   */
+  public boolean hasHadWord(final String word) {
+    return this.pastWords.contains(word);
+  }
+
+  /**
+   * Adds a word to the set of words that the user has previously had to draw.
+   *
+   * @param word The word to add.
+   */
+  public void addPastWord(final String word) {
+    this.pastWords.add(word);
   }
 
   /**
@@ -50,31 +77,75 @@ public class User {
   }
 
   /**
-   * Returns whether the user has previously had to draw the specified word.
+   * Retrieves a set containing the words previously drawn by the user.
    *
-   * @param word The word to check.
-   * @return Whether the user has previously had to draw the specified word.
+   * @return A set containing the words previously drawn by the user.
    */
-  public boolean hasHadWord(final String word) {
-    return this.pastWords.contains(word);
-  }
-
-  /**
-   * Adds a word to the set of words that the user has previously had to draw.
-   *
-   * @param word The word to add.
-   */
-  public void addPastWord(final String word) {
-    this.pastWords.add(word);
-  }
-
   public Set<String> getPastWords() {
     return this.pastWords;
   }
 
+  /**
+   * Retrieves the path to the profile picture of the user or null if the user doesn't have a
+   * profile picture.
+   *
+   * @return The path to the profile picture of the user.
+   */
+  public String getProfilePicture() {
+    return this.profilePicture;
+  }
+
+  /**
+   * Sets the path to the profile picture of the user. To set no profile picture, pass null.
+   *
+   * @param profilePicture The path to the profile picture of the user.
+   */
+  public void setProfilePicture(final String profilePicture) {
+    this.profilePicture = profilePicture;
+  }
+
+  /**
+   * Retrieves the number of games the user has won.
+   *
+   * @return The number of games the user has won.
+   */
+  public int getGamesWon() {
+    return this.gamesWon;
+  }
+
+  /** Increases the number of games the user has won by 1. */
+  public void incrementGamesWon() {
+    this.gamesWon++;
+  }
+
+  /**
+   * Retrieves the number of games the user has lost.
+   *
+   * @return The number of games the user has lost.
+   */
+  public int getGamesLost() {
+    return this.gamesLost;
+  }
+
+  /** Increases the number of games the user has lost by 1. */
+  public void incrementGamesLost() {
+    this.gamesLost++;
+  }
+
+  /**
+   * Retrieves the total number of games the user has played. This is the sum of the games this user
+   * has won and the games lost.
+   *
+   * @return The total number of games the user has played.
+   */
+  public int getTotalGames() {
+    return this.gamesWon + this.gamesLost;
+  }
+
   @Override
   public int hashCode() {
-    return Objects.hash(this.id, this.username, this.pastWords);
+    return Objects.hash(
+        this.id, this.username, this.pastWords, this.profilePicture, this.gamesWon, this.gamesLost);
   }
 
   @Override
@@ -88,12 +159,17 @@ public class User {
     // Check that all the fields are equal
     return this.id.equals(user.id)
         && Objects.equals(this.username, user.username)
-        && Objects.equals(this.pastWords, user.pastWords);
+        && Objects.equals(this.pastWords, user.pastWords)
+        && Objects.equals(this.profilePicture, user.profilePicture)
+        && this.gamesWon == user.gamesWon
+        && this.gamesLost == user.gamesLost;
   }
 
   @Override
   public String toString() {
-    return "User{id=%s, username='%s', pastWords='%s'}"
-        .formatted(this.id, this.username, this.pastWords);
+    return String.format(
+        "User{id=%s, username='%s', pastWords='%s', profilePicture='%s', "
+            + "gamesWon=%d, gamesLost=%d}",
+        this.id, this.username, this.pastWords, this.profilePicture, this.gamesWon, this.gamesLost);
   }
 }
