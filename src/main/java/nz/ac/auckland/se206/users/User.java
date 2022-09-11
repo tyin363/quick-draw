@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -138,6 +139,7 @@ public class User {
    *
    * @return The total number of games the user has played.
    */
+  @JsonIgnore
   public int getTotalGames() {
     return this.gamesWon + this.gamesLost;
   }
