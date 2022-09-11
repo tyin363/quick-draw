@@ -61,6 +61,7 @@ public class UserService implements EnableListener {
   public boolean saveUser(final User user) {
     try {
       this.objectMapper.writeValue(this.getUserFile(user), user);
+      this.users.put(user.getId(), user);
       return true;
     } catch (final IOException e) {
       this.logger.error("Failed to save user", e);
@@ -76,5 +77,6 @@ public class UserService implements EnableListener {
         "Loaded {} users from {}",
         this.users.size(),
         this.config.getUserDataFile().getAbsolutePath());
+    this.users.values().stream().map(User::toString).forEach(this.logger::info);
   }
 }
