@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.users;
 
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -68,5 +69,24 @@ public class User {
   @Override
   public String toString() {
     return "User{id=%s, username='%s'}".formatted(this.id, this.username);
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    } else if (o == null || this.getClass() != o.getClass()) {
+      return false;
+    }
+    final User user = (User) o;
+    // Check that all the fields are equal
+    return this.id.equals(user.id)
+        && Objects.equals(this.username, user.username)
+        && Objects.equals(this.pastWords, user.pastWords);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.id, this.username, this.pastWords);
   }
 }

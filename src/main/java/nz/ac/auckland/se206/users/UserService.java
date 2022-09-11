@@ -36,6 +36,10 @@ public class UserService implements EnableListener {
     return new File(path);
   }
 
+  /**
+   * Iterates through all the persisted users in the data directory and loads them into memory. If
+   * there is an issue loading one of the users, it will be skipped and logged.
+   */
   private void loadAllUsers() {
     final File[] files = this.config.getUserDataFile().listFiles();
     if (files == null) {
