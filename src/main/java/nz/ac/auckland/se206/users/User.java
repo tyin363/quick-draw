@@ -9,6 +9,11 @@ public class User {
   private String username;
   private Set<String> pastWords;
 
+  /** An empty constructor is required to deserialize the user from JSON. */
+  public User() {
+    this.id = UUID.randomUUID();
+  }
+
   public User(final String username) {
     this.id = UUID.randomUUID();
     this.username = username;
