@@ -3,6 +3,8 @@ package nz.ac.auckland.se206.users;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -67,6 +69,27 @@ public class UserService implements EnableListener {
       this.logger.error("Failed to save user", e);
     }
     return false;
+  }
+
+  /**
+   * Retrieves the user with the given UUID. If there is no user with the UUID then null will be
+   * returned.
+   *
+   * @param id The UUID of the user to retrieve
+   * @return The user with the given UUID or null if there is no user with the UUID
+   */
+  public User getUser(final UUID id) {
+    return this.users.get(id);
+  }
+
+  /**
+   * Retrieves a list of all the users that exist. If no users exist then an empty list will be
+   * returned.
+   *
+   * @return A list of all the users that exist.
+   */
+  public List<User> getUsers() {
+    return new ArrayList<>(this.users.values());
   }
 
   /** When this instance is first created load all the users from the user data directory. */
