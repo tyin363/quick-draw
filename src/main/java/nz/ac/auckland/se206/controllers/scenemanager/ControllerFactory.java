@@ -28,9 +28,8 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
    * {@link ObjectMapper} suppliers.
    */
   public ControllerFactory() {
-    final ObjectMapper objectMapper = new ObjectMapper();
     this.registerSupplier(Logger.class, LoggerFactory::getLogger);
-    this.registerSupplier(ObjectMapper.class, c -> objectMapper);
+    this.singletons.put(ObjectMapper.class, new ObjectMapper());
   }
 
   /**
@@ -69,18 +68,17 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
     if (this.suppliers.containsKey(type)) {
       return this.suppliers.get(type).apply(parentType);
     }
-
-    if (type.isAnnotationPresent(Singleton.class)) {
-      if (!this.singletons.containsKey(type)) {
-        // Store the instance to prevent it being created multiple times
-        final Object instance = this.createInstance(type);
-        this.singletons.put(type, instance);
-      }
-
+    if (this.singletons.containsKey(type)) {
       return this.singletons.get(type);
     }
-    // If the type is not a singleton then create a new instance every time we need it
-    return this.createInstance(type);
+
+    // There is no instance of this type currently, so we'll need to make a new one
+    final Object instance = this.createInstance(type);
+    if (type.isAnnotationPresent(Singleton.class)) {
+      // Store the instance to prevent it being created multiple times
+      this.singletons.put(type, instance);
+    }
+    return instance;
   }
 
   /**
