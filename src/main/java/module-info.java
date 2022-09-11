@@ -1,4 +1,4 @@
-module SE206Project {
+open module SE206Project {
   requires javafx.controls;
   requires javafx.fxml;
   requires javafx.swing;
@@ -7,17 +7,9 @@ module SE206Project {
   requires imgscalr.lib;
   requires org.slf4j;
   requires com.opencsv;
-  requires javafx.graphics;
-  requires javafx.base;
-
-  opens nz.ac.auckland.se206 to
-      javafx.fxml;
-  opens nz.ac.auckland.se206.util to
-      javafx.fxml;
-  opens nz.ac.auckland.se206.controllers to
-      javafx.fxml;
-  opens nz.ac.auckland.se206.controllers.scenemanager to
-      javafx.fxml;
+  requires com.fasterxml.jackson.core;
+  requires com.fasterxml.jackson.databind;
+  requires com.fasterxml.jackson.annotation;
 
   exports nz.ac.auckland.se206;
 }
