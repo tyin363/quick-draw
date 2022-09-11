@@ -74,7 +74,7 @@ public class ServiceA {
 
 ## Controller Lifecycle
 
-There are 2 interfaces that **controllers** can implement to respond to certain events.
+There are 3 interfaces that **controllers** can implement to respond to certain events.
 
 1. `LoadListener` - This requires you to implement an `onLoad` method which will be called
    **everytime** the view associated with that controller is switched to. This is the method 
@@ -89,7 +89,13 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
    > used for one-off initialisations, such as creating instances of classes that are used by the
    > controller.
 
-2. `TerminationListener` - This requires you to implement an `onTerminate` method that is called
+2. `EnableListener` - This interface is unique in that **anything being injected** can implement 
+   it, rather than just controllers. It requires you to implement an `onEnable` method which is 
+   primarily designed for non-controller classes which need to initialise themselves just after 
+   all their dependencies have been injected. (As they don't have access to the `onLoad` and 
+   `initialize` methods).
+
+3. `TerminationListener` - This requires you to implement an `onTerminate` method that is called
    just before the application is closed. This is where any termination of processes or saving 
    of data should be handled.
 
@@ -105,9 +111,10 @@ There are 2 interfaces that **controllers** can implement to respond to certain 
 1. Constructor dependencies are injected
 2. Constructor is called
 3. Field dependencies are injected
-4. `initialize` is called (Only occurs once)
-5. `onLoad` is called (This happens whenever the view is switched to)
-6. `onTerminate` is called (This happens just before the application is closed)
+4. `onEnable` is called (Only occurs once)
+5. `initialize` is called (Only occurs once)
+6. `onLoad` is called (This happens whenever the view is switched to)
+7. `onTerminate` is called (This happens just before the application is closed)
 
 ## Switching Views
 

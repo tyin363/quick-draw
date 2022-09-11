@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.controllers.scenemanager;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.Field;
 import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
@@ -12,6 +13,7 @@ import java.util.function.Function;
 import javafx.util.Callback;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,11 +24,12 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
   private final Map<Class<?>, Object> singletons = new ConcurrentHashMap<>();
 
   /**
-   * Creates a new instance of the controller factory and automatically adds the {@link Logger}
-   * supplier.
+   * Creates a new instance of the controller factory and automatically adds the {@link Logger} and
+   * {@link ObjectMapper} suppliers.
    */
   public ControllerFactory() {
     this.registerSupplier(Logger.class, LoggerFactory::getLogger);
+    this.singletons.put(ObjectMapper.class, new ObjectMapper());
   }
 
   /**
@@ -65,18 +68,17 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
     if (this.suppliers.containsKey(type)) {
       return this.suppliers.get(type).apply(parentType);
     }
-
-    if (type.isAnnotationPresent(Singleton.class)) {
-      if (!this.singletons.containsKey(type)) {
-        // Store the instance to prevent it being created multiple times
-        final Object instance = this.createInstance(type);
-        this.singletons.put(type, instance);
-      }
-
+    if (this.singletons.containsKey(type)) {
       return this.singletons.get(type);
     }
-    // If the type is not a singleton then create a new instance every time we need it
-    return this.createInstance(type);
+
+    // There is no instance of this type currently, so we'll need to make a new one
+    final Object instance = this.createInstance(type);
+    if (type.isAnnotationPresent(Singleton.class)) {
+      // Store the instance to prevent it being created multiple times
+      this.singletons.put(type, instance);
+    }
+    return instance;
   }
 
   /**
@@ -112,7 +114,7 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
               for (int i = 0; i < c.getParameterCount(); i++) {
                 final Parameter parameter = parameters[i];
                 // This might recursively call this method, so this implementation doesn't handle
-                // situations where the parameter requires an instance of this to be created.
+                // situations where the parameter requires an instance of this to be created
                 args[i] = this.getInstance(parameter.getType(), type);
               }
               // The constructor might be private, so we need to make it accessible
@@ -122,6 +124,11 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
                 // If we successfully created an instance of it, then we can check if it has any
                 // fields that need to be injected.
                 this.injectFields(instance);
+
+                // After all the fields have been injected see if it listens to onEnable
+                if (instance instanceof EnableListener enableListener) {
+                  enableListener.onEnable();
+                }
                 return instance;
               } catch (final InstantiationException
                   | IllegalAccessException
