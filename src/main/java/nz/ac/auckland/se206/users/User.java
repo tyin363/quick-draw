@@ -8,13 +8,12 @@ import java.util.UUID;
 public class User {
 
   private final UUID id;
+  private final Set<String> pastWords;
   private String username;
-  private Set<String> pastWords;
 
   /** An empty constructor is required to deserialize the user from JSON. */
-  public User() {
-    this.id = UUID.randomUUID();
-    this.pastWords = new HashSet<>();
+  private User() {
+    this(null);
   }
 
   public User(final String username) {
@@ -74,9 +73,8 @@ public class User {
   }
 
   @Override
-  public String toString() {
-    return "User{id=%s, username='%s', pastWords='%s'}"
-        .formatted(this.id, this.username, this.pastWords);
+  public int hashCode() {
+    return Objects.hash(this.id, this.username, this.pastWords);
   }
 
   @Override
@@ -94,7 +92,8 @@ public class User {
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(this.id, this.username, this.pastWords);
+  public String toString() {
+    return "User{id=%s, username='%s', pastWords='%s'}"
+        .formatted(this.id, this.username, this.pastWords);
   }
 }
