@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +18,7 @@ public class Config {
 
   private final Logger logger;
   private final Map<ColourType, Color> colourMap = new EnumMap<>(ColourType.class);
+  private final File userDataFile = new File("UserData");
 
   /**
    * Constructs a new config instance with the given logger and automatically begins parsing the
@@ -30,6 +32,11 @@ public class Config {
     // Inject the logger into the constructor so that it's available while loading the colours.
     this.logger = logger;
     this.loadColours();
+
+    // Create the UserData directory if it doesn't exist
+    if (!this.userDataFile.exists()) {
+      this.userDataFile.mkdir();
+    }
   }
 
   /**
@@ -148,6 +155,15 @@ public class Config {
    */
   public String getWordDifficultiesFileName() {
     return "category_difficulty.csv";
+  }
+
+  /**
+   * Retrieves the file where all the user data will be persisted.
+   *
+   * @return The file where all the user data will be persisted
+   */
+  public File getUserDataFile() {
+    return this.userDataFile;
   }
 
   /**

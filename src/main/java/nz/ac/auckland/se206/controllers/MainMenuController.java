@@ -3,10 +3,12 @@ package nz.ac.auckland.se206.controllers;
 import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.users.UserService;
 
 @Singleton
 public class MainMenuController implements LoadListener {
@@ -21,6 +23,7 @@ public class MainMenuController implements LoadListener {
   };
 
   @FXML private Label messageLabel;
+  @Inject private UserService userService; // Cause the onEnable method to be called
 
   /**
    * Switch to the confirmation screen, where the user will have time to think about the word before
