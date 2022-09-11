@@ -36,4 +36,8 @@ public class MainMenuController implements LoadListener {
   public void onLoad() {
     this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
   }
+
+  public void onSwitchUser() {
+    SceneManager.getInstance().switchToView(View.SWITCH_USER);
+  }
 }
