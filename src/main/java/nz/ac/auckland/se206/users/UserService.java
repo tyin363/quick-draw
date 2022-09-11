@@ -96,6 +96,18 @@ public class UserService implements EnableListener {
     return new ArrayList<>(this.users.values());
   }
 
+  /**
+   * Removes the user and deletes the persisted JSON file.
+   *
+   * @param user The user to delete
+   */
+  public void deleteUser(final User user) {
+    this.users.remove(user.getId());
+    if (!this.getUserFile(user).delete()) {
+      this.logger.error("Failed to delete user file: " + this.getUserFile(user).getAbsolutePath());
+    }
+  }
+
   /** When this instance is first created load all the users from the user data directory. */
   @Override
   public void onEnable() {

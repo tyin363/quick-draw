@@ -23,7 +23,7 @@ public class MainMenuController implements LoadListener {
   };
 
   @FXML private Label messageLabel;
-  @Inject private UserService userService;
+  @Inject private UserService userService; // Cause the onEnable method to be called
 
   /**
    * Switch to the confirmation screen, where the user will have time to think about the word before
