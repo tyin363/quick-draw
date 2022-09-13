@@ -117,5 +117,9 @@ public class UserService implements EnableListener {
         this.users.size(),
         this.config.getUserDataFile().getAbsolutePath());
     this.users.values().stream().map(User::toString).forEach(this.logger::info);
+
+    User user = new User("User2");
+    user.setProfilePicture("src/main/resources/images/defaultUserImage.jpg");
+    this.saveUser(user);
   }
 }
