@@ -60,14 +60,44 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
   }
 
   /**
+   * Retrieves the instance associated with this type. If this type is not a singleton, then a new
+   * instance will be created everytime. If there is an error trying to create the instance, then
+   * null will be returned.
+   *
+   * @param type The type of the instance to retrieve
+   * @param <T> The type of the instance
+   * @return The instance associated with this type, or null if there is an error creating the
+   *     instance
+   * @see #getSafely(Class)
+   */
+  @SuppressWarnings("unchecked")
+  public <T> T get(final Class<T> type) {
+    return (T) this.getInstance(type, Void.class);
+  }
+
+  /**
+   * Safely retrieve the instance associated with this type by wrapping the result of {@link
+   * #get(Class)} in an {@code Optional}.
+   *
+   * @param type The type of the instance to retrieve
+   * @param <T> The type of the instance
+   * @return An {@code Optional} containing the instance associated with this type.
+   * @see #get(Class)
+   */
+  public <T> Optional<T> getSafely(final Class<T> type) {
+    return Optional.ofNullable(this.get(type));
+  }
+
+  /**
    * Creates a new instance of the given controller class.
    *
    * @param type The type of the controller to create
    * @return The new instance of the controller or null if there was an error
+   * @see #get(Class)
    */
   @Override
   public Object call(final Class<?> type) {
-    return this.getInstance(type, Void.class);
+    return this.get(type);
   }
 
   /**
