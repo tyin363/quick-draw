@@ -29,7 +29,7 @@ public class SceneManager {
   }
 
   private final Map<View, Pair<Parent, Object>> views = new EnumMap<>(View.class);
-  private final ControllerFactory controllerFactory = new ControllerFactory();
+  private final InstanceFactory instanceFactory = new InstanceFactory();
   private final Logger logger = LoggerFactory.getLogger(SceneManager.class);
   private Scene scene;
   private Stage stage;
@@ -90,7 +90,7 @@ public class SceneManager {
           new FXMLLoader(App.class.getResource("/fxml/" + view.getFxml() + ".fxml"));
 
       // Use custom controller factory to support dependency injection within the controller.
-      fxmlLoader.setControllerFactory(this.controllerFactory);
+      fxmlLoader.setControllerFactory(this.instanceFactory);
       final Parent parent = fxmlLoader.load();
       final Object controller = fxmlLoader.getController();
 

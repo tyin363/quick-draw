@@ -17,9 +17,9 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ControllerFactory implements Callback<Class<?>, Object> {
+public class InstanceFactory implements Callback<Class<?>, Object> {
 
-  private final Logger logger = LoggerFactory.getLogger(ControllerFactory.class);
+  private final Logger logger = LoggerFactory.getLogger(InstanceFactory.class);
   private final Map<Class<?>, Function<Class<?>, Object>> suppliers = new ConcurrentHashMap<>();
   private final Map<Class<?>, Object> singletons = new ConcurrentHashMap<>();
 
@@ -27,9 +27,36 @@ public class ControllerFactory implements Callback<Class<?>, Object> {
    * Creates a new instance of the controller factory and automatically adds the {@link Logger} and
    * {@link ObjectMapper} suppliers.
    */
-  public ControllerFactory() {
+  public InstanceFactory() {
     this.registerSupplier(Logger.class, LoggerFactory::getLogger);
-    this.singletons.put(ObjectMapper.class, new ObjectMapper());
+    this.bind(new ObjectMapper());
+  }
+
+  /**
+   * Binds the given object as a singleton of it's class, so that any time it's class is requested,
+   * this instance will be returned. If there already exists an instance bound to the given class,
+   * it will be replaced.
+   *
+   * @param instance The singleton instance
+   * @param <T> The type of the instance
+   * @see #bind(Class, Object)
+   */
+  @SuppressWarnings("unchecked")
+  public <T> void bind(final T instance) {
+    this.bind((Class<T>) instance.getClass(), instance);
+  }
+
+  /**
+   * Binds the given object as a singleton of the given class, so that any time the given class is
+   * requested, this instance will be returned. If there already exists an instance bound to the
+   * given class, it will be replaced.
+   *
+   * @param type The class to bind the instance to
+   * @param instance The singleton instance
+   * @param <T> The type of the instance
+   */
+  public <T> void bind(final Class<T> type, final T instance) {
+    this.singletons.put(type, instance);
   }
 
   /**
