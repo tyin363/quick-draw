@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,15 +19,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <HBox prefHeight="97.0" prefWidth="400.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="151.0" prefWidth="141.0" text="User 1" />
-                  <Button mnemonicParsing="false" prefHeight="151.0" prefWidth="141.0" text="User 2" />
-                  <Button mnemonicParsing="false" prefHeight="151.0" prefWidth="141.0" text="User 3" />
-                  <Button mnemonicParsing="false" prefHeight="151.0" prefWidth="141.0" text="User 4" />
-               </children>
-            </HBox>
-            <Button mnemonicParsing="false" onAction="#onCreateNewUser" prefHeight="38.0" prefWidth="131.0" text="Manage Users" />
+            <HBox prefHeight="97.0" prefWidth="400.0" />
          </children>
       </VBox>
    </children>
