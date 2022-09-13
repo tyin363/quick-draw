@@ -9,6 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
+import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
@@ -22,6 +24,8 @@ public class SwitchUserController implements LoadListener {
 
   @Override
   public void onLoad() {
+    users.getChildren().clear();
+
     for (User user : this.UserService.getUsers()) {
 
       VBox profile = new VBox();
@@ -34,9 +38,20 @@ public class SwitchUserController implements LoadListener {
       profile.getChildren().add(userImage);
       profile.getChildren().add(username);
       users.getChildren().add(profile);
+
+      profile.setOnMouseClicked(
+          event -> {
+
+            // Setting current user
+
+            SceneManager.getInstance().switchToView(View.MAIN_MENU);
+          });
     }
   }
 
   @FXML
-  private void onAddUser() {}
+  private void onAddUser() {
+
+    // Switch to create user page
+  }
 }
