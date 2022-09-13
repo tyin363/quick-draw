@@ -2,7 +2,9 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -22,6 +24,8 @@ public class SwitchUserController implements LoadListener {
 
   @FXML private HBox users;
 
+  @FXML private TextField searchUserText;
+
   @Override
   public void onLoad() {
     users.getChildren().clear();
@@ -35,15 +39,15 @@ public class SwitchUserController implements LoadListener {
       userImage.setFitHeight(100);
       userImage.setFitWidth(100);
       Label username = new Label(user.getUsername());
+      username.setAlignment(Pos.CENTER);
+      username.setMaxWidth(Double.MAX_VALUE);
       profile.getChildren().add(userImage);
       profile.getChildren().add(username);
       users.getChildren().add(profile);
 
       profile.setOnMouseClicked(
           event -> {
-
-            // Setting current user
-
+            UserService.setCurrentUser(user);
             SceneManager.getInstance().switchToView(View.MAIN_MENU);
           });
     }
@@ -51,7 +55,6 @@ public class SwitchUserController implements LoadListener {
 
   @FXML
   private void onAddUser() {
-
     // Switch to create user page
   }
 }

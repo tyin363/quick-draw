@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 public class UserService implements EnableListener {
 
   private final Map<UUID, User> users = new ConcurrentHashMap<>();
+  private User currentUser;
+
   @Inject private Logger logger;
   @Inject private Config config;
   @Inject private ObjectMapper objectMapper;
@@ -121,5 +123,13 @@ public class UserService implements EnableListener {
     // User user = new User("User2");
     // user.setProfilePicture("src/main/resources/images/defaultUserImage.jpg");
     // this.saveUser(user);
+  }
+
+  public void setCurrentUser(User user) {
+    this.currentUser = user;
+  }
+
+  public User getCurrentUser() {
+    return this.currentUser;
   }
 }
