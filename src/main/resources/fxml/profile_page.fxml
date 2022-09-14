@@ -16,16 +16,16 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
    <children>
-      <AnchorPane minHeight="40.0" prefHeight="42.0" prefWidth="600.0">
+      <AnchorPane minHeight="30.0" prefHeight="30.0" prefWidth="600.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchToMenu" text="Main Menu" />
                 <Button fx:id="switchAccountButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Switch Account" />
                </children>
             </HBox>
          </children></AnchorPane>
-      <HBox alignment="CENTER" prefHeight="193.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="135.0" prefWidth="600.0">
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0">
                <children>
@@ -37,7 +37,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0">
+            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0" spacing="5.0">
                <children>
                   <ImageView fx:id="profileImageView" fitHeight="121.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -67,17 +67,16 @@
             </VBox>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" prefHeight="225.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+      <VBox alignment="TOP_CENTER" prefHeight="224.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" />
             <GridPane alignment="CENTER" prefHeight="196.0" prefWidth="600.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="432.0" minWidth="10.0" prefWidth="137.3333282470703" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="432.0" minWidth="10.0" prefWidth="167.66665649414062" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="62.666656494140625" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="141.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="62.666656494140625" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="176.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Word History" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
