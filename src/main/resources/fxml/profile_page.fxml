@@ -47,9 +47,14 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
+                  <Button mnemonicParsing="false" onAction="#onEdittUsername" text="Edit Username">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </Button>
                   <HBox fx:id="usernameHbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onEditUsername" text="Set Name" />
+                        <Button mnemonicParsing="false" onAction="#onSetUsername" text="Set Name" />
                         <TextField fx:id="usernameTextField" />
                      </children>
                   </HBox>

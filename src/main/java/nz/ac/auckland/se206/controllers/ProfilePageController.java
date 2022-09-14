@@ -32,13 +32,20 @@ public class ProfilePageController implements LoadListener {
   }
 
   @FXML
-  private void onEditUsername() {
+  private void onEdittUsername() {
+    usernameHbox.setVisible(true);
+  }
+
+  @FXML
+  private void onSetUsername() {
     usernameLabel.setText(usernameTextField.getText());
     user.setUsername(usernameTextField.getText());
+    usernameHbox.setVisible(false);
   }
 
   @Override
   public void onLoad() {
     System.out.println("Profile Page loaded");
+    usernameHbox.setVisible(false);
   }
 }
