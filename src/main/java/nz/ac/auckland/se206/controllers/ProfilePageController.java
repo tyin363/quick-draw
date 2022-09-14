@@ -32,15 +32,17 @@ public class ProfilePageController implements LoadListener {
   }
 
   @FXML
-  private void onEdittUsername() {
+  private void onEditUsername() {
     usernameHbox.setVisible(true);
   }
 
   @FXML
   private void onSetUsername() {
-    usernameLabel.setText(usernameTextField.getText());
-    user.setUsername(usernameTextField.getText());
-    usernameHbox.setVisible(false);
+    if (usernameTextField.getText() != "") {
+      usernameLabel.setText(usernameTextField.getText());
+      user.setUsername(usernameTextField.getText());
+      usernameHbox.setVisible(false);
+    }
   }
 
   @Override

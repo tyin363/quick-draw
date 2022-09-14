@@ -47,7 +47,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Button mnemonicParsing="false" onAction="#onEdittUsername" text="Edit Username">
+                  <Button mnemonicParsing="false" onAction="#onEditUsername" text="Edit Username">
                      <font>
                         <Font size="8.0" />
                      </font>
