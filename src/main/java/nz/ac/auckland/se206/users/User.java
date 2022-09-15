@@ -16,7 +16,7 @@ public class User {
   private int gamesLost;
 
   /** An empty constructor is required to deserialize the user from JSON. */
-  private User() {
+  public User() {
     this(null);
   }
 
@@ -29,6 +29,8 @@ public class User {
     this.id = UUID.randomUUID();
     this.username = username;
     this.pastWords = new HashSet<>();
+    this.gamesLost = 0;
+    this.gamesWon = 0;
   }
 
   /**
