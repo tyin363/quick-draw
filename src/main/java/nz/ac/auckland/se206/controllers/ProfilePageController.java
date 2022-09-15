@@ -19,6 +19,7 @@ public class ProfilePageController implements LoadListener {
   @FXML private Label gamesLostLabel;
   @FXML private Label gamesWonLabel;
   @FXML private Label usernameLabel;
+  @FXML private Label fastestTimeLabel;
   @FXML private ImageView profileImageView;
   @FXML private Button switchAccountButton;
   @FXML private TextField usernameTextField;
