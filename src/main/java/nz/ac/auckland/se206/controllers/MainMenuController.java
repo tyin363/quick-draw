@@ -13,8 +13,6 @@ import nz.ac.auckland.se206.users.UserService;
 @Singleton
 public class MainMenuController implements LoadListener {
 
-  @FXML private Label test;
-
   private final Random random = new Random();
   private final String[] messages = {
     "Speed is key! Make sure to focus on features that are most identifiable",
@@ -40,10 +38,5 @@ public class MainMenuController implements LoadListener {
   @Override
   public void onLoad() {
     this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
-    this.test.setText(userService.getCurrentUser().getUsername());
-  }
-
-  public void onSwitchUser() {
-    SceneManager.getInstance().switchToView(View.SWITCH_USER);
   }
 }
