@@ -5,7 +5,8 @@ import java.util.Locale;
 public enum View {
   MAIN_MENU,
   CONFIRMATION_SCREEN,
-  CANVAS;
+  CANVAS,
+  SWITCH_USER;
 
   private final String fxml;
 

@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 public class UserService implements EnableListener {
 
   private final Map<UUID, User> users = new ConcurrentHashMap<>();
+  private User currentUser;
+
   @Inject private Logger logger;
   @Inject private Config config;
   @Inject private ObjectMapper objectMapper;
@@ -129,5 +131,13 @@ public class UserService implements EnableListener {
         this.users.size(),
         this.config.getUserDataFile().getAbsolutePath());
     this.users.values().stream().map(User::toString).forEach(this.logger::info);
+  }
+
+  public void setCurrentUser(User user) {
+    this.currentUser = user;
+  }
+
+  public User getCurrentUser() {
+    return this.currentUser;
   }
 }
