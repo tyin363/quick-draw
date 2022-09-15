@@ -28,6 +28,10 @@ public class SwitchUserController implements LoadListener {
 
   @FXML private TextField searchUserText;
 
+  /**
+   * Loads user profiles for all the users which are stored as JSON files every time this scene is
+   * switched to
+   */
   @Override
   public void onLoad() {
 
@@ -67,6 +71,10 @@ public class SwitchUserController implements LoadListener {
     }
   }
 
+  /**
+   * Switches to the create user scene unless there are already 5 users in which case a warning
+   * message is displayed
+   */
   @FXML
   private void onAddUser() {
 
