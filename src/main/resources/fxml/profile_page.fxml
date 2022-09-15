@@ -80,8 +80,8 @@
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="432.0" minWidth="10.0" prefWidth="167.66665649414062" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints maxHeight="62.666656494140625" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="144.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="62.666656494140625" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="176.0" minHeight="10.0" prefHeight="136.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Word History" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
@@ -100,6 +100,7 @@
                         </Text>
                      </children>
                   </VBox>
+                  <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="129.0" prefWidth="315.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
