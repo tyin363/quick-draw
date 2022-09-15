@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
@@ -26,7 +27,7 @@ public class ProfilePageController implements LoadListener {
   @FXML private TextField usernameTextField;
   @FXML private HBox usernameHbox;
   @FXML private VBox pastWordsVbox;
-
+  @FXML private Text secondsText;
   @Inject private UserService userService;
 
   private User user;
@@ -70,6 +71,28 @@ public class ProfilePageController implements LoadListener {
     } else {
       user = userService.getUsers().get(0);
     }
+
+    // Set labels on GUI
     usernameHbox.setVisible(false);
+    gamesLostLabel.setText(Integer.toString(user.getGamesLost()));
+    gamesWonLabel.setText(Integer.toString(user.getGamesWon()));
+    usernameLabel.setText(user.getUsername());
+
+    // If fastest time is 0, display no time
+    if (user.getFastestTime() == 0) {
+      secondsText.setVisible(false);
+      fastestTimeLabel.setText("No Time");
+    } else {
+      secondsText.setVisible(true);
+      fastestTimeLabel.setText(Integer.toString(user.getFastestTime()));
+    }
+
+    if (!user.getPastWords().isEmpty()) {
+      for (String word : user.getPastWords()) {
+        Label pastWord = new Label();
+        pastWord.setText(word);
+        this.pastWordsVbox.getChildren().add(pastWord);
+      }
+    }
   }
 }

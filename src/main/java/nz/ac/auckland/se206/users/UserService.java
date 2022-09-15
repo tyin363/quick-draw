@@ -120,10 +120,13 @@ public class UserService implements EnableListener {
     // Temporarily add user;
 
     // User user = new User("bob");
-    // user.addPastWord("BOI");
+    // user.addPastWord("bncjheika");
+    // user.addPastWord("ds");
+    // user.addPastWord("asdfe");
     // user.incrementGamesWon();
     // user.incrementGamesWon();
     // user.incrementGamesLost();
+    // user.setFastestTime(10);
     // this.saveUser(user);
   }
 }

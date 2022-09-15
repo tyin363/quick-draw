@@ -93,7 +93,7 @@
                               <Font size="33.0" />
                            </font>
                         </Label>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="seconds">
+                        <Text fx:id="secondsText" strokeType="OUTSIDE" strokeWidth="0.0" text="seconds">
                            <font>
                               <Font size="17.0" />
                            </font>
