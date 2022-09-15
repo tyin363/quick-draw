@@ -12,6 +12,7 @@ public class User {
   private final Set<String> pastWords;
   private String username;
   private String profilePicture;
+  private int fastestTime;
   private int gamesWon;
   private int gamesLost;
 
@@ -31,6 +32,7 @@ public class User {
     this.pastWords = new HashSet<>();
     this.gamesLost = 0;
     this.gamesWon = 0;
+    this.fastestTime = 0;
   }
 
   /**
@@ -59,6 +61,24 @@ public class User {
    */
   public UUID getId() {
     return this.id;
+  }
+
+  /**
+   * Retrieves the fastest time of the user.
+   *
+   * @return The fastest time of the user.
+   */
+  public int getFastestTime() {
+    return fastestTime;
+  }
+
+  /**
+   * Sets the fastest time of the user.
+   *
+   * @param fastestTime The fastest time of the user.
+   */
+  public void setFastestTime(int fastestTime) {
+    this.fastestTime = fastestTime;
   }
 
   /**
