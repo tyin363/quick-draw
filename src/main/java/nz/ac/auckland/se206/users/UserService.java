@@ -37,11 +37,22 @@ public class UserService implements EnableListener {
   }
 
   /**
+   * Returns true if the file has the {@code .json} extension, otherwise false.
+   *
+   * @param file The file to check the extension of
+   * @return Whether the file has the {@code .json} extension
+   */
+  private boolean hasJsonExtension(final File file) {
+    return file.getName().endsWith(".json");
+  }
+
+  /**
    * Iterates through all the persisted users in the data directory and loads them into memory. If
    * there is an issue loading one of the users, it will be skipped and logged.
    */
   private void loadAllUsers() {
-    final File[] files = this.config.getUserDataFile().listFiles();
+    // Retrieve all the files in the UserData directory that have the .json extension
+    final File[] files = this.config.getUserDataFile().listFiles(this::hasJsonExtension);
     if (files == null) {
       this.logger.error(
           "There is something wrong with the user data directory: "
@@ -49,6 +60,7 @@ public class UserService implements EnableListener {
     } else {
       for (final File file : files) {
         try {
+          // Attempt to load the user from the file
           final User user = this.objectMapper.readValue(file, User.class);
           this.users.put(user.getId(), user);
         } catch (final IOException e) {
