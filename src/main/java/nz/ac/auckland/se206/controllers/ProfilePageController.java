@@ -45,10 +45,12 @@ public class ProfilePageController implements LoadListener {
 
   @FXML
   private void onSetUsername() {
+    // Do not allow null to be a username
     if (usernameTextField.getText() != "") {
       usernameLabel.setText(usernameTextField.getText());
       user.setUsername(usernameTextField.getText());
       usernameHbox.setVisible(false);
+      userService.saveUser(user);
     }
   }
 
