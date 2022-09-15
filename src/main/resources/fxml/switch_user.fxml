@@ -24,7 +24,7 @@
             <HBox prefHeight="22.0" prefWidth="400.0">
                <children>
                   <Button fx:id="onAddUser" mnemonicParsing="false" onAction="#onAddUser" prefHeight="26.0" prefWidth="150.0" text="Add User" />
-                  <TextField prefHeight="26.0" prefWidth="383.0" promptText="Search User" />
+                  <TextField fx:id="searchUserText" prefHeight="26.0" prefWidth="383.0" promptText="Search User" />
                </children>
             </HBox>
             <HBox fx:id="users" prefHeight="97.0" prefWidth="400.0" />

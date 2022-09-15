@@ -3,6 +3,8 @@ package nz.ac.auckland.se206.controllers;
 import java.io.File;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -28,23 +30,35 @@ public class SwitchUserController implements LoadListener {
 
   @Override
   public void onLoad() {
+
+    // Clearing previous loaded user profiles
     users.getChildren().clear();
 
     for (User user : this.UserService.getUsers()) {
 
+      // Creating user profile
       VBox profile = new VBox();
       File file = new File(user.getProfilePicture());
       Image image = new Image(file.toURI().toString());
       ImageView userImage = new ImageView(image);
-      userImage.setFitHeight(100);
-      userImage.setFitWidth(100);
+
+      // Setting user profile image dimensions
+      userImage.setFitHeight(110);
+      userImage.setFitWidth(110);
+
+      // Setting and centering user name
       Label username = new Label(user.getUsername());
       username.setAlignment(Pos.CENTER);
       username.setMaxWidth(Double.MAX_VALUE);
+
+      // Adding profile image and user name to user profile
       profile.getChildren().add(userImage);
       profile.getChildren().add(username);
+
+      // Adding user profile to users
       users.getChildren().add(profile);
 
+      // Setting current user and switching to main menu when user profile is clicked
       profile.setOnMouseClicked(
           event -> {
             UserService.setCurrentUser(user);
@@ -55,6 +69,16 @@ public class SwitchUserController implements LoadListener {
 
   @FXML
   private void onAddUser() {
-    // Switch to create user page
+
+    // Sending a warning message when trying to create more than 5 users
+    if (UserService.getUsers().size() > 4) {
+      Alert alert = new Alert(AlertType.WARNING);
+      alert.setTitle("Warning (User Limit)");
+      alert.setContentText("You can only create up to 5 users!");
+      alert.showAndWait();
+    } else {
+
+      // ** NEED TO ADD ** Switch to create user page
+    }
   }
 }
