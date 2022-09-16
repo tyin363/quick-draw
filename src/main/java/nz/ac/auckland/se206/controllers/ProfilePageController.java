@@ -46,11 +46,16 @@ public class ProfilePageController implements LoadListener {
     SceneManager.getInstance().switchToView(View.SWITCH_USER);
   }
 
+  /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
     usernameHbox.setVisible(true);
   }
 
+  /**
+   * Sets the username of the user. When the username is set, the option to set the username will be
+   * hidden.
+   */
   @FXML
   private void onSetUsername() {
     // Do not allow null to be a username
@@ -62,15 +67,14 @@ public class ProfilePageController implements LoadListener {
     }
   }
 
+  /**
+   * Current user information is retrieved on load
+   *
+   * <p>If current user is null, a new user is created and is set to current user
+   */
   @Override
   public void onLoad() {
     System.out.println("Profile Page loaded");
-    /*
-     * Current user information is retrieved on load
-     *
-     * If current user is null, a new user is created and is set to current user
-     *
-     */
     if (userService.getCurrentUser() == null) {
       User newUser = new User("New user " + Integer.toString(userService.getUsers().size() + 1));
       userService.saveUser(newUser);
