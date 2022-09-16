@@ -25,7 +25,6 @@ public class SceneManager {
   @Inject private Logger logger;
   @Inject private ApplicationContext applicationContext;
 
-  /** */
   public SceneManager(final Stage stage) {
     this.stage = stage;
   }
