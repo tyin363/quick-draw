@@ -75,6 +75,9 @@ public class ProfilePageController implements LoadListener {
   @Override
   public void onLoad() {
     System.out.println("Profile Page loaded");
+    // Clear past words
+    this.pastWordsVbox.getChildren().clear();
+
     if (userService.getCurrentUser() == null) {
       User newUser = new User("New user " + Integer.toString(userService.getUsers().size() + 1));
       userService.saveUser(newUser);
