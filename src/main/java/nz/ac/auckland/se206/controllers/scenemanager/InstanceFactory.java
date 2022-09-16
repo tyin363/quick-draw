@@ -1,6 +1,5 @@
 package nz.ac.auckland.se206.controllers.scenemanager;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.Field;
 import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
@@ -25,18 +24,9 @@ public class InstanceFactory implements Callback<Class<?>, Object>, TerminationL
   private final Map<Class<?>, Object> singletons = new ConcurrentHashMap<>();
 
   /**
-   * Creates a new instance of the controller factory and automatically adds the {@link Logger} and
-   * {@link ObjectMapper} suppliers.
-   */
-  public InstanceFactory() {
-    this.registerSupplier(Logger.class, LoggerFactory::getLogger);
-    this.bind(new ObjectMapper());
-  }
-
-  /**
    * Binds the given object as a singleton of it's class, so that any time it's class is requested,
-   * this instance will be returned. If there already exists an instance bound to the given class,
-   * it will be replaced.
+   * this instance will be returned. Before being stored, it injects any fields if required. If
+   * there already exists an instance bound to the given class, it will be replaced.
    *
    * @param instance The singleton instance
    * @param <T> The type of the instance
@@ -49,14 +39,15 @@ public class InstanceFactory implements Callback<Class<?>, Object>, TerminationL
 
   /**
    * Binds the given object as a singleton of the given class, so that any time the given class is
-   * requested, this instance will be returned. If there already exists an instance bound to the
-   * given class, it will be replaced.
+   * requested, this instance will be returned. Before being stored, it injects any fields if
+   * required. If there already exists an instance bound to the given class, it will be replaced.
    *
    * @param type The class to bind the instance to
    * @param instance The singleton instance
    * @param <T> The type of the instance
    */
   public <T> void bind(final Class<T> type, final T instance) {
+    this.injectFields(instance);
     this.singletons.put(type, instance);
   }
 
