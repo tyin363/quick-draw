@@ -40,6 +40,12 @@ public class MainMenuController implements LoadListener {
     SceneManager.getInstance().switchToView(View.PROFILE_PAGE);
   }
 
+  /** Switch to switch user page so user can change their accounts or add a new one */
+  @FXML
+  private void onSwitchAccount() {
+    SceneManager.getInstance().switchToView(View.SWITCH_USER);
+  }
+
   /** Everytime this scene is switched to select a new random message. */
   @Override
   public void onLoad() {

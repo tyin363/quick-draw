@@ -16,7 +16,8 @@
                </font>
             </Label>
             <Button mnemonicParsing="false" onAction="#onStartGame" prefHeight="37.0" prefWidth="169.0" styleClass="btn" text="Start Game" />
-            <Button mnemonicParsing="false" onAction="#onSwitchToProfile" text="Profile page (temp)" />
+            <Button mnemonicParsing="false" onAction="#onSwitchToProfile" text="Profile page" />
+            <Button mnemonicParsing="false" onAction="#onSwitchAccount" text="Switch Account" />
          </children>
       </VBox>
       <Label fx:id="messageLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="296.0" text="Some message goes here" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
