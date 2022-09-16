@@ -41,7 +41,7 @@
                <children>
                   <ImageView fx:id="profileImageView" fitHeight="121.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/temporaryProfilePicture.PNG" />
+                        <Image url="@../images/defaultUserImage.jpg" />
                      </image></ImageView>
                   <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" text="Username">
                      <font>
