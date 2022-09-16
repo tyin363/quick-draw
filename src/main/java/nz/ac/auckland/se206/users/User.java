@@ -29,6 +29,7 @@ public class User {
   public User(final String username) {
     this.id = UUID.randomUUID();
     this.username = username;
+    this.profilePicture = "/quick-draw/src/main/resources/images/defaultUserImage.jpg";
     this.pastWords = new HashSet<>();
     this.gamesLost = 0;
     this.gamesWon = 0;

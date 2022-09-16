@@ -21,7 +21,7 @@
             <HBox alignment="CENTER" prefHeight="34.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchToMenu" text="Main Menu" />
-                <Button fx:id="switchAccountButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Switch Account" />
+                <Button fx:id="switchAccountButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchAccount" text="Switch Account" />
                </children>
             </HBox>
          </children></AnchorPane>

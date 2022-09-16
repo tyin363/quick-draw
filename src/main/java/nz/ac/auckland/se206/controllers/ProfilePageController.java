@@ -38,6 +38,12 @@ public class ProfilePageController implements LoadListener {
     SceneManager.getInstance().switchToView(View.MAIN_MENU);
   }
 
+  /** Switch to switch user page so user can change their accounts or add a new one */
+  @FXML
+  private void onSwitchAccount() {
+    SceneManager.getInstance().switchToView(View.SWITCH_USER);
+  }
+
   @FXML
   private void onEditUsername() {
     usernameHbox.setVisible(true);
@@ -66,12 +72,13 @@ public class ProfilePageController implements LoadListener {
      * A way to get the 'current' user is to be implemented in the future
      */
     System.out.println(userService.getUsers());
-    if (userService.getUsers().isEmpty()) {
-      User newUser = new User("New user");
+    if (userService.getCurrentUser() == null) {
+      User newUser = new User("New user " + Integer.toString(userService.getUsers().size() + 1));
       userService.saveUser(newUser);
+      userService.setCurrentUser(newUser);
       user = newUser;
     } else {
-      user = userService.getUsers().get(0);
+      user = userService.getCurrentUser();
     }
 
     // Set labels on GUI

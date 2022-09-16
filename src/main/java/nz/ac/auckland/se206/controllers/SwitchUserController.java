@@ -88,7 +88,7 @@ public class SwitchUserController implements LoadListener {
 
       // ** NEED TO ADD ** Switch to create user page
       // SceneManager.getInstance().switchToView(View.CREATE_USER);
-
+      SceneManager.getInstance().switchToView(View.PROFILE_PAGE);
     }
   }
 }
