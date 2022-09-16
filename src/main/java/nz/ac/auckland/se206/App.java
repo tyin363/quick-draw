@@ -23,6 +23,6 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) {
-    SceneManager.getInstance().initialise(stage, View.MAIN_MENU);
+    SceneManager.getInstance().initialise(stage, View.SWITCH_USER);
   }
 }

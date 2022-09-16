@@ -6,7 +6,8 @@ public enum View {
   MAIN_MENU,
   CONFIRMATION_SCREEN,
   CANVAS,
-  PROFILE_PAGE;
+  PROFILE_PAGE,
+  SWITCH_USER;
 
   private final String fxml;
 

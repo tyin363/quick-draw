@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 public class UserService implements EnableListener {
 
   private final Map<UUID, User> users = new ConcurrentHashMap<>();
+  private User currentUser;
+
   @Inject private Logger logger;
   @Inject private Config config;
   @Inject private ObjectMapper objectMapper;
@@ -37,11 +39,22 @@ public class UserService implements EnableListener {
   }
 
   /**
+   * Returns true if the file has the {@code .json} extension, otherwise false.
+   *
+   * @param file The file to check the extension of
+   * @return Whether the file has the {@code .json} extension
+   */
+  private boolean hasJsonExtension(final File file) {
+    return file.getName().endsWith(".json");
+  }
+
+  /**
    * Iterates through all the persisted users in the data directory and loads them into memory. If
    * there is an issue loading one of the users, it will be skipped and logged.
    */
   private void loadAllUsers() {
-    final File[] files = this.config.getUserDataFile().listFiles();
+    // Retrieve all the files in the UserData directory that have the .json extension
+    final File[] files = this.config.getUserDataFile().listFiles(this::hasJsonExtension);
     if (files == null) {
       this.logger.error(
           "There is something wrong with the user data directory: "
@@ -49,6 +62,7 @@ public class UserService implements EnableListener {
     } else {
       for (final File file : files) {
         try {
+          // Attempt to load the user from the file
           final User user = this.objectMapper.readValue(file, User.class);
           this.users.put(user.getId(), user);
         } catch (final IOException e) {
@@ -128,5 +142,13 @@ public class UserService implements EnableListener {
     // user.incrementGamesLost();
     // user.setFastestTime(10);
     // this.saveUser(user);
+  }
+
+  public void setCurrentUser(User user) {
+    this.currentUser = user;
+  }
+
+  public User getCurrentUser() {
+    return this.currentUser;
   }
 }
