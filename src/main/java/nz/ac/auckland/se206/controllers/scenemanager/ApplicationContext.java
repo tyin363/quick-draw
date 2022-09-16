@@ -16,7 +16,7 @@ public class ApplicationContext extends InstanceFactory {
 
     context.injectFields(sceneManager);
     context.bind(sceneManager);
-    sceneManager.initialise(true, startingView);
+    sceneManager.initialise(false, startingView);
 
     return context;
   }
