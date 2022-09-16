@@ -37,7 +37,7 @@ public class SwitchUserController implements LoadListener {
 
     // Clearing previous loaded user profiles
     users.getChildren().clear();
-
+    UserService.setCurrentUser(null);
     for (User user : this.UserService.getUsers()) {
 
       // Creating user profile
