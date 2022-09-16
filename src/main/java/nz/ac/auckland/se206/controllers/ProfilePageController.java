@@ -10,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
@@ -17,6 +19,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
+import org.slf4j.Logger;
 
 @Singleton
 public class ProfilePageController implements LoadListener {
@@ -33,6 +36,7 @@ public class ProfilePageController implements LoadListener {
   @Inject private UserService userService;
 
   private User user;
+  @Inject private Logger logger;
 
   /** Switch to Main menu so user can choose what to do from there */
   @FXML
@@ -50,6 +54,29 @@ public class ProfilePageController implements LoadListener {
   @FXML
   private void onEditUsername() {
     usernameHbox.setVisible(true);
+  }
+
+  /** Prompts the user to select a file to choose a profile picture */
+  @FXML
+  private void onChangePicture() {
+
+    final FileChooser fileChooser = new FileChooser();
+    // Accept png and jpg files
+    fileChooser
+        .getExtensionFilters()
+        .addAll(new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPG", "*.jpg"));
+
+    final File file = fileChooser.showOpenDialog(null);
+    if (file != null) {
+      try {
+        Image image = new Image(file.toURI().toString());
+        user.setProfilePicture(file.toURI().toString().replace("file:", ""));
+        profileImageView.setImage(image);
+        userService.saveUser(user);
+      } catch (final Exception e) {
+        this.logger.error("Error saving image", e);
+      }
+    }
   }
 
   /**

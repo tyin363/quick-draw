@@ -47,11 +47,20 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Button mnemonicParsing="false" onAction="#onEditUsername" text="Edit Username">
-                     <font>
-                        <Font size="8.0" />
-                     </font>
-                  </Button>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#onEditUsername" text="Change Username">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#onChangePicture" text="Change Picture">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                   <HBox fx:id="usernameHbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#onSetUsername" text="Set Name" />
