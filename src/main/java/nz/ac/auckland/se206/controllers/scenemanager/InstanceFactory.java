@@ -14,10 +14,11 @@ import javafx.util.Callback;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
+import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class InstanceFactory implements Callback<Class<?>, Object> {
+public class InstanceFactory implements Callback<Class<?>, Object>, TerminationListener {
 
   private final Logger logger = LoggerFactory.getLogger(InstanceFactory.class);
   private final Map<Class<?>, Function<Class<?>, Object>> suppliers = new ConcurrentHashMap<>();
@@ -225,5 +226,21 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
             e);
       }
     }
+  }
+
+  /**
+   * Iterates through all the cached singletons and if they're an instance of {@link
+   * TerminationListener} then it invokes the {@link TerminationListener#onTerminate()} method.
+   */
+  @Override
+  public void onTerminate() {
+    this.singletons
+        .values()
+        .forEach(
+            instance -> {
+              if (instance instanceof TerminationListener terminationListener) {
+                terminationListener.onTerminate();
+              }
+            });
   }
 }
