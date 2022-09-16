@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 
 @Singleton
 public class ProfilePageController implements LoadListener {
+
   @FXML private Label gamesLostLabel;
   @FXML private Label gamesWonLabel;
   @FXML private Label usernameLabel;
@@ -69,6 +70,7 @@ public class ProfilePageController implements LoadListener {
     final File file = fileChooser.showOpenDialog(null);
     if (file != null) {
       try {
+        // set chosen file as profile picture
         Image image = new Image(file.toURI().toString());
         user.setProfilePicture(file.toURI().toString().replace("file:", ""));
         profileImageView.setImage(image);
@@ -86,7 +88,7 @@ public class ProfilePageController implements LoadListener {
   @FXML
   private void onSetUsername() {
     // Do not allow null to be a username
-    if (usernameTextField.getText() != "") {
+    if (!usernameTextField.getText().isBlank()) {
       usernameLabel.setText(usernameTextField.getText());
       user.setUsername(usernameTextField.getText());
       usernameHbox.setVisible(false);
@@ -101,15 +103,13 @@ public class ProfilePageController implements LoadListener {
    */
   @Override
   public void onLoad() {
-    System.out.println("Profile Page loaded");
     // Clear past words
     this.pastWordsVbox.getChildren().clear();
 
     if (userService.getCurrentUser() == null) {
-      User newUser = new User("New user " + Integer.toString(userService.getUsers().size() + 1));
-      userService.saveUser(newUser);
-      userService.setCurrentUser(newUser);
-      user = newUser;
+      this.user = new User("New user " + Integer.toString(userService.getUsers().size() + 1));
+      userService.saveUser(this.user);
+      userService.setCurrentUser(this.user);
     } else {
       user = userService.getCurrentUser();
     }
@@ -135,12 +135,10 @@ public class ProfilePageController implements LoadListener {
     }
 
     // Display past words of user
-    if (!user.getPastWords().isEmpty()) {
-      for (String word : user.getPastWords()) {
-        Label pastWord = new Label();
-        pastWord.setText(word);
-        this.pastWordsVbox.getChildren().add(pastWord);
-      }
+    for (String word : user.getPastWords()) {
+      Label pastWord = new Label();
+      pastWord.setText(word);
+      this.pastWordsVbox.getChildren().add(pastWord);
     }
   }
 }

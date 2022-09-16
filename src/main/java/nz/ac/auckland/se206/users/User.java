@@ -31,9 +31,6 @@ public class User {
     this.username = username;
     this.profilePicture = "src/main/resources/images/defaultUserImage.jpg";
     this.pastWords = new HashSet<>();
-    this.gamesLost = 0;
-    this.gamesWon = 0;
-    this.fastestTime = 0;
   }
 
   /**
