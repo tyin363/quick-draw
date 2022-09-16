@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.controllers.scenemanager;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
@@ -132,43 +133,20 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
   /**
    * Constructs an instance of the given class. It will attempt to create an instance of the class
    * using the first constructor it finds that's annotated with {@code @Inject}. If no such
-   * constructors exist then it will attempt to create an instance of the class using the default
-   * constructor.
+   * constructors exist then it will attempt to create an instance of the class using a constructor
+   * with no parameters
    *
    * @param type The type of the class to create an instance of
    * @return The new instance of the class or null if there was an error
    */
   private Object createInstance(final Class<?> type) {
-    return Arrays.stream(type.getDeclaredConstructors())
-        .filter(c -> c.isAnnotationPresent(Inject.class))
-        .findFirst()
-        .or(
-            () -> {
-              // Attempt to find a constructor without any parameters
-              try {
-                return Optional.of(type.getDeclaredConstructor());
-              } catch (final NoSuchMethodException e) {
-                this.logger.error(
-                    "There are no bindable constructors for {}", type.getCanonicalName());
-                return Optional.empty();
-              }
-            })
+    return this.getInjectableConstructor(type)
         .map(
             c -> {
-              // If there is a constructor, attempt to create an instance of it
-              final Object[] args = new Object[c.getParameterCount()];
-              final Parameter[] parameters = c.getParameters();
-
-              for (int i = 0; i < c.getParameterCount(); i++) {
-                final Parameter parameter = parameters[i];
-                // This might recursively call this method, so this implementation doesn't handle
-                // situations where the parameter requires an instance of this to be created
-                args[i] = this.getInstance(parameter.getType(), type);
-              }
-              // The constructor might be private, so we need to make it accessible
+              final Object[] parameters = this.getConstructorParameters(c, type);
               c.setAccessible(true);
               try {
-                final Object instance = c.newInstance(args);
+                final Object instance = c.newInstance(parameters);
                 // If we successfully created an instance of it, then we can check if it has any
                 // fields that need to be injected.
                 this.injectFields(instance);
@@ -186,6 +164,54 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
               }
             })
         .orElse(null);
+  }
+
+  /**
+   * Attempts to find the first constructor in the given type that's annotated with {@code @Inject}.
+   * If there are no constructors with this annotation, it will try and find a constructor with no
+   * parameters. If there are no constructors that match these criteria, then an error will be
+   * logged to the console and an empty optional will be returned.
+   *
+   * @param type The type to find the injectable constructor for
+   * @return An optional containing the injectable constructor if one exists.
+   */
+  private Optional<Constructor<?>> getInjectableConstructor(final Class<?> type) {
+    return Arrays.stream(type.getDeclaredConstructors())
+        .filter(c -> c.isAnnotationPresent(Inject.class))
+        .findFirst()
+        .or(
+            () -> {
+              // Attempt to find a constructor without any parameters
+              try {
+                return Optional.of(type.getDeclaredConstructor());
+              } catch (final NoSuchMethodException e) {
+                this.logger.error(
+                    "There are no injectable constructors for {}", type.getCanonicalName());
+                return Optional.empty();
+              }
+            });
+  }
+
+  /**
+   * Retrieves the instances of all the parameters in the constructor. If there is a cyclic
+   * dependency between two classes then this will cause this method to be recursively called and
+   * will result in a stack overflow.
+   *
+   * @param constructor The constructor to retrieve the parameters for
+   * @param type The class that contains the constructor
+   * @return An array containing the instances of the parameters
+   */
+  private Object[] getConstructorParameters(final Constructor<?> constructor, final Class<?> type) {
+    final Object[] parameterInstances = new Object[constructor.getParameterCount()];
+    final Parameter[] parameters = constructor.getParameters();
+
+    for (int i = 0; i < constructor.getParameterCount(); i++) {
+      final Parameter parameter = parameters[i];
+      // This might recursively call this method, so this implementation doesn't handle
+      // situations where the parameter requires an instance of this to be created
+      parameterInstances[i] = this.getInstance(parameter.getType(), type);
+    }
+    return parameterInstances;
   }
 
   /**
