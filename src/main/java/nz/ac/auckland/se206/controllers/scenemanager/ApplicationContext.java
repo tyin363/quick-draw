@@ -23,6 +23,7 @@ public class ApplicationContext extends InstanceFactory {
 
   public ApplicationContext() {
     this.bind(this);
+    this.bind(InstanceFactory.class, this);
     this.bind(new ObjectMapper());
     this.registerSupplier(Logger.class, LoggerFactory::getLogger);
   }
