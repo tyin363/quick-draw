@@ -17,7 +17,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListen
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class InstanceFactory implements Callback<Class<?>, Object>, TerminationListener {
+public class InstanceFactory implements Callback<Class<?>, Object> {
 
   private final Logger logger = LoggerFactory.getLogger(InstanceFactory.class);
   private final Map<Class<?>, Function<Class<?>, Object>> suppliers = new ConcurrentHashMap<>();
@@ -25,8 +25,8 @@ public class InstanceFactory implements Callback<Class<?>, Object>, TerminationL
 
   /**
    * Binds the given object as a singleton of it's class, so that any time it's class is requested,
-   * this instance will be returned. Before being stored, it injects any fields if required. If
-   * there already exists an instance bound to the given class, it will be replaced.
+   * this instance will be returned. If there already exists an instance bound to the given class,
+   * it will be replaced.
    *
    * @param instance The singleton instance
    * @param <T> The type of the instance
@@ -39,15 +39,14 @@ public class InstanceFactory implements Callback<Class<?>, Object>, TerminationL
 
   /**
    * Binds the given object as a singleton of the given class, so that any time the given class is
-   * requested, this instance will be returned. Before being stored, it injects any fields if
-   * required. If there already exists an instance bound to the given class, it will be replaced.
+   * requested, this instance will be returned. If there already exists an instance bound to the
+   * given class, it will be replaced.
    *
    * @param type The class to bind the instance to
    * @param instance The singleton instance
    * @param <T> The type of the instance
    */
   public <T> void bind(final Class<T> type, final T instance) {
-    this.injectFields(instance);
     this.singletons.put(type, instance);
   }
 
@@ -196,7 +195,7 @@ public class InstanceFactory implements Callback<Class<?>, Object>, TerminationL
    *
    * @param instance The instance to inject the fields of
    */
-  private void injectFields(final Object instance) {
+  public void injectFields(final Object instance) {
     final Class<?> instanceType = instance.getClass();
 
     for (final Field field : instanceType.getDeclaredFields()) {
@@ -223,7 +222,6 @@ public class InstanceFactory implements Callback<Class<?>, Object>, TerminationL
    * Iterates through all the cached singletons and if they're an instance of {@link
    * TerminationListener} then it invokes the {@link TerminationListener#onTerminate()} method.
    */
-  @Override
   public void onTerminate() {
     this.singletons
         .values()

@@ -16,11 +16,12 @@ public class ConfirmationScreenController implements LoadListener {
   @FXML private Label targetWordLabel;
 
   @Inject private WordService wordService;
+  @Inject private SceneManager sceneManager;
 
   /** When the user confirms they are ready, switch to the canvas view. */
   @FXML
   private void onConfirmSwitch() {
-    SceneManager.getInstance().switchToView(View.CANVAS);
+    this.sceneManager.switchToView(View.CANVAS);
   }
 
   /** Everytime this scene is switched to select a new random word. */

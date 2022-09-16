@@ -68,6 +68,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Inject private Config config;
   @Inject private WordService wordService;
   @Inject private TextToSpeech textToSpeech;
+  @Inject private SceneManager sceneManager;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
@@ -233,7 +234,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onRestart() {
     this.onClear();
-    SceneManager.getInstance().switchToView(View.CONFIRMATION_SCREEN);
+    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
   /**
@@ -346,7 +347,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     fileChooser.setInitialFileName(targetWord);
     fileChooser.getExtensionFilters().addAll(new ExtensionFilter("PNG", "*.png"));
 
-    final File file = fileChooser.showSaveDialog(SceneManager.getInstance().getStage());
+    final File file = fileChooser.showSaveDialog(this.sceneManager.getStage());
     if (file != null) {
       try {
         // Save the image to a file.

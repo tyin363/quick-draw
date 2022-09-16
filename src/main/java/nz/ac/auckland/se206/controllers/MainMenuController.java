@@ -24,6 +24,7 @@ public class MainMenuController implements LoadListener {
 
   @FXML private Label messageLabel;
   @Inject private UserService userService; // Cause the onEnable method to be called
+  @Inject private SceneManager sceneManager;
 
   /**
    * Switch to the confirmation screen, where the user will have time to think about the word before
@@ -31,7 +32,7 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartGame() {
-    SceneManager.getInstance().switchToView(View.CONFIRMATION_SCREEN);
+    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
   /** Everytime this scene is switched to select a new random message. */
