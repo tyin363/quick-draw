@@ -66,14 +66,11 @@ public class ProfilePageController implements LoadListener {
   public void onLoad() {
     System.out.println("Profile Page loaded");
     /*
-     * Temporary method to get user from the saved users. The first user in the list will be
-     * retrieved.
+     * Current user information is retrieved on load
      *
-     * If there are no users, a new user is created
+     * If current user is null, a new user is created and is set to current user
      *
-     * A way to get the 'current' user is to be implemented in the future
      */
-    System.out.println(userService.getUsers());
     if (userService.getCurrentUser() == null) {
       User newUser = new User("New user " + Integer.toString(userService.getUsers().size() + 1));
       userService.saveUser(newUser);
@@ -92,7 +89,6 @@ public class ProfilePageController implements LoadListener {
     // Set profile picture
     File file = new File(user.getProfilePicture());
     Image image = new Image(file.toURI().toString());
-
     profileImageView.setImage(image);
 
     // If fastest time is 0, display no time
@@ -104,6 +100,7 @@ public class ProfilePageController implements LoadListener {
       fastestTimeLabel.setText(Integer.toString(user.getFastestTime()));
     }
 
+    // Display past words of user
     if (!user.getPastWords().isEmpty()) {
       for (String word : user.getPastWords()) {
         Label pastWord = new Label();
