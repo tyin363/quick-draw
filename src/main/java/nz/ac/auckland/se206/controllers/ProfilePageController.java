@@ -35,9 +35,9 @@ public class ProfilePageController implements LoadListener {
   @FXML private VBox pastWordsVbox;
   @FXML private Text secondsText;
   @Inject private UserService userService;
+  @Inject private Logger logger;
 
   private User user;
-  @Inject private Logger logger;
 
   /** Switch to Main menu so user can choose what to do from there */
   @FXML
@@ -67,12 +67,12 @@ public class ProfilePageController implements LoadListener {
         .getExtensionFilters()
         .addAll(new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPG", "*.jpg"));
 
-    final File file = fileChooser.showOpenDialog(null);
+    final File file = fileChooser.showOpenDialog(SceneManager.getInstance().getStage());
     if (file != null) {
       try {
         // set chosen file as profile picture
         Image image = new Image(file.toURI().toString());
-        user.setProfilePicture(file.toURI().toString().replace("file:", ""));
+        user.setProfilePicture(file.getAbsolutePath());
         profileImageView.setImage(image);
         userService.saveUser(user);
       } catch (final Exception e) {
@@ -93,6 +93,9 @@ public class ProfilePageController implements LoadListener {
       user.setUsername(usernameTextField.getText());
       usernameHbox.setVisible(false);
       userService.saveUser(user);
+
+      // Clear text field after use
+      usernameTextField.clear();
     }
   }
 
