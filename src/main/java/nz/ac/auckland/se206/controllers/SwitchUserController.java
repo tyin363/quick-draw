@@ -37,7 +37,7 @@ public class SwitchUserController implements LoadListener {
 
     // Clearing previous loaded user profiles
     users.getChildren().clear();
-
+    UserService.setCurrentUser(null);
     for (User user : this.UserService.getUsers()) {
 
       // Creating user profile
@@ -88,7 +88,7 @@ public class SwitchUserController implements LoadListener {
 
       // ** NEED TO ADD ** Switch to create user page
       // SceneManager.getInstance().switchToView(View.CREATE_USER);
-
+      SceneManager.getInstance().switchToView(View.PROFILE_PAGE);
     }
   }
 }
