@@ -87,6 +87,10 @@
   -fx-background-color: white;
 }
 
-.canvas-pane{
-	-fx-background-color: black;
+.canvas-hbox{
+	-fx-background-color: #424549;
+}
+
+.canvas-labels{
+	-fx-text-fill: white;
 }

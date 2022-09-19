@@ -40,7 +40,7 @@
         </HBox>
       </children>
     </AnchorPane>
-    <HBox alignment="CENTER">
+    <HBox alignment="CENTER" styleClass="canvas-hbox">
       <children>
         <Pane minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
         <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="431.0" prefWidth="690.0" vgap="20.0" HBox.hgrow="ALWAYS">
@@ -54,7 +54,7 @@
             <RowConstraints minHeight="10.0" vgrow="NEVER" />
           </rowConstraints>
           <children>
-            <Label text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label styleClass="canvas-labels" text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <font>
                 <Font name="SansSerif Regular" size="24.0" />
               </font>
@@ -104,7 +104,7 @@
                 </Canvas>
               </children>
             </Pane>
-            <Label fx:id="mainLabel" contentDisplay="CENTER" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="canvas-labels" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <font>
                 <Font name="SansSerif Regular" size="24.0" />
               </font>
