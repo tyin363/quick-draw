@@ -295,6 +295,8 @@ public class CanvasController implements LoadListener, TerminationListener {
     final String message = wasGuessed ? "You Win!" : "Time up!";
     if (wasGuessed) {
       user.incrementGamesWon();
+    } else {
+      user.incrementGamesLost();
     }
     userService.saveUser(user);
 
