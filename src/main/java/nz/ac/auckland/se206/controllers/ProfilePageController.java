@@ -2,7 +2,6 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -29,11 +28,12 @@ public class ProfilePageController implements LoadListener {
   @FXML private Label usernameLabel;
   @FXML private Label fastestTimeLabel;
   @FXML private ImageView profileImageView;
-  @FXML private Button switchAccountButton;
   @FXML private TextField usernameTextField;
   @FXML private HBox usernameHbox;
   @FXML private VBox pastWordsVbox;
   @FXML private Text secondsText;
+
+  @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
 
@@ -42,13 +42,13 @@ public class ProfilePageController implements LoadListener {
   /** Switch to Main menu so user can choose what to do from there */
   @FXML
   private void onSwitchToMenu() {
-    SceneManager.getInstance().switchToView(View.MAIN_MENU);
+    this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
   /** Switch to switch user page so user can change their accounts or add a new one */
   @FXML
   private void onSwitchAccount() {
-    SceneManager.getInstance().switchToView(View.SWITCH_USER);
+    this.sceneManager.switchToView(View.SWITCH_USER);
   }
 
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
@@ -67,7 +67,7 @@ public class ProfilePageController implements LoadListener {
         .getExtensionFilters()
         .addAll(new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPG", "*.jpg"));
 
-    final File file = fileChooser.showOpenDialog(SceneManager.getInstance().getStage());
+    File file = fileChooser.showOpenDialog(this.sceneManager.getStage());
     if (file != null) {
       try {
         // set chosen file as profile picture
@@ -75,7 +75,7 @@ public class ProfilePageController implements LoadListener {
         user.setProfilePicture(file.getAbsolutePath());
         profileImageView.setImage(image);
         userService.saveUser(user);
-      } catch (final Exception e) {
+      } catch (final SecurityException e) {
         this.logger.error("Error saving image", e);
       }
     }
@@ -110,7 +110,7 @@ public class ProfilePageController implements LoadListener {
     this.pastWordsVbox.getChildren().clear();
 
     if (userService.getCurrentUser() == null) {
-      this.user = new User("New user " + Integer.toString(userService.getUsers().size() + 1));
+      this.user = new User("New user " + (userService.getUsers().size() + 1));
       userService.saveUser(this.user);
       userService.setCurrentUser(this.user);
     } else {

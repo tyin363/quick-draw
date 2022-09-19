@@ -2,7 +2,7 @@ package nz.ac.auckland.se206;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
+import nz.ac.auckland.se206.controllers.scenemanager.ApplicationContext;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 
 /**
@@ -23,6 +23,6 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) {
-    SceneManager.getInstance().initialise(stage, View.SWITCH_USER);
+    ApplicationContext.start(stage, View.SWITCH_USER);
   }
 }

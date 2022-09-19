@@ -4,7 +4,7 @@
 
 - [Dependency Injection](#dependency-injection)
   - [Singletons](#singletons)
-- [Controller Lifecycle](#controller-lifecycle)
+- [Event Listeners](#event-listeners)
   - [Ordering of Lifecycle](#ordering-of-lifecycle)
 - [Switching Views](#switching-views)
 - [Putting it all Together](#putting-it-all-together)
@@ -72,13 +72,13 @@ public class ServiceA {
 }
 ```
 
-## Controller Lifecycle
+## Event Listeners
 
-There are 3 interfaces that **controllers** can implement to respond to certain events.
+There are 3 interfaces that different objects can implement to respond to certain events.
 
-1. `LoadListener` - This requires you to implement an `onLoad` method which will be called
-   **everytime** the view associated with that controller is switched to. This is the method 
-   where you should initialise/reset UI which can be changed while the user was previously on 
+1. `LoadListener` - **Controllers** can implement this interface. It requires you to create
+   an `onLoad` method which will be called **everytime** the view associated with that controller is switched to.
+   This is the method where you should initialise/reset UI which can be changed while the user was previously on 
    the same view. For example with the canvas view, after you complete a drawing, a button that 
    allows you to start a new game is displayed. When we switch back to the canvas view again, 
    in this method we can reset it to make this button invisible.
@@ -89,22 +89,14 @@ There are 3 interfaces that **controllers** can implement to respond to certain 
    > used for one-off initialisations, such as creating instances of classes that are used by the
    > controller.
 
-2. `EnableListener` - This interface is unique in that **anything being injected** can implement 
-   it, rather than just controllers. It requires you to implement an `onEnable` method which is 
-   primarily designed for non-controller classes which need to initialise themselves just after 
-   all their dependencies have been injected. (As they don't have access to the `onLoad` and 
-   `initialize` methods).
+2. `EnableListener` - **Anything being injected** can implement this interface.
+   It requires you to create an `onEnable` method which is primarily designed for non-controller
+   classes which need to initialise themselves just after all their dependencies have been injected.
+   (As they don't have access to the `onLoad` and `initialize` methods).
 
-3. `TerminationListener` - This requires you to implement an `onTerminate` method that is called
-   just before the application is closed. This is where any termination of processes or saving 
-   of data should be handled.
-
-   > **Note**
-   > 
-   > After [#9](https://github.com/SOFTENG206-2022/quick-draw-beta-final-team-09/issues/9), this 
-   > will change to use a non-static `SceneManager` instance which can be injected, so it will 
-   > instead look like: `this.sceneManager.switchToView(View.CANVAS)`, where `this.
-   > sceneManager` is an injected field.
+3. `TerminationListener` - **Any singleton** can implement this interface. It requires you to create an 
+   `onTerminate` method that is called just before the application is closed. This is where any termination
+    of processes or saving of data should be handled.
 
 ### Ordering of Lifecycle
 
@@ -122,7 +114,16 @@ Switching between views is very easy. Each JavaFX view should have an associated
 `View` enum. By default, the `.fxml` file name for the view is the same as the name of the enum 
 but in lowercase. If it is different, you can specify it like: 
 `EXAMPLE_VIEW("i_have_a_different_name")`. We can then switch between views whenever we need by
-passing it to the `switchToView` method: `SceneManager.getInstance().switchToView(View.CANVAS)`.
+injecting `SceneManager` and passing the view to the `switchToView` method. E.g:
+
+```java
+@Inject private SceneManager sceneManager;
+
+//...
+
+// Change to the Canvas view
+this.sceneManager.switchToView(View.CANVAS);
+```
 
 ## Putting it all Together
 

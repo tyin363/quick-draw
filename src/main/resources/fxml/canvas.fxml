@@ -114,6 +114,7 @@
               <children>
                 <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefWidth="145.0" styleClass="btn" text="Save" />
                 <Button mnemonicParsing="false" onAction="#onRestart" prefWidth="145.0" styleClass="btn" text="Play Again" />
+                <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" text="Return To Main Menu" />
               </children>
             </HBox>
             <Pane minHeight="0.0" minWidth="0.0" />

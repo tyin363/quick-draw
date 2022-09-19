@@ -22,7 +22,8 @@ import nz.ac.auckland.se206.users.UserService;
 @Singleton
 public class SwitchUserController implements LoadListener {
 
-  @Inject private UserService UserService;
+  @Inject private SceneManager sceneManager;
+  @Inject private UserService userService;
 
   @FXML private HBox users;
 
@@ -37,8 +38,8 @@ public class SwitchUserController implements LoadListener {
 
     // Clearing previous loaded user profiles
     users.getChildren().clear();
-    UserService.setCurrentUser(null);
-    for (User user : this.UserService.getUsers()) {
+    userService.setCurrentUser(null);
+    for (User user : this.userService.getUsers()) {
 
       // Creating user profile
       VBox profile = new VBox();
@@ -65,8 +66,8 @@ public class SwitchUserController implements LoadListener {
       // Setting current user and switching to main menu when user profile is clicked
       profile.setOnMouseClicked(
           event -> {
-            UserService.setCurrentUser(user);
-            SceneManager.getInstance().switchToView(View.MAIN_MENU);
+            userService.setCurrentUser(user);
+            this.sceneManager.switchToView(View.MAIN_MENU);
           });
     }
   }
@@ -79,16 +80,14 @@ public class SwitchUserController implements LoadListener {
   private void onAddUser() {
 
     // Sending a warning message when trying to create more than 5 users
-    if (UserService.getUsers().size() > 4) {
+    if (userService.getUsers().size() > 4) {
       Alert alert = new Alert(AlertType.WARNING);
       alert.setTitle("Warning (User Limit)");
       alert.setContentText("You can only create up to 5 users!");
       alert.showAndWait();
     } else {
 
-      // ** NEED TO ADD ** Switch to create user page
-      // SceneManager.getInstance().switchToView(View.CREATE_USER);
-      SceneManager.getInstance().switchToView(View.PROFILE_PAGE);
+      this.sceneManager.switchToView(View.PROFILE_PAGE);
     }
   }
 }
