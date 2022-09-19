@@ -290,12 +290,23 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param wasGuessed Whether the user won or lost.
    */
   private void gameOver(final boolean wasGuessed) {
+    int timeTaken;
+
     this.predictionHandler.stopPredicting();
     this.timer.stop();
     this.disableBrush();
     // Prevent the user from clearing their drawing
     this.clearPane.setDisable(true);
     final String message = wasGuessed ? "You Win!" : "Time up!";
+
+    timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
+
+    // Set time taken if it is the fastest on record for user
+    if (timeTaken < user.getFastestTime()) {
+      user.setFastestTime(timeTaken);
+    }
+
+    // increment number of games won or lost
     if (wasGuessed) {
       user.incrementGamesWon();
     } else {
