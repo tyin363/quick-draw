@@ -369,4 +369,11 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.timer.stop();
     this.textToSpeech.terminate();
   }
+
+  /** Clears the canvas and switches back to the Main Menu Screen */
+  @FXML
+  private void onReturnToMainMenu() {
+    this.onClear();
+    this.sceneManager.switchToView(View.MAIN_MENU);
+  }
 }
