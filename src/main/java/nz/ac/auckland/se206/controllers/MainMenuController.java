@@ -8,7 +8,6 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
-import nz.ac.auckland.se206.users.UserService;
 
 @Singleton
 public class MainMenuController implements LoadListener {
@@ -23,7 +22,7 @@ public class MainMenuController implements LoadListener {
   };
 
   @FXML private Label messageLabel;
-  @Inject private UserService userService; // Cause the onEnable method to be called
+  @Inject private SceneManager sceneManager;
 
   /**
    * Switch to the confirmation screen, where the user will have time to think about the word before
@@ -31,19 +30,19 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartGame() {
-    SceneManager.getInstance().switchToView(View.CONFIRMATION_SCREEN);
+    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
   /** Switch to the profile page, where the user can check their statistics. */
   @FXML
   private void onSwitchToProfile() {
-    SceneManager.getInstance().switchToView(View.PROFILE_PAGE);
+    this.sceneManager.switchToView(View.PROFILE_PAGE);
   }
 
   /** Switch to switch user page so user can change their accounts or add a new one */
   @FXML
   private void onSwitchAccount() {
-    SceneManager.getInstance().switchToView(View.SWITCH_USER);
+    this.sceneManager.switchToView(View.SWITCH_USER);
   }
 
   /** Everytime this scene is switched to select a new random message. */

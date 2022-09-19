@@ -131,6 +131,10 @@ public class UserService implements EnableListener {
         this.users.size(),
         this.config.getUserDataFile().getAbsolutePath());
     this.users.values().stream().map(User::toString).forEach(this.logger::info);
+
+    //    final User user = new User();
+    //    user.addPastWord("Lion King");
+    //    this.saveUser(user);
   }
 
   public void setCurrentUser(User user) {
