@@ -259,8 +259,6 @@ public class CanvasController implements LoadListener, TerminationListener {
       final String guess = predictions.get(i).getClassName().replaceAll("_", " ");
       if (guess.equals(this.wordService.getTargetWord())) {
         wasGuessed = true;
-        user.incrementGamesWon();
-        userService.saveUser(user);
         break;
       }
     }
@@ -295,6 +293,11 @@ public class CanvasController implements LoadListener, TerminationListener {
     // Prevent the user from clearing their drawing
     this.clearPane.setDisable(true);
     final String message = wasGuessed ? "You Win!" : "Time up!";
+    if (wasGuessed) {
+      user.incrementGamesWon();
+    }
+    userService.saveUser(user);
+
     this.mainLabel.setText(message);
     this.textToSpeech.queueSentence(message);
 
