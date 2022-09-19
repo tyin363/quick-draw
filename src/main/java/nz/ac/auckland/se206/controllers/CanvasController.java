@@ -126,7 +126,6 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.mainLabel.setText(this.config.getDrawingTimeSeconds() + " Seconds");
     this.timer.playFromStart();
-    this.predictionHandler.startPredicting();
 
     // Clear any previous predictions
     for (final Label predictionLabel : this.predictionLabels) {
@@ -160,6 +159,7 @@ public class CanvasController implements LoadListener, TerminationListener {
         e -> {
           this.currentX = e.getX();
           this.currentY = e.getY();
+          this.predictionHandler.startPredicting();
         });
 
     // When the user draws on the canvas apply the relevant effect of the selected brush
