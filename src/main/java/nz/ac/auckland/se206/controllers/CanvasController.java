@@ -128,6 +128,9 @@ public class CanvasController implements LoadListener, TerminationListener {
     // Set current user as user
     user = userService.getCurrentUser();
 
+    // Add target word into past words list of user
+    user.addPastWord(this.wordService.getTargetWord());
+
     this.gameOverActionsHoriBox.setVisible(false);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     // Reset the timer and start predicting instantly
