@@ -302,7 +302,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
 
     // Set time taken if it is the fastest on record for user
-    if (timeTaken < user.getFastestTime()) {
+    if (timeTaken < user.getFastestTime() || user.getFastestTime() == -1) {
       user.setFastestTime(timeTaken);
     }
 
