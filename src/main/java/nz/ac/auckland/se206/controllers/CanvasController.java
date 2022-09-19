@@ -259,6 +259,8 @@ public class CanvasController implements LoadListener, TerminationListener {
       final String guess = predictions.get(i).getClassName().replaceAll("_", " ");
       if (guess.equals(this.wordService.getTargetWord())) {
         wasGuessed = true;
+        user.incrementGamesWon();
+        userService.saveUser(user);
         break;
       }
     }
