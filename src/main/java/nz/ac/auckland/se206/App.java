@@ -23,6 +23,6 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) {
-    ApplicationContext.start(stage, View.MAIN_MENU);
+    ApplicationContext.start(stage, View.SWITCH_USER);
   }
 }
