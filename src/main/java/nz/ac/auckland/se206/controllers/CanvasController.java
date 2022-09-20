@@ -74,7 +74,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   private PredictionHandler predictionHandler;
   private Timeline timer;
   private int secondsRemaining;
-  private boolean updatePredictions;
+  private boolean isUpdatePredictions;
 
   // Mouse coordinates
   private double currentX;
@@ -160,7 +160,7 @@ public class CanvasController implements LoadListener, TerminationListener {
         e -> {
           this.currentX = e.getX();
           this.currentY = e.getY();
-          this.updatePredictions = true;
+          this.isUpdatePredictions = true;
         });
 
     // When the user draws on the canvas apply the relevant effect of the selected brush
@@ -198,7 +198,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.clearPredictions();
 
     // Stop updating predictions
-    this.updatePredictions = false;
+    this.isUpdatePredictions = false;
   }
 
   /** Switches the brush type to eraser and adjust the icon styling. */
@@ -251,7 +251,7 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param predictions The predictions returned by the model.
    */
   private void onPredictSuccess(final List<Classification> predictions) {
-    if (!updatePredictions) return;
+    if (!isUpdatePredictions) return;
 
     boolean wasGuessed = false;
     // Check if the target word is in the top number of predictions. If it is, you win.
