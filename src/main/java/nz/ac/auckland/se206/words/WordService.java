@@ -16,11 +16,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.exceptions.MissingResourceException;
+import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Config;
 import org.slf4j.Logger;
 
 @Singleton
 public class WordService {
+
+  @Inject private UserService userService;
 
   private final Map<Difficulty, List<String>> wordMapping;
   private final Random random = new Random();
@@ -78,6 +81,15 @@ public class WordService {
    */
   public void selectRandomTarget(final Difficulty difficulty) {
     final List<String> words = this.wordMapping.get(difficulty);
+
+    // Remove user's past words for the new word selection
+    words.removeAll(this.userService.getCurrentUser().getPastWords());
+
+    // If the new world selection is empty get all the words again
+    if (words.size() == 0) {
+      this.wordMapping.get(difficulty);
+    }
+
     this.targetWord = words.get(this.random.nextInt(words.size()));
   }
 

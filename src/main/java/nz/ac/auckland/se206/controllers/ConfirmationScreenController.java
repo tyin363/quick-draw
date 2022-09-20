@@ -7,6 +7,7 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.words.Difficulty;
 import nz.ac.auckland.se206.words.WordService;
 
@@ -17,6 +18,7 @@ public class ConfirmationScreenController implements LoadListener {
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
+  @Inject private UserService userService;
 
   /** When the user confirms they are ready, switch to the canvas view. */
   @FXML
@@ -29,5 +31,6 @@ public class ConfirmationScreenController implements LoadListener {
   public void onLoad() {
     this.wordService.selectRandomTarget(Difficulty.EASY);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
+    this.userService.getCurrentUser().addPastWord(this.wordService.getTargetWord());
   }
 }
