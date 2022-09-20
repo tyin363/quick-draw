@@ -74,6 +74,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   private PredictionHandler predictionHandler;
   private Timeline timer;
   private int secondsRemaining;
+  private boolean updatePredictions;
 
   // Mouse coordinates
   private double currentX;
@@ -126,6 +127,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.mainLabel.setText(this.config.getDrawingTimeSeconds() + " Seconds");
     this.timer.playFromStart();
+    this.predictionHandler.startPredicting();
 
     // Clear any previous predictions
     this.clearPredictions();
@@ -152,12 +154,13 @@ public class CanvasController implements LoadListener, TerminationListener {
     Tooltip.install(this.clearPane, new Tooltip(this.clearPane.getAccessibleHelp()));
 
     this.graphic = this.canvas.getGraphicsContext2D();
+
     // save coordinates when mouse is pressed on the canvas
     this.canvas.setOnMousePressed(
         e -> {
           this.currentX = e.getX();
           this.currentY = e.getY();
-          this.predictionHandler.startPredicting();
+          this.updatePredictions = true;
         });
 
     // When the user draws on the canvas apply the relevant effect of the selected brush
@@ -194,7 +197,8 @@ public class CanvasController implements LoadListener, TerminationListener {
     // Clear any previous predictions
     this.clearPredictions();
 
-    this.predictionHandler.pausePredicting();
+    // Stop updating predictions
+    this.updatePredictions = false;
   }
 
   /** Switches the brush type to eraser and adjust the icon styling. */
@@ -247,6 +251,8 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param predictions The predictions returned by the model.
    */
   private void onPredictSuccess(final List<Classification> predictions) {
+    if (!updatePredictions) return;
+
     boolean wasGuessed = false;
     // Check if the target word is in the top number of predictions. If it is, you win.
     for (int i = 0; i < this.config.getWinPlacement(); i++) {

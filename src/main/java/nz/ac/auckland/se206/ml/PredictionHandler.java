@@ -107,9 +107,4 @@ public class PredictionHandler {
       this.backgroundTask.cancel();
     }
   }
-
-  /** This method pauses the background prediction task. */
-  public void pausePredicting() {
-    this.timeline.stop();
-  }
 }
