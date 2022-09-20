@@ -192,6 +192,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onClear() {
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
+    this.predictionHandler.pausePredicting();
   }
 
   /** Switches the brush type to eraser and adjust the icon styling. */
