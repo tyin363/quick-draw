@@ -31,6 +31,8 @@ public class ConfirmationScreenController implements LoadListener {
   public void onLoad() {
     this.wordService.selectRandomTarget(Difficulty.EASY);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
+
+    // Adding word to current user's past words
     this.userService.getCurrentUser().addPastWord(this.wordService.getTargetWord());
   }
 }
