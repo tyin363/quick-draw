@@ -36,7 +36,7 @@ public class Round {
    *
    * @return If the word was guessed in the round
    */
-  public boolean isWasGuessed() {
+  public boolean wasGuessed() {
     return this.wasGuessed;
   }
 }

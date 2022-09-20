@@ -12,7 +12,7 @@ public class User {
   private final List<Round> pastRounds;
   private String username;
   private String profilePicture;
-  private int fastestTime;
+  private int fastestTime = -1;
   private int gamesWon;
   private int gamesLost;
   private int currentWinStreak;
@@ -46,12 +46,29 @@ public class User {
   }
 
   /**
-   * Adds a round to the list of rounds that the user has previously played.
+   * Adds a round to the list of rounds that the user has previously played. If the user won the
+   * round, it will increment their current win streak and update their best win streak if
+   * necessary. Alternatively, if the user lost the round, it will increment the number of games
+   * lost and reset their current win streak. Finally, it will also check if this is a new fastest
+   * time for completing a round.
    *
    * @param round The round to add.
    */
   public void addPastRound(final Round round) {
     this.pastRounds.add(round);
+    if (round.wasGuessed()) {
+      this.gamesWon++;
+      this.currentWinStreak++;
+      if (this.currentWinStreak > this.bestWinStreak) {
+        this.bestWinStreak = this.currentWinStreak;
+      }
+    } else {
+      this.gamesLost++;
+      this.currentWinStreak = 0;
+    }
+    if (round.getTimeTaken() < this.fastestTime || this.fastestTime == -1) {
+      this.fastestTime = round.getTimeTaken();
+    }
   }
 
   /**
@@ -70,15 +87,6 @@ public class User {
    */
   public int getFastestTime() {
     return this.fastestTime;
-  }
-
-  /**
-   * Sets the fastest time of the user.
-   *
-   * @param fastestTime The fastest time of the user.
-   */
-  public void setFastestTime(final int fastestTime) {
-    this.fastestTime = fastestTime;
   }
 
   /**
@@ -137,34 +145,12 @@ public class User {
   }
 
   /**
-   * Increases the number of games the user has won by 1 and increments the user's current win
-   * streak by 1. If the new current win streak is greater than the best win streak, then it will
-   * also update the best win streak
-   */
-  public void incrementGamesWon() {
-    this.gamesWon++;
-    this.currentWinStreak++;
-    if (this.currentWinStreak > this.bestWinStreak) {
-      this.bestWinStreak = this.currentWinStreak;
-    }
-  }
-
-  /**
    * Retrieves the number of games the user has lost.
    *
    * @return The number of games the user has lost.
    */
   public int getGamesLost() {
     return this.gamesLost;
-  }
-
-  /**
-   * Increases the number of games the user has lost by 1. If the user was on a win streak then this
-   * will also set the current win streak to 0.
-   */
-  public void incrementGamesLost() {
-    this.gamesLost++;
-    this.currentWinStreak = 0;
   }
 
   /**
