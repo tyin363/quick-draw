@@ -128,9 +128,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.timer.playFromStart();
 
     // Clear any previous predictions
-    for (final Label predictionLabel : this.predictionLabels) {
-      predictionLabel.setText("");
-    }
+    this.clearPredictions();
 
     // Re-enable all the buttons
     this.penPane.setDisable(false);
@@ -192,6 +190,10 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onClear() {
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
+
+    // Clear any previous predictions
+    this.clearPredictions();
+
     this.predictionHandler.pausePredicting();
   }
 
@@ -369,5 +371,13 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.predictionHandler.stopPredicting();
     this.timer.stop();
     this.textToSpeech.terminate();
+  }
+
+  /** Clears any prediction text by setting all prediction labels to an empty string */
+  private void clearPredictions() {
+    // Clear any predictions
+    for (final Label predictionLabel : this.predictionLabels) {
+      predictionLabel.setText("");
+    }
   }
 }
