@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
@@ -15,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="550.0" prefWidth="750.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
+<VBox prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
   <children>
     <AnchorPane styleClass="app-bar">
       <children>
@@ -129,4 +130,8 @@
       </opaqueInsets>
     </HBox>
   </children>
+   <stylesheets>
+      <URL value="@../css/styles.css" />
+      <URL value="@../css/colours.css" />
+   </stylesheets>
 </VBox>
