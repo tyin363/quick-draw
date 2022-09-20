@@ -1,15 +1,15 @@
 package nz.ac.auckland.se206.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 public class User {
 
   private final UUID id;
-  private final Set<String> pastWords;
+  private final List<Round> pastRounds;
   private String username;
   private String profilePicture;
   private int fastestTime;
@@ -30,7 +30,7 @@ public class User {
     this.id = UUID.randomUUID();
     this.username = username;
     this.profilePicture = "src/main/resources/images/defaultUserImage.jpg";
-    this.pastWords = new HashSet<>();
+    this.pastRounds = new ArrayList<>();
   }
 
   /**
@@ -40,16 +40,16 @@ public class User {
    * @return Whether the user has previously had to draw the specified word.
    */
   public boolean hasHadWord(final String word) {
-    return this.pastWords.contains(word);
+    return this.pastRounds.stream().anyMatch(round -> round.getWord().equals(word));
   }
 
   /**
-   * Adds a word to the set of words that the user has previously had to draw.
+   * Adds a round to the list of rounds that the user has previously played.
    *
-   * @param word The word to add.
+   * @param round The round to add.
    */
-  public void addPastWord(final String word) {
-    this.pastWords.add(word);
+  public void addPastRound(final Round round) {
+    this.pastRounds.add(round);
   }
 
   /**
@@ -67,7 +67,7 @@ public class User {
    * @return The fastest time of the user.
    */
   public int getFastestTime() {
-    return fastestTime;
+    return this.fastestTime;
   }
 
   /**
@@ -75,7 +75,7 @@ public class User {
    *
    * @param fastestTime The fastest time of the user.
    */
-  public void setFastestTime(int fastestTime) {
+  public void setFastestTime(final int fastestTime) {
     this.fastestTime = fastestTime;
   }
 
@@ -98,12 +98,12 @@ public class User {
   }
 
   /**
-   * Retrieves a set containing the words previously drawn by the user.
+   * Retrieves a list containing the rounds previously played by the user.
    *
-   * @return A set containing the words previously drawn by the user.
+   * @return A list containing the rounds previously played by the user.
    */
-  public Set<String> getPastWords() {
-    return this.pastWords;
+  public List<Round> getPastRounds() {
+    return this.pastRounds;
   }
 
   /**
@@ -167,7 +167,12 @@ public class User {
   @Override
   public int hashCode() {
     return Objects.hash(
-        this.id, this.username, this.pastWords, this.profilePicture, this.gamesWon, this.gamesLost);
+        this.id,
+        this.username,
+        this.pastRounds,
+        this.profilePicture,
+        this.gamesWon,
+        this.gamesLost);
   }
 
   @Override
@@ -181,7 +186,7 @@ public class User {
     // Check that all the fields are equal
     return this.id.equals(user.id)
         && Objects.equals(this.username, user.username)
-        && Objects.equals(this.pastWords, user.pastWords)
+        && Objects.equals(this.pastRounds, user.pastRounds)
         && Objects.equals(this.profilePicture, user.profilePicture)
         && this.gamesWon == user.gamesWon
         && this.gamesLost == user.gamesLost;
@@ -192,6 +197,11 @@ public class User {
     return String.format(
         "User{id=%s, username='%s', pastWords='%s', profilePicture='%s', "
             + "gamesWon=%d, gamesLost=%d}",
-        this.id, this.username, this.pastWords, this.profilePicture, this.gamesWon, this.gamesLost);
+        this.id,
+        this.username,
+        this.pastRounds,
+        this.profilePicture,
+        this.gamesWon,
+        this.gamesLost);
   }
 }
