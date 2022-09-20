@@ -48,9 +48,9 @@ public class User {
   /**
    * Adds a round to the list of rounds that the user has previously played. If the user won the
    * round, it will increment their current win streak and update their best win streak if
-   * necessary. Alternatively, if the user lost the round, it will increment the number of games
-   * lost and reset their current win streak. Finally, it will also check if this is a new fastest
-   * time for completing a round.
+   * necessary. It will also check if this is a new fastest time for completing a round
+   * Alternatively, if the user lost the round, it will increment the number of games lost and reset
+   * their current win streak. Finally, .
    *
    * @param round The round to add.
    */
@@ -62,12 +62,12 @@ public class User {
       if (this.currentWinStreak > this.bestWinStreak) {
         this.bestWinStreak = this.currentWinStreak;
       }
+      if (round.getTimeTaken() < this.fastestTime || this.fastestTime == -1) {
+        this.fastestTime = round.getTimeTaken();
+      }
     } else {
       this.gamesLost++;
       this.currentWinStreak = 0;
-    }
-    if (round.getTimeTaken() < this.fastestTime || this.fastestTime == -1) {
-      this.fastestTime = round.getTimeTaken();
     }
   }
 
