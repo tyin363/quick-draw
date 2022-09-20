@@ -2,9 +2,9 @@ package nz.ac.auckland.se206.users;
 
 public class Round {
 
-  private String word;
-  private int timeTaken;
-  private boolean wasGuessed;
+  private final String word;
+  private final int timeTaken;
+  private final boolean wasGuessed;
 
   public Round(final String word, final int timeTaken, final boolean wasGuessed) {
     this.word = word;
