@@ -15,6 +15,8 @@ public class User {
   private int fastestTime;
   private int gamesWon;
   private int gamesLost;
+  private int currentWinStreak;
+  private int bestWinStreak;
 
   /** An empty constructor is required to deserialize the user from JSON. */
   public User() {
@@ -134,9 +136,17 @@ public class User {
     return this.gamesWon;
   }
 
-  /** Increases the number of games the user has won by 1. */
+  /**
+   * Increases the number of games the user has won by 1 and increments the user's current win
+   * streak by 1. If the new current win streak is greater than the best win streak, then it will
+   * also update the best win streak
+   */
   public void incrementGamesWon() {
     this.gamesWon++;
+    this.currentWinStreak++;
+    if (this.currentWinStreak > this.bestWinStreak) {
+      this.bestWinStreak = this.currentWinStreak;
+    }
   }
 
   /**
@@ -148,9 +158,13 @@ public class User {
     return this.gamesLost;
   }
 
-  /** Increases the number of games the user has lost by 1. */
+  /**
+   * Increases the number of games the user has lost by 1. If the user was on a win streak then this
+   * will also set the current win streak to 0.
+   */
   public void incrementGamesLost() {
     this.gamesLost++;
+    this.currentWinStreak = 0;
   }
 
   /**
@@ -162,6 +176,24 @@ public class User {
   @JsonIgnore
   public int getTotalGames() {
     return this.gamesWon + this.gamesLost;
+  }
+
+  /**
+   * Retrieves the current win streak of the user.
+   *
+   * @return The current win streak of the user
+   */
+  public int getCurrentWinStreak() {
+    return this.currentWinStreak;
+  }
+
+  /**
+   * Retrieves the best win streak of the user.
+   *
+   * @return The best win streak of the user
+   */
+  public int getBestWinStreak() {
+    return this.bestWinStreak;
   }
 
   @Override
