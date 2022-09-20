@@ -77,11 +77,21 @@
 }
 
 .icon-btn-row > .icon:hover {
-  -fx-background-color: -fx-primary-light;
+  -fx-background-color: -fx-highlight-lightened;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.icon-btn-row > .icon:pressed {
+  -fx-background-color: -fx-highlight-darkened;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
 }
 
 .icon-btn-selected {
   -fx-background-color: -fx-primary-main !important;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
 }
 
 .icon-btn-row > .icon:hover > Pane, .icon-btn-selected > Pane {
