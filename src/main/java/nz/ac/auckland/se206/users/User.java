@@ -3,7 +3,6 @@ package nz.ac.auckland.se206.users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public class User {
@@ -184,13 +183,7 @@ public class User {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        this.id,
-        this.username,
-        this.pastRounds,
-        this.profilePicture,
-        this.gamesWon,
-        this.gamesLost);
+    return this.id.hashCode();
   }
 
   @Override
@@ -201,13 +194,8 @@ public class User {
       return false;
     }
     final User user = (User) o;
-    // Check that all the fields are equal
-    return this.id.equals(user.id)
-        && Objects.equals(this.username, user.username)
-        && Objects.equals(this.pastRounds, user.pastRounds)
-        && Objects.equals(this.profilePicture, user.profilePicture)
-        && this.gamesWon == user.gamesWon
-        && this.gamesLost == user.gamesLost;
+    // Equality is determined by whether they have the same id
+    return this.id.equals(user.id);
   }
 
   @Override
