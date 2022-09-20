@@ -86,11 +86,3 @@
 .icon-btn-row > .icon:hover > Pane, .icon-btn-selected > Pane {
   -fx-background-color: white;
 }
-
-.canvas-hbox{
-	-fx-background-color: #424549;
-}
-
-.canvas-labels{
-	-fx-text-fill: white;
-}
