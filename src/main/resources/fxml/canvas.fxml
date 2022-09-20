@@ -64,7 +64,10 @@
                      <styleClass>
                         <String fx:value="prediction-container" />
                         <String fx:value="bg-lightgray-100" />
-                     </styleClass></VBox>
+                     </styleClass>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding></VBox>
             <HBox alignment="CENTER" prefHeight="39.0" prefWidth="187.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
               <children>
                 <HBox alignment="CENTER">
