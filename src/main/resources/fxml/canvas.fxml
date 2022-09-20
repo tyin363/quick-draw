@@ -41,7 +41,7 @@
         </HBox>
       </children>
     </AnchorPane>
-    <HBox alignment="CENTER" styleClass="canvas-hbox">
+    <HBox alignment="CENTER" styleClass="bg-gray-25">
       <children>
         <Pane minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
         <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="431.0" prefWidth="690.0" vgap="20.0" HBox.hgrow="ALWAYS">
@@ -55,15 +55,19 @@
             <RowConstraints minHeight="10.0" vgrow="NEVER" />
           </rowConstraints>
           <children>
-            <Label styleClass="canvas-labels" text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label styleClass="text-default" text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <font>
                 <Font name="SansSerif Regular" size="24.0" />
               </font>
             </Label>
-            <VBox fx:id="predictionVertBox" alignment="TOP_CENTER" minWidth="200.0" prefHeight="292.0" prefWidth="217.0" spacing="5.0" styleClass="prediction-container" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <VBox fx:id="predictionVertBox" alignment="TOP_CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <styleClass>
+                        <String fx:value="prediction-container" />
+                        <String fx:value="bg-lightgray-100" />
+                     </styleClass></VBox>
             <HBox alignment="CENTER" prefHeight="39.0" prefWidth="187.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
               <children>
-                <HBox alignment="CENTER" styleClass="icon-btn-row">
+                <HBox alignment="CENTER">
                   <children>
                     <Pane fx:id="eraserPane" accessibleHelp="Select the eraser" accessibleRole="BUTTON" onMouseClicked="#onSelectEraser">
                       <children>
@@ -93,19 +97,23 @@
                       </children>
                     </Pane>
                   </children>
+                           <styleClass>
+                              <String fx:value="icon-btn-row" />
+                              <String fx:value="bg-lightgray-100" />
+                           </styleClass>
                 </HBox>
               </children>
             </HBox>
             <Pane maxWidth="521.0" prefWidth="521.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
               <children>
-                <Canvas fx:id="canvas" height="315.0" width="483.0">
+                <Canvas fx:id="canvas" height="315.0" styleClass="bg-highlight" width="483.0">
                   <cursor>
                     <Cursor fx:constant="HAND" />
                   </cursor>
                 </Canvas>
               </children>
             </Pane>
-            <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="canvas-labels" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <font>
                 <Font name="SansSerif Regular" size="24.0" />
               </font>
