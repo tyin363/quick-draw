@@ -1,20 +1,21 @@
 package nz.ac.auckland.se206.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class User {
 
   private final UUID id;
-  private final Set<String> pastWords;
+  private final List<Round> pastRounds;
   private String username;
   private String profilePicture;
-  private int fastestTime;
+  private int fastestTime = -1;
   private int gamesWon;
   private int gamesLost;
+  private int currentWinStreak;
+  private int bestWinStreak;
 
   /** An empty constructor is required to deserialize the user from JSON. */
   public User() {
@@ -30,8 +31,7 @@ public class User {
     this.id = UUID.randomUUID();
     this.username = username;
     this.profilePicture = "src/main/resources/images/defaultUserImage.jpg";
-    this.pastWords = new HashSet<>();
-    this.fastestTime = -1;
+    this.pastRounds = new ArrayList<>();
   }
 
   /**
@@ -41,16 +41,33 @@ public class User {
    * @return Whether the user has previously had to draw the specified word.
    */
   public boolean hasHadWord(final String word) {
-    return this.pastWords.contains(word);
+    return this.pastRounds.stream().anyMatch(round -> round.getWord().equals(word));
   }
 
   /**
-   * Adds a word to the set of words that the user has previously had to draw.
+   * Adds a round to the list of rounds that the user has previously played. If the user won the
+   * round, it will increment their current win streak and update their best win streak if
+   * necessary. It will also check if this is a new fastest time for completing a round
+   * Alternatively, if the user lost the round, it will increment the number of games lost and reset
+   * their current win streak. Finally, .
    *
-   * @param word The word to add.
+   * @param round The round to add.
    */
-  public void addPastWord(final String word) {
-    this.pastWords.add(word);
+  public void addPastRound(final Round round) {
+    this.pastRounds.add(round);
+    if (round.wasGuessed()) {
+      this.gamesWon++;
+      this.currentWinStreak++;
+      if (this.currentWinStreak > this.bestWinStreak) {
+        this.bestWinStreak = this.currentWinStreak;
+      }
+      if (round.getTimeTaken() < this.fastestTime || this.fastestTime == -1) {
+        this.fastestTime = round.getTimeTaken();
+      }
+    } else {
+      this.gamesLost++;
+      this.currentWinStreak = 0;
+    }
   }
 
   /**
@@ -68,16 +85,7 @@ public class User {
    * @return The fastest time of the user.
    */
   public int getFastestTime() {
-    return fastestTime;
-  }
-
-  /**
-   * Sets the fastest time of the user.
-   *
-   * @param fastestTime The fastest time of the user.
-   */
-  public void setFastestTime(int fastestTime) {
-    this.fastestTime = fastestTime;
+    return this.fastestTime;
   }
 
   /**
@@ -99,12 +107,12 @@ public class User {
   }
 
   /**
-   * Retrieves a set containing the words previously drawn by the user.
+   * Retrieves a list containing the rounds previously played by the user.
    *
-   * @return A set containing the words previously drawn by the user.
+   * @return A list containing the rounds previously played by the user.
    */
-  public Set<String> getPastWords() {
-    return this.pastWords;
+  public List<Round> getPastRounds() {
+    return this.pastRounds;
   }
 
   /**
@@ -135,11 +143,6 @@ public class User {
     return this.gamesWon;
   }
 
-  /** Increases the number of games the user has won by 1. */
-  public void incrementGamesWon() {
-    this.gamesWon++;
-  }
-
   /**
    * Retrieves the number of games the user has lost.
    *
@@ -147,11 +150,6 @@ public class User {
    */
   public int getGamesLost() {
     return this.gamesLost;
-  }
-
-  /** Increases the number of games the user has lost by 1. */
-  public void incrementGamesLost() {
-    this.gamesLost++;
   }
 
   /**
@@ -165,10 +163,27 @@ public class User {
     return this.gamesWon + this.gamesLost;
   }
 
+  /**
+   * Retrieves the current win streak of the user.
+   *
+   * @return The current win streak of the user
+   */
+  public int getCurrentWinStreak() {
+    return this.currentWinStreak;
+  }
+
+  /**
+   * Retrieves the best win streak of the user.
+   *
+   * @return The best win streak of the user
+   */
+  public int getBestWinStreak() {
+    return this.bestWinStreak;
+  }
+
   @Override
   public int hashCode() {
-    return Objects.hash(
-        this.id, this.username, this.pastWords, this.profilePicture, this.gamesWon, this.gamesLost);
+    return this.id.hashCode();
   }
 
   @Override
@@ -179,13 +194,8 @@ public class User {
       return false;
     }
     final User user = (User) o;
-    // Check that all the fields are equal
-    return this.id.equals(user.id)
-        && Objects.equals(this.username, user.username)
-        && Objects.equals(this.pastWords, user.pastWords)
-        && Objects.equals(this.profilePicture, user.profilePicture)
-        && this.gamesWon == user.gamesWon
-        && this.gamesLost == user.gamesLost;
+    // Equality is determined by whether they have the same id
+    return this.id.equals(user.id);
   }
 
   @Override
@@ -193,6 +203,11 @@ public class User {
     return String.format(
         "User{id=%s, username='%s', pastWords='%s', profilePicture='%s', "
             + "gamesWon=%d, gamesLost=%d}",
-        this.id, this.username, this.pastWords, this.profilePicture, this.gamesWon, this.gamesLost);
+        this.id,
+        this.username,
+        this.pastRounds,
+        this.profilePicture,
+        this.gamesWon,
+        this.gamesLost);
   }
 }
