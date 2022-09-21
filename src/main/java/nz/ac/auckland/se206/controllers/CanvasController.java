@@ -203,7 +203,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onClear() {
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
-
     this.clearPredictions();
 
     // Stop updating predictions
@@ -306,13 +305,15 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.clearPane.setDisable(true);
     final String message = wasGuessed ? "You Win!" : "Time up!";
 
+    // Get time taken
     timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
+
+    // Update statistics
     round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
-
     user.addPastRound(round);
-
     userService.saveUser(user);
 
+    // Display game conclusion
     this.mainLabel.setText(message);
     this.textToSpeech.queueSentence(message);
 
