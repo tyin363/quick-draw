@@ -16,6 +16,7 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.users.Round;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import org.slf4j.Logger;
@@ -54,7 +55,7 @@ public class ProfilePageController implements LoadListener {
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
-    usernameHbox.setVisible(true);
+    this.usernameHbox.setVisible(true);
   }
 
   /** Prompts the user to select a file to choose a profile picture */
@@ -67,14 +68,14 @@ public class ProfilePageController implements LoadListener {
         .getExtensionFilters()
         .addAll(new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPG", "*.jpg"));
 
-    File file = fileChooser.showOpenDialog(this.sceneManager.getStage());
+    final File file = fileChooser.showOpenDialog(this.sceneManager.getStage());
     if (file != null) {
       try {
         // set chosen file as profile picture
-        Image image = new Image(file.toURI().toString());
-        user.setProfilePicture(file.getAbsolutePath());
-        profileImageView.setImage(image);
-        userService.saveUser(user);
+        final Image image = new Image(file.toURI().toString());
+        this.user.setProfilePicture(file.getAbsolutePath());
+        this.profileImageView.setImage(image);
+        this.userService.saveUser(this.user);
       } catch (final SecurityException e) {
         this.logger.error("Error saving image", e);
       }
@@ -88,14 +89,14 @@ public class ProfilePageController implements LoadListener {
   @FXML
   private void onSetUsername() {
     // Do not allow null to be a username
-    if (!usernameTextField.getText().isBlank()) {
-      usernameLabel.setText(usernameTextField.getText());
-      user.setUsername(usernameTextField.getText());
-      usernameHbox.setVisible(false);
-      userService.saveUser(user);
+    if (!this.usernameTextField.getText().isBlank()) {
+      this.usernameLabel.setText(this.usernameTextField.getText());
+      this.user.setUsername(this.usernameTextField.getText());
+      this.usernameHbox.setVisible(false);
+      this.userService.saveUser(this.user);
 
       // Clear text field after use
-      usernameTextField.clear();
+      this.usernameTextField.clear();
     }
   }
 
@@ -109,38 +110,38 @@ public class ProfilePageController implements LoadListener {
     // Clear past words
     this.pastWordsVbox.getChildren().clear();
 
-    if (userService.getCurrentUser() == null) {
-      this.user = new User("New user " + (userService.getUsers().size() + 1));
-      userService.saveUser(this.user);
-      userService.setCurrentUser(this.user);
+    if (this.userService.getCurrentUser() == null) {
+      this.user = new User("New user " + (this.userService.getUsers().size() + 1));
+      this.userService.saveUser(this.user);
+      this.userService.setCurrentUser(this.user);
     } else {
-      user = userService.getCurrentUser();
+      this.user = this.userService.getCurrentUser();
     }
 
     // Set labels on GUI
-    usernameHbox.setVisible(false);
-    gamesLostLabel.setText(Integer.toString(user.getGamesLost()));
-    gamesWonLabel.setText(Integer.toString(user.getGamesWon()));
-    usernameLabel.setText(user.getUsername());
+    this.usernameHbox.setVisible(false);
+    this.gamesLostLabel.setText(Integer.toString(this.user.getGamesLost()));
+    this.gamesWonLabel.setText(Integer.toString(this.user.getGamesWon()));
+    this.usernameLabel.setText(this.user.getUsername());
 
     // Set profile picture
-    File file = new File(user.getProfilePicture());
-    Image image = new Image(file.toURI().toString());
-    profileImageView.setImage(image);
+    final File file = new File(this.user.getProfilePicture());
+    final Image image = new Image(file.toURI().toString());
+    this.profileImageView.setImage(image);
 
     // If fastest time is 0, display no time
-    if (user.getFastestTime() == 0) {
-      secondsText.setVisible(false);
-      fastestTimeLabel.setText("No Time");
+    if (this.user.getFastestTime() == 0) {
+      this.secondsText.setVisible(false);
+      this.fastestTimeLabel.setText("No Time");
     } else {
-      secondsText.setVisible(true);
-      fastestTimeLabel.setText(Integer.toString(user.getFastestTime()));
+      this.secondsText.setVisible(true);
+      this.fastestTimeLabel.setText(Integer.toString(this.user.getFastestTime()));
     }
 
     // Display past words of user
-    for (String word : user.getPastWords()) {
-      Label pastWord = new Label();
-      pastWord.setText(word);
+    for (final Round round : this.user.getPastRounds()) {
+      final Label pastWord = new Label();
+      pastWord.setText(round.getWord());
       this.pastWordsVbox.getChildren().add(pastWord);
     }
   }

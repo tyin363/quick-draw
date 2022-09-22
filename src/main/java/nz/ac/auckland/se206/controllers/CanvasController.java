@@ -74,6 +74,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   private PredictionHandler predictionHandler;
   private Timeline timer;
   private int secondsRemaining;
+  private boolean isUpdatingPredictions;
 
   // Mouse coordinates
   private double currentX;
@@ -129,9 +130,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.predictionHandler.startPredicting();
 
     // Clear any previous predictions
-    for (final Label predictionLabel : this.predictionLabels) {
-      predictionLabel.setText("");
-    }
+    this.clearPredictions();
 
     // Re-enable all the buttons
     this.penPane.setDisable(false);
@@ -155,11 +154,13 @@ public class CanvasController implements LoadListener, TerminationListener {
     Tooltip.install(this.clearPane, new Tooltip(this.clearPane.getAccessibleHelp()));
 
     this.graphic = this.canvas.getGraphicsContext2D();
+
     // save coordinates when mouse is pressed on the canvas
     this.canvas.setOnMousePressed(
         e -> {
           this.currentX = e.getX();
           this.currentY = e.getY();
+          this.isUpdatingPredictions = true;
         });
 
     // When the user draws on the canvas apply the relevant effect of the selected brush
@@ -192,6 +193,11 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onClear() {
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
+
+    this.clearPredictions();
+
+    // Stop updating predictions
+    this.isUpdatingPredictions = false;
   }
 
   /** Switches the brush type to eraser and adjust the icon styling. */
@@ -244,6 +250,8 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param predictions The predictions returned by the model.
    */
   private void onPredictSuccess(final List<Classification> predictions) {
+    if (!isUpdatingPredictions) return;
+
     boolean wasGuessed = false;
     // Check if the target word is in the top number of predictions. If it is, you win.
     for (int i = 0; i < this.config.getWinPlacement(); i++) {
@@ -368,6 +376,13 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.predictionHandler.stopPredicting();
     this.timer.stop();
     this.textToSpeech.terminate();
+  }
+
+  /** Clears any prediction text by setting all prediction labels to an empty string */
+  private void clearPredictions() {
+    for (final Label predictionLabel : this.predictionLabels) {
+      predictionLabel.setText("");
+    }
   }
 
   /** Clears the canvas and switches back to the Main Menu Screen */
