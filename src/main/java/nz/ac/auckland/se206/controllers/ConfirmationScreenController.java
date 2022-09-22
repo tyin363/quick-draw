@@ -33,6 +33,6 @@ public class ConfirmationScreenController implements LoadListener {
     this.targetWordLabel.setText(this.wordService.getTargetWord());
 
     // Adding word to current user's past words
-    this.userService.getCurrentUser().addPastWord(this.wordService.getTargetWord());
+    // this.userService.getCurrentUser().addPastWord(this.wordService.getTargetWord());
   }
 }
