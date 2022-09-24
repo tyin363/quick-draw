@@ -46,4 +46,14 @@ public class Round {
   public boolean wasGuessed() {
     return this.wasGuessed;
   }
+
+  @Override
+  public String toString() {
+    return "Word: "
+        + this.word
+        + "; Time Taken: "
+        + this.timeTaken
+        + "; Was Guessed: "
+        + this.wasGuessed;
+  }
 }
