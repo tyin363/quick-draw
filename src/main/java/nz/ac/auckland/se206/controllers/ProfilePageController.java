@@ -33,7 +33,7 @@ public class ProfilePageController implements LoadListener {
   @FXML private VBox pastWordsVbox;
   @FXML private Label secondsLabel;
   @FXML private Label currentWinstreakLabel;
-
+  @FXML private Label bestWinstreakLabel;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
@@ -124,6 +124,7 @@ public class ProfilePageController implements LoadListener {
     this.gamesWonLabel.setText(Integer.toString(this.user.getGamesWon()));
     this.usernameLabel.setText(this.user.getUsername());
     this.currentWinstreakLabel.setText(Integer.toString(this.user.getCurrentWinStreak()));
+    this.bestWinstreakLabel.setText(Integer.toString(this.user.getBestWinStreak()));
 
     // Set profile picture
     final File file = new File(this.user.getProfilePicture());
