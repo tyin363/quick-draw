@@ -41,6 +41,7 @@ public class ApplicationContext extends InstanceFactory {
     this.bind(new ObjectMapper());
     this.registerSupplier(Logger.class, LoggerFactory::getLogger);
   }
+
   /**
    * When a close request has been received it will invoke {@link InstanceFactory#onTerminate()} and
    * then invokes {@code Platform.exit()}.

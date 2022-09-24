@@ -128,7 +128,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   public void onLoad() {
 
     // Set current user as user
-    user = userService.getCurrentUser();
+    this.user = this.userService.getCurrentUser();
 
     this.gameOverActionsHoriBox.setVisible(false);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
@@ -258,7 +258,9 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param predictions The predictions returned by the model.
    */
   private void onPredictSuccess(final List<Classification> predictions) {
-    if (!isUpdatingPredictions) return;
+    if (!this.isUpdatingPredictions) {
+      return;
+    }
 
     boolean wasGuessed = false;
     // Check if the target word is in the top number of predictions. If it is, you win.
@@ -296,10 +298,10 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   private void gameOver(final boolean wasGuessed) {
     // Get time taken
-    int timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
+    final int timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
 
     // Get current round
-    Round round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
+    final Round round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
 
     this.predictionHandler.stopPredicting();
     this.timer.stop();
@@ -309,8 +311,8 @@ public class CanvasController implements LoadListener, TerminationListener {
     final String message = wasGuessed ? "You Win!" : "Time up!";
 
     // Update statistics
-    user.addPastRound(round);
-    userService.saveUser(user);
+    this.user.addPastRound(round);
+    this.userService.saveUser(this.user);
 
     // Display game conclusion
     this.mainLabel.setText(message);
