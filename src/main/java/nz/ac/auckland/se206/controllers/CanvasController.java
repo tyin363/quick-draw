@@ -33,6 +33,9 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.users.Round;
+import nz.ac.auckland.se206.users.User;
+import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.BrushType;
 import nz.ac.auckland.se206.util.Config;
 import nz.ac.auckland.se206.words.WordService;
@@ -69,11 +72,13 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Inject private WordService wordService;
   @Inject private TextToSpeech textToSpeech;
   @Inject private SceneManager sceneManager;
+  @Inject private UserService userService;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
   private Timeline timer;
   private int secondsRemaining;
+  private User user;
   private boolean isUpdatingPredictions;
 
   // Mouse coordinates
@@ -121,6 +126,10 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @Override
   public void onLoad() {
+
+    // Set current user as user
+    user = userService.getCurrentUser();
+
     this.gameOverActionsHoriBox.setVisible(false);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     // Reset the timer and start predicting instantly
@@ -193,7 +202,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onClear() {
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
-
     this.clearPredictions();
 
     // Stop updating predictions
@@ -287,12 +295,24 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param wasGuessed Whether the user won or lost.
    */
   private void gameOver(final boolean wasGuessed) {
+    // Get time taken
+    int timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
+
+    // Get current round
+    Round round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
+
     this.predictionHandler.stopPredicting();
     this.timer.stop();
     this.disableBrush();
     // Prevent the user from clearing their drawing
     this.clearPane.setDisable(true);
     final String message = wasGuessed ? "You Win!" : "Time up!";
+
+    // Update statistics
+    user.addPastRound(round);
+    userService.saveUser(user);
+
+    // Display game conclusion
     this.mainLabel.setText(message);
     this.textToSpeech.queueSentence(message);
 

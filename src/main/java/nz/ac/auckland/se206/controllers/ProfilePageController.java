@@ -129,10 +129,10 @@ public class ProfilePageController implements LoadListener {
     final Image image = new Image(file.toURI().toString());
     this.profileImageView.setImage(image);
 
-    // If fastest time is 0, display no time
-    if (this.user.getFastestTime() == 0) {
-      this.secondsText.setVisible(false);
-      this.fastestTimeLabel.setText("No Time");
+    // If fastest time is -1 (hasn't played a game yet), display no time
+    if (user.getFastestTime() == -1) {
+      secondsText.setVisible(false);
+      fastestTimeLabel.setText("No Time");
     } else {
       this.secondsText.setVisible(true);
       this.fastestTimeLabel.setText(Integer.toString(this.user.getFastestTime()));
