@@ -144,6 +144,8 @@ public class ProfilePageController implements LoadListener {
     for (final Round round : this.user.getPastRounds()) {
       final Label pastWord = new Label();
       pastWord.setText(round.getWord());
+      // Add colour to word
+      pastWord.getStyleClass().add("text-default");
       this.pastWordsVbox.getChildren().add(pastWord);
     }
   }
