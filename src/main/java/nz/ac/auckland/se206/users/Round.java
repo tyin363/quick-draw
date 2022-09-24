@@ -6,6 +6,13 @@ public class Round {
   private final int timeTaken;
   private final boolean wasGuessed;
 
+  /** An empty constructor is required to deserialize Round from JSON. */
+  public Round() {
+    this.word = "";
+    this.timeTaken = 0;
+    this.wasGuessed = false;
+  }
+
   public Round(final String word, final int timeTaken, final boolean wasGuessed) {
     this.word = word;
     this.timeTaken = timeTaken;
