@@ -15,6 +15,11 @@
   -fx-effect: -fx-dropshadow;
 }
 
+.heading {
+	 -fx-font-size: 20px;
+  -fx-font-weight: bold;
+}
+
 .smaller-btn{
 	-fx-padding: 8px 24px 8px 24px;
   -fx-min-width: 90px;
