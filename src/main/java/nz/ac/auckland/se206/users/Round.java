@@ -47,6 +47,9 @@ public class Round {
     return this.wasGuessed;
   }
 
+  /**
+   * Changed string message for Round object to print word, time taken and if it word was guessed
+   */
   @Override
   public String toString() {
     return "Word: "
