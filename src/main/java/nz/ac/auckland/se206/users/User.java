@@ -201,7 +201,7 @@ public class User {
   @Override
   public String toString() {
     return String.format(
-        "User{id=%s, username='%s', pastWords='%s', profilePicture='%s', "
+        "User{id=%s, username='%s', pastRounds='%s', profilePicture='%s', "
             + "gamesWon=%d, gamesLost=%d}",
         this.id,
         this.username,
