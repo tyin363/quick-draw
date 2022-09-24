@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
    <children>
       <AnchorPane minHeight="30.0" prefHeight="30.0" prefWidth="600.0">
          <children>
@@ -29,8 +29,8 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0">
                <children>
-                  <Label text="Games Won" />
-                  <Label fx:id="gamesWonLabel" text="0">
+                  <Label styleClass="text-default" text="Games Won" />
+                  <Label fx:id="gamesWonLabel" styleClass="text-default" text="0">
                      <font>
                         <Font size="82.0" />
                      </font>
@@ -43,7 +43,7 @@
                      <image>
                         <Image url="@../images/defaultUserImage.jpg" />
                      </image></ImageView>
-                  <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" text="Username">
+                  <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
@@ -71,8 +71,8 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0">
                <children>
-                  <Label text="Current Winstreak" />
-                  <Label fx:id="currentWinstreakLabel" text="0">
+                  <Label styleClass="text-default" text="Current Winstreak" />
+                  <Label fx:id="currentWinstreakLabel" styleClass="text-default" text="0">
                      <font>
                         <Font size="82.0" />
                      </font>
@@ -97,29 +97,29 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                      <children>
-                        <Label fx:id="fastestTimeLabel" text="Fastest time">
+                        <Label fx:id="fastestTimeLabel" styleClass="text-default" text="Fastest time">
                            <font>
                               <Font size="33.0" />
                            </font>
                         </Label>
-                        <Label fx:id="secondsLabel" text="seconds">
+                        <Label fx:id="secondsLabel" styleClass="text-default" text="seconds">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="129.0" prefWidth="315.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Best Time" GridPane.halignment="CENTER" />
-                  <Label text="Word History" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                  <Label text="Games Lost" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-                  <Label fx:id="gamesLostLabel" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="129.0" prefWidth="315.0" spacing="5.0" styleClass="text-default" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label styleClass="text-default" text="Best Time" GridPane.halignment="CENTER" />
+                  <Label styleClass="text-default" text="Word History" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <Label styleClass="text-default" text="Games Lost" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+                  <Label fx:id="gamesLostLabel" styleClass="text-default" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="82.0" />
                      </font>
                   </Label>
-                  <Label text="Best Winstreak" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                  <Label fx:id="bestWinstreakLabel" text="0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <Label styleClass="text-default" text="Best Winstreak" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                  <Label fx:id="bestWinstreakLabel" styleClass="text-default" text="0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                      <font>
                         <Font size="82.0" />
                      </font>
