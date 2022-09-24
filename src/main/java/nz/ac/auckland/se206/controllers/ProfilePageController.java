@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -32,7 +31,7 @@ public class ProfilePageController implements LoadListener {
   @FXML private TextField usernameTextField;
   @FXML private HBox usernameHbox;
   @FXML private VBox pastWordsVbox;
-  @FXML private Text secondsText;
+  @FXML private Label secondsLabel;
 
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
@@ -131,10 +130,10 @@ public class ProfilePageController implements LoadListener {
 
     // If fastest time is -1 (hasn't played a game yet), display no time
     if (user.getFastestTime() == -1) {
-      secondsText.setVisible(false);
+      secondsLabel.setVisible(false);
       fastestTimeLabel.setText("No Time");
     } else {
-      this.secondsText.setVisible(true);
+      this.secondsLabel.setVisible(true);
       this.fastestTimeLabel.setText(Integer.toString(this.user.getFastestTime()));
     }
 
