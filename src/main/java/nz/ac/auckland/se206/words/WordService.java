@@ -84,9 +84,18 @@ public class WordService {
   public void selectRandomTarget(final Difficulty difficulty) {
     List<String> words = this.wordMapping.get(difficulty);
 
+    logger.info("OLD WORDS");
+    for (String word : words) {
+      logger.info(word);
+    }
     // Remove user's past words from the new word selection
     for (Round round : this.userService.getCurrentUser().getPastRounds()) {
       words.remove(round.getWord());
+    }
+
+    logger.info("NEW WORDS");
+    for (String word : words) {
+      logger.info(word);
     }
 
     // If the new word selection is empty let playable words be any from the given difficulty
