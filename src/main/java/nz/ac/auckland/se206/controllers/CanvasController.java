@@ -80,7 +80,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   private int secondsRemaining;
   private User user;
   private boolean isUpdatingPredictions;
-  private Round round;
 
   // Mouse coordinates
   private double currentX;
@@ -296,7 +295,11 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param wasGuessed Whether the user won or lost.
    */
   private void gameOver(final boolean wasGuessed) {
-    int timeTaken;
+    // Get time taken
+    int timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
+
+    // Get current round
+    Round round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
 
     this.predictionHandler.stopPredicting();
     this.timer.stop();
@@ -305,11 +308,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.clearPane.setDisable(true);
     final String message = wasGuessed ? "You Win!" : "Time up!";
 
-    // Get time taken
-    timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
-
     // Update statistics
-    round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
     user.addPastRound(round);
     userService.saveUser(user);
 
