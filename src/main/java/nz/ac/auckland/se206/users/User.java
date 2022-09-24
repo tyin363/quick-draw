@@ -49,7 +49,7 @@ public class User {
    * round, it will increment their current win streak and update their best win streak if
    * necessary. It will also check if this is a new fastest time for completing a round
    * Alternatively, if the user lost the round, it will increment the number of games lost and reset
-   * their current win streak. Finally, .
+   * their current win streak.
    *
    * @param round The round to add.
    */
