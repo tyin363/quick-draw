@@ -16,11 +16,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.exceptions.MissingResourceException;
+import nz.ac.auckland.se206.users.Round;
+import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Config;
 import org.slf4j.Logger;
 
 @Singleton
 public class WordService {
+
+  @Inject private UserService userService;
 
   private final Map<Difficulty, List<String>> wordMapping;
   private final Random random = new Random();
@@ -72,12 +76,24 @@ public class WordService {
   }
 
   /**
-   * Updates the target to word to a random word of the given difficulty.
+   * Updates the target to word to a random word of the given difficulty but does not let target be
+   * a previously played word unless all words are played
    *
    * @param difficulty The difficulty of the word to select from
    */
   public void selectRandomTarget(final Difficulty difficulty) {
-    final List<String> words = this.wordMapping.get(difficulty);
+    List<String> words = this.wordMapping.get(difficulty);
+
+    // Remove user's past words from the new word selection
+    for (Round round : this.userService.getCurrentUser().getPastRounds()) {
+      words.remove(round.getWord());
+    }
+
+    // If the new word selection is empty let playable words be any from the given difficulty
+    if (words.size() == 0) {
+      words = this.wordMapping.get(difficulty);
+    }
+
     this.targetWord = words.get(this.random.nextInt(words.size()));
   }
 

@@ -33,6 +33,9 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.users.Round;
+import nz.ac.auckland.se206.users.User;
+import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.BrushType;
 import nz.ac.auckland.se206.util.Config;
 import nz.ac.auckland.se206.words.WordService;
@@ -69,11 +72,14 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Inject private WordService wordService;
   @Inject private TextToSpeech textToSpeech;
   @Inject private SceneManager sceneManager;
+  @Inject private UserService userService;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
   private Timeline timer;
   private int secondsRemaining;
+  private User user;
+  private boolean isUpdatingPredictions;
 
   // Mouse coordinates
   private double currentX;
@@ -120,6 +126,10 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @Override
   public void onLoad() {
+
+    // Set current user as user
+    user = userService.getCurrentUser();
+
     this.gameOverActionsHoriBox.setVisible(false);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     // Reset the timer and start predicting instantly
@@ -129,9 +139,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.predictionHandler.startPredicting();
 
     // Clear any previous predictions
-    for (final Label predictionLabel : this.predictionLabels) {
-      predictionLabel.setText("");
-    }
+    this.clearPredictions();
 
     // Re-enable all the buttons
     this.penPane.setDisable(false);
@@ -155,11 +163,13 @@ public class CanvasController implements LoadListener, TerminationListener {
     Tooltip.install(this.clearPane, new Tooltip(this.clearPane.getAccessibleHelp()));
 
     this.graphic = this.canvas.getGraphicsContext2D();
+
     // save coordinates when mouse is pressed on the canvas
     this.canvas.setOnMousePressed(
         e -> {
           this.currentX = e.getX();
           this.currentY = e.getY();
+          this.isUpdatingPredictions = true;
         });
 
     // When the user draws on the canvas apply the relevant effect of the selected brush
@@ -192,6 +202,10 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onClear() {
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
+    this.clearPredictions();
+
+    // Stop updating predictions
+    this.isUpdatingPredictions = false;
   }
 
   /** Switches the brush type to eraser and adjust the icon styling. */
@@ -244,6 +258,8 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param predictions The predictions returned by the model.
    */
   private void onPredictSuccess(final List<Classification> predictions) {
+    if (!isUpdatingPredictions) return;
+
     boolean wasGuessed = false;
     // Check if the target word is in the top number of predictions. If it is, you win.
     for (int i = 0; i < this.config.getWinPlacement(); i++) {
@@ -279,12 +295,24 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param wasGuessed Whether the user won or lost.
    */
   private void gameOver(final boolean wasGuessed) {
+    // Get time taken
+    int timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
+
+    // Get current round
+    Round round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
+
     this.predictionHandler.stopPredicting();
     this.timer.stop();
     this.disableBrush();
     // Prevent the user from clearing their drawing
     this.clearPane.setDisable(true);
     final String message = wasGuessed ? "You Win!" : "Time up!";
+
+    // Update statistics
+    user.addPastRound(round);
+    userService.saveUser(user);
+
+    // Display game conclusion
     this.mainLabel.setText(message);
     this.textToSpeech.queueSentence(message);
 
@@ -368,6 +396,13 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.predictionHandler.stopPredicting();
     this.timer.stop();
     this.textToSpeech.terminate();
+  }
+
+  /** Clears any prediction text by setting all prediction labels to an empty string */
+  private void clearPredictions() {
+    for (final Label predictionLabel : this.predictionLabels) {
+      predictionLabel.setText("");
+    }
   }
 
   /** Clears the canvas and switches back to the Main Menu Screen */
