@@ -26,6 +26,10 @@
   -fx-background-radius: 6px;
 }
 
+.smaller-btn:hover {
+  -fx-background-color: -fx-primary-dark;
+}
+
 .btn {
   -fx-padding: 8px 24px 8px 24px;
   -fx-min-width: 120px;
