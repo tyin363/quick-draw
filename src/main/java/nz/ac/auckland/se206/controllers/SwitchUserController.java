@@ -37,36 +37,36 @@ public class SwitchUserController implements LoadListener {
   public void onLoad() {
 
     // Clearing previous loaded user profiles
-    users.getChildren().clear();
-    userService.setCurrentUser(null);
-    for (User user : this.userService.getUsers()) {
+    this.users.getChildren().clear();
+    this.userService.setCurrentUser(null);
+    for (final User user : this.userService.getUsers()) {
 
       // Creating user profile
-      VBox profile = new VBox();
-      File file = new File(user.getProfilePicture());
-      Image image = new Image(file.toURI().toString());
-      ImageView userImage = new ImageView(image);
+      final File file = new File(user.getProfilePicture());
+      final Image image = new Image(file.toURI().toString());
+      final ImageView userImage = new ImageView(image);
 
       // Setting user profile image dimensions
       userImage.setFitHeight(110);
       userImage.setFitWidth(110);
 
-      // Setting and centering user name
-      Label username = new Label(user.getUsername());
+      // Setting and centering username
+      final Label username = new Label(user.getUsername());
       username.setAlignment(Pos.CENTER);
       username.setMaxWidth(Double.MAX_VALUE);
 
-      // Adding profile image and user name to user profile
+      // Adding profile image and username to user profile
+      final VBox profile = new VBox();
       profile.getChildren().add(userImage);
       profile.getChildren().add(username);
 
       // Adding user profile to users
-      users.getChildren().add(profile);
+      this.users.getChildren().add(profile);
 
       // Setting current user and switching to main menu when user profile is clicked
       profile.setOnMouseClicked(
           event -> {
-            userService.setCurrentUser(user);
+            this.userService.setCurrentUser(user);
             this.sceneManager.switchToView(View.MAIN_MENU);
           });
     }
@@ -80,8 +80,8 @@ public class SwitchUserController implements LoadListener {
   private void onAddUser() {
 
     // Sending a warning message when trying to create more than 5 users
-    if (userService.getUsers().size() > 4) {
-      Alert alert = new Alert(AlertType.WARNING);
+    if (this.userService.getUsers().size() > 4) {
+      final Alert alert = new Alert(AlertType.WARNING);
       alert.setTitle("Warning (User Limit)");
       alert.setContentText("You can only create up to 5 users!");
       alert.showAndWait();
