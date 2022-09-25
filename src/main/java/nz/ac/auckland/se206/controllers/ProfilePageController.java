@@ -134,25 +134,8 @@ public class ProfilePageController implements LoadListener {
     final File file = new File(this.user.getProfilePicture());
     final Image image = new Image(file.toURI().toString());
     this.profileImageView.setImage(image);
+    addBorderToImage(this.profileImageView, image, 20);
 
-    double aspectRatio = image.getWidth() / image.getHeight();
-    double realWidth =
-        Math.min(profileImageView.getFitWidth(), profileImageView.getFitHeight() * aspectRatio);
-    double realHeight =
-        Math.min(profileImageView.getFitHeight(), profileImageView.getFitWidth() / aspectRatio);
-    // Add border radius to profile picture
-    Rectangle clip = new Rectangle();
-    clip.setWidth(realWidth);
-    clip.setHeight(realHeight);
-    clip.setArcHeight(20);
-    clip.setArcWidth(20);
-    profileImageView.setClip(clip);
-
-    SnapshotParameters parameters = new SnapshotParameters();
-    parameters.setFill(Color.TRANSPARENT);
-    WritableImage writableImage = profileImageView.snapshot(parameters, null);
-    profileImageView.setClip(null);
-    profileImageView.setImage(writableImage);
     // If fastest time is -1 (hasn't played a game yet), display no time
     if (user.getFastestTime() == -1) {
       secondsLabel.setVisible(false);
@@ -170,5 +153,37 @@ public class ProfilePageController implements LoadListener {
       pastWord.getStyleClass().add("text-default");
       this.pastWordsVbox.getChildren().add(pastWord);
     }
+  }
+
+  /**
+   * This will make the ImageView have rounded corners. This gives a similar effect as the border
+   * radius effect on a button.
+   *
+   * @param imageView The ImageView displayed on fxml
+   * @param image The original image
+   * @param borderRadius The border radius of the image
+   */
+  private void addBorderToImage(ImageView imageView, Image image, int borderRadius) {
+    // Get height and width of image
+    double aspectRatio = image.getWidth() / image.getHeight();
+    double realWidth = Math.min(imageView.getFitWidth(), imageView.getFitHeight() * aspectRatio);
+    double realHeight = Math.min(imageView.getFitHeight(), imageView.getFitWidth() / aspectRatio);
+
+    // Clip the imageView to a rectangle with rounded borders
+    Rectangle clip = new Rectangle();
+    clip.setWidth(realWidth);
+    clip.setHeight(realHeight);
+    clip.setArcHeight(borderRadius);
+    clip.setArcWidth(borderRadius);
+    imageView.setClip(clip);
+
+    // Snapshot the clipped image and store it as the ImageView
+    SnapshotParameters parameters = new SnapshotParameters();
+    parameters.setFill(Color.TRANSPARENT);
+    WritableImage writableImage = imageView.snapshot(parameters, null);
+    imageView.setImage(writableImage);
+
+    // Remove previous clip from ImageView
+    imageView.setClip(null);
   }
 }
