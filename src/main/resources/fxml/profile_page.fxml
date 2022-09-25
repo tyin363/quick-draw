@@ -52,10 +52,11 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0" spacing="5.0">
                <children>
-                  <ImageView fx:id="profileImageView" fitHeight="121.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="profileImageView" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
                      <image>
                         <Image url="@../images/defaultUserImage.jpg" />
-                     </image></ImageView>
+                     </image>
+                  </ImageView>
                   <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
                      <font>
                         <Font size="18.0" />

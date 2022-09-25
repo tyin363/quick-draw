@@ -2,12 +2,16 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -131,6 +135,19 @@ public class ProfilePageController implements LoadListener {
     final Image image = new Image(file.toURI().toString());
     this.profileImageView.setImage(image);
 
+    // Add border radius to profile picture
+    Rectangle clip = new Rectangle();
+    clip.setWidth(profileImageView.getFitWidth());
+    clip.setHeight(profileImageView.getFitHeight());
+    clip.setArcHeight(20);
+    clip.setArcWidth(20);
+    profileImageView.setClip(clip);
+
+    SnapshotParameters parameters = new SnapshotParameters();
+    parameters.setFill(Color.TRANSPARENT);
+    WritableImage writableImage = profileImageView.snapshot(parameters, null);
+    profileImageView.setClip(null);
+    profileImageView.setImage(writableImage);
     // If fastest time is -1 (hasn't played a game yet), display no time
     if (user.getFastestTime() == -1) {
       secondsLabel.setVisible(false);
