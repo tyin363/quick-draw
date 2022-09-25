@@ -79,6 +79,7 @@ public class ProfilePageController implements LoadListener {
         final Image image = new Image(file.toURI().toString());
         this.user.setProfilePicture(file.getAbsolutePath());
         this.profileImageView.setImage(image);
+        addBorderToImage(this.profileImageView, image, 20);
         this.userService.saveUser(this.user);
       } catch (final SecurityException e) {
         this.logger.error("Error saving image", e);
