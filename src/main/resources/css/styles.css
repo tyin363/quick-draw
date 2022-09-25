@@ -27,7 +27,11 @@
 }
 
 .btn:hover {
-  -fx-background-color: -fx-primary-dark;
+  -fx-background-color: -fx-highlight-lightened;
+}
+
+.btn:pressed{
+	-fx-background-color: -fx-highlight-darkened;
 }
 
 .app-bar {
