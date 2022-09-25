@@ -1,0 +1,46 @@
+.profile-card {
+    -fx-pref-width: 240px;
+    -fx-pref-height: 300px;
+
+    -fx-background-radius: 12px;
+    -fx-background-color: -fx-gray-50;
+}
+
+.profile-card > VBox {
+    -fx-pref-width: 240px;
+    -fx-pref-height: 220px;
+    -fx-background-radius: 12px 12px 0 0;
+}
+
+.profile-card > VBox > ImageView {
+    -fx-pref-width: 240px;
+    -fx-pref-height: 220px;
+    -fx-background-radius: 12px 12px 0 0;
+}
+
+.profile-card > .no-image {
+    -fx-background-color: -fx-lightgray-100;
+    -fx-text-fill: -fx-gray-100;
+}
+
+.profile-card > .profile-content {
+    -fx-alignment: center_left;
+    -fx-padding: 16px 8px;
+}
+
+.profile-card > .profile-content > Label {
+    -fx-text-fill: -fx-text-default;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.profile-card > .profile-content > .profile-stats {
+    -fx-pref-width: 100%;
+    -fx-text-fill: -fx-lightgray-100;
+    -fx-hgap: 20px;
+}
+
+.flame-icon {
+    
+}
+
