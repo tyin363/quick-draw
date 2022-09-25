@@ -34,6 +34,13 @@
   -fx-background-radius: 8px;
 }
 
+.set-name-btn{
+  -fx-max-width: 133px;
+  -fx-min-width: 133px;
+  -fx-font-size: 18px;
+  -fx-background-radius: 8px;
+}
+
 .profile-page-btn{
 	  -fx-padding: 8px 24px 8px 24px;
   -fx-background-color: -fx-primary-main;

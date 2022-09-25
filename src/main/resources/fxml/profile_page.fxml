@@ -87,7 +87,7 @@
                         <Button mnemonicParsing="false" onAction="#onSetUsername" text="Set Name">
                            <styleClass>
                               <String fx:value="profile-page-btn" />
-                              <String fx:value="regular-btn" />
+                              <String fx:value="set-name-btn" />
                            </styleClass></Button>
                         <TextField fx:id="usernameTextField" />
                      </children>
