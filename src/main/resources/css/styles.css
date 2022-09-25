@@ -15,12 +15,6 @@
   -fx-effect: -fx-dropshadow;
 }
 
-.image{
-	-fx-padding: 10;
--fx-background-color: firebrick;
--fx-background-radius: 5px, 5px, 0, 0;
-}
-
 .heading {
 	 -fx-font-size: 20px;
   -fx-font-weight: bold;

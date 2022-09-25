@@ -52,7 +52,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0" spacing="5.0">
                <children>
-                  <ImageView fx:id="profileImageView" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                  <ImageView fx:id="profileImageView" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/defaultUserImage.jpg" />
                      </image>
