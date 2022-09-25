@@ -21,8 +21,16 @@
          <children>
             <HBox alignment="CENTER" prefHeight="34.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchToMenu" styleClass="btn" text="Main Menu" />
-                <Button fx:id="switchAccountButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchAccount" styleClass="btn" text="Switch Account" />
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchToMenu" text="Main Menu">
+                     <styleClass>
+                        <String fx:value="controller-btn" />
+                        <String fx:value="regular-btn" />
+                     </styleClass></Button>
+                <Button fx:id="switchAccountButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchAccount" text="Switch Account">
+                     <styleClass>
+                        <String fx:value="controller-btn" />
+                        <String fx:value="regular-btn" />
+                     </styleClass></Button>
                </children>
             </HBox>
          </children></AnchorPane>
@@ -54,21 +62,33 @@
                      </font></Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onEditUsername" styleClass="smaller-btn" text="Change Username">
+                        <Button mnemonicParsing="false" onAction="#onEditUsername" text="Change Username">
                            <font>
                               <Font size="8.0" />
                            </font>
+                           <styleClass>
+                              <String fx:value="smaller-btn" />
+                              <String fx:value="controller-btn" />
+                           </styleClass>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#onChangePicture" styleClass="smaller-btn" text="Change Picture">
+                        <Button mnemonicParsing="false" onAction="#onChangePicture" text="Change Picture">
                            <font>
                               <Font size="8.0" />
                            </font>
+                           <styleClass>
+                              <String fx:value="smaller-btn" />
+                              <String fx:value="controller-btn" />
+                           </styleClass>
                         </Button>
                      </children>
                   </HBox>
                   <HBox fx:id="usernameHbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onSetUsername" styleClass="btn" text="Set Name" />
+                        <Button mnemonicParsing="false" onAction="#onSetUsername" text="Set Name">
+                           <styleClass>
+                              <String fx:value="controller-btn" />
+                              <String fx:value="regular-btn" />
+                           </styleClass></Button>
                         <TextField fx:id="usernameTextField" />
                      </children>
                   </HBox>

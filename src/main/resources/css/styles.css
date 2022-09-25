@@ -21,20 +21,28 @@
 }
 
 .smaller-btn{
-	-fx-padding: 8px 24px 8px 24px;
   -fx-min-width: 90px;
-  -fx-background-color: -fx-primary-main;
-  -fx-text-fill: white;
   -fx-font-size: 10px;
-  -fx-font-weight: bold;
-  -fx-font-family: SansSerif;
   -fx-background-radius: 6px;
 }
 
-.smaller-btn:hover {
-  -fx-background-color: -fx-primary-dark;
+.regular-btn{
+  -fx-min-width: 120px;
+  -fx-font-size: 18px;
+  -fx-background-radius: 8px;
 }
 
+.controller-btn{
+	  -fx-padding: 8px 24px 8px 24px;
+  -fx-background-color: -fx-primary-main;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-font-family: SansSerif;
+}
+
+.controller-btn:hover{
+	  -fx-background-color: -fx-primary-dark;
+}
 .btn {
   -fx-padding: 8px 24px 8px 24px;
   -fx-min-width: 120px;
