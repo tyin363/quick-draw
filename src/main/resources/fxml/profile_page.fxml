@@ -19,7 +19,7 @@
    <children>
       <AnchorPane minHeight="30.0" prefHeight="45.0" prefWidth="600.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchToMenu" text="Main Menu">
                      <styleClass>
@@ -50,7 +50,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0" spacing="5.0">
+            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0" spacing="10.0">
                <children>
                   <ImageView fx:id="profileImageView" fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -61,7 +61,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#onEditUsername" text="Change Username">
                            <font>
