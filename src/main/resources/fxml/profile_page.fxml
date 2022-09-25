@@ -139,7 +139,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="129.0" prefWidth="315.0" spacing="5.0" styleClass="text-default" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="129.0" prefWidth="157.0" spacing="5.0" style="-fx-padding: 15,0,0,0;" styleClass="text-default" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Best Time" GridPane.halignment="CENTER">
                      <styleClass>
                         <String fx:value="text-default" />
