@@ -135,10 +135,15 @@ public class ProfilePageController implements LoadListener {
     final Image image = new Image(file.toURI().toString());
     this.profileImageView.setImage(image);
 
+    double aspectRatio = image.getWidth() / image.getHeight();
+    double realWidth =
+        Math.min(profileImageView.getFitWidth(), profileImageView.getFitHeight() * aspectRatio);
+    double realHeight =
+        Math.min(profileImageView.getFitHeight(), profileImageView.getFitWidth() / aspectRatio);
     // Add border radius to profile picture
     Rectangle clip = new Rectangle();
-    clip.setWidth(profileImageView.getFitWidth());
-    clip.setHeight(profileImageView.getFitHeight());
+    clip.setWidth(realWidth);
+    clip.setHeight(realHeight);
     clip.setArcHeight(20);
     clip.setArcWidth(20);
     profileImageView.setClip(clip);
