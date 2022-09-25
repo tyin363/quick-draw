@@ -21,13 +21,15 @@
 }
 
 .smaller-btn{
-  -fx-min-width: 90px;
+    -fx-max-width: 140px;
+  -fx-min-width: 140px;
   -fx-font-size: 10px;
   -fx-background-radius: 6px;
 }
 
 .regular-btn{
-  -fx-min-width: 120px;
+  -fx-max-width: 185px;
+  -fx-min-width: 185px;
   -fx-font-size: 18px;
   -fx-background-radius: 8px;
 }
