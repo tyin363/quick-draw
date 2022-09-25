@@ -23,12 +23,12 @@
                <children>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchToMenu" text="Main Menu">
                      <styleClass>
-                        <String fx:value="controller-btn" />
+                        <String fx:value="profile-page-btn" />
                         <String fx:value="regular-btn" />
                      </styleClass></Button>
                 <Button fx:id="switchAccountButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchAccount" text="Switch Account">
                      <styleClass>
-                        <String fx:value="controller-btn" />
+                        <String fx:value="profile-page-btn" />
                         <String fx:value="regular-btn" />
                      </styleClass></Button>
                </children>
@@ -67,8 +67,8 @@
                               <Font size="8.0" />
                            </font>
                            <styleClass>
+                              <String fx:value="profile-page-btn" />
                               <String fx:value="smaller-btn" />
-                              <String fx:value="controller-btn" />
                            </styleClass>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#onChangePicture" text="Change Picture">
@@ -76,8 +76,8 @@
                               <Font size="8.0" />
                            </font>
                            <styleClass>
+                              <String fx:value="profile-page-btn" />
                               <String fx:value="smaller-btn" />
-                              <String fx:value="controller-btn" />
                            </styleClass>
                         </Button>
                      </children>
@@ -86,7 +86,7 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#onSetUsername" text="Set Name">
                            <styleClass>
-                              <String fx:value="controller-btn" />
+                              <String fx:value="profile-page-btn" />
                               <String fx:value="regular-btn" />
                            </styleClass></Button>
                         <TextField fx:id="usernameTextField" />

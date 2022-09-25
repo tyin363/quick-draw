@@ -32,7 +32,7 @@
   -fx-background-radius: 8px;
 }
 
-.controller-btn{
+.profile-page-btn{
 	  -fx-padding: 8px 24px 8px 24px;
   -fx-background-color: -fx-primary-main;
   -fx-text-fill: white;
@@ -40,7 +40,7 @@
   -fx-font-family: SansSerif;
 }
 
-.controller-btn:hover{
+.profile-page-btn:hover{
 	  -fx-background-color: -fx-primary-dark;
 }
 .btn {
