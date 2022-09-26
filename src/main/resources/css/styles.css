@@ -41,9 +41,9 @@
 }
 
 .smaller-btn{
-  -fx-max-width: 140px !important;
-  -fx-min-width: 140px !important;
-  -fx-font-size: 10px !important;
+  -fx-max-width: 180px !important;
+  -fx-min-width: 180px !important;
+  -fx-font-size: 15px !important;
   -fx-background-radius: 6px;
   -fx-background-color: -fx-primary-main;
   
