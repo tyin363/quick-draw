@@ -52,6 +52,8 @@ public class Round {
    */
   @Override
   public String toString() {
+
+    // Formatting Round string message to include word, time taken and if it was guessed
     return "Word: "
         + this.word
         + "; Time Taken: "
