@@ -32,7 +32,7 @@
             </Label>
          </children>
       </VBox>
-      <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="600.0">
+      <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="600.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>
             <Button contentDisplay="CENTER" minWidth="44.0" mnemonicParsing="false" onAction="#onSwitchToProfile" prefHeight="44.0" prefWidth="44.0" styleClass="profile-button">
                <graphic>
@@ -54,7 +54,7 @@
             </Label>
             <Label fx:id="currentUserLabel" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="427.0" text="Current User" textFill="WHITE">
                <font>
-                  <Font name="SansSerif Bold" size="18.0" />
+                  <Font name="SansSerif Bold Italic" size="18.0" />
                </font>
             </Label>
          </children>
