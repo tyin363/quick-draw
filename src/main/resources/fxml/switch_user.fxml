@@ -22,7 +22,7 @@
             <Insets />
           </VBox.margin>
           <font>
-            <Font name="System Bold" size="36.0" />
+            <Font name="System Bold" size="48.0" />
           </font>
         </Label>
         <GridPane fx:id="userGrid" alignment="CENTER" hgap="30.0" vgap="30.0">
