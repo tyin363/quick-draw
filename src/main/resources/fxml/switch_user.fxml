@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.SwitchUserController">
    <children>
@@ -38,14 +39,14 @@
                            <children>
                               <ImageView fitHeight="220.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../../../../Downloads/Picture.png" />
+                                    <Image url="@../images/defaultUserImage.jpg" />
                                  </image>
                               </ImageView>
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="profile-content">
                            <children>
-                              <Label text="Pumbas600" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pumbas600" />
                               <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="240.0" styleClass="profile-stats">
                                  <children>
                                     <HBox />
