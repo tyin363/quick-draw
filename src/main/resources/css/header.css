@@ -1,0 +1,5 @@
+.header {
+  -fx-pref-height: 80px;
+  -fx-min-height: 80px;
+  -fx-max-height: 80px;
+}

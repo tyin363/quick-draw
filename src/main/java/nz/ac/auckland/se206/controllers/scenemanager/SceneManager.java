@@ -1,13 +1,14 @@
 package nz.ac.auckland.se206.controllers.scenemanager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -17,7 +18,9 @@ import org.slf4j.Logger;
 @Singleton
 public class SceneManager {
 
-  private final Map<View, Pair<Parent, Object>> views = new EnumMap<>(View.class);
+  public record ViewControllers(Parent parent, List<Object> controllers) {}
+
+  private final Map<View, ViewControllers> views = new EnumMap<>(View.class);
 
   private final Stage stage;
   private Scene scene;
@@ -54,9 +57,9 @@ public class SceneManager {
       this.loadView(startingView);
     }
 
-    final Pair<Parent, Object> pair = this.views.get(startingView);
-    this.invokeLoadListener(pair.getValue());
-    this.scene = new Scene(pair.getKey(), 1150, 800);
+    final ViewControllers viewControllers = this.views.get(startingView);
+    this.invokeLoadListener(viewControllers);
+    this.scene = new Scene(viewControllers.parent(), 1150, 800);
     this.stage.setScene(this.scene);
     this.stage.show();
   }
@@ -78,8 +81,12 @@ public class SceneManager {
       final Parent parent = fxmlLoader.load();
       final Object controller = fxmlLoader.getController();
 
+      // Use a mutable list so that additional controllers can be added
+      final List<Object> controllers = new ArrayList<>();
+      controllers.add(controller);
+
       // Cache the view so that we only have to load it once
-      this.views.put(view, new Pair<>(parent, controller));
+      this.views.put(view, new ViewControllers(parent, controllers));
       return true;
     } catch (final IOException e) {
       this.logger.error("There was an error loading the view " + view.getFxml(), e);
@@ -101,9 +108,22 @@ public class SceneManager {
         return;
       }
     }
-    final Pair<Parent, Object> pair = this.views.get(view);
-    this.invokeLoadListener(pair.getValue());
-    this.scene.setRoot(pair.getKey());
+    final ViewControllers viewControllers = this.views.get(view);
+    this.invokeLoadListener(viewControllers);
+    this.scene.setRoot(viewControllers.parent());
+  }
+
+  /**
+   * Manually register a controller to be used with a specific view.
+   *
+   * @param view The view to register the controller for
+   * @param controller The controller to register
+   */
+  public void registerController(final View view, final Object controller) {
+    if (!this.views.containsKey(view)) {
+      throw new IllegalArgumentException("The view " + view + " has not been loaded");
+    }
+    this.views.get(view).controllers().add(controller);
   }
 
   /**
@@ -112,9 +132,11 @@ public class SceneManager {
    *
    * @param controller The controller to try and invoke the onLoad callback for
    */
-  private void invokeLoadListener(final Object controller) {
-    if (controller instanceof LoadListener loadListener) {
-      loadListener.onLoad();
+  private void invokeLoadListener(final ViewControllers viewControllers) {
+    for (final Object controller : viewControllers.controllers()) {
+      if (controller instanceof LoadListener loadListener) {
+        loadListener.onLoad();
+      }
     }
   }
 
