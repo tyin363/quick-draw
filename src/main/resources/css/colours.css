@@ -1,58 +1,58 @@
 * {
-    -fx-highlight: #5865F2;
-    -fx-highlight-darkened: #4d5bf1;
-    -fx-text-default: #FFFFFF;
-    -fx-lightgray-100: #B9BBBE;
-    -fx-gray-25: #424549;
-    -fx-gray-50: #36393E;
-    -fx-gray-75: #282B30;
-    -fx-gray-100: #1E2124;
+  -fx-highlight: #5865F2;
+  -fx-highlight-darkened: #4d5bf1;
+  -fx-text-default: #FFFFFF;
+  -fx-lightgray-100: #B9BBBE;
+  -fx-gray-25: #424549;
+  -fx-gray-50: #36393E;
+  -fx-gray-75: #282B30;
+  -fx-gray-100: #1E2124;
 }
 
 /* Background colours */
 
 .bg-highlight {
-    -fx-background-color: -fx-highlight;
+  -fx-background-color: -fx-highlight;
 }
 
 .bg-highlight-darkened {
-    -fx-background-color: -fx-highlight-darkened;
+  -fx-background-color: -fx-highlight-darkened;
 }
 
 .bg-gray-25 {
-    -fx-background-color: -fx-gray-25;
+  -fx-background-color: -fx-gray-25;
 }
 
 .bg-gray-50 {
-    -fx-background-color: -fx-gray-50;
+  -fx-background-color: -fx-gray-50;
 }
 
 .bg-gray-75 {
-    -fx-background-color: -fx-gray-75;
+  -fx-background-color: -fx-gray-75;
 }
 
 .bg-gray-100 {
-    -fx-background-color: -fx-gray-100;
+  -fx-background-color: -fx-gray-100;
 }
 
 .bg-lightgray-100 {
-    -fx-background-color: -fx-lightgray-100;
+  -fx-background-color: -fx-lightgray-100;
 }
 
 /* Text Colours */
 
 .text-highlight {
-    -fx-text-fill: -fx-highlight;
+  -fx-text-fill: -fx-highlight;
 }
 
 .text-highlight-darkened {
-    -fx-text-fill: -fx-highlight-darkened;
+  -fx-text-fill: -fx-highlight-darkened;
 }
 
 .text-default {
-    -fx-text-fill: -fx-text-default;
+  -fx-text-fill: -fx-text-default;
 }
 
 .text-lightgray-100 {
-    -fx-text-fill: -fx-lightgray-100;
+  -fx-text-fill: -fx-lightgray-100;
 }
