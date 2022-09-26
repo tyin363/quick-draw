@@ -20,7 +20,7 @@
   <children>
     <AnchorPane styleClass="app-bar">
       <children>
-        <Label prefHeight="23.0" prefWidth="355.0" text="Quick, Draw! SE206 Edition" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Label maxHeight="70.0" prefHeight="70.0" prefWidth="355.0" text="Quick, Draw! SE206 Edition" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
           <font>
             <Font name="SansSerif Regular" size="24.0" />
           </font>
