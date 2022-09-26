@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
+<VBox prefHeight="550.0" prefWidth="750.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
   <children>
     <AnchorPane styleClass="app-bar">
       <children>
@@ -41,7 +41,7 @@
         </HBox>
       </children>
     </AnchorPane>
-    <HBox alignment="CENTER">
+    <HBox alignment="CENTER" styleClass="bg-gray-25">
       <children>
         <Pane minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
         <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="431.0" prefWidth="690.0" vgap="20.0" HBox.hgrow="ALWAYS">
@@ -55,15 +55,22 @@
             <RowConstraints minHeight="10.0" vgrow="NEVER" />
           </rowConstraints>
           <children>
-            <Label text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label styleClass="text-default" text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <font>
                 <Font name="SansSerif Regular" size="24.0" />
               </font>
             </Label>
-            <VBox fx:id="predictionVertBox" alignment="TOP_CENTER" minWidth="200.0" prefHeight="292.0" prefWidth="217.0" spacing="5.0" styleClass="prediction-container" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <VBox fx:id="predictionVertBox" alignment="TOP_CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <styleClass>
+                        <String fx:value="prediction-container" />
+                        <String fx:value="bg-lightgray-100" />
+                     </styleClass>
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding></VBox>
             <HBox alignment="CENTER" prefHeight="39.0" prefWidth="187.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
               <children>
-                <HBox alignment="CENTER" styleClass="icon-btn-row">
+                <HBox alignment="CENTER">
                   <children>
                     <Pane fx:id="eraserPane" accessibleHelp="Select the eraser" accessibleRole="BUTTON" onMouseClicked="#onSelectEraser">
                       <children>
@@ -89,23 +96,27 @@
                         <String fx:value="trashcan-icon" />
                       </styleClass>
                       <children>
-                        <Pane layoutX="8.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
+                        <Pane layoutX="9.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
                       </children>
                     </Pane>
                   </children>
+                           <styleClass>
+                              <String fx:value="icon-btn-row" />
+                              <String fx:value="bg-lightgray-100" />
+                           </styleClass>
                 </HBox>
               </children>
             </HBox>
             <Pane maxWidth="521.0" prefWidth="521.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
               <children>
-                <Canvas fx:id="canvas" height="315.0" width="483.0">
+                <Canvas fx:id="canvas" height="315.0" styleClass="bg-highlight" width="483.0">
                   <cursor>
                     <Cursor fx:constant="HAND" />
                   </cursor>
                 </Canvas>
               </children>
             </Pane>
-            <Label fx:id="mainLabel" contentDisplay="CENTER" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <font>
                 <Font name="SansSerif Regular" size="24.0" />
               </font>
@@ -114,7 +125,7 @@
               <children>
                 <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefWidth="145.0" styleClass="btn" text="Save" />
                 <Button mnemonicParsing="false" onAction="#onRestart" prefWidth="145.0" styleClass="btn" text="Play Again" />
-                <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" text="Return To Main Menu" />
+                        <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" styleClass="btn" text=" Main Menu" />
               </children>
             </HBox>
             <Pane minHeight="0.0" minWidth="0.0" />
