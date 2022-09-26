@@ -3,11 +3,13 @@ package nz.ac.auckland.se206.components;
 import java.io.File;
 import java.util.Arrays;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import nz.ac.auckland.se206.components.icons.FlameIcon;
 import nz.ac.auckland.se206.users.User;
 
 public class UserProfile extends VBox {
@@ -60,7 +62,23 @@ public class UserProfile extends VBox {
 
   private HBox renderStats(final User user) {
     final HBox container = new HBox();
-    container.setPrefHeight(20);
+    container.getStyleClass().add("profile-stats");
+
+    final String bestWinStreakValue =
+        user.getBestWinStreak() <= 0 ? "-" : Integer.toString(user.getBestWinStreak());
+
+    container.getChildren().addAll(this.renderStat(new FlameIcon(), bestWinStreakValue));
+
+    return container;
+  }
+
+  private HBox renderStat(final Node icon, final String value) {
+    final HBox container = new HBox();
+    container.setAlignment(Pos.CENTER);
+    container.setSpacing(10);
+
+    icon.setStyle("-fx-background-color: -fx-lightgray-100");
+    container.getChildren().addAll(icon, new Label(value));
 
     return container;
   }
