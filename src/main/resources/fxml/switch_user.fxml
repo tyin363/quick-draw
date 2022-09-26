@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -10,13 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.SwitchUserController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.SwitchUserController">
    <children>
-      <VBox alignment="CENTER" layoutX="58.0" prefHeight="400.0" prefWidth="485.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="58.0" prefHeight="400.0" prefWidth="485.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" prefHeight="46.0" prefWidth="236.0" text="Who's playing?">
+            <Label alignment="CENTER" prefHeight="46.0" prefWidth="300.0" styleClass="text-default" text="Who's playing?">
                <font>
-                  <Font size="30.0" />
+                  <Font name="System Bold" size="36.0" />
                </font>
                <VBox.margin>
                   <Insets />
@@ -43,4 +44,8 @@
       <URL value="@../css/colours.css" />
       <URL value="@../css/switch_user.css" />
    </stylesheets>
+   <styleClass>
+      <String fx:value="bg-gray-25" />
+      <String fx:value="root-element" />
+   </styleClass>
 </AnchorPane>

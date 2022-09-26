@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 import nz.ac.auckland.se206.components.icons.ClockIcon;
 import nz.ac.auckland.se206.components.icons.FlameIcon;
 import nz.ac.auckland.se206.users.User;
@@ -18,6 +19,11 @@ public class UserProfile extends VBox {
   public UserProfile(final User user) {
     this.getStyleClass().add("profile-card");
     this.getChildren().addAll(this.renderProfilePicture(user), this.renderContent(user));
+
+    final Rectangle clip = new Rectangle(220, 300);
+    clip.setArcHeight(24);
+    clip.setArcWidth(24);
+    this.setClip(clip);
   }
 
   private VBox renderProfilePicture(final User user) {
@@ -31,7 +37,7 @@ public class UserProfile extends VBox {
         final Image image = new Image(file.toURI().toString());
         final ImageView imageView = new ImageView(image);
         imageView.setFitHeight(220);
-        imageView.setFitWidth(240);
+        imageView.setFitWidth(220);
         imageView.setPreserveRatio(true);
 
         container.getChildren().add(imageView);

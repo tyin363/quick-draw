@@ -56,7 +56,7 @@ public class SceneManager {
 
     final Pair<Parent, Object> pair = this.views.get(startingView);
     this.invokeLoadListener(pair.getValue());
-    this.scene = new Scene(pair.getKey(), 750, 550);
+    this.scene = new Scene(pair.getKey(), 1000, 750);
     this.stage.setScene(this.scene);
     this.stage.show();
   }

@@ -3,7 +3,7 @@ Label {
 }
 
 .profile-card, .new-profile-card {
-  -fx-pref-width: 240px;
+  -fx-pref-width: 220px;
   -fx-pref-height: 300px;
 
   -fx-background-radius: 12px;
@@ -23,7 +23,7 @@ Label {
 }
 
 .profile-picture {
-  -fx-pref-width: 240px;
+  -fx-pref-width: 220px;
   -fx-pref-height: 220px;
   -fx-background-radius: 12px 12px 0 0;
   -fx-background-color: -fx-lightgray-100;
