@@ -174,4 +174,13 @@ public class Config {
   public double getBrushSize() {
     return 6;
   }
+
+  /**
+   * Retrieves the maximum number of users that can be created.
+   *
+   * @return The maximum number of users that can be created
+   */
+  public int getMaxUserCount() {
+    return 6;
+  }
 }

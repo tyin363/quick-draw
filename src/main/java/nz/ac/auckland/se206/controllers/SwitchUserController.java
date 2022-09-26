@@ -1,8 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
+import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -13,14 +12,16 @@ import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
+import nz.ac.auckland.se206.util.Config;
 
 @Singleton
 public class SwitchUserController implements LoadListener {
 
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
+  @Inject private Config config;
 
-  @FXML private GridPane users;
+  @FXML private GridPane userGrid;
   @FXML private Button newUser;
 
   /**
@@ -31,17 +32,19 @@ public class SwitchUserController implements LoadListener {
   public void onLoad() {
 
     // Clearing previous loaded user profiles
-    this.users.getChildren().clear();
+    this.userGrid.getChildren().clear();
     this.userService.setCurrentUser(null);
 
+    final List<User> users = this.userService.getUsers();
+
     int index = 0;
-    for (final User user : this.userService.getUsers()) {
+    for (final User user : users) {
       final UserProfile profile = new UserProfile(user);
 
       // Calculate the position of the user profile in the grid
       final int row = index / 3;
       final int column = index % 3;
-      this.users.add(profile, column, row);
+      this.userGrid.add(profile, column, row);
 
       // Setting current user and switching to main menu when user profile is clicked
       profile.setOnMouseClicked(
@@ -52,27 +55,21 @@ public class SwitchUserController implements LoadListener {
       index++;
     }
 
-    // Make sure that the new user button is always displayed last
-    final int row = index / 3;
-    final int column = index % 3;
-    this.users.add(this.newUser, column, row);
+    // Only render the new user button if there isn't the maximum number of users
+    if (users.size() < this.config.getMaxUserCount()) {
+      // Make sure that the new user button is always displayed last
+      final int row = index / 3;
+      final int column = index % 3;
+      this.userGrid.add(this.newUser, column, row);
+    }
   }
 
   /**
-   * Switches to the create user scene unless there are already 5 users in which case a warning
-   * message is displayed
+   * Switches to the create user scene. This can only even be invoked if there is less tha maximum
+   * allowed number of users.
    */
   @FXML
   private void onAddUser() {
-    // Sending a warning message when trying to create more than 5 users
-    if (this.userService.getUsers().size() > 4) {
-      final Alert alert = new Alert(AlertType.WARNING);
-      alert.setTitle("Warning (User Limit)");
-      alert.setContentText("You can only create up to 5 users!");
-      alert.showAndWait();
-    } else {
-
-      this.sceneManager.switchToView(View.PROFILE_PAGE);
-    }
+    this.sceneManager.switchToView(View.PROFILE_PAGE);
   }
 }
