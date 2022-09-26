@@ -54,6 +54,7 @@ public class User {
    * @param round The round to add.
    */
   public void addPastRound(final Round round) {
+    // Keep track of the past rounds they've played for the stats page
     this.pastRounds.add(round);
     if (round.wasGuessed()) {
       this.gamesWon++;
@@ -61,11 +62,14 @@ public class User {
       if (this.currentWinStreak > this.bestWinStreak) {
         this.bestWinStreak = this.currentWinStreak;
       }
+
+      // Check if this is a new fastest time or if there is not currently a fastest time
       if (round.getTimeTaken() < this.fastestTime || this.fastestTime == -1) {
         this.fastestTime = round.getTimeTaken();
       }
     } else {
       this.gamesLost++;
+      // Reset their current win streak if they lose
       this.currentWinStreak = 0;
     }
   }
@@ -200,14 +204,6 @@ public class User {
 
   @Override
   public String toString() {
-    return String.format(
-        "User{id=%s, username='%s', pastRounds='%s', profilePicture='%s', "
-            + "gamesWon=%d, gamesLost=%d}",
-        this.id,
-        this.username,
-        this.pastRounds,
-        this.profilePicture,
-        this.gamesWon,
-        this.gamesLost);
+    return String.format("User{id=%s, username='%s'}", this.id, this.username);
   }
 }

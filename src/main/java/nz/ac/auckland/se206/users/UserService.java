@@ -80,6 +80,7 @@ public class UserService implements EnableListener {
    */
   public boolean saveUser(final User user) {
     try {
+      // Overwrite the user's JSON file with the new user data
       this.objectMapper.writeValue(this.getUserFile(user), user);
       this.users.put(user.getId(), user);
       return true;
@@ -126,18 +127,22 @@ public class UserService implements EnableListener {
   @Override
   public void onEnable() {
     this.loadAllUsers();
+
+    // Printing message to show on many users were loaded and from where
     this.logger.info(
         "Loaded {} users from {}",
         this.users.size(),
         this.config.getUserDataFile().getAbsolutePath());
-    this.users.values().stream().map(User::toString).forEach(this.logger::info);
-  }
 
-  public void setCurrentUser(User user) {
-    this.currentUser = user;
+    // Printing message to show user information for all users
+    this.users.values().stream().map(User::toString).forEach(this.logger::info);
   }
 
   public User getCurrentUser() {
     return this.currentUser;
+  }
+
+  public void setCurrentUser(final User user) {
+    this.currentUser = user;
   }
 }

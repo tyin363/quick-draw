@@ -176,6 +176,7 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
    * @return An optional containing the injectable constructor if one exists.
    */
   private Optional<Constructor<?>> getInjectableConstructor(final Class<?> type) {
+    // Iterate through all constructors both public and private
     return Arrays.stream(type.getDeclaredConstructors())
         .filter(c -> c.isAnnotationPresent(Inject.class))
         .findFirst()
@@ -235,6 +236,7 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
           }
         }
       } catch (final IllegalAccessException | InaccessibleObjectException e) {
+        // Log any issues injecting fields into the instance
         this.logger.error(
             "Failed to inject field {} in type {}",
             field.getName(),
@@ -253,6 +255,7 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
         .values()
         .forEach(
             instance -> {
+              // Invoke all the TerminationListeners
               if (instance instanceof TerminationListener terminationListener) {
                 terminationListener.onTerminate();
               }
