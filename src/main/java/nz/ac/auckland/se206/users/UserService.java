@@ -127,10 +127,14 @@ public class UserService implements EnableListener {
   @Override
   public void onEnable() {
     this.loadAllUsers();
+
+    // Printing message to show on many users were loaded and from where
     this.logger.info(
         "Loaded {} users from {}",
         this.users.size(),
         this.config.getUserDataFile().getAbsolutePath());
+
+    // Printing message to show user information for all users
     this.users.values().stream().map(User::toString).forEach(this.logger::info);
   }
 

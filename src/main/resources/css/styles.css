@@ -82,7 +82,11 @@
 }
 
 .btn:hover {
-  -fx-background-color: -fx-primary-dark;
+  -fx-background-color: -fx-highlight-lightened;
+}
+
+.btn:pressed {
+  -fx-background-color: -fx-highlight-darkened;
 }
 
 .app-bar {
@@ -98,6 +102,7 @@
 .prediction-container > Label {
   -fx-font-family: SansSerif;
   -fx-font-size: 18px;
+  
 }
 
 .icon {
@@ -129,11 +134,16 @@
   -fx-pref-width: 21px !important; /* Prevent horizontal stretching of the icon */
 }
 
+
 .left-icon{
   -fx-shape: "M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z";
   -fx-background-color: -fx-lightgray-100;
   -fx-pref-height: 20px;
   -fx-pref-width: 20px;
+}
+.profile-icon > * {
+  -fx-shape: "M272 304h-96C78.8 304 0 382.8 0 480c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32C448 382.8 369.2 304 272 304zM48.99 464C56.89 400.9 110.8 352 176 352h96c65.16 0 119.1 48.95 127 112H48.99zM224 256c70.69 0 128-57.31 128-128c0-70.69-57.31-128-128-128S96 57.31 96 128C96 198.7 153.3 256 224 256zM224 48c44.11 0 80 35.89 80 80c0 44.11-35.89 80-80 80S144 172.1 144 128C144 83.89 179.9 48 224 48z";
+  -fx-background-color: white;
 }
 
 .icon-btn-row {
@@ -143,14 +153,48 @@
 }
 
 .icon-btn-row > .icon:hover {
-  -fx-background-color: -fx-primary-light;
+  -fx-background-color: -fx-highlight-lightened;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.icon-btn-row > .icon:pressed {
+  -fx-background-color: -fx-highlight-darkened;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
 }
 
 .icon-btn-selected {
   -fx-background-color: -fx-primary-main !important;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
 }
 
 .icon-btn-row > .icon:hover > Pane, .icon-btn-selected > Pane {
   -fx-background-color: white;
+}
+
+.prediction-container {
+  -fx-border-width: 1px;
+  -fx-border-radius: 20px;
+  -fx-background-radius: 20px;
+}
+
+.profile-button {
+  -fx-background-color: -fx-highlight;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.profile-button:hover {
+  -fx-background-color: -fx-highlight-lightened;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.profile-button:pressed {
+  -fx-background-color: -fx-highlight-darkened;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
 }
 
