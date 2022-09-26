@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
+import java.util.Comparator;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,6 +37,7 @@ public class SwitchUserController implements LoadListener {
     this.userService.setCurrentUser(null);
 
     final List<User> users = this.userService.getUsers();
+    users.sort(Comparator.comparing(User::getCreated));
 
     int index = 0;
     for (final User user : users) {
