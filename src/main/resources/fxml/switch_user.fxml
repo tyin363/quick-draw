@@ -46,7 +46,10 @@
                         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="profile-content">
                            <children>
                               <Label text="Pumbas600" />
-                              <HBox prefHeight="100.0" prefWidth="200.0" styleClass="profile-stats" />
+                              <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="240.0" styleClass="profile-stats">
+                                 <children>
+                                    <HBox />
+                                 </children></HBox>
                            </children>
                         </VBox>
                      </children>
