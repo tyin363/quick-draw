@@ -55,6 +55,6 @@ public class MainMenuController implements LoadListener {
   @Override
   public void onLoad() {
     this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
-    currentUserLabel.setText(userService.getCurrentUser().getUsername());
+    this.currentUserLabel.setText(this.userService.getCurrentUser().getUsername());
   }
 }

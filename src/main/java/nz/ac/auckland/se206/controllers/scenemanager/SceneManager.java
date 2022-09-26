@@ -1,10 +1,10 @@
 package nz.ac.auckland.se206.controllers.scenemanager;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 @Singleton
 public class SceneManager {
 
-  public record ViewControllers(Parent parent, List<Object> controllers) {}
+  public record ViewControllers(Parent parent, Set<Object> controllers) {}
 
   private final Map<View, ViewControllers> views = new EnumMap<>(View.class);
 
@@ -79,14 +79,14 @@ public class SceneManager {
       // Use custom controller factory to support dependency injection within the controller.
       fxmlLoader.setControllerFactory(this.applicationContext);
       final Parent parent = fxmlLoader.load();
+      if (!this.views.containsKey(view)) {
+        this.views.put(view, new ViewControllers(parent, new HashSet<>()));
+      }
+
       final Object controller = fxmlLoader.getController();
+      // Cache the view so that we only have to load it once. It's possible for a view to be
+      this.views.get(view).controllers().add(controller);
 
-      // Use a mutable list so that additional controllers can be added
-      final List<Object> controllers = new ArrayList<>();
-      controllers.add(controller);
-
-      // Cache the view so that we only have to load it once
-      this.views.put(view, new ViewControllers(parent, controllers));
       return true;
     } catch (final IOException e) {
       this.logger.error("There was an error loading the view " + view.getFxml(), e);
@@ -121,16 +121,16 @@ public class SceneManager {
    */
   public void registerController(final View view, final Object controller) {
     if (!this.views.containsKey(view)) {
-      throw new IllegalArgumentException("The view " + view + " has not been loaded");
+      this.loadView(view);
     }
     this.views.get(view).controllers().add(controller);
   }
 
   /**
-   * Checks if the Controller is an instance of {@link LoadListener} and if so invokes the {@code
-   * onLoad} callback.
+   * Checks if any of the controllers are an instance of {@link LoadListener} and if so invokes the
+   * {@code onLoad} callback.
    *
-   * @param controller The controller to try and invoke the onLoad callback for
+   * @param viewControllers The controllers to try and invoke the onLoad callback for
    */
   private void invokeLoadListener(final ViewControllers viewControllers) {
     for (final Object controller : viewControllers.controllers()) {

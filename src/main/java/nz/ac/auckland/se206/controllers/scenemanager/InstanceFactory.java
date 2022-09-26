@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,13 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
   private final Logger logger = LoggerFactory.getLogger(InstanceFactory.class);
   private final Map<Class<?>, Function<Class<?>, Object>> suppliers = new ConcurrentHashMap<>();
   private final Map<Class<?>, Object> singletons = new ConcurrentHashMap<>();
+  private final List<Consumer<Object>> postConstructionCallbacks;
+
+  public InstanceFactory() {
+    this.postConstructionCallbacks = new ArrayList<>();
+    this.postConstructionCallbacks.add(this::injectFields);
+    this.postConstructionCallbacks.add(this::invokeEnableListener);
+  }
 
   /**
    * Binds the given object as a singleton of it's class, so that any time it's class is requested,
@@ -52,9 +60,6 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
   public <T> void bind(final Class<T> type, final T instance) {
     this.singletons.put(type, instance);
   }
-
-  private final List<Consumer<Object>> postConstructionCallbacks =
-      Arrays.asList(this::injectFields, this::invokeEnableListener);
 
   /**
    * Retrieves the instance associated with this type. If this type is not a singleton, then a new
@@ -142,6 +147,15 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
       // Store the instance to prevent it being created multiple times
       this.singletons.put(type, instance);
     }
+    if (instance != null) {
+      // After successfully creating an instance, invoke any post construction
+      // callbacks that are registered on it. This will inject any fields and call the
+      // onEnable method if appropriate.
+      for (final Consumer<Object> callback : this.postConstructionCallbacks) {
+        callback.accept(instance);
+      }
+    }
+
     return instance;
   }
 
@@ -158,22 +172,16 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
     return this.getInjectableConstructor(type)
         .map(
             c -> {
+              // Get the parameters to invoke the constructor with
               final Object[] parameters = this.getConstructorParameters(c, type);
               c.setAccessible(true);
               try {
-                final Object instance = c.newInstance(parameters);
-
-                // After successfully creating an instance, invoke any post construction
-                // callbacks that are registered on it. This will inject any fields and call the
-                // onEnable method if appropriate.
-                for (final Consumer<Object> callback : this.postConstructionCallbacks) {
-                  callback.accept(instance);
-                }
-                return instance;
+                return c.newInstance(parameters);
               } catch (final InstantiationException
                   | IllegalAccessException
                   | InvocationTargetException e) {
                 this.logger.error("Failed to create instance of {}", type.getCanonicalName(), e);
+                // If there was an error of any kind, just return null
                 return null;
               }
             })
