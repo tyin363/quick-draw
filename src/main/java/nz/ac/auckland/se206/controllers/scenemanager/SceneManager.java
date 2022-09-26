@@ -35,6 +35,7 @@ public class SceneManager {
 
   public SceneManager(final Stage stage) {
     this.stage = stage;
+    this.stage.setTitle("Quick, Draw! - Team 9");
   }
 
   /**
