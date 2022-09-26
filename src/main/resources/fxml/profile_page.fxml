@@ -61,23 +61,23 @@
                      </styleClass></Label>
                   <Label fx:id="gamesWonLabel" styleClass="text-default" text="0" translateY="13.0">
                      <font>
-                        <Font size="82.0" />
+                        <Font size="120.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0" spacing="15.0">
                <children>
-                  <ImageView fx:id="profileImageView" fitHeight="158.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="profileImageView" fitHeight="211.0" fitWidth="219.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/defaultUserImage.jpg" />
                      </image>
                   </ImageView>
                   <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="43.0" />
                      </font></Label>
-                  <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="NEVER">
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                            <children>
@@ -123,17 +123,17 @@
                         <String fx:value="text-default" />
                         <String fx:value="heading" />
                      </styleClass></Label>
-                  <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="37.0">
+                  <StackPane alignment="TOP_CENTER" prefHeight="289.0" prefWidth="395.0">
                      <children>
-                        <StackPane fx:id="fireStackPane" prefHeight="150.0" prefWidth="200.0">
+                        <StackPane fx:id="fireStackPane" prefHeight="150.0" prefWidth="395.0">
                            <children>
-                              <Ellipse fill="#f0955d" radiusX="27.0" radiusY="38.0" stroke="BLACK" strokeType="INSIDE" translateY="-10.0" />
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="85.0" style="-fx-background-color: EB670F;" styleClass="fire-icon" StackPane.alignment="TOP_CENTER" />
+                              <Ellipse fill="#f0955d" radiusX="41.0" radiusY="51.0" stroke="BLACK" strokeType="INSIDE" translateY="40.0" StackPane.alignment="TOP_CENTER" />
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="129.0" style="-fx-background-color: EB670F;" styleClass="fire-icon" translateY="-8.0" StackPane.alignment="TOP_CENTER" />
                            </children>
                         </StackPane>
                         <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="56.0" styleClass="text-default" text="0" translateY="13.0">
                            <font>
-                              <Font size="82.0" />
+                              <Font size="120.0" />
                            </font>
                         </Label>
                      </children>
@@ -158,20 +158,18 @@
                       <RowConstraints maxHeight="176.0" minHeight="10.0" percentHeight="90.0" prefHeight="136.0" vgrow="NEVER" />
                     </rowConstraints>
                      <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-                           <children>
-                              <Label fx:id="fastestTimeLabel" styleClass="text-default" text="Fastest time">
-                                 <font>
-                                    <Font size="51.0" />
-                                 </font>
-                              </Label>
+                        <Label fx:id="fastestTimeLabel" contentDisplay="BOTTOM" styleClass="text-default" text="Fastest time" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <font>
+                              <Font size="66.0" />
+                           </font>
+                           <graphic>
                               <Label fx:id="secondsLabel" styleClass="text-default" text="seconds">
                                  <font>
-                                    <Font size="17.0" />
+                                    <Font size="29.0" />
                                  </font>
                               </Label>
-                           </children>
-                        </VBox>
+                           </graphic>
+                        </Label>
                         <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="129.0" prefWidth="157.0" spacing="5.0" style="-fx-padding: 15,0,0,0;" styleClass="text-default" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Best Time" GridPane.halignment="CENTER">
                            <styleClass>
@@ -193,7 +191,7 @@
                         </Label>
                         <Label fx:id="gamesLostLabel" styleClass="text-default" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <font>
-                              <Font size="82.0" />
+                              <Font size="100.0" />
                            </font>
                         </Label>
                         <Label text="Best Winstreak" GridPane.columnIndex="2" GridPane.halignment="CENTER">
@@ -204,7 +202,7 @@
                         </Label>
                         <Label fx:id="bestWinstreakLabel" styleClass="text-default" text="0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <font>
-                              <Font size="82.0" />
+                              <Font size="100.0" />
                            </font>
                         </Label>
                      </children>

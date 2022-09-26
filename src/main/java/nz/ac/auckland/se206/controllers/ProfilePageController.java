@@ -161,6 +161,7 @@ public class ProfilePageController implements LoadListener {
       pastWord.setText(round.getWord());
       // Add colour to word
       pastWord.getStyleClass().add("text-default");
+      pastWord.setStyle("-fx-font-size: 25px;");
       this.pastWordsVbox.getChildren().add(pastWord);
     }
   }
