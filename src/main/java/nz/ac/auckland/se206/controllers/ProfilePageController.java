@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -38,6 +39,7 @@ public class ProfilePageController implements LoadListener {
   @FXML private Label secondsLabel;
   @FXML private Label currentWinstreakLabel;
   @FXML private Label bestWinstreakLabel;
+  @FXML private StackPane fireStackPane;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
@@ -121,6 +123,13 @@ public class ProfilePageController implements LoadListener {
       this.userService.setCurrentUser(this.user);
     } else {
       this.user = this.userService.getCurrentUser();
+    }
+
+    // Set fire to current winstreak if 1 or above
+    if (this.user.getCurrentWinStreak() > 0) {
+      this.fireStackPane.setVisible(true);
+    } else {
+      this.fireStackPane.setVisible(false);
     }
 
     // Set labels on GUI
