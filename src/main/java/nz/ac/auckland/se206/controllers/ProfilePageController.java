@@ -2,13 +2,17 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -32,8 +36,10 @@ public class ProfilePageController implements LoadListener {
   @FXML private TextField usernameTextField;
   @FXML private HBox usernameHbox;
   @FXML private VBox pastWordsVbox;
-  @FXML private Text secondsText;
-
+  @FXML private Label secondsLabel;
+  @FXML private Label currentWinstreakLabel;
+  @FXML private Label bestWinstreakLabel;
+  @FXML private StackPane fireStackPane;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
@@ -75,6 +81,7 @@ public class ProfilePageController implements LoadListener {
         final Image image = new Image(file.toURI().toString());
         this.user.setProfilePicture(file.getAbsolutePath());
         this.profileImageView.setImage(image);
+        addBorderToImage(this.profileImageView, image, 20);
         this.userService.saveUser(this.user);
       } catch (final SecurityException e) {
         this.logger.error("Error saving image", e);
@@ -118,23 +125,33 @@ public class ProfilePageController implements LoadListener {
       this.user = this.userService.getCurrentUser();
     }
 
+    // Set fire to current winstreak if 1 or above
+    if (this.user.getCurrentWinStreak() > 0) {
+      this.fireStackPane.setVisible(true);
+    } else {
+      this.fireStackPane.setVisible(false);
+    }
+
     // Set labels on GUI
     this.usernameHbox.setVisible(false);
     this.gamesLostLabel.setText(Integer.toString(this.user.getGamesLost()));
     this.gamesWonLabel.setText(Integer.toString(this.user.getGamesWon()));
     this.usernameLabel.setText(this.user.getUsername());
+    this.currentWinstreakLabel.setText(Integer.toString(this.user.getCurrentWinStreak()));
+    this.bestWinstreakLabel.setText(Integer.toString(this.user.getBestWinStreak()));
 
     // Set profile picture
     final File file = new File(this.user.getProfilePicture());
     final Image image = new Image(file.toURI().toString());
     this.profileImageView.setImage(image);
+    addBorderToImage(this.profileImageView, image, 20);
 
     // If fastest time is -1 (hasn't played a game yet), display no time
     if (user.getFastestTime() == -1) {
-      secondsText.setVisible(false);
+      secondsLabel.setVisible(false);
       fastestTimeLabel.setText("No Time");
     } else {
-      this.secondsText.setVisible(true);
+      this.secondsLabel.setVisible(true);
       this.fastestTimeLabel.setText(Integer.toString(this.user.getFastestTime()));
     }
 
@@ -142,7 +159,42 @@ public class ProfilePageController implements LoadListener {
     for (final Round round : this.user.getPastRounds()) {
       final Label pastWord = new Label();
       pastWord.setText(round.getWord());
+      // Add colour to word
+      pastWord.getStyleClass().add("text-default");
+      pastWord.setStyle("-fx-font-size: 25px;");
       this.pastWordsVbox.getChildren().add(pastWord);
     }
+  }
+
+  /**
+   * This will make the ImageView have rounded corners. This gives a similar effect as the border
+   * radius effect on a button.
+   *
+   * @param imageView The ImageView displayed on fxml
+   * @param image The original image
+   * @param borderRadius The border radius of the image
+   */
+  private void addBorderToImage(ImageView imageView, Image image, int borderRadius) {
+    // Get height and width of image
+    double aspectRatio = image.getWidth() / image.getHeight();
+    double realWidth = Math.min(imageView.getFitWidth(), imageView.getFitHeight() * aspectRatio);
+    double realHeight = Math.min(imageView.getFitHeight(), imageView.getFitWidth() / aspectRatio);
+
+    // Clip the imageView to a rectangle with rounded borders
+    Rectangle clip = new Rectangle();
+    clip.setWidth(realWidth);
+    clip.setHeight(realHeight);
+    clip.setArcHeight(borderRadius);
+    clip.setArcWidth(borderRadius);
+    imageView.setClip(clip);
+
+    // Snapshot the clipped image and store it as the ImageView
+    SnapshotParameters parameters = new SnapshotParameters();
+    parameters.setFill(Color.TRANSPARENT);
+    WritableImage writableImage = imageView.snapshot(parameters, null);
+    imageView.setImage(writableImage);
+
+    // Remove previous clip from ImageView
+    imageView.setClip(null);
   }
 }
