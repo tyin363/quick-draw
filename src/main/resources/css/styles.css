@@ -20,11 +20,26 @@
   -fx-font-weight: bold;
 }
 
+.exit-btn{
+  -fx-padding: 8px 24px 8px 24px;
+  -fx-max-width: 60px;
+  -fx-min-width: 60px;
+  -fx-font-size: 18px;
+  -fx-background-radius: 8px;
+  -fx-background-color: transparent;
+  
+}
+
+.exit-btn:hover{
+	-fx-background-color: -fx-gray-100;
+}
 .smaller-btn{
     -fx-max-width: 140px;
   -fx-min-width: 140px;
   -fx-font-size: 10px;
   -fx-background-radius: 6px;
+  -fx-background-color: -fx-primary-main;
+  
 }
 
 .regular-btn{
@@ -32,9 +47,12 @@
   -fx-min-width: 185px;
   -fx-font-size: 18px;
   -fx-background-radius: 8px;
+  -fx-background-color: -fx-primary-main;
+  
 }
 
 .set-name-btn{
+  -fx-background-color: -fx-primary-main;
   -fx-max-width: 133px;
   -fx-min-width: 133px;
   -fx-font-size: 18px;
@@ -42,15 +60,14 @@
 }
 
 .profile-page-btn{
-	  -fx-padding: 8px 24px 8px 24px;
-  -fx-background-color: -fx-primary-main;
+  -fx-padding: 8px 24px 8px 24px;
   -fx-text-fill: white;
   -fx-font-weight: bold;
   -fx-font-family: SansSerif;
 }
 
 .profile-page-btn:hover{
-	  -fx-background-color: -fx-primary-dark;
+  -fx-background-color: -fx-primary-dark;
 }
 .btn {
   -fx-padding: 8px 24px 8px 24px;
@@ -104,6 +121,13 @@
 .trashcan-icon > * {
   -fx-shape: "M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM394.8 466.1C393.2 492.3 372.3 512 346.9 512H101.1C75.75 512 54.77 492.3 53.19 466.1L31.1 128H416L394.8 466.1z";
   -fx-pref-width: 21px !important; /* Prevent horizontal stretching of the icon */
+}
+
+.left-icon{
+  -fx-shape: "M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z";
+  -fx-background-color: white;
+  -fx-pref-height: 20px;
+  -fx-pref-width: 20px;
 }
 
 .icon-btn-row {
