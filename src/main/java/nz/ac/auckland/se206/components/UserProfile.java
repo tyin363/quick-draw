@@ -57,6 +57,7 @@ public class UserProfile extends VBox {
 
   private VBox renderContent(final User user) {
     final VBox container = new VBox();
+    container.setSpacing(10);
 
     final Label username = new Label(user.getUsername());
 
@@ -72,8 +73,7 @@ public class UserProfile extends VBox {
     container.getStyleClass().add("profile-stats");
 
     final String bestWinStreakValue = Integer.toString(user.getBestWinStreak());
-    final String fastestTimeValue =
-        user.getFastestTime() < 0 ? "-" : Integer.toString(user.getFastestTime());
+    final String fastestTimeValue = user.getFastestTime() < 0 ? "-" : user.getFastestTime() + "s";
 
     container
         .getChildren()

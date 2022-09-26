@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -20,6 +21,7 @@ public class SwitchUserController implements LoadListener {
   @Inject private UserService userService;
 
   @FXML private HBox users;
+  @FXML private Button newUser;
 
   /**
    * Loads user profiles for all the users which are stored as JSON files every time this scene is
@@ -31,6 +33,7 @@ public class SwitchUserController implements LoadListener {
     // Clearing previous loaded user profiles
     this.users.getChildren().clear();
     this.userService.setCurrentUser(null);
+
     for (final User user : this.userService.getUsers()) {
       final UserProfile profile = new UserProfile(user);
 
@@ -44,6 +47,9 @@ public class SwitchUserController implements LoadListener {
             this.sceneManager.switchToView(View.MAIN_MENU);
           });
     }
+
+    // Make sure that the new user button is always displayed last
+    this.users.getChildren().add(this.newUser);
   }
 
   /**
@@ -52,7 +58,6 @@ public class SwitchUserController implements LoadListener {
    */
   @FXML
   private void onAddUser() {
-
     // Sending a warning message when trying to create more than 5 users
     if (this.userService.getUsers().size() > 4) {
       final Alert alert = new Alert(AlertType.WARNING);

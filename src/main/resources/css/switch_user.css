@@ -1,9 +1,16 @@
-.profile-card {
+Label {
+  -fx-font-family: SansSerif;
+}
+
+.profile-card, .new-profile-card {
   -fx-pref-width: 240px;
   -fx-pref-height: 300px;
 
   -fx-background-radius: 12px;
   -fx-border-radius: 12px;
+}
+
+.profile-card {
   -fx-border-width: 2px;
   -fx-border-color: transparent;
   -fx-border-insets: -2px;
@@ -58,4 +65,27 @@
   -fx-text-fill: -fx-lightgray-100;
   -fx-font-size: 16px;
   -fx-font-weight: bold;
+}
+
+.new-profile-card {
+  -fx-background-color: -fx-highlight;
+}
+
+.new-profile-card > VBox > Label {
+  -fx-text-fill: white;
+  -fx-font-size: 25px;
+  -fx-font-weight: bold;
+}
+
+.new-profile-card:hover {
+  -fx-background-color: -fx-highlight-darkened;
+}
+
+.plus-icon {
+  -fx-shape: "M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z";
+  -fx-background-color: white;
+  -fx-pref-width: 100px;
+  -fx-max-width: 100px;
+  -fx-max-height: 100px;
+  -fx-pref-height: 100px;
 }
