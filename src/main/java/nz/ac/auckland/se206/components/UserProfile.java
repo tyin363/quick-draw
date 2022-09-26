@@ -18,12 +18,16 @@ public class UserProfile extends VBox {
 
   public UserProfile(final User user) {
     this.getStyleClass().add("profile-card");
-    this.getChildren().addAll(this.renderProfilePicture(user), this.renderContent(user));
+    final VBox clipContainer = new VBox();
 
     final Rectangle clip = new Rectangle(220, 300);
     clip.setArcHeight(24);
     clip.setArcWidth(24);
-    this.setClip(clip);
+    clipContainer.setClip(clip);
+
+    clipContainer.getChildren().addAll(this.renderProfilePicture(user), this.renderContent(user));
+
+    this.getChildren().add(clipContainer);
   }
 
   private VBox renderProfilePicture(final User user) {

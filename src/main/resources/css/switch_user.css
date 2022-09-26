@@ -44,12 +44,12 @@ Label {
   -fx-font-weight: bold;
 }
 
-.profile-card > .profile-content {
+.profile-content {
   -fx-alignment: center_left;
   -fx-padding: 8px 16px;
 }
 
-.profile-card > .profile-content > Label {
+.profile-content > Label {
   -fx-text-fill: -fx-text-default;
   -fx-font-size: 20px;
   -fx-font-weight: bold;

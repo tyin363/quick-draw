@@ -6,8 +6,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -23,7 +25,16 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <HBox fx:id="users" alignment="CENTER" spacing="20.0">
+            <GridPane fx:id="users" alignment="CENTER" hgap="30.0" vgap="30.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.0" minWidth="220.0" prefWidth="220.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="300.0" minHeight="300.0" prefHeight="300.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="300.0" minHeight="300.0" prefHeight="300.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
                   <Button fx:id="newUser" alignment="CENTER" mnemonicParsing="false" onAction="#onAddUser" styleClass="new-profile-card">
                      <graphic>
@@ -35,7 +46,8 @@
                         </VBox>
                      </graphic>
                   </Button>
-               </children></HBox>
+               </children>
+            </GridPane>
          </children>
       </VBox>
    </children>

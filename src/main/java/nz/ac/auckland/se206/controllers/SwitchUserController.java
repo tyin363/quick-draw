@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.GridPane;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.components.UserProfile;
@@ -20,7 +20,7 @@ public class SwitchUserController implements LoadListener {
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
 
-  @FXML private HBox users;
+  @FXML private GridPane users;
   @FXML private Button newUser;
 
   /**
@@ -34,11 +34,12 @@ public class SwitchUserController implements LoadListener {
     this.users.getChildren().clear();
     this.userService.setCurrentUser(null);
 
+    int index = 0;
     for (final User user : this.userService.getUsers()) {
       final UserProfile profile = new UserProfile(user);
 
       // Adding user profile to users
-      this.users.getChildren().add(profile);
+      this.users.add(profile, index % 3, index / 3);
 
       // Setting current user and switching to main menu when user profile is clicked
       profile.setOnMouseClicked(
@@ -46,10 +47,11 @@ public class SwitchUserController implements LoadListener {
             this.userService.setCurrentUser(user);
             this.sceneManager.switchToView(View.MAIN_MENU);
           });
+      index++;
     }
 
     // Make sure that the new user button is always displayed last
-    this.users.getChildren().add(this.newUser);
+    this.users.add(this.newUser, index % 3, index / 3);
   }
 
   /**

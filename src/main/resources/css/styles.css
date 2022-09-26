@@ -8,8 +8,8 @@
 }
 
 .root-element {
-  -fx-pref-width: 1000px;
-  -fx-pref-height: 750px;
+  -fx-pref-width: 1250px;
+  -fx-pref-height: 1000px;
 }
 
 .card {
