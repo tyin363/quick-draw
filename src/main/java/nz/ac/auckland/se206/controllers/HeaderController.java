@@ -40,6 +40,7 @@ public class HeaderController implements LoadListener {
     // The first and second parameters are the x and y positions respectively
     final Circle circle = new Circle(radius, radius, radius);
     this.profilePicture.setClip(circle);
+    this.userService.addUserSavedListener(this::renderUserProfile);
   }
 
   /**
@@ -54,14 +55,15 @@ public class HeaderController implements LoadListener {
     }
 
     this.currentUser = this.userService.getCurrentUser();
-    if (this.currentUser == null) {
-      return;
-    }
+    this.renderUserProfile(this.currentUser);
+  }
 
+  /** Update the profile picture and username to match the specified user. */
+  private void renderUserProfile(final User user) {
     // Set the current user's information
-    this.username.setText(this.currentUser.getUsername());
+    this.username.setText(user.getUsername());
     this.profilePicture.setVisible(true);
-    final File file = new File(this.currentUser.getProfilePicture());
+    final File file = new File(user.getProfilePicture());
 
     // Check that the profile picture exists
     if (file.exists()) {

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
@@ -18,6 +19,7 @@ import org.slf4j.Logger;
 public class UserService implements EnableListener {
 
   private final Map<UUID, User> users = new ConcurrentHashMap<>();
+  private final List<Consumer<User>> userSavedListeners = new ArrayList<>();
   private User currentUser;
 
   @Inject private Logger logger;
@@ -83,6 +85,7 @@ public class UserService implements EnableListener {
       // Overwrite the user's JSON file with the new user data
       this.objectMapper.writeValue(this.getUserFile(user), user);
       this.users.put(user.getId(), user);
+      this.userSavedListeners.forEach(listener -> listener.accept(user));
       return true;
     } catch (final IOException e) {
       this.logger.error("Failed to save user", e);
@@ -121,6 +124,15 @@ public class UserService implements EnableListener {
     if (!this.getUserFile(user).delete()) {
       this.logger.error("Failed to delete user file: " + this.getUserFile(user).getAbsolutePath());
     }
+  }
+
+  /**
+   * Adds a listener that will be called when a user is saved.
+   *
+   * @param listener The listener to add
+   */
+  public void addUserSavedListener(final Consumer<User> listener) {
+    this.userSavedListeners.add(listener);
   }
 
   /** When this instance is first created load all the users from the user data directory. */
