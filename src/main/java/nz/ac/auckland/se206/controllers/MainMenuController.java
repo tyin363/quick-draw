@@ -8,6 +8,7 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.users.UserService;
 
 @Singleton
 public class MainMenuController implements LoadListener {
@@ -22,7 +23,9 @@ public class MainMenuController implements LoadListener {
   };
 
   @FXML private Label messageLabel;
+  @FXML private Label currentUserLabel;
   @Inject private SceneManager sceneManager;
+  @Inject private UserService userService;
 
   /**
    * Switch to the confirmation screen, where the user will have time to think about the word before
@@ -45,9 +48,13 @@ public class MainMenuController implements LoadListener {
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
 
-  /** Everytime this scene is switched to select a new random message. */
+  /**
+   * Everytime this scene is switched to select a new random message and displayed user name is set
+   * to current user's name
+   */
   @Override
   public void onLoad() {
     this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
+    currentUserLabel.setText(userService.getCurrentUser().getUsername());
   }
 }
