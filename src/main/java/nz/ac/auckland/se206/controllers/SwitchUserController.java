@@ -38,8 +38,10 @@ public class SwitchUserController implements LoadListener {
     for (final User user : this.userService.getUsers()) {
       final UserProfile profile = new UserProfile(user);
 
-      // Adding user profile to users
-      this.users.add(profile, index % 3, index / 3);
+      // Calculate the position of the user profile in the grid
+      final int row = index / 3;
+      final int column = index % 3;
+      this.users.add(profile, column, row);
 
       // Setting current user and switching to main menu when user profile is clicked
       profile.setOnMouseClicked(
@@ -51,7 +53,9 @@ public class SwitchUserController implements LoadListener {
     }
 
     // Make sure that the new user button is always displayed last
-    this.users.add(this.newUser, index % 3, index / 3);
+    final int row = index / 3;
+    final int column = index % 3;
+    this.users.add(this.newUser, column, row);
   }
 
   /**
