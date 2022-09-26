@@ -5,11 +5,13 @@
   -fx-primary-dark: #003c8f;
   -fx-dropshadow: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 3, 0.3, 0, 2);
   -fx-font-family: SansSerif;
+  -fx-screen-width: 1150px;
+  -fx-screen-height: 800px;
 }
 
 .root-element {
-  -fx-pref-width: 1150px;
-  -fx-pref-height: 800px;
+  -fx-pref-width: -fx-screen-width;
+  -fx-pref-height: -fx-screen-height;
 }
 
 .card {
@@ -53,7 +55,7 @@
 .prediction-container > Label {
   -fx-font-family: SansSerif;
   -fx-font-size: 18px;
-  
+
 }
 
 .icon {
