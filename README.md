@@ -219,3 +219,7 @@ Unix/MacOsX:
 
 Windows:  
 `.\mvnw.cmd git-code-format:format-code `
+
+## Attributions
+External resources used:
+
