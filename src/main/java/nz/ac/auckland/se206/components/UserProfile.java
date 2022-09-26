@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import nz.ac.auckland.se206.components.icons.ClockIcon;
 import nz.ac.auckland.se206.components.icons.FlameIcon;
 import nz.ac.auckland.se206.users.User;
 
@@ -62,12 +63,18 @@ public class UserProfile extends VBox {
 
   private HBox renderStats(final User user) {
     final HBox container = new HBox();
+    container.setSpacing(20);
     container.getStyleClass().add("profile-stats");
 
-    final String bestWinStreakValue =
-        user.getBestWinStreak() <= 0 ? "-" : Integer.toString(user.getBestWinStreak());
+    final String bestWinStreakValue = Integer.toString(user.getBestWinStreak());
+    final String fastestTimeValue =
+        user.getFastestTime() < 0 ? "-" : Integer.toString(user.getFastestTime());
 
-    container.getChildren().addAll(this.renderStat(new FlameIcon(), bestWinStreakValue));
+    container
+        .getChildren()
+        .addAll(
+            this.renderStat(new FlameIcon(), bestWinStreakValue),
+            this.renderStat(new ClockIcon(), fastestTimeValue));
 
     return container;
   }
