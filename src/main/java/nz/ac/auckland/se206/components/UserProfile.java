@@ -1,11 +1,11 @@
 package nz.ac.auckland.se206.components;
 
+import java.io.File;
 import java.util.Arrays;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.users.User;
@@ -14,25 +14,26 @@ public class UserProfile extends VBox {
 
   public UserProfile(final User user) {
     this.getStyleClass().add("profile-card");
-    this.getChildren().addAll(this.renderProfilePicture(user), this.renderStats(user));
+    this.getChildren().addAll(this.renderProfilePicture(user), this.renderContent(user));
   }
 
   private VBox renderProfilePicture(final User user) {
     final VBox container = new VBox();
+    container.getStyleClass().add("profile-picture");
     container.setAlignment(Pos.CENTER);
 
     if (user.getProfilePicture() != null) {
-      final BackgroundImage image =
-          new BackgroundImage(new Image(user.getProfilePicture()), null, null, null, null);
-      final Background background = new Background(image);
+      final Image image = new Image(new File(user.getProfilePicture()).toURI().toString());
+      final ImageView imageView = new ImageView(image);
+      imageView.setFitHeight(220);
+      imageView.setFitWidth(240);
+      imageView.setPreserveRatio(true);
 
-      container.setBackground(background);
-      container.getStyleClass().add("profile-picture");
+      container.getChildren().add(imageView);
     } else {
       final Label abbreviatedUsername = new Label(this.getAbbreviatedUsername(user.getUsername()));
 
       container.getChildren().add(abbreviatedUsername);
-      container.getStyleClass().add("no-image");
     }
 
     return container;
@@ -59,6 +60,7 @@ public class UserProfile extends VBox {
 
   private HBox renderStats(final User user) {
     final HBox container = new HBox();
+    container.setPrefHeight(20);
 
     return container;
   }

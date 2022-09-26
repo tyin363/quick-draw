@@ -3,21 +3,35 @@
   -fx-pref-height: 300px;
 
   -fx-background-radius: 12px;
+  -fx-border-radius: 12px;
+  -fx-border-width: 2px;
+  -fx-border-color: transparent;
+  -fx-border-insets: -2px;
   -fx-background-color: -fx-gray-50;
 }
 
-.profile-card > VBox {
-  -fx-pref-width: 240px;
-  -fx-pref-height: 220px;
-  -fx-background-radius: 12px 12px 0 0;
+.profile-card:hover {
+  -fx-border-color: -fx-highlight;
+  -fx-border-width: 2px;
 }
 
 .profile-picture {
-  -fx-background-size: cover;
+  -fx-pref-width: 240px;
+  -fx-pref-height: 220px;
+  -fx-background-radius: 12px 12px 0 0;
+  -fx-background-color: -fx-lightgray-100;
 }
 
-.profile-card > .no-image > Label {
-  -fx-background-color: -fx-lightgray-100;
+.profile-picture > ImageView {
+  -fx-background-radius: 12px 12px 0 0;
+}
+
+.round-top {
+  -fx-border-radius: 12px 12px 0 0;
+  -fx-background-radius: 12px 12px 0 0;
+}
+
+.profile-picture > Label {
   -fx-text-fill: -fx-gray-100;
   -fx-font-size: 40px;
   -fx-font-weight: bold;
@@ -25,7 +39,7 @@
 
 .profile-card > .profile-content {
   -fx-alignment: center_left;
-  -fx-padding: 16px 8px;
+  -fx-padding: 8px 16px;
 }
 
 .profile-card > .profile-content > Label {

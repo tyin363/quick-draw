@@ -2,20 +2,17 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.SwitchUserController">
    <children>
-      <VBox alignment="CENTER" layoutX="58.0" prefHeight="400.0" prefWidth="485.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="58.0" prefHeight="400.0" prefWidth="485.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" prefHeight="46.0" prefWidth="236.0" text="Who's playing?">
                <font>
@@ -25,19 +22,13 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <HBox prefHeight="22.0" prefWidth="400.0">
-               <children>
-                  <Button fx:id="onAddUser" mnemonicParsing="false" onAction="#onAddUser" prefHeight="26.0" prefWidth="150.0" text="Add User" />
-                  <TextField fx:id="searchUserText" prefHeight="26.0" prefWidth="383.0" promptText="Search User" />
-               </children>
-            </HBox>
-            <HBox fx:id="users">
+            <HBox fx:id="users" spacing="20.0">
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="profile-card">
                      <children>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="profile-picture">
                            <children>
-                              <ImageView fitHeight="220.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="220.0" fitWidth="240.0" pickOnBounds="true" styleClass="round-top">
                                  <image>
                                     <Image url="@../images/defaultUserImage.jpg" />
                                  </image>
@@ -46,12 +37,17 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" styleClass="profile-content">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pumbas600" />
+                              <Label text="Pumbas600" />
                               <HBox maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="240.0" styleClass="profile-stats">
                                  <children>
                                     <HBox />
-                                 </children></HBox>
+                                 </children>
+                              </HBox>
+                              <HBox />
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </VBox>
                      </children>
                   </VBox>
