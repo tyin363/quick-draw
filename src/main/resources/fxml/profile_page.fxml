@@ -72,6 +72,15 @@
                         <String fx:value="smaller-btn" />
                       </styleClass>
                     </Button>
+                              <Button mnemonicParsing="false" onAction="#onDeleteUser" text="Delete User">
+                                 <font>
+                                    <Font size="8.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="btn" />
+                                    <String fx:value="smaller-btn" />
+                                 </styleClass>
+                              </Button>
                   </children>
                 </HBox>
                 <HBox fx:id="usernameHbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">

@@ -61,15 +61,10 @@ public class ProfilePageController implements LoadListener {
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
-  /** Switch to Main menu so user can choose what to do from there */
+  /** Delete the current user and then take them back to the switch user view. */
   @FXML
-  private void onSwitchToMenu() {
-    this.sceneManager.switchToView(View.MAIN_MENU);
-  }
-
-  /** Switch to switch user page so user can change their accounts or add a new one */
-  @FXML
-  private void onSwitchAccount() {
+  private void onDeleteUser() {
+    this.userService.deleteUser(this.user);
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
 
