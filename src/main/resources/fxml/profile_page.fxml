@@ -14,7 +14,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" spacing="10.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
@@ -116,11 +118,21 @@
                         <String fx:value="text-default" />
                         <String fx:value="heading" />
                      </styleClass></Label>
-                  <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" styleClass="text-default" text="0">
-                     <font>
-                        <Font size="82.0" />
-                     </font>
-                  </Label>
+                  <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="37.0">
+                     <children>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Ellipse fill="#f0955d" radiusX="27.0" radiusY="38.0" stroke="BLACK" strokeType="INSIDE" translateY="-10.0" />
+                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="85.0" style="-fx-background-color: EB670F;" styleClass="fire-icon" StackPane.alignment="TOP_CENTER" />
+                           </children>
+                        </StackPane>
+                        <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="56.0" styleClass="text-default" text="0">
+                           <font>
+                              <Font size="82.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
                </children>
             </VBox>
          </children>
