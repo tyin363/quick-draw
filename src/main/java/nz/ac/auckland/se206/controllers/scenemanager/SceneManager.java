@@ -169,4 +169,13 @@ public class SceneManager {
   public Stage getStage() {
     return this.stage;
   }
+
+  /**
+   * Get the previous view.
+   *
+   * @return The previous view
+   */
+  public View getPreviousView() {
+    return this.previousView;
+  }
 }

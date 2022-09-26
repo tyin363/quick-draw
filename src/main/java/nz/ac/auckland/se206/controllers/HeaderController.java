@@ -85,11 +85,4 @@ public class HeaderController implements LoadListener {
   private void onSwitchUser() {
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
-
-  /** When the user clicks the back button, take them to the previous view. */
-  @FXML
-  private void onSwitchToPrevious() {
-    System.out.println("Switching to previous view");
-    this.sceneManager.switchToPreviousView();
-  }
 }

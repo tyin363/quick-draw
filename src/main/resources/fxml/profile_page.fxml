@@ -20,7 +20,7 @@
 
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0" spacing="20.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
   <children>
-    <fx:include source="header.fxml" />
+    <fx:include fx:id="header" source="header.fxml" />
     <HBox alignment="CENTER" prefHeight="306.0" prefWidth="1150.0">
       <children>
         <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0" spacing="40.0" HBox.hgrow="ALWAYS">
@@ -94,17 +94,17 @@
             </Label>
             <StackPane alignment="TOP_CENTER" prefHeight="289.0" prefWidth="395.0">
               <children>
-                <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="56.0" styleClass="text-default" text="0" translateY="13.0">
-                  <font>
-                    <Font size="120.0" />
-                  </font>
-                </Label>
                 <StackPane fx:id="fireStackPane" prefHeight="150.0" prefWidth="395.0">
                   <children>
                     <Ellipse fill="#f0955d" radiusX="41.0" radiusY="51.0" stroke="BLACK" strokeType="INSIDE" translateY="40.0" StackPane.alignment="TOP_CENTER" />
                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="129.0" style="-fx-background-color: EB670F;" styleClass="fire-icon" translateY="-8.0" StackPane.alignment="TOP_CENTER" />
                   </children>
                 </StackPane>
+                <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="56.0" styleClass="text-default" text="0" translateY="13.0">
+                  <font>
+                    <Font size="120.0" />
+                  </font>
+                </Label>
               </children>
             </StackPane>
           </children>
