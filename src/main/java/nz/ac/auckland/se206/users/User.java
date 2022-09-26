@@ -2,12 +2,14 @@ package nz.ac.auckland.se206.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 public class User {
 
   private final UUID id;
+  private final Date created;
   private final List<Round> pastRounds;
   private String username;
   private String profilePicture;
@@ -29,6 +31,7 @@ public class User {
    */
   public User(final String username) {
     this.id = UUID.randomUUID();
+    this.created = new Date();
     this.username = username;
     this.profilePicture = "src/main/resources/images/defaultUserImage.jpg";
     this.pastRounds = new ArrayList<>();
@@ -81,6 +84,15 @@ public class User {
    */
   public UUID getId() {
     return this.id;
+  }
+
+  /**
+   * Retrieves the date that this user was created.
+   *
+   * @return The date that this user was created.
+   */
+  public Date getCreated() {
+    return this.created;
   }
 
   /**
