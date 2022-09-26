@@ -14,6 +14,7 @@ public class Helpers {
    * @return The back button reference
    */
   public static Button getBackButton(final AnchorPane header) {
+    // The ordering is: header -> h-box -> anchor pane -> h-box -> back button
     HBox hbox = (HBox) header.getChildren().get(0);
     final AnchorPane anchorPane = (AnchorPane) hbox.getChildren().get(0);
     hbox = (HBox) anchorPane.getChildren().get(0);

@@ -135,7 +135,7 @@ public class ProfilePageController implements LoadListener {
       this.user = this.userService.getCurrentUser();
     }
 
-    // Set fire to current winstreak if 1 or above
+    // Set fire to current win streak if 1 or above
     this.fireStackPane.setVisible(this.user.getCurrentWinStreak() > 0);
 
     // Set labels on GUI

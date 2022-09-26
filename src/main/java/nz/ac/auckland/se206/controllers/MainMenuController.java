@@ -55,6 +55,7 @@ public class MainMenuController implements LoadListener {
    */
   private void onSwitchBack() {
     final View previousView = this.sceneManager.getPreviousView();
+    // Only switch back to the profile page if they were just on it
     if (previousView == View.PROFILE_PAGE) {
       this.sceneManager.switchToView(View.PROFILE_PAGE);
     } else {

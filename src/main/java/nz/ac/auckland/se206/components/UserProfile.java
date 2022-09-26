@@ -110,6 +110,7 @@ public class UserProfile extends VBox {
    */
   private VBox renderContent(final User user) {
     final VBox container = new VBox();
+    // Add the class to automatically apply the styling
     container.getStyleClass().add("profile-content");
     container.setSpacing(10);
 
@@ -157,6 +158,7 @@ public class UserProfile extends VBox {
     container.setAlignment(Pos.CENTER);
     container.setSpacing(10);
 
+    // It's easier to use the css style so that we can use the global colours
     icon.setStyle("-fx-background-color: -fx-lightgray-100");
     container.getChildren().addAll(icon, new Label(value));
 
