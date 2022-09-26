@@ -27,6 +27,8 @@ public class SceneManager {
   private final List<Object> controllers = new LinkedList<>();
   private final Stage stage;
   private Scene scene;
+  private View previousView;
+  private View currentView;
 
   @Inject private Logger logger;
   @Inject private ApplicationContext applicationContext;
@@ -60,6 +62,7 @@ public class SceneManager {
       this.loadView(startingView);
     }
 
+    this.currentView = startingView;
     final ViewControllers viewControllers = this.views.get(startingView);
     this.invokeLoadListener(viewControllers);
     this.scene = new Scene(viewControllers.parent(), 1150, 800);
@@ -113,6 +116,11 @@ public class SceneManager {
         return;
       }
     }
+
+    // Keep track of the current and previous view, so we can switch back to it
+    this.previousView = this.currentView;
+    this.currentView = view;
+
     final ViewControllers viewControllers = this.views.get(view);
     this.invokeLoadListener(viewControllers);
     this.scene.setRoot(viewControllers.parent());
@@ -139,6 +147,18 @@ public class SceneManager {
         loadListener.onLoad();
       }
     }
+  }
+
+  /**
+   * Switches the scene back to the previous view. If there is no previous view then it will do
+   * nothing.
+   */
+  public void switchToPreviousView() {
+    if (this.previousView == null) {
+      return;
+    }
+
+    this.switchToView(this.previousView);
   }
 
   /**
