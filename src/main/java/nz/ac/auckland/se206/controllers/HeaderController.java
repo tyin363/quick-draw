@@ -30,7 +30,9 @@ public class HeaderController implements LoadListener {
 
   @FXML
   private void initialize() {
-    final Circle circle = new Circle(this.profilePicture.getFitWidth() / 2);
+    final double radius = this.profilePicture.getFitWidth() / 2;
+    // The first and second parameters are the x and y positions respectively
+    final Circle circle = new Circle(radius, radius, radius);
     this.profilePicture.setClip(circle);
   }
 
