@@ -26,20 +26,25 @@ public class UserProfile extends VBox {
     container.setAlignment(Pos.CENTER);
 
     if (user.getProfilePicture() != null) {
-      final Image image = new Image(new File(user.getProfilePicture()).toURI().toString());
-      final ImageView imageView = new ImageView(image);
-      imageView.setFitHeight(220);
-      imageView.setFitWidth(240);
-      imageView.setPreserveRatio(true);
+      final File file = new File(user.getProfilePicture());
+      if (file.exists()) {
+        final Image image = new Image(file.toURI().toString());
+        final ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(220);
+        imageView.setFitWidth(240);
+        imageView.setPreserveRatio(true);
 
-      container.getChildren().add(imageView);
-    } else {
-      final Label abbreviatedUsername = new Label(this.getAbbreviatedUsername(user.getUsername()));
-
-      container.getChildren().add(abbreviatedUsername);
+        container.getChildren().add(imageView);
+        return container;
+      }
     }
 
+    container.getChildren().add(this.renderNoPicture(user.getUsername()));
     return container;
+  }
+
+  private Label renderNoPicture(final String username) {
+    return new Label(this.getAbbreviatedUsername(username));
   }
 
   private String getAbbreviatedUsername(final String username) {
