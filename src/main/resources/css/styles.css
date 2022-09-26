@@ -22,7 +22,7 @@
 }
 
 .heading {
-	 -fx-font-size: 25px;
+  -fx-font-size: 25px;
   -fx-font-weight: bold;
 }
 
@@ -39,10 +39,11 @@
 .exit-btn:hover{
 	-fx-background-color: -fx-gray-75;
 }
+
 .smaller-btn{
-    -fx-max-width: 140px;
-  -fx-min-width: 140px;
-  -fx-font-size: 10px;
+  -fx-max-width: 140px !important;
+  -fx-min-width: 140px !important;
+  -fx-font-size: 10px !important;
   -fx-background-radius: 6px;
   -fx-background-color: -fx-primary-main;
   
@@ -55,25 +56,6 @@
   -fx-background-radius: 8px;
   -fx-background-color: -fx-primary-main;
   
-}
-
-.set-name-btn{
-  -fx-background-color: -fx-primary-main;
-  -fx-max-width: 133px;
-  -fx-min-width: 133px;
-  -fx-font-size: 18px;
-  -fx-background-radius: 8px;
-}
-
-.profile-page-btn{
-  -fx-padding: 8px 24px 8px 24px;
-  -fx-text-fill: white;
-  -fx-font-weight: bold;
-  -fx-font-family: SansSerif;
-}
-
-.profile-page-btn:hover{
-  -fx-background-color: -fx-primary-dark;
 }
 
 .btn {
