@@ -23,7 +23,7 @@ public class UserProfile extends VBox {
    * @param user The user to create a profile for.
    */
   public UserProfile(final User user) {
-    this.getStyleClass().add("profile-card");
+    this.getStyleClass().addAll("profile-card", "hover-border");
 
     // Have the clip on a child so that you can still have the border highlight on hover.
     final VBox clipContainer = new VBox();

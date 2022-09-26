@@ -11,15 +11,7 @@ Label {
 }
 
 .profile-card {
-  -fx-border-width: 2px;
-  -fx-border-color: transparent;
-  -fx-border-insets: -2px;
   -fx-background-color: -fx-gray-50;
-}
-
-.profile-card:hover {
-  -fx-border-color: -fx-highlight;
-  -fx-border-width: 2px;
 }
 
 .profile-picture {
