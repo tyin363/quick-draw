@@ -3,6 +3,8 @@ package nz.ac.auckland.se206.controllers.scenemanager;
 import java.io.IOException;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +24,7 @@ public class SceneManager {
 
   private final Map<View, ViewControllers> views = new EnumMap<>(View.class);
 
+  private final List<Object> controllers = new LinkedList<>();
   private final Stage stage;
   private Scene scene;
 
@@ -79,13 +82,15 @@ public class SceneManager {
       // Use custom controller factory to support dependency injection within the controller.
       fxmlLoader.setControllerFactory(this.applicationContext);
       final Parent parent = fxmlLoader.load();
-      if (!this.views.containsKey(view)) {
-        this.views.put(view, new ViewControllers(parent, new HashSet<>()));
-      }
+      this.views.put(view, new ViewControllers(parent, new HashSet<>()));
 
       final Object controller = fxmlLoader.getController();
-      // Cache the view so that we only have to load it once. It's possible for a view to be
+      // Cache the view so that we only have to load it once.
       this.views.get(view).controllers().add(controller);
+
+      // Add any additional controllers that were created while loading this view
+      this.views.get(view).controllers().addAll(this.controllers);
+      this.controllers.clear();
 
       return true;
     } catch (final IOException e) {
@@ -114,16 +119,12 @@ public class SceneManager {
   }
 
   /**
-   * Manually register a controller to be used with a specific view.
+   * Manually register a controller to be added to the currently loading view.
    *
-   * @param view The view to register the controller for
    * @param controller The controller to register
    */
-  public void registerController(final View view, final Object controller) {
-    if (!this.views.containsKey(view)) {
-      this.loadView(view);
-    }
-    this.views.get(view).controllers().add(controller);
+  public void registerController(final Object controller) {
+    this.controllers.add(controller);
   }
 
   /**

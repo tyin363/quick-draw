@@ -28,6 +28,16 @@ public class MainMenuController implements LoadListener {
   @Inject private UserService userService;
 
   /**
+   * Everytime this scene is switched to select a new random message and displayed username is set
+   * to current user's name
+   */
+  @Override
+  public void onLoad() {
+    this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
+    this.currentUserLabel.setText(this.userService.getCurrentUser().getUsername());
+  }
+
+  /**
    * Switch to the confirmation screen, where the user will have time to think about the word before
    * the timer starts.
    */
@@ -46,15 +56,5 @@ public class MainMenuController implements LoadListener {
   @FXML
   private void onSwitchAccount() {
     this.sceneManager.switchToView(View.SWITCH_USER);
-  }
-
-  /**
-   * Everytime this scene is switched to select a new random message and displayed user name is set
-   * to current user's name
-   */
-  @Override
-  public void onLoad() {
-    this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
-    this.currentUserLabel.setText(this.userService.getCurrentUser().getUsername());
   }
 }

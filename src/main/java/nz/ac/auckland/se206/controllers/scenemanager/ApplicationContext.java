@@ -36,18 +36,15 @@ public class ApplicationContext extends InstanceFactory {
   }
 
   /**
-   * Checks if the instance has the {@link Controller} annotation and if it does, registers it with
-   * all the views in the annotations.
+   * Checks if the instance has the {@link Controller} annotation and if it does, registers it to
+   * the scene manager.
    *
    * @param sceneManager The scene manager to register the controllers with
    * @param instance The instance to check if it needs to be rendered
    */
   private static void registerControllers(final SceneManager sceneManager, final Object instance) {
     if (instance.getClass().isAnnotationPresent(Controller.class)) {
-      final Controller annotation = instance.getClass().getAnnotation(Controller.class);
-      for (final View view : annotation.value()) {
-        sceneManager.registerController(view, instance);
-      }
+      sceneManager.registerController(instance);
     }
   }
 
