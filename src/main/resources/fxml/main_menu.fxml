@@ -6,62 +6,42 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.MainMenuController">
-   <children>
-      <VBox alignment="CENTER" layoutX="-2.0" layoutY="38.0" maxWidth="1.7976931348623157E308" prefHeight="362.0" prefWidth="600.0" spacing="40.0" styleClass="bg-gray-25" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="38.0">
+<VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.MainMenuController">
+  <children>
+    <fx:include fx:id="header" maxHeight="80.0" minHeight="80.0" minWidth="80.0" source="header.fxml" />
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="38.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label alignment="CENTER" prefHeight="58.0" prefWidth="400.0" text="Quick, Draw! SE206 Edition">
-               <font>
-                  <Font name="SansSerif Bold" size="24.0" />
-               </font>
-               <styleClass>
+          <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="440.0" prefWidth="1150.0" spacing="40.0" HBox.hgrow="ALWAYS">
+            <children>
+              <Label alignment="CENTER" prefHeight="58.0" prefWidth="566.0" text="Quick, Draw! SE206 Edition">
+                <font>
+                  <Font name="SansSerif Bold" size="36.0" />
+                </font>
+                <styleClass>
                   <String fx:value="text-highlight" />
                   <String fx:value="text-default" />
-               </styleClass>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#onStartGame" prefHeight="37.0" prefWidth="169.0" styleClass="btn" text="Start Game" />
-            <Button mnemonicParsing="false" onAction="#onSwitchAccount" styleClass="btn" text="Switch Account" />
-            <Label fx:id="messageLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="296.0" styleClass="text-default" text="Some message goes here" wrapText="true">
-               <font>
+                </styleClass>
+              </Label>
+              <Button mnemonicParsing="false" onAction="#onStartGame" prefHeight="37.0" prefWidth="169.0" styleClass="btn" text="Start Game" />
+              <Label fx:id="messageLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="116.0" prefWidth="296.0" styleClass="text-default" text="Some message goes here" wrapText="true">
+                <font>
                   <Font name="SansSerif Italic" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <HBox maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="600.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <children>
-            <Button contentDisplay="CENTER" minWidth="44.0" mnemonicParsing="false" onAction="#onSwitchToProfile" prefHeight="44.0" prefWidth="44.0" styleClass="profile-button">
-               <graphic>
-                  <Pane prefHeight="43.0" prefWidth="39.0">
-                     <children>
-                        <Pane layoutX="1.0" layoutY="3.0" prefHeight="200.0" prefWidth="38.0" />
-                     </children>
-                     <styleClass>
-                        <String fx:value="icon" />
-                        <String fx:value="profile-icon" />
-                     </styleClass>
-                  </Pane>
-               </graphic>
-            </Button>
-            <Label fx:id="currentUserLabel" alignment="CENTER" prefHeight="38.0" prefWidth="138.0" styleClass="text-default" text="Logged in as:">
-               <font>
-                  <Font name="SansSerif Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="currentUserLabel" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="427.0" text="Current User" textFill="WHITE">
-               <font>
-                  <Font name="SansSerif Bold Italic" size="18.0" />
-               </font>
-            </Label>
+                </font>
+              </Label>
+            </children>
+          </VBox>
          </children>
       </HBox>
-   </children>
-   <stylesheets>
-      <URL value="@../css/styles.css" />
-      <URL value="@../css/colours.css" />
-   </stylesheets>
-</AnchorPane>
+  </children>
+  <stylesheets>
+    <URL value="@../css/styles.css" />
+    <URL value="@../css/colours.css" />
+  </stylesheets>
+   <styleClass>
+      <String fx:value="bg-gray-25" />
+      <String fx:value="root-element" />
+   </styleClass>
+</VBox>

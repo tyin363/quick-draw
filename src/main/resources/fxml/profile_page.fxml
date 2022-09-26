@@ -2,7 +2,6 @@
 
 <?import java.lang.String?>
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -19,191 +18,180 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0" spacing="10.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
-   <children>
-      <AnchorPane minHeight="50.0" prefHeight="46.0" prefWidth="1150.0" styleClass="bg-gray-50">
-         <children>
-            <GridPane alignment="CENTER" prefHeight="45.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0" spacing="20.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
+  <children>
+    <fx:include fx:id="header" source="header.fxml" />
+    <HBox alignment="CENTER" prefHeight="306.0" prefWidth="1150.0">
+      <children>
+        <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0" spacing="40.0" HBox.hgrow="ALWAYS">
+          <children>
+            <Label text="Games Won">
+              <styleClass>
+                <String fx:value="text-default" />
+                <String fx:value="heading" />
+              </styleClass>
+            </Label>
+            <Label fx:id="gamesWonLabel" styleClass="text-default" text="0" translateY="13.0">
+              <font>
+                <Font size="120.0" />
+              </font>
+            </Label>
+          </children>
+        </VBox>
+        <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0" spacing="15.0">
+          <children>
+            <ImageView fx:id="profileImageView" fitHeight="211.0" fitWidth="219.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../images/defaultUserImage.jpg" />
+              </image>
+            </ImageView>
+            <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
+              <font>
+                <Font size="43.0" />
+              </font>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
+              <children>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                    <Button mnemonicParsing="false" onAction="#onEditUsername" text="Change Username">
+                      <font>
+                        <Font size="8.0" />
+                      </font>
+                      <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="smaller-btn" />
+                      </styleClass>
+                    </Button>
+                    <Button mnemonicParsing="false" onAction="#onChangePicture" text="Change Picture">
+                      <font>
+                        <Font size="8.0" />
+                      </font>
+                      <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="smaller-btn" />
+                      </styleClass>
+                    </Button>
+                              <Button mnemonicParsing="false" onAction="#onDeleteUser" text="Delete User">
+                                 <font>
+                                    <Font size="8.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="btn" />
+                                    <String fx:value="smaller-btn" />
+                                 </styleClass>
+                              </Button>
+                  </children>
+                </HBox>
+                <HBox fx:id="usernameHbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                  <children>
+                    <Button mnemonicParsing="false" onAction="#onSetUsername" styleClass="btn" text="Set Name" />
+                    <TextField fx:id="usernameTextField" />
+                  </children>
+                </HBox>
+              </children>
+            </VBox>
+          </children>
+        </VBox>
+        <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0" spacing="40.0" HBox.hgrow="ALWAYS">
+          <children>
+            <Label alignment="CENTER" prefWidth="299.0" text="Current Winstreak" textAlignment="CENTER" VBox.vgrow="NEVER">
+              <styleClass>
+                <String fx:value="text-default" />
+                <String fx:value="heading" />
+              </styleClass>
+            </Label>
+            <StackPane alignment="TOP_CENTER" prefHeight="289.0" prefWidth="395.0">
+              <children>
+                <StackPane fx:id="fireStackPane" prefHeight="150.0" prefWidth="395.0">
+                  <children>
+                    <Ellipse fill="#f0955d" radiusX="41.0" radiusY="51.0" stroke="BLACK" strokeType="INSIDE" translateY="40.0" StackPane.alignment="TOP_CENTER" />
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="129.0" style="-fx-background-color: EB670F;" styleClass="fire-icon" translateY="-8.0" StackPane.alignment="TOP_CENTER" />
+                  </children>
+                </StackPane>
+                <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="56.0" styleClass="text-default" text="0" translateY="13.0">
+                  <font>
+                    <Font size="120.0" />
+                  </font>
+                </Label>
+              </children>
+            </StackPane>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+    <VBox alignment="TOP_CENTER" prefHeight="224.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+      <children>
+        <AnchorPane VBox.vgrow="ALWAYS">
+          <children>
+            <GridPane alignment="CENTER" prefHeight="320.0" prefWidth="1150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <Label fx:id="fastestTimeLabel" contentDisplay="BOTTOM" styleClass="text-default" text="Fastest time" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <font>
+                    <Font size="66.0" />
+                  </font>
+                  <graphic>
+                    <Label fx:id="secondsLabel" styleClass="text-default" text="seconds">
+                      <font>
+                        <Font size="29.0" />
+                      </font>
+                    </Label>
+                  </graphic>
+                </Label>
+                <Label text="Best Time" GridPane.halignment="CENTER">
+                  <styleClass>
+                    <String fx:value="text-default" />
+                    <String fx:value="heading" />
+                  </styleClass>
+                </Label>
+                <Label text="Word History" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <styleClass>
+                    <String fx:value="text-default" />
+                    <String fx:value="heading" />
+                  </styleClass>
+                </Label>
+                <Label text="Games Lost" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                  <styleClass>
+                    <String fx:value="text-default" />
+                    <String fx:value="heading" />
+                  </styleClass>
+                </Label>
+                <Label fx:id="gamesLostLabel" styleClass="text-default" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <font>
+                    <Font size="100.0" />
+                  </font>
+                </Label>
+                <Label text="Best Winstreak" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                  <styleClass>
+                    <String fx:value="text-default" />
+                    <String fx:value="heading" />
+                  </styleClass>
+                </Label>
+                <Label fx:id="bestWinstreakLabel" styleClass="text-default" text="0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                  <font>
+                    <Font size="100.0" />
+                  </font>
+                </Label>
+                <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="129.0" prefWidth="157.0" spacing="5.0" style="-fx-padding: 15,0,0,0;" styleClass="text-default" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+              </children>
               <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="432.0" minWidth="10.0" percentWidth="25.0" prefWidth="137.3333282470703" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="432.0" minWidth="10.0" percentWidth="25.0" prefWidth="167.66665649414062" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="432.0" minWidth="10.0" percentWidth="25.0" prefWidth="167.66665649414062" />
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="432.0" minWidth="10.0" percentWidth="25.0" prefWidth="167.66665649414062" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="62.666656494140625" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="176.0" minHeight="10.0" percentHeight="90.0" prefHeight="136.0" vgrow="NEVER" />
               </rowConstraints>
-               <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" minWidth="93.0" mnemonicParsing="false" onAction="#onSwitchToMenu" prefHeight="45.0" prefWidth="45.0" styleClass="exit-btn" GridPane.halignment="LEFT">
-                     <GridPane.margin>
-                        <Insets left="5.0" />
-                     </GridPane.margin>
-                     <graphic>
-                        <Pane styleClass="left-icon" />
-                     </graphic>
-                  </Button>
-                <Button fx:id="switchAccountButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchAccount" style="-fx-max-width: 185;" styleClass="btn" text="Switch Account" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-               </children>
             </GridPane>
-         </children></AnchorPane>
-      <HBox alignment="CENTER" prefHeight="306.0" prefWidth="1150.0">
-         <children>
-            <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0" spacing="40.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label text="Games Won">
-                     <styleClass>
-                        <String fx:value="text-default" />
-                        <String fx:value="heading" />
-                     </styleClass></Label>
-                  <Label fx:id="gamesWonLabel" styleClass="text-default" text="0" translateY="13.0">
-                     <font>
-                        <Font size="120.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0" spacing="15.0">
-               <children>
-                  <ImageView fx:id="profileImageView" fitHeight="211.0" fitWidth="219.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/defaultUserImage.jpg" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
-                     <font>
-                        <Font size="43.0" />
-                     </font></Label>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
-                     <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#onEditUsername" text="Change Username">
-                                 <font>
-                                    <Font size="8.0" />
-                                 </font>
-                                 <styleClass>
-                                    <String fx:value="btn" />
-                                    <String fx:value="smaller-btn" />
-                                 </styleClass>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#onChangePicture" text="Change Picture">
-                                 <font>
-                                    <Font size="8.0" />
-                                 </font>
-                                 <styleClass>
-                                    <String fx:value="btn" />
-                                    <String fx:value="smaller-btn" />
-                                 </styleClass>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <HBox fx:id="usernameHbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#onSetUsername" styleClass="btn" text="Set Name" />
-                              <TextField fx:id="usernameTextField" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0" spacing="40.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label alignment="CENTER" prefWidth="299.0" text="Current Winstreak" textAlignment="CENTER" VBox.vgrow="NEVER">
-                     <styleClass>
-                        <String fx:value="text-default" />
-                        <String fx:value="heading" />
-                     </styleClass></Label>
-                  <StackPane alignment="TOP_CENTER" prefHeight="289.0" prefWidth="395.0">
-                     <children>
-                        <StackPane fx:id="fireStackPane" prefHeight="150.0" prefWidth="395.0">
-                           <children>
-                              <Ellipse fill="#f0955d" radiusX="41.0" radiusY="51.0" stroke="BLACK" strokeType="INSIDE" translateY="40.0" StackPane.alignment="TOP_CENTER" />
-                              <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="129.0" style="-fx-background-color: EB670F;" styleClass="fire-icon" translateY="-8.0" StackPane.alignment="TOP_CENTER" />
-                           </children>
-                        </StackPane>
-                        <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="56.0" styleClass="text-default" text="0" translateY="13.0">
-                           <font>
-                              <Font size="120.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </StackPane>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <VBox alignment="TOP_CENTER" prefHeight="224.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
-         <children>
-            <AnchorPane VBox.vgrow="ALWAYS">
-               <children>
-                  <GridPane alignment="CENTER" prefHeight="320.0" prefWidth="1150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="ALWAYS" maxWidth="432.0" minWidth="10.0" percentWidth="25.0" prefWidth="137.3333282470703" />
-                        <ColumnConstraints hgrow="ALWAYS" maxWidth="432.0" minWidth="10.0" percentWidth="25.0" prefWidth="167.66665649414062" />
-                        <ColumnConstraints hgrow="ALWAYS" maxWidth="432.0" minWidth="10.0" percentWidth="25.0" prefWidth="167.66665649414062" />
-                        <ColumnConstraints hgrow="ALWAYS" maxWidth="432.0" minWidth="10.0" percentWidth="25.0" prefWidth="167.66665649414062" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="62.666656494140625" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="176.0" minHeight="10.0" percentHeight="90.0" prefHeight="136.0" vgrow="NEVER" />
-                    </rowConstraints>
-                     <children>
-                        <Label fx:id="fastestTimeLabel" contentDisplay="BOTTOM" styleClass="text-default" text="Fastest time" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="66.0" />
-                           </font>
-                           <graphic>
-                              <Label fx:id="secondsLabel" styleClass="text-default" text="seconds">
-                                 <font>
-                                    <Font size="29.0" />
-                                 </font>
-                              </Label>
-                           </graphic>
-                        </Label>
-                        <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="129.0" prefWidth="157.0" spacing="5.0" style="-fx-padding: 15,0,0,0;" styleClass="text-default" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Best Time" GridPane.halignment="CENTER">
-                           <styleClass>
-                              <String fx:value="text-default" />
-                              <String fx:value="heading" />
-                           </styleClass>
-                        </Label>
-                        <Label text="Word History" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                           <styleClass>
-                              <String fx:value="text-default" />
-                              <String fx:value="heading" />
-                           </styleClass>
-                        </Label>
-                        <Label text="Games Lost" GridPane.columnIndex="3" GridPane.halignment="CENTER">
-                           <styleClass>
-                              <String fx:value="text-default" />
-                              <String fx:value="heading" />
-                           </styleClass>
-                        </Label>
-                        <Label fx:id="gamesLostLabel" styleClass="text-default" text="0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                           <font>
-                              <Font size="100.0" />
-                           </font>
-                        </Label>
-                        <Label text="Best Winstreak" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-                           <styleClass>
-                              <String fx:value="text-default" />
-                              <String fx:value="heading" />
-                           </styleClass>
-                        </Label>
-                        <Label fx:id="bestWinstreakLabel" styleClass="text-default" text="0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                           <font>
-                              <Font size="100.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </GridPane>
-               </children>
-            </AnchorPane>
-         </children>
-      </VBox>
-   </children>
-   <stylesheets>
-      <URL value="@../css/styles.css" />
-      <URL value="@../css/colours.css" />
-   </stylesheets>
+          </children>
+        </AnchorPane>
+      </children>
+    </VBox>
+  </children>
+  <stylesheets>
+    <URL value="@../css/styles.css" />
+    <URL value="@../css/colours.css" />
+  </stylesheets>
 </VBox>

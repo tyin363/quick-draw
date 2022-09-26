@@ -5,10 +5,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InaccessibleObjectException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import javafx.util.Callback;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -23,6 +26,13 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
   private final Logger logger = LoggerFactory.getLogger(InstanceFactory.class);
   private final Map<Class<?>, Function<Class<?>, Object>> suppliers = new ConcurrentHashMap<>();
   private final Map<Class<?>, Object> singletons = new ConcurrentHashMap<>();
+  private final List<Consumer<Object>> postConstructionCallbacks;
+
+  public InstanceFactory() {
+    this.postConstructionCallbacks = new ArrayList<>();
+    this.postConstructionCallbacks.add(this::injectFields);
+    this.postConstructionCallbacks.add(this::invokeEnableListener);
+  }
 
   /**
    * Binds the given object as a singleton of it's class, so that any time it's class is requested,
@@ -105,6 +115,16 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
   }
 
   /**
+   * Registers a new post construction callback. This is a callback that is invoked in order just
+   * after the instance has been constructed. Any errors must be handled within the callback itself.
+   *
+   * @param callback The callback to register
+   */
+  public void registerPostConstructionCallback(final Consumer<Object> callback) {
+    this.postConstructionCallbacks.add(callback);
+  }
+
+  /**
    * Retrieves the instance of the given class. If the class is annotated with {@code @Singleton}
    * then it will attempt to use a previously created instance of the class. Otherwise, a new
    * instance will be created.
@@ -127,6 +147,15 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
       // Store the instance to prevent it being created multiple times
       this.singletons.put(type, instance);
     }
+    if (instance != null) {
+      // After successfully creating an instance, invoke any post construction
+      // callbacks that are registered on it. This will inject any fields and call the
+      // onEnable method if appropriate.
+      for (final Consumer<Object> callback : this.postConstructionCallbacks) {
+        callback.accept(instance);
+      }
+    }
+
     return instance;
   }
 
@@ -143,23 +172,16 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
     return this.getInjectableConstructor(type)
         .map(
             c -> {
+              // Get the parameters to invoke the constructor with
               final Object[] parameters = this.getConstructorParameters(c, type);
               c.setAccessible(true);
               try {
-                final Object instance = c.newInstance(parameters);
-                // If we successfully created an instance of it, then we can check if it has any
-                // fields that need to be injected.
-                this.injectFields(instance);
-
-                // After all the fields have been injected see if it listens to onEnable
-                if (instance instanceof EnableListener enableListener) {
-                  enableListener.onEnable();
-                }
-                return instance;
+                return c.newInstance(parameters);
               } catch (final InstantiationException
                   | IllegalAccessException
                   | InvocationTargetException e) {
                 this.logger.error("Failed to create instance of {}", type.getCanonicalName(), e);
+                // If there was an error of any kind, just return null
                 return null;
               }
             })
@@ -243,6 +265,18 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
             instanceType.getCanonicalName(),
             e);
       }
+    }
+  }
+
+  /**
+   * If the object is an instance of {@link EnableListener} then it will call the {@link
+   * EnableListener#onEnable()} method.
+   *
+   * @param instance The instance to invoke the listener for
+   */
+  public void invokeEnableListener(final Object instance) {
+    if (instance instanceof EnableListener enableListener) {
+      enableListener.onEnable();
     }
   }
 

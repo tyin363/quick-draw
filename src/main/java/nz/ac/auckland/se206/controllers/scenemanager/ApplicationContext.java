@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.controllers.scenemanager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import nz.ac.auckland.se206.annotations.Controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,9 +26,26 @@ public class ApplicationContext extends InstanceFactory {
     // Make sure that all the fields are injected before initialising the scene manager
     context.injectFields(sceneManager);
     context.bind(sceneManager);
+
+    // Check if we need to manually register any controllers
+    context.registerPostConstructionCallback(
+        (instance) -> registerControllers(sceneManager, instance));
     sceneManager.initialise(false, startingView);
 
     return context;
+  }
+
+  /**
+   * Checks if the instance has the {@link Controller} annotation and if it does, registers it to
+   * the scene manager.
+   *
+   * @param sceneManager The scene manager to register the controllers with
+   * @param instance The instance to check if it needs to be rendered
+   */
+  private static void registerControllers(final SceneManager sceneManager, final Object instance) {
+    if (instance.getClass().isAnnotationPresent(Controller.class)) {
+      sceneManager.registerController(instance);
+    }
   }
 
   /**

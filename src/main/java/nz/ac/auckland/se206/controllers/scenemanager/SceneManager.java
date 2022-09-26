@@ -2,12 +2,15 @@ package nz.ac.auckland.se206.controllers.scenemanager;
 
 import java.io.IOException;
 import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -17,16 +20,22 @@ import org.slf4j.Logger;
 @Singleton
 public class SceneManager {
 
-  private final Map<View, Pair<Parent, Object>> views = new EnumMap<>(View.class);
+  public record ViewControllers(Parent parent, Set<Object> controllers) {}
 
+  private final Map<View, ViewControllers> views = new EnumMap<>(View.class);
+
+  private final List<Object> controllers = new LinkedList<>();
   private final Stage stage;
   private Scene scene;
+  private View previousView;
+  private View currentView;
 
   @Inject private Logger logger;
   @Inject private ApplicationContext applicationContext;
 
   public SceneManager(final Stage stage) {
     this.stage = stage;
+    this.stage.setTitle("Quick, Draw! - Team 9");
   }
 
   /**
@@ -54,9 +63,10 @@ public class SceneManager {
       this.loadView(startingView);
     }
 
-    final Pair<Parent, Object> pair = this.views.get(startingView);
-    this.invokeLoadListener(pair.getValue());
-    this.scene = new Scene(pair.getKey(), 1150, 800);
+    this.currentView = startingView;
+    final ViewControllers viewControllers = this.views.get(startingView);
+    this.invokeLoadListener(viewControllers);
+    this.scene = new Scene(viewControllers.parent(), 1150, 800);
     this.stage.setScene(this.scene);
     this.stage.show();
   }
@@ -76,10 +86,16 @@ public class SceneManager {
       // Use custom controller factory to support dependency injection within the controller.
       fxmlLoader.setControllerFactory(this.applicationContext);
       final Parent parent = fxmlLoader.load();
-      final Object controller = fxmlLoader.getController();
+      this.views.put(view, new ViewControllers(parent, new HashSet<>()));
 
-      // Cache the view so that we only have to load it once
-      this.views.put(view, new Pair<>(parent, controller));
+      final Object controller = fxmlLoader.getController();
+      // Cache the view so that we only have to load it once.
+      this.views.get(view).controllers().add(controller);
+
+      // Add any additional controllers that were created while loading this view
+      this.views.get(view).controllers().addAll(this.controllers);
+      this.controllers.clear();
+
       return true;
     } catch (final IOException e) {
       this.logger.error("There was an error loading the view " + view.getFxml(), e);
@@ -101,21 +117,49 @@ public class SceneManager {
         return;
       }
     }
-    final Pair<Parent, Object> pair = this.views.get(view);
-    this.invokeLoadListener(pair.getValue());
-    this.scene.setRoot(pair.getKey());
+
+    // Keep track of the current and previous view, so we can switch back to it
+    this.previousView = this.currentView;
+    this.currentView = view;
+
+    final ViewControllers viewControllers = this.views.get(view);
+    this.invokeLoadListener(viewControllers);
+    this.scene.setRoot(viewControllers.parent());
   }
 
   /**
-   * Checks if the Controller is an instance of {@link LoadListener} and if so invokes the {@code
-   * onLoad} callback.
+   * Manually register a controller to be added to the currently loading view.
    *
-   * @param controller The controller to try and invoke the onLoad callback for
+   * @param controller The controller to register
    */
-  private void invokeLoadListener(final Object controller) {
-    if (controller instanceof LoadListener loadListener) {
-      loadListener.onLoad();
+  public void registerController(final Object controller) {
+    this.controllers.add(controller);
+  }
+
+  /**
+   * Checks if any of the controllers are an instance of {@link LoadListener} and if so invokes the
+   * {@code onLoad} callback.
+   *
+   * @param viewControllers The controllers to try and invoke the onLoad callback for
+   */
+  private void invokeLoadListener(final ViewControllers viewControllers) {
+    for (final Object controller : viewControllers.controllers()) {
+      if (controller instanceof LoadListener loadListener) {
+        loadListener.onLoad();
+      }
     }
+  }
+
+  /**
+   * Switches the scene back to the previous view. If there is no previous view then it will do
+   * nothing.
+   */
+  public void switchToPreviousView() {
+    if (this.previousView == null) {
+      return;
+    }
+
+    this.switchToView(this.previousView);
   }
 
   /**
@@ -125,5 +169,14 @@ public class SceneManager {
    */
   public Stage getStage() {
     return this.stage;
+  }
+
+  /**
+   * Get the previous view.
+   *
+   * @return The previous view
+   */
+  public View getPreviousView() {
+    return this.previousView;
   }
 }

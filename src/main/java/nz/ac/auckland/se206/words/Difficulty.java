@@ -8,11 +8,11 @@ public enum Difficulty {
   MEDIUM("M"),
   HARD("H");
 
-  private static final Map<String, Difficulty> aliasMapping = new HashMap<>();
+  private static final Map<String, Difficulty> ALIAS_MAPPING = new HashMap<>();
 
   static {
     for (final Difficulty difficulty : values()) {
-      aliasMapping.put(difficulty.getAlias(), difficulty);
+      ALIAS_MAPPING.put(difficulty.getAlias(), difficulty);
     }
   }
 
@@ -23,7 +23,7 @@ public enum Difficulty {
    * @return The matching difficulty or null if there is no matching one.
    */
   public static Difficulty fromAlias(final String alias) {
-    return aliasMapping.get(alias);
+    return ALIAS_MAPPING.get(alias);
   }
 
   private final String alias;

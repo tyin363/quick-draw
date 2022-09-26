@@ -328,6 +328,7 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   private void disableBrush() {
     this.selectedBrushType = this.disabledBrush;
+    // Remove the selected css class from the brush type buttons if they have it
     this.penPane.getStyleClass().remove("icon-btn-selected");
     this.eraserPane.getStyleClass().remove("icon-btn-selected");
     this.penPane.setDisable(true);
