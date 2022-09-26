@@ -8,7 +8,6 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
-import nz.ac.auckland.se206.users.UserService;
 
 @Singleton
 public class MainMenuController implements LoadListener {
@@ -23,18 +22,12 @@ public class MainMenuController implements LoadListener {
   };
 
   @FXML private Label messageLabel;
-  @FXML private Label currentUserLabel;
   @Inject private SceneManager sceneManager;
-  @Inject private UserService userService;
 
-  /**
-   * Everytime this scene is switched to select a new random message and displayed username is set
-   * to current user's name
-   */
+  /** Everytime this scene is switched to select a new random message. */
   @Override
   public void onLoad() {
     this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
-    this.currentUserLabel.setText(this.userService.getCurrentUser().getUsername());
   }
 
   /**
@@ -44,17 +37,5 @@ public class MainMenuController implements LoadListener {
   @FXML
   private void onStartGame() {
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
-  }
-
-  /** Switch to the profile page, where the user can check their statistics. */
-  @FXML
-  private void onSwitchToProfile() {
-    this.sceneManager.switchToView(View.PROFILE_PAGE);
-  }
-
-  /** Switch to switch user page so user can change their accounts or add a new one */
-  @FXML
-  private void onSwitchAccount() {
-    this.sceneManager.switchToView(View.SWITCH_USER);
   }
 }
