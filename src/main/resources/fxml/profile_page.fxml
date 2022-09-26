@@ -31,12 +31,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" minWidth="93.0" mnemonicParsing="false" onAction="#onSwitchToMenu" prefHeight="37.0" prefWidth="93.0" styleClass="exit-btn" GridPane.halignment="LEFT">
+                  <Button alignment="CENTER" contentDisplay="CENTER" minWidth="93.0" mnemonicParsing="false" onAction="#onSwitchToMenu" prefHeight="45.0" prefWidth="45.0" styleClass="exit-btn" GridPane.halignment="LEFT">
                      <GridPane.margin>
                         <Insets left="5.0" />
                      </GridPane.margin>
                      <graphic>
-                        <Pane prefHeight="200.0" prefWidth="200.0" styleClass="left-icon" />
+                        <Pane styleClass="left-icon" />
                      </graphic>
                   </Button>
                 <Button fx:id="switchAccountButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onSwitchAccount" style="-fx-max-width: 185;" text="Switch Account" GridPane.columnIndex="1" GridPane.halignment="CENTER">
