@@ -93,7 +93,7 @@
 .app-bar {
   -fx-background-color: -fx-primary-main;
   -fx-padding: 8px 24px 8px 24px;
-  -fx-pref-height: 60px;
+  -fx-pref-height: 70px;
 }
 
 .app-bar > Label {
