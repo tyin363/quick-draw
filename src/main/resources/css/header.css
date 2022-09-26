@@ -1,7 +1,7 @@
 .header {
-  -fx-pref-height: 80px;
-  -fx-min-height: 80px;
-  -fx-max-height: 80px;
+  -fx-pref-height: 70px;
+  -fx-min-height: 70px;
+  -fx-max-height: 70px;
 }
 
 .header > VBox {
@@ -17,9 +17,14 @@
 
 .switch-user:hover {
   -fx-underline: true;
+  -fx-text-fill: -fx-text-default;
 }
 
 .profile-border {
   -fx-border-radius: 30px;
   -fx-background-radius: 30px;
+}
+
+.back-btn:hover {
+  -fx-background-color: -fx-text-default;
 }
