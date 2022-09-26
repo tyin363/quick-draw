@@ -14,20 +14,26 @@ import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
-import org.slf4j.Logger;
 
+/**
+ * Note: This cannot be annotated with @Singleton as a new instance is created for every view it's
+ * used within.
+ */
 @Controller
 public class HeaderController implements LoadListener {
 
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
-  @Inject private Logger logger;
 
   @FXML private ImageView profilePicture;
   @FXML private Label username;
 
   private User currentUser;
 
+  /**
+   * When the controller is first loaded add a circular clipping to the profile picture so that it's
+   * round.
+   */
   @FXML
   private void initialize() {
     final double radius = this.profilePicture.getFitWidth() / 2;
@@ -36,6 +42,10 @@ public class HeaderController implements LoadListener {
     this.profilePicture.setClip(circle);
   }
 
+  /**
+   * Everytime the view this is within is switched to check if the user has changed and if it has,
+   * then update the profile picture and username.
+   */
   @Override
   public void onLoad() {
     // If the user hasn't changed, don't bother trying to update the profile picture.
@@ -64,11 +74,13 @@ public class HeaderController implements LoadListener {
     this.profilePicture.setVisible(false);
   }
 
+  /** When the user clicks on the profile picture, take them to the profile page view. */
   @FXML
   private void onClickProfile() {
     this.sceneManager.switchToView(View.PROFILE_PAGE);
   }
 
+  /** When the user clicks on the switch user text, take them to the switch user view. */
   @FXML
   private void onSwitchUser() {
     this.sceneManager.switchToView(View.SWITCH_USER);
