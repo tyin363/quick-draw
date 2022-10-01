@@ -72,9 +72,22 @@ public class SwitchUserController implements LoadListener {
    */
   @FXML
   private void onAddUser() {
-    final User newUser = new User("New user " + (this.userService.getUsers().size() + 1));
-    this.userService.saveUser(newUser);
-    this.userService.setCurrentUser(newUser);
-    this.sceneManager.switchToView(View.PROFILE_PAGE);
+    final List<User> users = this.userService.getUsers();
+    int newUserValue = 1;
+
+    while (true) {
+      final String username = "New user " + newUserValue;
+      // Check that no user already exists with this default username
+      if (users.stream().noneMatch(user -> user.getUsername().equals(username))) {
+        final User newUser = new User(username);
+        this.userService.saveUser(newUser);
+        this.userService.setCurrentUser(newUser);
+        this.sceneManager.switchToView(View.PROFILE_PAGE);
+        break;
+      }
+
+      // Increment the new user value until a unique username is found
+      newUserValue++;
+    }
   }
 }
