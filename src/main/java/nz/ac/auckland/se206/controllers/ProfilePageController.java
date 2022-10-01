@@ -127,13 +127,11 @@ public class ProfilePageController implements LoadListener {
     // Clear past words
     this.pastWordsVbox.getChildren().clear();
 
+    // Sanity check, this should never be true.
     if (this.userService.getCurrentUser() == null) {
-      this.user = new User("New user " + (this.userService.getUsers().size() + 1));
-      this.userService.saveUser(this.user);
-      this.userService.setCurrentUser(this.user);
-    } else {
-      this.user = this.userService.getCurrentUser();
+      return;
     }
+    this.user = this.userService.getCurrentUser();
 
     // Set fire to current win streak if 1 or above
     this.fireStackPane.setVisible(this.user.getCurrentWinStreak() > 0);

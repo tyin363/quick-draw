@@ -67,11 +67,14 @@ public class SwitchUserController implements LoadListener {
   }
 
   /**
-   * Switches to the create user scene. This can only even be invoked if there is less tha maximum
-   * allowed number of users.
+   * Creates a new user and then switches to the user profile scene. This method can only even be
+   * invoked if there is less than the maximum allowed number of users.
    */
   @FXML
   private void onAddUser() {
+    final User newUser = new User("New user " + (this.userService.getUsers().size() + 1));
+    this.userService.saveUser(newUser);
+    this.userService.setCurrentUser(newUser);
     this.sceneManager.switchToView(View.PROFILE_PAGE);
   }
 }
