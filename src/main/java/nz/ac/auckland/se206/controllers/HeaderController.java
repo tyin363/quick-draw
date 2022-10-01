@@ -1,7 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
-import java.util.Objects;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -49,12 +48,14 @@ public class HeaderController implements LoadListener {
    */
   @Override
   public void onLoad() {
+    final User newCurrentUser = this.userService.getCurrentUser();
+
     // If the user hasn't changed, don't bother trying to update the profile picture.
-    if (Objects.equals(this.currentUser, this.userService.getCurrentUser())) {
+    if (newCurrentUser == null || newCurrentUser.equals(this.currentUser)) {
       return;
     }
 
-    this.currentUser = this.userService.getCurrentUser();
+    this.currentUser = newCurrentUser;
     this.renderUserProfile(this.currentUser);
   }
 
