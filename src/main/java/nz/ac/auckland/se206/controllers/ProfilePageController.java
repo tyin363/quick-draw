@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
@@ -82,7 +83,7 @@ public class ProfilePageController implements LoadListener {
     final FileChooser fileChooser = new FileChooser();
 
     // Accept only png and jpeg files
-    final ArrayList<String> extensions = new ArrayList<String>();
+    final List<String> extensions = new ArrayList<>();
     extensions.add("*.jpg");
     extensions.add("*.png");
     fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", extensions));
