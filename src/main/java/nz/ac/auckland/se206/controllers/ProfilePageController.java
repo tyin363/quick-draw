@@ -1,6 +1,8 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
@@ -79,10 +81,12 @@ public class ProfilePageController implements LoadListener {
   private void onChangePicture() {
 
     final FileChooser fileChooser = new FileChooser();
-    // Accept png and jpg files
-    fileChooser
-        .getExtensionFilters()
-        .addAll(new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPG", "*.jpg"));
+
+    // Accept only png and jpeg files
+    final List<String> extensions = new ArrayList<>();
+    extensions.add("*.jpg");
+    extensions.add("*.png");
+    fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", extensions));
 
     final File file = fileChooser.showOpenDialog(this.sceneManager.getStage());
     if (file != null) {
