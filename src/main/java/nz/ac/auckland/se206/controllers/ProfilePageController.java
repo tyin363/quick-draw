@@ -80,8 +80,9 @@ public class ProfilePageController implements LoadListener {
   private void onChangePicture() {
 
     final FileChooser fileChooser = new FileChooser();
-    // Accept png and jpg files
-    ArrayList<String> extensions = new ArrayList<String>();
+
+    // Accept only png and jpeg files
+    final ArrayList<String> extensions = new ArrayList<String>();
     extensions.add("*.jpg");
     extensions.add("*.png");
     fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", extensions));
