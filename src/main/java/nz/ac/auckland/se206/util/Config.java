@@ -2,9 +2,9 @@ package nz.ac.auckland.se206.util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
@@ -46,11 +46,11 @@ public class Config {
    * @throws IOException If the styles.css file cannot be found or something goes wrong reading it
    */
   private void loadColours() throws IOException {
-    final URL url = Config.class.getResource("/css/styles.css");
-    if (url == null) {
+    final InputStream inputStream = Config.class.getResourceAsStream("/css/styles.css");
+    if (inputStream == null) {
       throw new IOException("Could not find /css/styles.css file in resources");
     }
-    final BufferedReader reader = new BufferedReader(new FileReader(url.getFile()));
+    final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
     String line = reader.readLine();
     // Get to the colour definitions
     while (line != null) {
