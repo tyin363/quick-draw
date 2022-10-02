@@ -108,7 +108,7 @@
 
 .icon {
   -fx-pref-width: 40px;
-  -fx-pref-height: 32px;
+  -fx-pref-height: 40px;
 }
 
 .icon > * {
