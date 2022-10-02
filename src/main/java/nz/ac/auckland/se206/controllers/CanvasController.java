@@ -278,7 +278,7 @@ public class CanvasController implements LoadListener, TerminationListener {
       final String guess = prediction.getClassName().replaceAll("_", " ");
       // Make the text colour more blue if it's more confident in the prediction.
       final Color textColour =
-          Color.BLACK.interpolate(this.config.getPrimaryMain(), prediction.getProbability() * 10);
+          Color.BLACK.interpolate(this.config.getHighlight(), prediction.getProbability() * 10);
 
       this.predictionLabels[i].setText(guess);
       this.predictionLabels[i].setTextFill(textColour);

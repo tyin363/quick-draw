@@ -2,12 +2,9 @@ package nz.ac.auckland.se206.util;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Optional;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -17,8 +14,8 @@ import org.slf4j.Logger;
 public class Config {
 
   private final Logger logger;
-  private final Map<ColourType, Color> colourMap = new EnumMap<>(ColourType.class);
   private final File userDataFile = new File("UserData");
+  private Color highlight;
 
   /**
    * Constructs a new config instance with the given logger and automatically begins parsing the
@@ -46,11 +43,11 @@ public class Config {
    * @throws IOException If the styles.css file cannot be found or something goes wrong reading it
    */
   private void loadColours() throws IOException {
-    final URL url = Config.class.getResource("/css/styles.css");
-    if (url == null) {
-      throw new IOException("Could not find /css/styles.css file in resources");
+    final InputStream inputStream = Config.class.getResourceAsStream("/css/colours.css");
+    if (inputStream == null) {
+      throw new IOException("Could not find /css/colours.css file in resources");
     }
-    final BufferedReader reader = new BufferedReader(new FileReader(url.getFile()));
+    final BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
     String line = reader.readLine();
     // Get to the colour definitions
     while (line != null) {
@@ -59,64 +56,39 @@ public class Config {
       }
       line = reader.readLine();
     }
-    int requiredColours = ColourType.values().length;
+    // Keep reading lines until we've read all the lines
+    while (line != null) {
+      final String[] split = line.split(":");
+      // If it's length is not 2, then it's not a valid property.
+      if (split.length == 2) {
+        final String key = split[0].trim();
+        if (key.equals("-fx-highlight")) {
+          // Remove any surrounding whitespace and the ending semicolon
+          String colour = split[1].trim();
+          colour = colour.substring(1, colour.length() - 1);
 
-    // Keep reading lines until we've read all the colours
-    while (requiredColours != 0 && line != null) {
-      if (line.contains(":")) {
-        final String[] split = line.split(":");
-        // If it's length is not 2, then it's not a valid property.
-        if (split.length == 2) {
-          final String key = split[0].trim();
-
-          // Attempt to parse the key to see if it's a colour type
-          final Optional<ColourType> colourType = ColourType.fromKey(key);
-          if (colourType.isPresent()) {
-            // Remove any surrounding whitespace and the ending semicolon
-            String colour = split[1].trim();
-            colour = colour.substring(1, colour.length() - 1);
-
-            // Color.web supports the hex, rgb and rgba formats.
-            this.colourMap.put(colourType.get(), Color.web(colour));
-            requiredColours--;
-          }
+          // Color.web supports the hex, rgb and rgba formats.
+          this.highlight = Color.web(colour);
+          break;
         }
       }
       line = reader.readLine();
     }
-    if (requiredColours != 0) {
-      this.logger.error("Missing required primary colours in styles.css");
+    if (this.highlight == null) {
+      this.logger.error("Missing required highlight colours in colour.css");
     } else {
-      this.logger.info("Colours successfully extracted from styles.css");
+      this.logger.info("Colours successfully extracted from colour.css");
     }
     reader.close();
   }
 
   /**
-   * Retrieves the primary main colour.
+   * Retrieves the highlight colour.
    *
-   * @return The primary main colour
+   * @return The highlight colour
    */
-  public Color getPrimaryMain() {
-    return this.colourMap.get(ColourType.PRIMARY_MAIN);
-  }
-
-  /**
-   * Retrieves the primary light colour.
-   *
-   * @return The primary light colour
-   */
-  public Color getPrimaryLight() {
-    return this.colourMap.get(ColourType.PRIMARY_LIGHT);
-  }
-
-  /**
-   * Retrieves the primary dark colour.
-   *
-   * @return The primary dark colour
-   */
-  public Color getPrimaryDark() {
-    return this.colourMap.get(ColourType.PRIMARY_DARK);
+  public Color getHighlight() {
+    return this.highlight;
   }
 
   /**
