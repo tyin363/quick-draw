@@ -80,6 +80,11 @@
       <version>18.0.1</version>
     </dependency>
     <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-media</artifactId>
+      <version>18.0.1</version>
+    </dependency>
+    <dependency>
       <artifactId>javafx-swing</artifactId>
       <groupId>org.openjfx</groupId>
       <version>17.0.0.1</version>

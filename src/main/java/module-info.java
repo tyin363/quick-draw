@@ -2,6 +2,7 @@ open module SE206Project {
   requires javafx.controls;
   requires javafx.fxml;
   requires javafx.swing;
+  requires javafx.media;
   requires freetts;
   requires ai.djl.api;
   requires imgscalr.lib;
