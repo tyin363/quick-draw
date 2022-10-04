@@ -20,6 +20,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -285,6 +287,16 @@ public class CanvasController implements LoadListener, TerminationListener {
     }
 
     if (wasGuessed) {
+      // Play winning sound effect
+      Media winSound =
+          new Media(
+              new File("src/main/resources/sounds/mixkit-achievement-bell-600.wav")
+                  .toURI()
+                  .toString());
+      MediaPlayer mediaPlayer = new MediaPlayer(winSound);
+      mediaPlayer.setVolume(0.2);
+      mediaPlayer.play();
+
       this.gameOver(true);
     }
   }
