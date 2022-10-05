@@ -292,6 +292,19 @@ public class CanvasController implements LoadListener, TerminationListener {
   }
 
   /**
+   * This method plays a sound effect given the file location of the sound effect and its volume.
+   *
+   * @param soundLocation The location of the sound file
+   * @param volume The volume of the sound effect
+   */
+  private void playSound(String soundLocation, double volume) {
+    Media soundEffect = new Media(new File(soundLocation).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(soundEffect);
+    mediaPlayer.setVolume(volume);
+    mediaPlayer.play();
+  }
+
+  /**
    * This method is called when the game is over. It updates the main label to show the appropriate
    * text depending on whether the user won or lost and handles all the necessary logic for
    * preventing further interaction with the game.
@@ -299,25 +312,14 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param wasGuessed Whether the user won or lost.
    */
   private void gameOver(final boolean wasGuessed) {
+    String winSound = "src/main/resources/sounds/mixkit-achievement-bell-600.wav";
+    String loseSound = "src/main/resources/sounds/mixkit-negative-answer-lose-2032.wav";
+
+    // Play sound effect based on if the user won or lost
     if (wasGuessed) {
-      // Play winning sound effect
-      Media winSound =
-          new Media(
-              new File("src/main/resources/sounds/mixkit-achievement-bell-600.wav")
-                  .toURI()
-                  .toString());
-      MediaPlayer mediaPlayer = new MediaPlayer(winSound);
-      mediaPlayer.setVolume(0.2);
-      mediaPlayer.play();
+      playSound(winSound, 0.2);
     } else {
-      Media winSound =
-          new Media(
-              new File("src/main/resources/sounds/mixkit-negative-answer-lose-2032.wav")
-                  .toURI()
-                  .toString());
-      MediaPlayer mediaPlayer = new MediaPlayer(winSound);
-      mediaPlayer.setVolume(0.5);
-      mediaPlayer.play();
+      playSound(loseSound, 0.5);
     }
 
     // Get time taken
