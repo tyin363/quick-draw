@@ -287,16 +287,6 @@ public class CanvasController implements LoadListener, TerminationListener {
     }
 
     if (wasGuessed) {
-      // Play winning sound effect
-      Media winSound =
-          new Media(
-              new File("src/main/resources/sounds/mixkit-achievement-bell-600.wav")
-                  .toURI()
-                  .toString());
-      MediaPlayer mediaPlayer = new MediaPlayer(winSound);
-      mediaPlayer.setVolume(0.2);
-      mediaPlayer.play();
-
       this.gameOver(true);
     }
   }
@@ -309,6 +299,18 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param wasGuessed Whether the user won or lost.
    */
   private void gameOver(final boolean wasGuessed) {
+    if (wasGuessed) {
+      // Play winning sound effect
+      Media winSound =
+          new Media(
+              new File("src/main/resources/sounds/mixkit-achievement-bell-600.wav")
+                  .toURI()
+                  .toString());
+      MediaPlayer mediaPlayer = new MediaPlayer(winSound);
+      mediaPlayer.setVolume(0.2);
+      mediaPlayer.play();
+    }
+
     // Get time taken
     final int timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
 
