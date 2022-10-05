@@ -309,6 +309,15 @@ public class CanvasController implements LoadListener, TerminationListener {
       MediaPlayer mediaPlayer = new MediaPlayer(winSound);
       mediaPlayer.setVolume(0.2);
       mediaPlayer.play();
+    } else {
+      Media winSound =
+          new Media(
+              new File("src/main/resources/sounds/mixkit-negative-answer-lose-2032.wav")
+                  .toURI()
+                  .toString());
+      MediaPlayer mediaPlayer = new MediaPlayer(winSound);
+      mediaPlayer.setVolume(0.5);
+      mediaPlayer.play();
     }
 
     // Get time taken
