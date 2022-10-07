@@ -40,6 +40,7 @@ import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.BrushType;
 import nz.ac.auckland.se206.util.Config;
+import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.WordService;
 import org.slf4j.Logger;
 
@@ -317,9 +318,9 @@ public class CanvasController implements LoadListener, TerminationListener {
 
     // Play sound effect based on if the user won or lost
     if (wasGuessed) {
-      playSound(winSound, 0.2);
+      SoundEffect.playSound(winSound, 0.2);
     } else {
-      playSound(loseSound, 0.5);
+      SoundEffect.playSound(loseSound, 0.5);
     }
 
     // Get time taken
