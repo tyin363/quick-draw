@@ -10,6 +10,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.SoundEffect;
 
 @Singleton
 public class MainMenuController implements LoadListener {
@@ -46,6 +47,8 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartGame() {
+    String clickSound = "src/main/resources/sounds/mixkit-select-click-1109.wav";
+    SoundEffect.playSound(clickSound, 0.3);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
