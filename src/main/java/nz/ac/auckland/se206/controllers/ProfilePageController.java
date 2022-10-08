@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -38,14 +38,14 @@ public class ProfilePageController implements LoadListener {
   @FXML private Label fastestTimeLabel;
   @FXML private ImageView profileImageView;
   @FXML private TextField usernameTextField;
-  @FXML private HBox usernameHbox;
   @FXML private VBox pastWordsVbox;
   @FXML private Label secondsLabel;
   @FXML private Label currentWinstreakLabel;
   @FXML private Label bestWinstreakLabel;
   @FXML private StackPane fireStackPane;
   @FXML private AnchorPane header;
-
+  @FXML private Button setUsernameButton;
+  @FXML private Button editUsernameButton;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
@@ -73,7 +73,10 @@ public class ProfilePageController implements LoadListener {
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
-    this.usernameHbox.setVisible(true);
+    this.editUsernameButton.setVisible(false);
+    this.usernameLabel.setVisible(false);
+    this.setUsernameButton.setVisible(true);
+    this.usernameTextField.setVisible(true);
   }
 
   /** Prompts the user to select a file to choose a profile picture */
@@ -109,15 +112,20 @@ public class ProfilePageController implements LoadListener {
    */
   @FXML
   private void onSetUsername() {
+
     // Do not allow null to be a username
     if (!this.usernameTextField.getText().isBlank()) {
       this.usernameLabel.setText(this.usernameTextField.getText());
       this.user.setUsername(this.usernameTextField.getText());
-      this.usernameHbox.setVisible(false);
       this.userService.saveUser(this.user);
 
       // Clear text field after use
       this.usernameTextField.clear();
+
+      this.editUsernameButton.setVisible(true);
+      this.usernameLabel.setVisible(true);
+      this.setUsernameButton.setVisible(false);
+      this.usernameTextField.setVisible(false);
     }
   }
 
@@ -128,6 +136,13 @@ public class ProfilePageController implements LoadListener {
    */
   @Override
   public void onLoad() {
+
+    // Set visible and invisible initial nodes
+    this.editUsernameButton.setVisible(true);
+    this.usernameLabel.setVisible(true);
+    this.setUsernameButton.setVisible(false);
+    this.usernameTextField.setVisible(false);
+
     // Clear past words
     this.pastWordsVbox.getChildren().clear();
 
@@ -141,7 +156,6 @@ public class ProfilePageController implements LoadListener {
     this.fireStackPane.setVisible(this.user.getCurrentWinStreak() > 0);
 
     // Set labels on GUI
-    this.usernameHbox.setVisible(false);
     this.gamesLostLabel.setText(Integer.toString(this.user.getGamesLost()));
     this.gamesWonLabel.setText(Integer.toString(this.user.getGamesWon()));
     this.usernameLabel.setText(this.user.getUsername());

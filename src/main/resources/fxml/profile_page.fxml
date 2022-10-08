@@ -47,21 +47,31 @@
             </ImageView>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditUsername">
-                           <graphic>
-                              <Pane prefHeight="32.0" prefWidth="44.0" style="-fx-background-color: white;" />
-                           </graphic>
-                           <styleClass>
-                              <String fx:value="edit-icon" />
-                              <String fx:value="bg-highlight" />
-                              <String fx:value="icon" />
-                           </styleClass>
-                        </Button>
-                  <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
-                    <font>
-                      <Font size="43.0" />
-                    </font>
-                  </Label>
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="122.0">
+                           <children>
+                              <Button fx:id="editUsernameButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditUsername">
+                                 <graphic>
+                                    <Pane prefHeight="32.0" prefWidth="44.0" style="-fx-background-color: white;" />
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="edit-icon" />
+                                    <String fx:value="bg-highlight" />
+                                    <String fx:value="icon" />
+                                 </styleClass>
+                              </Button>
+                              <Button fx:id="setUsernameButton" minWidth="32.0" mnemonicParsing="false" onAction="#onSetUsername" prefHeight="37.0" prefWidth="32.0" styleClass="btn" text="Set" textFill="WHITE" />
+                           </children>
+                        </StackPane>
+                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                        <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
+                          <font>
+                            <Font size="43.0" />
+                          </font>
+                        </Label>
+                    <TextField fx:id="usernameTextField" prefHeight="35.0" prefWidth="200.0" />
+                           </children>
+                        </StackPane>
                      </children>
                   </HBox>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
@@ -95,11 +105,6 @@
                                     <String fx:value="smaller-btn" />
                                  </styleClass>
                               </Button>
-                  </children>
-                </HBox>
-                <HBox fx:id="usernameHbox" alignment="CENTER" prefHeight="100.0" prefWidth="560.0" spacing="10.0">
-                  <children>
-                    <TextField fx:id="usernameTextField" />
                   </children>
                 </HBox>
               </children>
