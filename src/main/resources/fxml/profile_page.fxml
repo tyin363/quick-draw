@@ -2,6 +2,7 @@
 
 <?import java.lang.String?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -21,7 +22,7 @@
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0" spacing="20.0" styleClass="bg-gray-25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
   <children>
     <fx:include fx:id="header" source="header.fxml" />
-    <HBox alignment="CENTER" prefHeight="306.0" prefWidth="1150.0">
+    <HBox alignment="CENTER" prefHeight="375.0" prefWidth="1150.0">
       <children>
         <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0" spacing="40.0" HBox.hgrow="ALWAYS">
           <children>
@@ -38,17 +39,26 @@
             </Label>
           </children>
         </VBox>
-        <VBox alignment="CENTER" prefHeight="365.0" prefWidth="560.0" spacing="15.0">
+        <VBox alignment="CENTER" prefHeight="388.0" prefWidth="560.0" spacing="15.0">
           <children>
             <ImageView fx:id="profileImageView" fitHeight="211.0" fitWidth="219.0" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="@../images/defaultUserImage.jpg" />
               </image>
             </ImageView>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                  <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="349.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
+                      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
                      <children>
-                        <StackPane alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="122.0">
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="122.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <children>
+                              <Button fx:id="setUsernameButton" minWidth="60.0" mnemonicParsing="false" onAction="#onSetUsername" prefHeight="37.0" prefWidth="60.0" styleClass="btn" text="Set" textFill="WHITE" />
                               <Button fx:id="editUsernameButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditUsername">
                                  <graphic>
                                     <Pane prefHeight="32.0" prefWidth="44.0" style="-fx-background-color: white;" />
@@ -59,22 +69,27 @@
                                     <String fx:value="icon" />
                                  </styleClass>
                               </Button>
-                              <Button fx:id="setUsernameButton" minWidth="32.0" mnemonicParsing="false" onAction="#onSetUsername" prefHeight="37.0" prefWidth="32.0" styleClass="btn" text="Set" textFill="WHITE" />
                            </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
                         </StackPane>
-                        <StackPane prefHeight="150.0" prefWidth="200.0">
+                        <StackPane prefHeight="62.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <children>
-                        <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
+                        <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" prefWidth="212.0" styleClass="text-default" text="Username">
                           <font>
-                            <Font size="43.0" />
+                            <Font size="38.0" />
                           </font>
                         </Label>
-                    <TextField fx:id="usernameTextField" prefHeight="35.0" prefWidth="200.0" />
+                    <TextField fx:id="usernameTextField" alignment="CENTER" prefHeight="35.0" prefWidth="125.0" />
                            </children>
                         </StackPane>
                      </children>
-                  </HBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
+                  </GridPane>
+            <VBox prefHeight="58.0" prefWidth="560.0" spacing="10.0" VBox.vgrow="NEVER">
               <children>
                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="560.0" spacing="10.0">
                   <children>
@@ -121,17 +136,17 @@
             </Label>
             <StackPane alignment="TOP_CENTER" prefHeight="289.0" prefWidth="395.0">
               <children>
+                <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="56.0" styleClass="text-default" text="0" translateY="13.0">
+                  <font>
+                    <Font size="120.0" />
+                  </font>
+                </Label>
                 <StackPane fx:id="fireStackPane" prefHeight="150.0" prefWidth="395.0">
                   <children>
                     <Ellipse fill="#f0955d" radiusX="41.0" radiusY="51.0" stroke="BLACK" strokeType="INSIDE" translateY="40.0" StackPane.alignment="TOP_CENTER" />
                     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="129.0" style="-fx-background-color: EB670F;" styleClass="fire-icon" translateY="-8.0" StackPane.alignment="TOP_CENTER" />
                   </children>
                 </StackPane>
-                <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="56.0" styleClass="text-default" text="0" translateY="13.0">
-                  <font>
-                    <Font size="120.0" />
-                  </font>
-                </Label>
               </children>
             </StackPane>
           </children>
