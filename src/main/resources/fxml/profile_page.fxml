@@ -38,21 +38,35 @@
             </Label>
           </children>
         </VBox>
-        <VBox alignment="CENTER" prefHeight="103.0" prefWidth="360.0" spacing="15.0">
+        <VBox alignment="CENTER" prefHeight="365.0" prefWidth="560.0" spacing="15.0">
           <children>
             <ImageView fx:id="profileImageView" fitHeight="211.0" fitWidth="219.0" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="@../images/defaultUserImage.jpg" />
               </image>
             </ImageView>
-            <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
-              <font>
-                <Font size="43.0" />
-              </font>
-            </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditUsername">
+                           <graphic>
+                              <Pane prefHeight="32.0" prefWidth="44.0" style="-fx-background-color: white;" />
+                           </graphic>
+                           <styleClass>
+                              <String fx:value="edit-icon" />
+                              <String fx:value="bg-highlight" />
+                              <String fx:value="icon" />
+                           </styleClass>
+                        </Button>
+                  <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Username">
+                    <font>
+                      <Font size="43.0" />
+                    </font>
+                  </Label>
+                     </children>
+                  </HBox>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="NEVER">
               <children>
-                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="560.0" spacing="10.0">
                   <children>
                     <Button mnemonicParsing="false" onAction="#onEditUsername" text="Change Username">
                       <font>
@@ -83,9 +97,8 @@
                               </Button>
                   </children>
                 </HBox>
-                <HBox fx:id="usernameHbox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                <HBox fx:id="usernameHbox" alignment="CENTER" prefHeight="100.0" prefWidth="560.0" spacing="10.0">
                   <children>
-                    <Button mnemonicParsing="false" onAction="#onSetUsername" styleClass="btn" text="Set Name" />
                     <TextField fx:id="usernameTextField" />
                   </children>
                 </HBox>
