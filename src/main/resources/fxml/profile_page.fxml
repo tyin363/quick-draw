@@ -4,6 +4,7 @@
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -31,7 +32,7 @@
                 <String fx:value="heading" />
               </styleClass>
             </Label>
-            <Label fx:id="gamesWonLabel" styleClass="text-default" text="0" translateY="13.0">
+            <Label fx:id="gamesWonLabel" alignment="CENTER" prefHeight="186.0" prefWidth="160.0" styleClass="text-default" text="0" textAlignment="CENTER" translateY="13.0">
               <font>
                 <Font size="120.0" />
               </font>
@@ -103,17 +104,20 @@
             </Label>
             <StackPane alignment="TOP_CENTER" prefHeight="289.0" prefWidth="395.0">
               <children>
-                <StackPane fx:id="fireStackPane" prefHeight="150.0" prefWidth="395.0">
+                <StackPane fx:id="fireStackPane" prefHeight="332.0" prefWidth="294.0">
                   <children>
-                    <Ellipse fill="#f0955d" radiusX="41.0" radiusY="51.0" stroke="BLACK" strokeType="INSIDE" translateY="40.0" StackPane.alignment="TOP_CENTER" />
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="129.0" style="-fx-background-color: EB670F;" styleClass="fire-icon" translateY="-8.0" StackPane.alignment="TOP_CENTER" />
+                    <Ellipse fill="#f0955d" radiusX="54.0" radiusY="61.0" stroke="BLACK" strokeType="INSIDE" translateY="40.0" StackPane.alignment="TOP_CENTER" />
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="169.0" style="-fx-background-color: EB670F;" styleClass="fire-icon" translateY="-8.0" StackPane.alignment="TOP_CENTER">
+                                 <children>
+                            <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" layoutY="43.0" prefHeight="122.0" prefWidth="170.0" styleClass="text-default" text="0">
+                              <font>
+                                <Font size="120.0" />
+                              </font>
+                            </Label>
+                                 </children>
+                              </Pane>
                   </children>
                 </StackPane>
-                <Label fx:id="currentWinstreakLabel" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="56.0" styleClass="text-default" text="0" translateY="13.0">
-                  <font>
-                    <Font size="120.0" />
-                  </font>
-                </Label>
               </children>
             </StackPane>
           </children>
@@ -172,7 +176,16 @@
                     <Font size="100.0" />
                   </font>
                 </Label>
-                <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="129.0" prefWidth="157.0" spacing="5.0" style="-fx-padding: 15,0,0,0;" styleClass="text-default" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ScrollPane prefHeight="251.0" prefWidth="246.0" styleClass="bg-gray-25" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <content>
+                      <VBox fx:id="pastWordsVbox" alignment="CENTER" prefHeight="279.0" prefWidth="270.0" spacing="5.0" style="-fx-padding: 0,0,0,0;">
+                                 <styleClass>
+                                    <String fx:value="text-default" />
+                                    <String fx:value="bg-gray-25" />
+                                 </styleClass>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
               </children>
               <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" maxWidth="432.0" minWidth="10.0" percentWidth="25.0" prefWidth="137.3333282470703" />
