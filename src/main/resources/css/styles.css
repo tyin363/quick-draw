@@ -157,3 +157,7 @@
   -fx-font-family: SansSerif;
   -fx-font-size: 18px;
 }
+
+.scroll-pane > .viewport{
+	-fx-background-color: -fx-gray-25;
+}
