@@ -176,13 +176,14 @@
                     <Font size="100.0" />
                   </font>
                 </Label>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="bg-gray-25" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <ScrollPane prefHeight="251.0" prefWidth="246.0" styleClass="bg-gray-25" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <content>
-                      <VBox fx:id="pastWordsVbox" alignment="CENTER" prefHeight="319.0" prefWidth="268.0" spacing="5.0" style="-fx-padding: 0,0,0,0;">
+                      <VBox fx:id="pastWordsVbox" alignment="CENTER" prefHeight="279.0" prefWidth="270.0" spacing="5.0" style="-fx-padding: 0,0,0,0;">
                                  <styleClass>
                                     <String fx:value="text-default" />
                                     <String fx:value="bg-gray-25" />
-                                 </styleClass></VBox>
+                                 </styleClass>
+                              </VBox>
                            </content>
                         </ScrollPane>
               </children>
