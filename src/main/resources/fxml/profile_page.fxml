@@ -49,9 +49,9 @@
             </ImageView>
                   <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="349.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
-                      <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="109.0" />
+                      <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="ALWAYS" maxWidth="346.0" minWidth="10.0" prefWidth="346.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="105.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -78,14 +78,14 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </StackPane>
-                        <StackPane prefHeight="62.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="339.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <children>
-                        <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" prefWidth="212.0" styleClass="text-default" text="Username">
+                        <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxWidth="1.7976931348623157E308" prefWidth="320.0" styleClass="text-default" text="Username" underline="true">
                           <font>
                             <Font size="38.0" />
                           </font>
                         </Label>
-                    <TextField fx:id="usernameTextField" alignment="CENTER" prefHeight="35.0" prefWidth="125.0" />
+                    <TextField fx:id="usernameTextField" alignment="CENTER" prefHeight="35.0" prefWidth="329.0" />
                            </children>
                         </StackPane>
                      </children>
