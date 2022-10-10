@@ -168,6 +168,9 @@ public class ProfilePageController implements LoadListener {
     this.profileImageView.setImage(image);
     this.addBorderToImage(this.profileImageView, image, 20);
 
+    // Change profile picture when profile picture is clicked
+    this.profileImageView.setOnMouseClicked(event -> onChangePicture());
+
     // If fastest time is -1 (hasn't played a game yet), display no time
     if (this.user.getFastestTime() == -1) {
       this.secondsLabel.setVisible(false);
