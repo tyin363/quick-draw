@@ -64,6 +64,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Pane clearPane;
   @FXML private Button saveButton;
   @FXML private Label targetWordLabel;
+  @FXML private Label targetWordConfidenceLabel;
   @FXML private Label mainLabel;
   private Label[] predictionLabels;
 
@@ -129,9 +130,10 @@ public class CanvasController implements LoadListener, TerminationListener {
 
     // Set current user as user
     this.user = this.userService.getCurrentUser();
-
     this.gameOverActionsHoriBox.setVisible(false);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
+    this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
+
     // Reset the timer and start predicting instantly
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.mainLabel.setText(this.config.getDrawingTimeSeconds() + " Seconds");
