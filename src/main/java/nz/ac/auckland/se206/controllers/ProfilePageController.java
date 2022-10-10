@@ -46,7 +46,7 @@ public class ProfilePageController implements LoadListener {
   @FXML private AnchorPane header;
   @FXML private Button setUsernameButton;
   @FXML private Button editUsernameButton;
-  @FXML private Label changeImageLabel;
+  @FXML private StackPane hoverImageStackPane;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
@@ -135,7 +135,7 @@ public class ProfilePageController implements LoadListener {
    */
   @FXML
   private void onEnterImage() {
-    this.changeImageLabel.setVisible(true);
+    this.hoverImageStackPane.setVisible(true);
   }
 
   /**
@@ -143,7 +143,7 @@ public class ProfilePageController implements LoadListener {
    */
   @FXML
   private void onExitImage() {
-    this.changeImageLabel.setVisible(false);
+    this.hoverImageStackPane.setVisible(false);
   }
 
   /**
@@ -184,7 +184,7 @@ public class ProfilePageController implements LoadListener {
     final Image image = new Image(file.toURI().toString());
     this.profileImageView.setImage(image);
     this.addBorderToImage(this.profileImageView, image, 20);
-    this.changeImageLabel.setVisible(false);
+    this.hoverImageStackPane.setVisible(false);
 
     // If fastest time is -1 (hasn't played a game yet), display no time
     if (this.user.getFastestTime() == -1) {
