@@ -11,7 +11,7 @@ public class SoundEffect {
    * @param soundLocation The location of the sound file
    * @param volume The volume of the sound effect
    */
-  public static void playSound(String soundLocation, double volume) {
+  public void playSound(String soundLocation, double volume) {
     Media soundEffect = new Media(new File(soundLocation).toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(soundEffect);
     mediaPlayer.setVolume(volume);

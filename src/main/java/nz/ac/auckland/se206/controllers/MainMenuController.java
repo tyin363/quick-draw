@@ -28,6 +28,7 @@ public class MainMenuController implements LoadListener {
   @FXML private AnchorPane header;
 
   @Inject private SceneManager sceneManager;
+  @Inject private SoundEffect soundEffect;
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -48,7 +49,7 @@ public class MainMenuController implements LoadListener {
   @FXML
   private void onStartGame() {
     String clickSound = "src/main/resources/sounds/mixkit-select-click-1109.wav";
-    SoundEffect.playSound(clickSound, 0.3);
+    this.soundEffect.playSound(clickSound, 0.3);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 

@@ -74,6 +74,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Inject private TextToSpeech textToSpeech;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
+  @Inject private SoundEffect soundEffect;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
@@ -303,9 +304,9 @@ public class CanvasController implements LoadListener, TerminationListener {
 
     // Play sound effect based on if the user won or lost
     if (wasGuessed) {
-      SoundEffect.playSound(winSound, 0.2);
+      this.soundEffect.playSound(winSound, 0.2);
     } else {
-      SoundEffect.playSound(loseSound, 0.5);
+      this.soundEffect.playSound(loseSound, 0.5);
     }
 
     // Get time taken
