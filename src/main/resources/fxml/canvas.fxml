@@ -25,24 +25,27 @@
             <Font name="SansSerif Regular" size="24.0" />
           </font>
         </Label>
-        <HBox alignment="CENTER_RIGHT" layoutX="606.0" layoutY="14.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <children>
-            <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
-              <font>
-                <Font size="18.0" />
-              </font>
-            </Label>
-            <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
-              <font>
-                <Font name="SansSerif Bold" size="18.0" />
-              </font>
-            </Label>
-          </children>
-        </HBox>
       </children>
     </AnchorPane>
       <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
          <children>
+        <HBox alignment="CENTER" prefHeight="122.0" prefWidth="1150.0" spacing="5.0">
+          <children>
+            <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
+              <font>
+                <Font size="42.0" />
+              </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+            </Label>
+            <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
+              <font>
+                <Font name="SansSerif Bold" size="42.0" />
+              </font>
+            </Label>
+          </children>
+        </HBox>
           <HBox alignment="CENTER" styleClass="bg-gray-25">
             <children>
               <Pane minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
@@ -60,7 +63,7 @@
                 <children>
                   <Label styleClass="text-default" text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
-                      <Font name="SansSerif Regular" size="24.0" />
+                      <Font name="SansSerif Regular" size="30.0" />
                     </font>
                   </Label>
                   <VBox fx:id="predictionVertBox" alignment="TOP_CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
@@ -84,7 +87,7 @@
                   </Pane>
                   <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
-                      <Font name="SansSerif Regular" size="24.0" />
+                      <Font name="SansSerif Regular" size="30.0" />
                     </font>
                   </Label>
                   <HBox fx:id="gameOverActionsHoriBox" alignment="CENTER" prefHeight="30.0" prefWidth="516.0" spacing="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
