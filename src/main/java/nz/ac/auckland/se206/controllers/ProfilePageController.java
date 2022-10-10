@@ -46,6 +46,7 @@ public class ProfilePageController implements LoadListener {
   @FXML private AnchorPane header;
   @FXML private Button setUsernameButton;
   @FXML private Button editUsernameButton;
+  @FXML private Label changeImageLabel;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
@@ -130,6 +131,22 @@ public class ProfilePageController implements LoadListener {
   }
 
   /**
+   * This method will display the change image text prompt on top of the profile image of the user
+   */
+  @FXML
+  private void onEnterImage() {
+    this.changeImageLabel.setVisible(true);
+  }
+
+  /**
+   * This method will display the change image text prompt on top of the profile image of the user
+   */
+  @FXML
+  private void onExitImage() {
+    this.changeImageLabel.setVisible(false);
+  }
+
+  /**
    * Current user information is retrieved on load
    *
    * <p>If current user is null, a new user is created and is set to current user
@@ -167,9 +184,7 @@ public class ProfilePageController implements LoadListener {
     final Image image = new Image(file.toURI().toString());
     this.profileImageView.setImage(image);
     this.addBorderToImage(this.profileImageView, image, 20);
-
-    // Change profile picture when profile picture is clicked
-    this.profileImageView.setOnMouseClicked(event -> onChangePicture());
+    this.changeImageLabel.setVisible(false);
 
     // If fastest time is -1 (hasn't played a game yet), display no time
     if (this.user.getFastestTime() == -1) {
