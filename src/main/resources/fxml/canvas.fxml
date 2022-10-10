@@ -80,7 +80,7 @@
                               <String fx:value="prediction-container" />
                            </styleClass>
                            <children>
-                              <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" prefHeight="22.0" prefWidth="138.0" text="Target">
+                              <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" prefHeight="22.0" prefWidth="156.0" text="Target">
                                  <font>
                                     <Font name="SansSerif Bold" size="12.0" />
                                  </font>
@@ -88,7 +88,7 @@
                                     <Insets left="20.0" />
                                  </HBox.margin>
                               </Label>
-                              <ImageView fitHeight="29.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="confidenceImage" fitHeight="29.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../images/equalGif.gif" />
                                  </image>

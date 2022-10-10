@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -66,7 +67,8 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Label targetWordLabel;
   @FXML private Label targetWordConfidenceLabel;
   @FXML private Label mainLabel;
-  private Label[] predictionLabels;
+  @FXML private ImageView targetConfidenceImage;
+  @FXML private Label[] predictionLabels;
 
   @Inject private Logger logger;
   @Inject private Config config;
@@ -81,6 +83,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   private int secondsRemaining;
   private User user;
   private boolean isUpdatingPredictions;
+  private int targetPlace;
 
   // Mouse coordinates
   private double currentX;
@@ -281,7 +284,6 @@ public class CanvasController implements LoadListener, TerminationListener {
       // Make the text colour more blue if it's more confident in the prediction.
       final Color textColour =
           Color.BLACK.interpolate(this.config.getHighlight(), prediction.getProbability() * 10);
-
       this.predictionLabels[i].setText(guess);
       this.predictionLabels[i].setTextFill(textColour);
     }
