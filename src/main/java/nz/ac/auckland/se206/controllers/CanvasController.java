@@ -411,6 +411,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.predictionHandler.stopPredicting();
     this.timer.stop();
     this.textToSpeech.terminate();
+    this.soundEffect.terminate();
   }
 
   /** Clears any prediction text by setting all prediction labels to an empty string */

@@ -9,11 +9,12 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.util.SoundEffect;
 
 @Singleton
-public class MainMenuController implements LoadListener {
+public class MainMenuController implements LoadListener, TerminationListener {
 
   private final Random random = new Random();
   private final String[] messages = {
@@ -65,5 +66,10 @@ public class MainMenuController implements LoadListener {
     } else {
       this.sceneManager.switchToView(View.SWITCH_USER);
     }
+  }
+
+  @Override
+  public void onTerminate() {
+    this.soundEffect.terminate();
   }
 }
