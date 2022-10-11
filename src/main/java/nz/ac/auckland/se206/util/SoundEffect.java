@@ -82,8 +82,10 @@ public class SoundEffect {
    * mediaplayer playing.
    */
   public void terminate() {
-    this.mediaPlayer.stop();
-    this.soundTask.cancel();
+    if (!(this.mediaPlayer == null)) {
+      this.mediaPlayer.stop();
+      this.soundTask.cancel();
+    }
   }
 
   /**
@@ -91,7 +93,9 @@ public class SoundEffect {
    * instance of mediaplayer playing.
    */
   public void terminateBackgroundMusic() {
-    this.backgroundMediaPlayer.stop();
-    this.backgroundTask.cancel();
+    if (!(this.backgroundMediaPlayer == null)) {
+      this.backgroundMediaPlayer.stop();
+      this.backgroundTask.cancel();
+    }
   }
 }
