@@ -10,7 +10,6 @@ import java.util.Set;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.media.MediaPlayer.Status;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -52,7 +51,7 @@ public class SceneManager {
   protected void initialise(final boolean lazyLoading, final View startingView) {
 
     // Initialise background music
-    this.soundEffect.playBackgroundMusic();
+    this.soundEffect.playBackgroundMusic(this.soundEffect.changeMusic(startingView));
 
     // Prevent you from trying to initialise the SceneManager twice
     if (this.scene != null) {
@@ -113,17 +112,20 @@ public class SceneManager {
   /**
    * Switches the scene to the given view. If it has not currently been loaded then it will attempt
    * to load the fxml file. If there is an error while trying to load it then it will remain on the
-   * current view. The scenes will all have the same base backround music except the canvas scene.
+   * current view. The scenes will all have the same base background music except the canvas scene.
    *
    * @param view The view to switch to
    */
   public void switchToView(final View view) {
 
+    String music = this.soundEffect.changeMusic(view);
+    boolean isCanvas = view.equals(View.CANVAS);
+    boolean isPreviousCanvas = this.currentView.equals(View.CANVAS);
+
     // Set Background music
-    if (view.equals(View.CANVAS)) {
+    if (isCanvas || isPreviousCanvas) {
       this.soundEffect.terminateBackgroundMusic();
-    } else if (!this.soundEffect.getBackgroundMediaPlayer().getStatus().equals(Status.PLAYING)) {
-      this.soundEffect.playBackgroundMusic();
+      this.soundEffect.playBackgroundMusic(music);
     }
 
     if (!this.views.containsKey(view)) {

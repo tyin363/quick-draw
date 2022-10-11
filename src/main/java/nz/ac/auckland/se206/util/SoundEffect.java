@@ -5,6 +5,7 @@ import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.controllers.scenemanager.View;
 
 @Singleton
 public class SoundEffect {
@@ -15,6 +16,7 @@ public class SoundEffect {
   private MediaPlayer mediaPlayer;
   private MediaPlayer backgroundMediaPlayer;
   private String mainMusic = "src/main/resources/sounds/Pixel-Peeker-Polka-faster.mp3";
+  private String canvasMusic = "src/main/resources/sounds/Exit-the-Premises.mp3";
 
   /**
    * This method returns the media player responsible for playing the background music
@@ -23,6 +25,23 @@ public class SoundEffect {
    */
   public MediaPlayer getBackgroundMediaPlayer() {
     return backgroundMediaPlayer;
+  }
+
+  /**
+   * This method will change the music the media player would play depending on the current view.
+   * This is done by retrieving the different music file locations.
+   *
+   * @param view The current view.
+   * @return The file location of music choice.
+   */
+  public String changeMusic(View view) {
+    String music = mainMusic;
+
+    if (view.equals(View.CANVAS)) {
+      music = canvasMusic;
+    }
+
+    return music;
   }
 
   /**
@@ -57,14 +76,14 @@ public class SoundEffect {
    * @param soundLocation The location of the sound file
    * @param volume The volume of the sound effect
    */
-  public void playBackgroundMusic() {
+  public void playBackgroundMusic(String music) {
     backgroundTask =
         new Task<Void>() {
 
           @Override
           protected Void call() throws Exception {
 
-            soundEffect = new Media(new File(mainMusic).toURI().toString());
+            soundEffect = new Media(new File(music).toURI().toString());
             backgroundMediaPlayer = new MediaPlayer(soundEffect);
             backgroundMediaPlayer.setVolume(0.1);
             backgroundMediaPlayer.play();
