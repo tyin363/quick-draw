@@ -58,6 +58,8 @@ public class MainMenuController implements LoadListener, TerminationListener {
    * just at the profile page, in which case go back to that page.
    */
   private void onSwitchBack() {
+    this.soundEffect.playClickSound();
+
     final View previousView = this.sceneManager.getPreviousView();
     // Only switch back to the profile page if they were just on it
     if (previousView == View.PROFILE_PAGE) {

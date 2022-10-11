@@ -27,6 +27,7 @@ import nz.ac.auckland.se206.users.Round;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.SoundEffect;
 import org.slf4j.Logger;
 
 @Singleton
@@ -49,6 +50,7 @@ public class ProfilePageController implements LoadListener {
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
+  @Inject private SoundEffect soundEffect;
 
   private User user;
 
@@ -60,6 +62,8 @@ public class ProfilePageController implements LoadListener {
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
+    this.soundEffect.playClickSound();
+
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 

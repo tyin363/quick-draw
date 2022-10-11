@@ -9,6 +9,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.Difficulty;
 import nz.ac.auckland.se206.words.WordService;
 
@@ -20,6 +21,7 @@ public class ConfirmationScreenController implements LoadListener {
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
+  @Inject private SoundEffect soundEffect;
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -42,6 +44,7 @@ public class ConfirmationScreenController implements LoadListener {
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
+    this.soundEffect.playClickSound();
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 }

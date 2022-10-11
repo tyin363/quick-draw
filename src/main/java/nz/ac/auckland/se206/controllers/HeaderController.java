@@ -13,6 +13,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
+import nz.ac.auckland.se206.util.SoundEffect;
 
 /**
  * Note: This cannot be annotated with @Singleton as a new instance is created for every view it's
@@ -23,6 +24,7 @@ public class HeaderController implements LoadListener {
 
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
+  @Inject private SoundEffect soundEffect;
 
   @FXML private ImageView profilePicture;
   @FXML private Label username;
@@ -80,12 +82,14 @@ public class HeaderController implements LoadListener {
   /** When the user clicks on the profile picture, take them to the profile page view. */
   @FXML
   private void onClickProfile() {
+    this.soundEffect.playClickSound();
     this.sceneManager.switchToView(View.PROFILE_PAGE);
   }
 
   /** When the user clicks on the switch user text, take them to the switch user view. */
   @FXML
   private void onSwitchUser() {
+    this.soundEffect.playClickSound();
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
 }
