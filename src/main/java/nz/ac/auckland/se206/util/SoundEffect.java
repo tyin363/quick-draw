@@ -17,15 +17,10 @@ public class SoundEffect {
   private MediaPlayer backgroundMediaPlayer;
   private String mainMusic = "src/main/resources/sounds/Pixel-Peeker-Polka-faster.mp3";
   private String canvasMusic = "src/main/resources/sounds/Exit-the-Premises.mp3";
-
-  /**
-   * This method returns the media player responsible for playing the background music
-   *
-   * @return the media player for background music
-   */
-  public MediaPlayer getBackgroundMediaPlayer() {
-    return backgroundMediaPlayer;
-  }
+  private String winSound = "src/main/resources/sounds/mixkit-achievement-bell-600.wav";
+  private String loseSound = "src/main/resources/sounds/mixkit-negative-answer-lose-2032.wav";
+  private String victoryMusic = "src/main/resources/sounds/Victory.mp3";
+  private String clickSound = "src/main/resources/sounds/mixkit-select-click-1109.wav";
 
   /**
    * This method will change the music the media player would play depending on the current view.
@@ -34,14 +29,19 @@ public class SoundEffect {
    * @param view The current view.
    * @return The file location of music choice.
    */
-  public String changeMusic(View view) {
-    String music = mainMusic;
+  public void changeMusic(View view) {
+    String music;
 
-    if (view.equals(View.CANVAS)) {
-      music = canvasMusic;
+    switch (view) {
+      case CANVAS:
+        music = canvasMusic;
+        break;
+      default:
+        music = mainMusic;
+        break;
     }
 
-    return music;
+    playBackgroundMusic(music);
   }
 
   /**
@@ -50,7 +50,7 @@ public class SoundEffect {
    * @param soundLocation The location of the sound file
    * @param volume The volume of the sound effect
    */
-  public void playSound(String soundLocation, double volume) {
+  private void playSound(String soundLocation, double volume) {
     soundTask =
         new Task<Void>() {
 
@@ -76,7 +76,7 @@ public class SoundEffect {
    * @param soundLocation The location of the sound file
    * @param volume The volume of the sound effect
    */
-  public void playBackgroundMusic(String music) {
+  private void playBackgroundMusic(String music) {
     backgroundTask =
         new Task<Void>() {
 
@@ -88,12 +88,36 @@ public class SoundEffect {
             backgroundMediaPlayer.setVolume(0.1);
             backgroundMediaPlayer.play();
 
+            if (music == mainMusic) {
+              backgroundMediaPlayer.setCycleCount(Integer.MAX_VALUE);
+            }
+
             return null;
           }
           ;
         };
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
+  }
+
+  /** This method plays the canvas victory background music of the game. */
+  public void playVictoryMusic() {
+    playBackgroundMusic(victoryMusic);
+  }
+
+  /** This method plays the click sound effect of the game. */
+  public void playClickSound() {
+    playSound(clickSound, 0.3);
+  }
+
+  /** This method plays the canvas victory sound effect of the game. */
+  public void playVictorySound() {
+    playSound(winSound, 0.3);
+  }
+
+  /** This method plays the canvas lose sound effect of the game. */
+  public void playLoseSound() {
+    playSound(loseSound, 0.3);
   }
 
   /**

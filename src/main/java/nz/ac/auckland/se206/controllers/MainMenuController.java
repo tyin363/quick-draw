@@ -49,8 +49,7 @@ public class MainMenuController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onStartGame() {
-    String clickSound = "src/main/resources/sounds/mixkit-select-click-1109.wav";
-    this.soundEffect.playSound(clickSound, 0.3);
+    this.soundEffect.playClickSound();
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 

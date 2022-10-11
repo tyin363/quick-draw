@@ -299,17 +299,15 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @param wasGuessed Whether the user won or lost.
    */
   private void gameOver(final boolean wasGuessed) {
-    String winSound = "src/main/resources/sounds/mixkit-achievement-bell-600.wav";
-    String loseSound = "src/main/resources/sounds/mixkit-negative-answer-lose-2032.wav";
-    String victoryMusic = "src/main/resources/sounds/Victory.mp3";
 
     this.soundEffect.terminateBackgroundMusic();
     // Play sound effect and music based on if the user won or lost
     if (wasGuessed) {
-      this.soundEffect.playSound(winSound, 0.2);
-      this.soundEffect.playBackgroundMusic(victoryMusic);
+      this.soundEffect.playVictorySound();
+      ;
+      this.soundEffect.playVictoryMusic();
     } else {
-      this.soundEffect.playSound(loseSound, 0.5);
+      this.soundEffect.playClickSound();
     }
 
     // Get time taken
