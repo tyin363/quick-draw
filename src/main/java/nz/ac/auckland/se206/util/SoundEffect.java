@@ -23,6 +23,8 @@ public class SoundEffect {
   private String clickSound = "src/main/resources/sounds/mixkit-select-click-1109.wav";
   private String LoseMusic =
       "src/main/resources/sounds/Loyalty_Freak_Music_-_05_-_We_all_gonna_die_.mp3";
+  private String specialClickSound =
+      "src/main/resources/sounds/mixkit-quick-win-video-game-notification-269.wav";
 
   /**
    * This method will change the music the media player would play depending on the current view.
@@ -115,6 +117,11 @@ public class SoundEffect {
   /** This method plays the click sound effect of the game. */
   public void playClickSound() {
     playSound(clickSound, 0.3);
+  }
+
+  /** This method plays the special click sound effect of the game. */
+  public void playSpecialClickSound() {
+    playSound(specialClickSound, 0.3);
   }
 
   /** This method plays the canvas victory sound effect of the game. */

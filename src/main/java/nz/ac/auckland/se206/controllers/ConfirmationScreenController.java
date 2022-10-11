@@ -32,6 +32,7 @@ public class ConfirmationScreenController implements LoadListener {
   /** When the user confirms they are ready, switch to the canvas view. */
   @FXML
   private void onConfirmSwitch() {
+    this.soundEffect.playSpecialClickSound();
     this.sceneManager.switchToView(View.CANVAS);
   }
 
