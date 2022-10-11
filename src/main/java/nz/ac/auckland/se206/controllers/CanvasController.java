@@ -238,6 +238,7 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onSave() {
+    this.soundEffect.playClickSound();
     if (this.saveCurrentSnapshotOnFile()) {
       this.saveButton.setDisable(true);
     }
@@ -249,6 +250,7 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onRestart() {
+    this.soundEffect.playClickSound();
     this.onClear();
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
@@ -425,6 +427,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   /** Clears the canvas and switches back to the Main Menu Screen */
   @FXML
   private void onReturnToMainMenu() {
+    this.soundEffect.playClickSound();
     this.onClear();
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
