@@ -44,14 +44,6 @@ public class SoundEffect {
     return music;
   }
 
-  private void createSound(MediaPlayer player, String soundLocation, double volume) {
-
-    soundEffect = new Media(new File(soundLocation).toURI().toString());
-    player = new MediaPlayer(soundEffect);
-    player.setVolume(volume);
-    player.play();
-  }
-
   /**
    * This method plays a sound effect given the file location of the sound effect and its volume.
    *
@@ -64,7 +56,12 @@ public class SoundEffect {
 
           @Override
           protected Void call() throws Exception {
-            createSound(mediaPlayer, soundLocation, volume);
+
+            soundEffect = new Media(new File(soundLocation).toURI().toString());
+            mediaPlayer = new MediaPlayer(soundEffect);
+            mediaPlayer.setVolume(volume);
+            mediaPlayer.play();
+
             return null;
           }
           ;
@@ -85,7 +82,12 @@ public class SoundEffect {
 
           @Override
           protected Void call() throws Exception {
-            createSound(backgroundMediaPlayer, music, 0.1);
+
+            soundEffect = new Media(new File(music).toURI().toString());
+            backgroundMediaPlayer = new MediaPlayer(soundEffect);
+            backgroundMediaPlayer.setVolume(0.1);
+            backgroundMediaPlayer.play();
+
             return null;
           }
           ;
