@@ -21,6 +21,8 @@ public class SoundEffect {
   private String loseSound = "src/main/resources/sounds/mixkit-negative-answer-lose-2032.wav";
   private String victoryMusic = "src/main/resources/sounds/Victory.mp3";
   private String clickSound = "src/main/resources/sounds/mixkit-select-click-1109.wav";
+  private String LoseMusic =
+      "src/main/resources/sounds/Loyalty_Freak_Music_-_05_-_We_all_gonna_die_.mp3";
 
   /**
    * This method will change the music the media player would play depending on the current view.
@@ -103,6 +105,11 @@ public class SoundEffect {
   /** This method plays the canvas victory background music of the game. */
   public void playVictoryMusic() {
     playBackgroundMusic(victoryMusic);
+  }
+
+  /** This method plays the canvas losing background music of the game. */
+  public void playLoseMusic() {
+    playBackgroundMusic(LoseMusic);
   }
 
   /** This method plays the click sound effect of the game. */

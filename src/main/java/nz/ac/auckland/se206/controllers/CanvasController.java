@@ -304,10 +304,10 @@ public class CanvasController implements LoadListener, TerminationListener {
     // Play sound effect and music based on if the user won or lost
     if (wasGuessed) {
       this.soundEffect.playVictorySound();
-      ;
       this.soundEffect.playVictoryMusic();
     } else {
-      this.soundEffect.playClickSound();
+      this.soundEffect.playLoseSound();
+      this.soundEffect.playLoseMusic();
     }
 
     // Get time taken
