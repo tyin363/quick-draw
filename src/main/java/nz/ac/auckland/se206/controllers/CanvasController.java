@@ -301,10 +301,13 @@ public class CanvasController implements LoadListener, TerminationListener {
   private void gameOver(final boolean wasGuessed) {
     String winSound = "src/main/resources/sounds/mixkit-achievement-bell-600.wav";
     String loseSound = "src/main/resources/sounds/mixkit-negative-answer-lose-2032.wav";
+    String victoryMusic = "src/main/resources/sounds/Victory.mp3";
 
-    // Play sound effect based on if the user won or lost
+    this.soundEffect.terminateBackgroundMusic();
+    // Play sound effect and music based on if the user won or lost
     if (wasGuessed) {
       this.soundEffect.playSound(winSound, 0.2);
+      this.soundEffect.playBackgroundMusic(victoryMusic);
     } else {
       this.soundEffect.playSound(loseSound, 0.5);
     }
