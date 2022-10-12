@@ -49,6 +49,6 @@ public class ConfirmationScreenController implements LoadListener {
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
-    this.sceneManager.switchToView(View.MAIN_MENU);
+    this.sceneManager.switchToView(View.SETTINGS);
   }
 }
