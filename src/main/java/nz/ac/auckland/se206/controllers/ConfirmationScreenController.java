@@ -123,6 +123,7 @@ public class ConfirmationScreenController implements LoadListener {
 
     if (HIDDEN_MODE) {
       this.targetWordLabel.setText("Loading Definitions");
+      this.numberOfDefinitionLabel.setText("Number of Definitions");
       numberOfDefinitionLabel.setVisible(true);
       System.out.println("The word is: " + this.wordService.getTargetWord());
       getDefinitions(this.wordService.getTargetWord());
