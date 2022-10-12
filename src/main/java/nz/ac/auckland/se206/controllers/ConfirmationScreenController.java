@@ -8,8 +8,8 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
-import nz.ac.auckland.se206.words.Difficulty;
 import nz.ac.auckland.se206.words.WordService;
 
 @Singleton
@@ -20,6 +20,7 @@ public class ConfirmationScreenController implements LoadListener {
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
+  @Inject private UserService userService;
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -36,7 +37,8 @@ public class ConfirmationScreenController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
-    this.wordService.selectRandomTarget(Difficulty.EASY);
+    this.wordService.selectRandomTarget(
+        this.userService.getCurrentUser().getGameSettings().getWords());
     this.targetWordLabel.setText(this.wordService.getTargetWord());
   }
 

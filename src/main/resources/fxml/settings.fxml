@@ -48,7 +48,7 @@
                         </RadioButton>
                         <RadioButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Medium" toggleGroup="$words" />
                         <RadioButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Hard" toggleGroup="$words" />
-                        <RadioButton fx:id="wordsMasterButton" mnemonicParsing="false" onAction="#onSetWords" text="Master" toggleGroup="$words" />
+                        <RadioButton fx:id="masterWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Master" toggleGroup="$words" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
