@@ -18,6 +18,7 @@ public class User {
   private int gamesLost;
   private int currentWinStreak;
   private int bestWinStreak;
+  public GameSettings gameSettings;
 
   /** An empty constructor is required to deserialize the user from JSON. */
   public User() {
@@ -35,6 +36,14 @@ public class User {
     this.username = username;
     this.profilePicture = "src/main/resources/images/defaultUserImage.jpg";
     this.pastRounds = new ArrayList<>();
+  }
+
+  public GameSettings getGameSettings() {
+    return gameSettings;
+  }
+
+  public void setGameSettings(GameSettings gameSettings) {
+    this.gameSettings = gameSettings;
   }
 
   /**
