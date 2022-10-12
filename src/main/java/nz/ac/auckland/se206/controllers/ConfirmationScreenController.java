@@ -125,23 +125,30 @@ public class ConfirmationScreenController implements LoadListener {
 
   /** This method will change the label font size to fit the screen accordingly */
   public void changeFontDynamically() {
+
+    // Clear any styles on the target word
     this.targetWordLabel.setStyle(null);
+
     String definition = this.targetWordLabel.getText();
-    System.out.println(definition);
     double maxWidth = 682;
     double defaultFontSize = 36;
     Font defaultFont = Font.font(defaultFontSize);
-
     Text tmpText = new Text(this.targetWordLabel.getText());
+    double textWidth;
     tmpText.setFont(defaultFont);
-    double textWidth = tmpText.getLayoutBounds().getWidth();
+    textWidth = tmpText.getLayoutBounds().getWidth();
 
-    // check if text width is smaller than maximum width allowed
+    /**
+     * Check if text width is smaller than maximum width allowed.
+     *
+     * <p>If the sentence is too big, split it into 3 smaller sentences
+     */
     if (textWidth > maxWidth) {
       int spaceCount = StringUtils.countMatches(definition, " ");
       int firstPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 3);
       int secondPlacement = StringUtils.ordinalIndexOf(definition, " ", 2 * spaceCount / 3);
 
+      // Create new string and combining the three split sentences
       String threeSentence =
           definition.substring(0, firstPlacement)
               + "\n"
@@ -151,6 +158,11 @@ public class ConfirmationScreenController implements LoadListener {
       tmpText = new Text(threeSentence);
       tmpText.setFont(defaultFont);
       textWidth = tmpText.getLayoutBounds().getWidth();
+      /**
+       * Check if text width is smaller than maximum width allowed.
+       *
+       * <p>If the sentence is too big, make the font smaller
+       */
       if (textWidth > maxWidth) {
         double newFontSize = defaultFontSize * maxWidth / textWidth - 1;
         this.targetWordLabel.setStyle("-fx-font-size: " + newFontSize + ";");
