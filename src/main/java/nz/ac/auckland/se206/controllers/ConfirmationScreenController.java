@@ -106,6 +106,9 @@ public class ConfirmationScreenController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
+    // Clear any styles on the target word
+    this.targetWordLabel.setStyle(null);
+
     // Clear previous definitions
     definitions.clear();
     definitionIndex = 0;
@@ -122,7 +125,7 @@ public class ConfirmationScreenController implements LoadListener {
       this.targetWordLabel.setText("Loading Definitions");
       numberOfDefinitionLabel.setVisible(true);
       System.out.println("The word is: " + this.wordService.getTargetWord());
-      getDefinitions("Tennis racquet");
+      getDefinitions(this.wordService.getTargetWord());
     } else {
       this.targetWordLabel.setText(this.wordService.getTargetWord());
     }
@@ -130,7 +133,6 @@ public class ConfirmationScreenController implements LoadListener {
 
   /** This method will change the label font size to fit the screen accordingly */
   public void changeFontDynamically() {
-
     // Clear any styles on the target word
     this.targetWordLabel.setStyle(null);
 
