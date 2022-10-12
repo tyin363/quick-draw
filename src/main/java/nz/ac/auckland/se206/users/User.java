@@ -18,7 +18,7 @@ public class User {
   private int gamesLost;
   private int currentWinStreak;
   private int bestWinStreak;
-  public GameSettings gameSettings;
+  private GameSettings gameSettings;
 
   /** An empty constructor is required to deserialize the user from JSON. */
   public User() {

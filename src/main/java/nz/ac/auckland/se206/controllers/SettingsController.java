@@ -9,6 +9,7 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.words.WordService;
 
@@ -27,6 +28,7 @@ public class SettingsController implements LoadListener {
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
+  @Inject private UserService userService;
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -50,14 +52,52 @@ public class SettingsController implements LoadListener {
   }
 
   @FXML
-  private void onSetAccuracy(ActionEvent event) {}
+  private void onSetAccuracy(ActionEvent event) {
+    if (easyAccuracyButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setAccuracy("Easy");
+    } else if (mediumAccuracyButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setAccuracy("Medium");
+    } else if (hardAccuracyButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setAccuracy("Hard");
+    }
+  }
 
   @FXML
-  private void onSetWords(ActionEvent event) {}
+  private void onSetWords(ActionEvent event) {
+    if (easyWordsButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setWords("Easy");
+    } else if (mediumWordsButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setWords("Medium");
+    } else if (hardWordsButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setWords("Hard");
+    } else if (masterWordsButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setWords("Master");
+    }
+  }
 
   @FXML
-  private void onSetTime(ActionEvent event) {}
+  private void onSetTime(ActionEvent event) {
+    if (easyTimeButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setTime(60);
+    } else if (mediumTimeButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setTime(45);
+    } else if (hardTimeButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setTime(30);
+    } else if (masterTimeButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setTime(15);
+    }
+  }
 
   @FXML
-  private void onSetConfidence(ActionEvent event) {}
+  private void onSetConfidence(ActionEvent event) {
+    if (easyConfidenceButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setConfidence("Easy");
+    } else if (mediumConfidenceButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setConfidence("Medium");
+    } else if (hardConfidenceButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setConfidence("Hard");
+    } else if (masterConfidenceButton.isSelected()) {
+      userService.getCurrentUser().getGameSettings().setConfidence("Master");
+    }
+  }
 }
