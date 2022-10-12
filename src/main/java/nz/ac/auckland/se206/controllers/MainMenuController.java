@@ -38,6 +38,7 @@ public class MainMenuController implements LoadListener {
   /** Everytime this scene is switched to select a new random message. */
   @Override
   public void onLoad() {
+    IS_HIDDEN = false;
     this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
   }
 
