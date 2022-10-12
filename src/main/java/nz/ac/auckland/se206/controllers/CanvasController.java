@@ -30,7 +30,6 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
-import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.BrushType;
 import nz.ac.auckland.se206.util.Config;
 import nz.ac.auckland.se206.words.WordService;
@@ -67,7 +66,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Inject private Config config;
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
-  @Inject private UserService userService;
   @Inject private CanvasStateMachine stateMachine;
 
   private GraphicsContext graphic;
@@ -356,38 +354,83 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
+  /**
+   * Retrieve the eraser brush icon container.
+   *
+   * @return The eraser brush icon container
+   */
   public Pane getEraserPane() {
     return this.eraserPane;
   }
 
+  /**
+   * Retrieve the pen brush icon container.
+   *
+   * @return The pen brush icon container
+   */
   public Pane getPenPane() {
     return this.penPane;
   }
 
+  /**
+   * Retrieve the clear canvas icon container.
+   *
+   * @return The clear canvas icon container
+   */
   public Pane getClearPane() {
     return this.clearPane;
   }
 
+  /**
+   * Retrieves the container which holds the 3 action icon buttons.
+   *
+   * @return The container which holds the 3 action icon buttons
+   */
   public VBox getToolContainer() {
     return this.toolContainer;
   }
 
+  /**
+   * Retrieve the container for the 3 buttons that appear when the game ends.
+   *
+   * @return The game over action container
+   */
   public HBox getGameOverActionsContainer() {
     return this.gameOverActionsContainer;
   }
 
+  /**
+   * Retrieve the main label which appears just above the canvas.
+   *
+   * @return The main label
+   */
   public Label getMainLabel() {
     return this.mainLabel;
   }
 
+  /**
+   * Retrieve the current pen colour being used.
+   *
+   * @return The current pen colour
+   */
   public Color getPenColour() {
     return this.penColour;
   }
 
+  /**
+   * Set the current pen colour to use when drawing.
+   *
+   * @param penColour The new pen colour
+   */
   public void setPenColour(final Color penColour) {
     this.penColour = penColour;
   }
 
+  /**
+   * Retrieves the prediction handler instance which is used to make predictions.
+   *
+   * @return The prediction handler instance
+   */
   public PredictionHandler getPredictionHandler() {
     return this.predictionHandler;
   }

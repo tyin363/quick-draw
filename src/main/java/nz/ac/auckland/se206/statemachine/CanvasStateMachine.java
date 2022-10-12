@@ -31,6 +31,11 @@ public class CanvasStateMachine {
     this.currentState.onEnter();
   }
 
+  /**
+   * Get the current state of the state machine.
+   *
+   * @return The current state of the state machine
+   */
   public CanvasState getCurrentState() {
     return this.currentState;
   }
