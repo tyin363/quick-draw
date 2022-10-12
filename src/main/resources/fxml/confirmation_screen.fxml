@@ -27,8 +27,8 @@
                            <children>
                               <VBox alignment="BOTTOM_CENTER" prefHeight="137.0" prefWidth="222.0" spacing="25.0">
                                  <children>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="87.0" style="-fx-background-color: white; -fx-pref-width: 40; -fx-pref-height: 80;" styleClass="left-icon" VBox.vgrow="SOMETIMES" />
-                                    <Label styleClass="text-default" text="Previous Definition">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClickPrevious" prefHeight="69.0" prefWidth="87.0" style="-fx-background-color: white; -fx-pref-width: 40; -fx-pref-height: 80;" styleClass="left-icon" VBox.vgrow="SOMETIMES" />
+                                    <Label onMouseClicked="#onClickPrevious" styleClass="text-default" text="Previous Definition">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
@@ -42,8 +42,8 @@
                         </Label>
                               <VBox alignment="BOTTOM_CENTER" prefHeight="137.0" prefWidth="222.0" spacing="25.0">
                                  <children>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="69.0" prefWidth="87.0" style="-fx-background-color: white; -fx-pref-width: 40; -fx-pref-height: 80; -fx-rotate: 180;" styleClass="left-icon" VBox.vgrow="SOMETIMES" />
-                                    <Label styleClass="text-default" text="Next Definition">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClickNext" prefHeight="69.0" prefWidth="87.0" style="-fx-background-color: white; -fx-pref-width: 40; -fx-pref-height: 80; -fx-rotate: 180;" styleClass="left-icon" VBox.vgrow="SOMETIMES" />
+                                    <Label onMouseClicked="#onClickNext" styleClass="text-default" text="Next Definition">
                                        <font>
                                           <Font size="24.0" />
                                        </font>

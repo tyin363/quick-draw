@@ -35,6 +35,7 @@ public class ConfirmationScreenController implements LoadListener {
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   private List<String> definitions = new ArrayList<String>();
+  private int definitionIndex = 0;
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -48,6 +49,26 @@ public class ConfirmationScreenController implements LoadListener {
     this.sceneManager.switchToView(View.CANVAS);
   }
 
+  /** The previous definition of the given word will be shown. */
+  @FXML
+  private void onClickPrevious() {
+    if (definitionIndex - 1 >= 0) {
+      definitionIndex--;
+    }
+    this.targetWordLabel.setText(definitions.get(definitionIndex));
+    changeFontDynamically();
+  }
+
+  /** The next definition of the given word will be shown. */
+  @FXML
+  private void onClickNext() {
+    if (definitionIndex + 1 <= definitions.size() - 1) {
+      definitionIndex++;
+    }
+    this.targetWordLabel.setText(definitions.get(definitionIndex));
+    changeFontDynamically();
+  }
+
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
@@ -57,6 +78,7 @@ public class ConfirmationScreenController implements LoadListener {
 
     if (HIDDEN_MODE) {
       getDefinitions(this.wordService.getTargetWord());
+      System.out.println(definitions.size());
     } else {
       this.targetWordLabel.setText(this.wordService.getTargetWord());
     }
@@ -112,7 +134,6 @@ public class ConfirmationScreenController implements LoadListener {
 
           @Override
           protected Void call() throws Exception {
-
             try {
               // get word info
               WordInfo wordResult = DictionaryLookup.searchWordInfo(queryWord);
@@ -124,7 +145,7 @@ public class ConfirmationScreenController implements LoadListener {
 
               Platform.runLater(
                   () -> {
-                    targetWordLabel.setText(definitions.get(0));
+                    targetWordLabel.setText(definitions.get(definitionIndex));
                     changeFontDynamically();
                   });
             } catch (IOException e) {
