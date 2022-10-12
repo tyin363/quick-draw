@@ -9,7 +9,6 @@
   -fx-max-height: 30px;
   -fx-border-radius: 4px;
   -fx-background-radius: 4px;
-  -fx-border-color: -fx-gray-75;
 }
 
 .colour-palette > Pane:hover {
@@ -18,8 +17,9 @@
 }
 
 .selected-colour {
-  -fx-border-width: 2px;
-  -fx-border-color: -fx-highlight;
+  -fx-border-width: 3px;
+  -fx-border-insets: -1px;
+  -fx-border-color: white;
 }
 
 .selected-colour-indicator {
@@ -37,4 +37,8 @@
   -fx-background-color: -fx-lightgray-100;
   -fx-border-radius: 8px;
   -fx-background-radius: 8px;
+}
+
+.pen-options > HBox {
+  -fx-padding: 5px;
 }

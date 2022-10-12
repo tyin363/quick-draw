@@ -1,9 +1,9 @@
 package nz.ac.auckland.se206.components.canvas;
 
 import java.util.function.Consumer;
+import javafx.geometry.Pos;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -31,7 +31,7 @@ public class ZenPenOptions extends VBox {
   private static final int COLOURS_PER_ROW = 3;
 
   private final Consumer<Color> handleSwitchColour;
-  private final Pane currentColour;
+  private Pane currentColour;
 
   /**
    * Constructs a pen options component for the zen mode canvas.
@@ -46,7 +46,6 @@ public class ZenPenOptions extends VBox {
     this.handleSwitchColour = handleSwitchColour;
     // Keep a reference to this so that the background colour can be as the user switches the pen
     // colour.
-    this.currentColour = this.renderCurrentColour(initialColour);
     Tooltip.install(this.currentColour, new Tooltip("The current pen colour"));
 
     this.getStyleClass().add("pen-options");
@@ -56,8 +55,7 @@ public class ZenPenOptions extends VBox {
         .addAll(
             this.renderToolContainer(tools),
             new Separator(),
-            this.renderColourPalette(),
-            this.currentColour);
+            this.renderColourPalette(initialColour));
   }
 
   /**
@@ -75,19 +73,15 @@ public class ZenPenOptions extends VBox {
   /**
    * Renders the possible colours that can be selected to draw with for the pen.
    *
+   * @param initialColour The initial colour to use for the selected colour indicator
    * @return The rendered colour palette
    */
-  private GridPane renderColourPalette() {
+  private GridPane renderColourPalette(final Color initialColour) {
     final GridPane colourPalette = new GridPane();
     colourPalette.getStyleClass().add("colour-palette");
-    colourPalette.setHgap(5);
+    colourPalette.setHgap(10);
     colourPalette.setVgap(5);
-
-    for (int i = 0; i < COLOURS_PER_ROW; i++) {
-      final ColumnConstraints columnConstraints = new ColumnConstraints();
-      columnConstraints.setPercentWidth(100D / COLOURS_PER_ROW);
-      colourPalette.getColumnConstraints().add(columnConstraints);
-    }
+    colourPalette.setAlignment(Pos.CENTER);
 
     // Add all the colours to the colour palette.
     for (int i = 0; i < COLOURS.length; i++) {
@@ -98,32 +92,25 @@ public class ZenPenOptions extends VBox {
       final Pane colourOption = new Pane();
       this.setBackground(colourOption, colour);
 
+      if (colour.equals(initialColour)) {
+        this.currentColour = colourOption;
+        this.currentColour.getStyleClass().add("selected-colour");
+      }
+
       // Anytime one of these colour options are clicked we want to switch the current colour
       // displayed and call the callback so this can be handled outside this component.
       colourOption.setOnMouseClicked(
           event -> {
             this.handleSwitchColour.accept(colour);
-            this.setBackground(this.currentColour, colour);
+            this.currentColour.getStyleClass().remove("selected-colour");
+            this.currentColour = colourOption;
+            this.currentColour.getStyleClass().add("selected-colour");
           });
 
       colourPalette.add(colourOption, column, row);
     }
 
     return colourPalette;
-  }
-
-  /**
-   * Renders the current colour indicator for what colour the pen is currently set to.
-   *
-   * @param initialColour The initial colour to use for the selected colour indicator
-   * @return The rendered current colour indicator
-   */
-  private Pane renderCurrentColour(final Color initialColour) {
-    final Pane currentColour = new Pane();
-    currentColour.getStyleClass().add("selected-colour-indicator");
-    // Initially, use the specified colour
-    this.setBackground(currentColour, initialColour);
-    return currentColour;
   }
 
   /**
