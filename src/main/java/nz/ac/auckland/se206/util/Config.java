@@ -110,12 +110,12 @@ public class Config {
    * @return The number of seconds to complete the drawing
    */
   public int getDrawingTimeSeconds() {
-    User user = this.userService.getCurrentUser();
-    if (user.getGameSettings().getTime() == 60) {
+    User currentUser = this.userService.getCurrentUser();
+    if (currentUser.getGameSettings().getTime() == 60) {
       return 60;
-    } else if (user.getGameSettings().getTime() == 45) {
+    } else if (currentUser.getGameSettings().getTime() == 45) {
       return 45;
-    } else if (user.getGameSettings().getTime() == 30) {
+    } else if (currentUser.getGameSettings().getTime() == 30) {
       return 30;
     } else {
       return 15;
@@ -129,7 +129,14 @@ public class Config {
    * @return The winning placement
    */
   public int getWinPlacement() {
-    return 3;
+    User currentUser = this.userService.getCurrentUser();
+    if (currentUser.getGameSettings().getAccuracy().contentEquals("Easy")) {
+      return 3;
+    } else if (currentUser.getGameSettings().getAccuracy().contentEquals("Medium")) {
+      return 2;
+    } else {
+      return 1;
+    }
   }
 
   /**
