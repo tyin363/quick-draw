@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>core</artifactId>
+  <dependencies>
+    <dependency>
+      <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>logback-core</artifactId>
+      <groupId>ch.qos.logback</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>logback-classic</artifactId>
+      <groupId>ch.qos.logback</groupId>
+    </dependency>
+  </dependencies>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>quick-draw</artifactId>
+    <groupId>nz.ac.auckland.se206</groupId>
+    <version>2.0.0</version>
+  </parent>
+
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+</project>

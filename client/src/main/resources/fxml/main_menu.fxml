@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.client.controllers.MainMenuController">
+  <children>
+    <fx:include fx:id="header" maxHeight="80.0" minHeight="80.0" minWidth="80.0" source="header.fxml" />
+    <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="38.0" VBox.vgrow="ALWAYS">
+      <children>
+        <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="440.0" prefWidth="1150.0" spacing="40.0" HBox.hgrow="ALWAYS">
+          <children>
+            <Label alignment="CENTER" prefHeight="58.0" prefWidth="566.0" text="Quick, Draw! SE206 Edition">
+              <font>
+                <Font name="SansSerif Bold" size="36.0" />
+              </font>
+              <styleClass>
+                <String fx:value="text-highlight" />
+                <String fx:value="text-default" />
+              </styleClass>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#onStartGame" prefHeight="37.0" prefWidth="169.0" styleClass="btn" text="Start Game" />
+            <Button mnemonicParsing="false" onAction="#onStartZenMode" prefHeight="37.0" prefWidth="169.0" styleClass="btn" text="Zen Mode" />
+            <Label fx:id="messageLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="116.0" prefWidth="296.0" styleClass="text-default" text="Some message goes here" wrapText="true">
+              <font>
+                <Font name="SansSerif Italic" size="18.0" />
+              </font>
+            </Label>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </children>
+  <styleClass>
+    <String fx:value="bg-gray-25" />
+    <String fx:value="root-element" />
+  </styleClass>
+  <stylesheets>
+    <URL value="@../css/styles.css" />
+    <URL value="@../css/colours.css" />
+  </stylesheets>
+</VBox>

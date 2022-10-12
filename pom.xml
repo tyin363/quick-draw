@@ -20,13 +20,13 @@
       <plugin>
         <artifactId>javafx-maven-plugin</artifactId>
         <configuration>
-          <mainClass>nz.ac.auckland.se206.App</mainClass>
+          <mainClass>nz.ac.auckland.se206.client.App</mainClass>
           <release>17</release>
         </configuration>
         <executions>
           <execution>
             <configuration>
-              <mainClass>nz.ac.auckland.se206.App</mainClass>
+              <mainClass>nz.ac.auckland.se206.client.App</mainClass>
               <options>
                 <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005
                 </option>
@@ -63,86 +63,59 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-    <dependency>
-      <artifactId>javafx-controls</artifactId>
-      <groupId>org.openjfx</groupId>
-      <version>18.0.1</version>
-    </dependency>
-    <dependency>
-      <artifactId>javafx-fxml</artifactId>
-      <groupId>org.openjfx</groupId>
-      <version>18.0.1</version>
-    </dependency>
-    <dependency>
-      <artifactId>javafx-graphics</artifactId>
-      <groupId>org.openjfx</groupId>
-      <version>18.0.1</version>
-    </dependency>
-    <dependency>
-      <artifactId>javafx-swing</artifactId>
-      <groupId>org.openjfx</groupId>
-      <version>17.0.0.1</version>
-    </dependency>
-    <dependency>
-      <artifactId>api</artifactId>
-      <groupId>ai.djl</groupId>
-      <version>0.18.0</version>
-    </dependency>
-    <dependency>
-      <artifactId>pytorch-engine</artifactId>
-      <groupId>ai.djl.pytorch</groupId>
-      <version>0.18.0</version>
-    </dependency>
-    <dependency>
-      <artifactId>pytorch-native-cpu</artifactId>
-      <groupId>ai.djl.pytorch</groupId>
-      <version>1.11.0</version>
-    </dependency>
-    <dependency>
-      <artifactId>imgscalr-lib</artifactId>
-      <groupId>org.imgscalr</groupId>
-      <version>4.2</version>
-    </dependency>
-    <dependency>
-      <artifactId>freetts</artifactId>
-      <groupId>net.sf.sociaal</groupId>
-      <version>1.2.2</version>
-    </dependency>
-    <dependency>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <groupId>org.junit.jupiter</groupId>
-      <scope>test</scope>
-      <version>5.8.1</version>
-    </dependency>
-    <dependency>
-      <artifactId>slf4j-api</artifactId>
-      <groupId>org.slf4j</groupId>
-      <version>1.7.36</version>
-    </dependency>
-    <dependency>
-      <artifactId>logback-core</artifactId>
-      <groupId>ch.qos.logback</groupId>
-      <version>1.2.9</version>
-    </dependency>
-    <dependency>
-      <artifactId>logback-classic</artifactId>
-      <groupId>ch.qos.logback</groupId>
-      <version>1.2.11</version>
-    </dependency>
-    <dependency>
-      <artifactId>opencsv</artifactId>
-      <groupId>com.opencsv</groupId>
-      <version>5.6</version>
-    </dependency>
-    <dependency>
-      <artifactId>jackson-databind</artifactId>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <version>2.13.4</version>
-    </dependency>
-  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <artifactId>javafx-controls</artifactId>
+        <groupId>org.openjfx</groupId>
+        <version>18.0.1</version>
+      </dependency>
+      <dependency>
+        <artifactId>javafx-fxml</artifactId>
+        <groupId>org.openjfx</groupId>
+        <version>18.0.1</version>
+      </dependency>
+      <dependency>
+        <artifactId>javafx-graphics</artifactId>
+        <groupId>org.openjfx</groupId>
+        <version>18.0.1</version>
+      </dependency>
+      <dependency>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <groupId>org.junit.jupiter</groupId>
+        <scope>test</scope>
+        <version>5.8.1</version>
+      </dependency>
+      <dependency>
+        <artifactId>slf4j-api</artifactId>
+        <groupId>org.slf4j</groupId>
+        <version>1.7.36</version>
+      </dependency>
+      <dependency>
+        <artifactId>logback-core</artifactId>
+        <groupId>ch.qos.logback</groupId>
+        <version>1.2.9</version>
+      </dependency>
+      <dependency>
+        <artifactId>logback-classic</artifactId>
+        <groupId>ch.qos.logback</groupId>
+        <version>1.2.11</version>
+      </dependency>
+      <dependency>
+        <artifactId>jackson-databind</artifactId>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <version>2.14.0-rc1</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <groupId>nz.ac.auckland.se206</groupId>
   <modelVersion>4.0.0</modelVersion>
+  <modules>
+    <module>client</module>
+    <module>core</module>
+    <module>server</module>
+  </modules>
+  <packaging>pom</packaging>
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
