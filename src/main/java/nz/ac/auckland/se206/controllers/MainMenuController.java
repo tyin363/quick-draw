@@ -14,6 +14,7 @@ import nz.ac.auckland.se206.util.Helpers;
 @Singleton
 public class MainMenuController implements LoadListener {
 
+  private static boolean IS_HIDDEN = false;
   private final Random random = new Random();
   private final String[] messages = {
     "Speed is key! Make sure to focus on features that are most identifiable",
@@ -46,6 +47,16 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartGame() {
+    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+  }
+
+  /**
+   * Switch to the confirmation screen, where the user will have time to think about the word before
+   * the timer starts.
+   */
+  @FXML
+  private void onStartHidden() {
+    IS_HIDDEN = true;
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
