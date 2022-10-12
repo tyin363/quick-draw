@@ -176,16 +176,16 @@ public class Config {
     return 6;
   }
 
-  public int getConfidenceNeeded() {
+  public double getTargetConfidence() {
     User currentUser = this.userService.getCurrentUser();
     if (currentUser.getGameSettings().getConfidence().contentEquals("Easy")) {
-      return 1;
+      return 0.01;
     } else if (currentUser.getGameSettings().getConfidence().contentEquals("Medium")) {
-      return 10;
+      return 0.1;
     } else if (currentUser.getGameSettings().getConfidence().contentEquals("Hard")) {
-      return 25;
+      return 0.25;
     } else {
-      return 50;
+      return 0.50;
     }
   }
 }

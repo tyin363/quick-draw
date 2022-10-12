@@ -60,13 +60,16 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     super.handlePredictions(predictions);
     final int winPlacement = this.config.getWinPlacement();
     final String targetWord = this.wordService.getTargetWord();
+    final double targetConfidence = this.config.getTargetConfidence();
 
     boolean wasGuessed = false;
     // Check if the target word is in the top number of predictions. If it is, you win.
     for (int i = 0; i < winPlacement; i++) {
       // The target word uses spaces rather than underscores
       final String guess = predictions.get(i).getClassName().replaceAll("_", " ");
-      if (guess.equals(targetWord)) {
+      final double probability = predictions.get(i).getProbability();
+
+      if ((guess.equals(targetWord)) && (probability >= targetConfidence)) {
         wasGuessed = true;
         break;
       }
