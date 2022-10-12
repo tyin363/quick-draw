@@ -14,7 +14,7 @@ import nz.ac.auckland.se206.util.Helpers;
 @Singleton
 public class MainMenuController implements LoadListener {
 
-  private static boolean IS_HIDDEN = false;
+  private static boolean HIDDEN_MODE = false;
   private final Random random = new Random();
   private final String[] messages = {
     "Speed is key! Make sure to focus on features that are most identifiable",
@@ -38,7 +38,7 @@ public class MainMenuController implements LoadListener {
   /** Everytime this scene is switched to select a new random message. */
   @Override
   public void onLoad() {
-    IS_HIDDEN = false;
+    HIDDEN_MODE = false;
     this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
   }
 
@@ -57,7 +57,7 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartHidden() {
-    IS_HIDDEN = true;
+    HIDDEN_MODE = true;
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
@@ -66,8 +66,8 @@ public class MainMenuController implements LoadListener {
    *
    * @return The value of IS_HIDDEN
    */
-  public static boolean isIS_HIDDEN() {
-    return IS_HIDDEN;
+  public static boolean isHiddenMode() {
+    return HIDDEN_MODE;
   }
 
   /**

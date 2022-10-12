@@ -118,7 +118,7 @@ public class ConfirmationScreenController implements LoadListener {
     nextDefinitionVbox.setVisible(false);
     numberOfDefinitionLabel.setVisible(false);
 
-    HIDDEN_MODE = MainMenuController.isIS_HIDDEN();
+    HIDDEN_MODE = MainMenuController.isHiddenMode();
     this.wordService.selectRandomTarget(Difficulty.EASY);
 
     if (HIDDEN_MODE) {
