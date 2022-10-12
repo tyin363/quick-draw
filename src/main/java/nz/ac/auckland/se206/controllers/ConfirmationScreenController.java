@@ -34,7 +34,7 @@ public class ConfirmationScreenController implements LoadListener {
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
-  private List<String> defintions = new ArrayList<String>();
+  private List<String> definitions = new ArrayList<String>();
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -51,7 +51,7 @@ public class ConfirmationScreenController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
-
+    definitions.clear();
     HIDDEN_MODE = MainMenuController.isIS_HIDDEN();
     this.wordService.selectRandomTarget(Difficulty.EASY);
 
@@ -118,13 +118,13 @@ public class ConfirmationScreenController implements LoadListener {
               WordInfo wordResult = DictionaryLookup.searchWordInfo(queryWord);
               for (WordEntry entry : wordResult.getWordEntries()) {
                 for (String definition : entry.getDefinitions()) {
-                  defintions.add(definition);
+                  definitions.add(definition);
                 }
               }
 
               Platform.runLater(
                   () -> {
-                    targetWordLabel.setText(defintions.get(0));
+                    targetWordLabel.setText(definitions.get(0));
                     changeFontDynamically();
                   });
             } catch (IOException e) {
