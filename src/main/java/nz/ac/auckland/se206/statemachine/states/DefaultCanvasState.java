@@ -44,7 +44,7 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
   @Override
   public void onLoad() {
     this.canvasController.getGameOverActionsContainer().setVisible(false);
-    this.secondsRemaining = this.canvasController.getConfig().getDrawingTimeSeconds();
+    this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.timer.playFromStart();
   }
 

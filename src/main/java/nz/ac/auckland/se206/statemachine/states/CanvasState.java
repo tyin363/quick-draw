@@ -27,6 +27,9 @@ public abstract class CanvasState {
   /** Called when the canvas view is loaded. */
   public void onLoad() {}
 
+  /** Called when the canvas view is left */
+  public void onLeave() {}
+
   /**
    * If the canvas controller is showing predictions, this will be passed the predictions.
    *

@@ -227,6 +227,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onRestart() {
     this.onClear();
+    this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
@@ -351,6 +352,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onReturnToMainMenu() {
     this.onClear();
+    this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
@@ -384,10 +386,6 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   public void setPenColour(final Color penColour) {
     this.penColour = penColour;
-  }
-
-  public Config getConfig() {
-    return this.config;
   }
 
   public PredictionHandler getPredictionHandler() {
