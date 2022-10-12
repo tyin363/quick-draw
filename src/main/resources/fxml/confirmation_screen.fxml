@@ -54,6 +54,11 @@
                         </HBox>
                 </children>
               </VBox>
+                  <Label fx:id="numberOfDefinitionLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Number of definitions...">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
               <Button mnemonicParsing="false" onAction="#onConfirmSwitch" prefHeight="25.0" prefWidth="137.0" styleClass="btn" text="Ready!" />
             </children>
           </VBox>

@@ -34,7 +34,7 @@ public class ConfirmationScreenController implements LoadListener {
   @FXML private AnchorPane header;
   @FXML private VBox previousDefinitionVbox;
   @FXML private VBox nextDefinitionVbox;
-
+  @FXML private Label numberOfDefinitionLabel;
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   private List<String> definitions = new ArrayList<String>();
@@ -50,6 +50,13 @@ public class ConfirmationScreenController implements LoadListener {
   @FXML
   private void onConfirmSwitch() {
     this.sceneManager.switchToView(View.CANVAS);
+  }
+
+  /** This gets the number of definitions and the current index number */
+  private void getNumberOfDefinitions() {
+    int index = definitionIndex + 1;
+    int size = definitions.size();
+    this.numberOfDefinitionLabel.setText(index + "/" + size);
   }
 
   /**
@@ -70,6 +77,8 @@ public class ConfirmationScreenController implements LoadListener {
     } else {
       nextDefinitionVbox.setVisible(true);
     }
+
+    getNumberOfDefinitions();
   }
 
   /** The previous definition of the given word will be shown. */
