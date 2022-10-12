@@ -61,6 +61,15 @@ public class MainMenuController implements LoadListener {
   }
 
   /**
+   * This method returns the static IS_HIDDEN boolean variable
+   *
+   * @return The value of IS_HIDDEN
+   */
+  public static boolean isIS_HIDDEN() {
+    return IS_HIDDEN;
+  }
+
+  /**
    * When the user clicks the back button, take them back to the switch user page, unless they were
    * just at the profile page, in which case go back to that page.
    */

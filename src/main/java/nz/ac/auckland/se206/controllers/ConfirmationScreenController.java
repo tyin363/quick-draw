@@ -8,6 +8,7 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.dictionary.DictionaryLookup;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.words.Difficulty;
 import nz.ac.auckland.se206.words.WordService;
@@ -15,6 +16,7 @@ import nz.ac.auckland.se206.words.WordService;
 @Singleton
 public class ConfirmationScreenController implements LoadListener {
 
+  private static boolean HIDDEN_MODE = false;
   @FXML private Label targetWordLabel;
   @FXML private AnchorPane header;
 
@@ -36,8 +38,15 @@ public class ConfirmationScreenController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
+    HIDDEN_MODE = MainMenuController.isIS_HIDDEN();
     this.wordService.selectRandomTarget(Difficulty.EASY);
-    this.targetWordLabel.setText(this.wordService.getTargetWord());
+
+    if (HIDDEN_MODE) {
+      this.targetWordLabel.setText(this.wordService.getTargetWord());
+      DictionaryLookup.searchWord(this.wordService.getTargetWord());
+    } else {
+      this.targetWordLabel.setText(this.wordService.getTargetWord());
+    }
   }
 
   /** When the user clicks the back button, take them back to the main menu. */
