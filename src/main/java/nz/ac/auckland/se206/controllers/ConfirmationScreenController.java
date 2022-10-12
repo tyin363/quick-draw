@@ -66,23 +66,23 @@ public class ConfirmationScreenController implements LoadListener {
   /** This method will change the label font size to fit the screen accordingly */
   public void changeFontDynamically() {
 
-    double MAX_TEXT_WIDTH = 682;
+    double maxWidth = 682;
     double defaultFontSize = 36;
-    Font defaultFont = this.targetWordLabel.getFont();
+    Font defaultFont = Font.font(defaultFontSize);
+    System.out.println(this.targetWordLabel.getText());
+
     this.targetWordLabel
         .textProperty()
         .addListener(
             (observable, oldValue, newValue) -> {
-              Text tmpText = new Text(newValue);
+              Text tmpText = new Text(this.targetWordLabel.getText());
               tmpText.setFont(defaultFont);
 
               double textWidth = tmpText.getLayoutBounds().getWidth();
 
               // check if text width is smaller than maximum width allowed
-              if (textWidth <= this.targetWordLabel.getMaxWidth()) {
-                System.out.println("AMBASING");
-              } else {
-                double newFontSize = defaultFontSize * MAX_TEXT_WIDTH / textWidth;
+              if (textWidth > maxWidth) {
+                double newFontSize = defaultFontSize * maxWidth / textWidth - 1;
                 this.targetWordLabel.setStyle("-fx-font-size: " + newFontSize + ";");
               }
             });
