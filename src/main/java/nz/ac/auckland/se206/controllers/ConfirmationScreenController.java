@@ -108,14 +108,19 @@ public class ConfirmationScreenController implements LoadListener {
   public void onLoad() {
     // Clear previous definitions
     definitions.clear();
+    definitionIndex = 0;
 
     // Make Hidden mode exclusive elements invisible
     previousDefinitionVbox.setVisible(false);
     nextDefinitionVbox.setVisible(false);
+    numberOfDefinitionLabel.setVisible(false);
+
     HIDDEN_MODE = MainMenuController.isIS_HIDDEN();
     this.wordService.selectRandomTarget(Difficulty.EASY);
 
     if (HIDDEN_MODE) {
+      this.targetWordLabel.setText("Loading Definitions");
+      numberOfDefinitionLabel.setVisible(true);
       System.out.println(this.wordService.getTargetWord());
       getDefinitions(this.wordService.getTargetWord());
     } else {
@@ -130,7 +135,8 @@ public class ConfirmationScreenController implements LoadListener {
     this.targetWordLabel.setStyle(null);
 
     String definition = this.targetWordLabel.getText();
-    double maxWidth = 682;
+
+    double maxWidth = 670;
     double defaultFontSize = 36;
     Font defaultFont = Font.font(defaultFontSize);
     Text tmpText = new Text(this.targetWordLabel.getText());
