@@ -120,9 +120,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Override
   public void onLoad() {
     this.targetWordLabel.setText(this.wordService.getTargetWord());
-    // Reset the timer and start predicting instantly
-
-    this.mainLabel.setText(this.config.getDrawingTimeSeconds() + " Seconds");
 
     this.predictionHandler.startPredicting();
 
