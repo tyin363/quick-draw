@@ -8,6 +8,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -31,6 +32,8 @@ public class ConfirmationScreenController implements LoadListener {
 
   @FXML private Label targetWordLabel;
   @FXML private AnchorPane header;
+  @FXML private VBox previousDefinitionVbox;
+  @FXML private VBox nextDefinitionVbox;
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
@@ -49,6 +52,26 @@ public class ConfirmationScreenController implements LoadListener {
     this.sceneManager.switchToView(View.CANVAS);
   }
 
+  /**
+   * This method checks if there is a previous and next definition and hides or shows appropriate
+   * buttons when needed.
+   */
+  private void checkForPreviousAndNext() {
+    // Check previous definition
+    if (definitionIndex == 0) {
+      previousDefinitionVbox.setVisible(false);
+    } else {
+      previousDefinitionVbox.setVisible(true);
+    }
+
+    // Check next definition
+    if (definitionIndex == definitions.size() - 1) {
+      nextDefinitionVbox.setVisible(false);
+    } else {
+      nextDefinitionVbox.setVisible(true);
+    }
+  }
+
   /** The previous definition of the given word will be shown. */
   @FXML
   private void onClickPrevious() {
@@ -57,6 +80,7 @@ public class ConfirmationScreenController implements LoadListener {
     }
     this.targetWordLabel.setText(definitions.get(definitionIndex));
     changeFontDynamically();
+    checkForPreviousAndNext();
   }
 
   /** The next definition of the given word will be shown. */
@@ -67,18 +91,24 @@ public class ConfirmationScreenController implements LoadListener {
     }
     this.targetWordLabel.setText(definitions.get(definitionIndex));
     changeFontDynamically();
+    checkForPreviousAndNext();
   }
 
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
+    // Clear previous definitions
     definitions.clear();
+
+    // Make Hidden mode exclusive elements invisible
+    previousDefinitionVbox.setVisible(false);
+    nextDefinitionVbox.setVisible(false);
     HIDDEN_MODE = MainMenuController.isIS_HIDDEN();
     this.wordService.selectRandomTarget(Difficulty.EASY);
 
     if (HIDDEN_MODE) {
+      System.out.println(this.wordService.getTargetWord());
       getDefinitions(this.wordService.getTargetWord());
-      System.out.println(definitions.size());
     } else {
       this.targetWordLabel.setText(this.wordService.getTargetWord());
     }
@@ -109,8 +139,6 @@ public class ConfirmationScreenController implements LoadListener {
               + definition.substring(firstPlacement + 1, secondPlacement)
               + "\n"
               + definition.substring(secondPlacement + 1);
-
-      System.out.println("\n" + threeSentence);
       tmpText = new Text(threeSentence);
       tmpText.setFont(defaultFont);
       textWidth = tmpText.getLayoutBounds().getWidth();
@@ -147,6 +175,7 @@ public class ConfirmationScreenController implements LoadListener {
                   () -> {
                     targetWordLabel.setText(definitions.get(definitionIndex));
                     changeFontDynamically();
+                    checkForPreviousAndNext();
                   });
             } catch (IOException e) {
               e.printStackTrace();
