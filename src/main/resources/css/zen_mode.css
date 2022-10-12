@@ -1,10 +1,5 @@
-.pen-options > Separator {
-  -fx-padding: 0 0 10px 0;
-}
-
 .colour-palette {
-  -fx-border-radius: 8px;
-  -fx-background-radius: 8px;
+  -fx-padding: 5px;
 }
 
 .colour-palette > Pane {
@@ -14,19 +9,32 @@
   -fx-max-height: 30px;
   -fx-border-radius: 4px;
   -fx-background-radius: 4px;
-  -fx-background-color: #96e575;
   -fx-border-color: -fx-gray-75;
 }
 
 .colour-palette > Pane:hover {
-  -fx-border-color: -fx-highlight;
+  -fx-scale-y: 1.05;
+  -fx-scale-x: 1.05;
 }
 
 .selected-colour {
+  -fx-border-width: 2px;
+  -fx-border-color: -fx-highlight;
+}
+
+.selected-colour-indicator {
   -fx-border-radius: 4px;
   -fx-background-radius: 4px;
   -fx-border-color: -fx-highlight;
   -fx-border-insets: 5px 10px 5px 10px;
   -fx-padding: 5px 10px 5px 10px;
   -fx-background-insets: 5px 10px 5px 10px;
+  -fx-background-color: black;
+  -fx-pref-height: 40px;
+}
+
+.pen-options {
+  -fx-background-color: -fx-lightgray-100;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
 }

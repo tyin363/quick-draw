@@ -60,6 +60,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Canvas canvas;
   @FXML private VBox predictionVertBox;
   @FXML private HBox gameOverActionsHoriBox;
+  @FXML private VBox toolContainer;
   @FXML private Pane eraserPane;
   @FXML private Pane penPane;
   @FXML private Pane clearPane;
@@ -82,6 +83,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   private int secondsRemaining;
   private User user;
   private boolean isUpdatingPredictions;
+  private Color penColour = Color.BLACK;
 
   // Mouse coordinates
   private double currentX;
@@ -92,7 +94,7 @@ public class CanvasController implements LoadListener, TerminationListener {
         final double x = e.getX() - this.config.getBrushSize() / 2;
         final double y = e.getY() - this.config.getBrushSize() / 2;
 
-        this.graphic.setFill(Color.BLACK);
+        this.graphic.setStroke(this.penColour);
         this.graphic.setLineWidth(this.config.getBrushSize());
 
         // Create a line that goes from the point (currentX, currentY) and (x,y)
@@ -427,5 +429,18 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   public Pane getClearPane() {
     return this.clearPane;
+  }
+
+  public VBox getToolContainer() {
+    return this.toolContainer;
+  }
+
+  public Color getPenColour() {
+    return this.penColour;
+  }
+
+  public void setPenColour(final Color penColour) {
+    this.logger.info("Setting pen colour to {}", penColour);
+    this.penColour = penColour;
   }
 }

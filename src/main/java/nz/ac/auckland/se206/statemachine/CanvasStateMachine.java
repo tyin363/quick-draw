@@ -19,12 +19,15 @@ public class CanvasStateMachine {
    *
    * @param newState The state to switch to
    */
-  public void switchState(final CanvasState newState) {
+  public void switchState(final Class<? extends CanvasState> newState) {
     if (this.currentState != null) {
+      if (this.currentState.getClass() == newState) {
+        return;
+      }
       // Allow the current state to do any clean-up if necessary
       this.currentState.onExit();
     }
-    this.currentState = newState;
+    this.currentState = this.instanceFactory.get(newState);
     this.currentState.onEnter();
   }
 

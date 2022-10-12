@@ -1,8 +1,9 @@
 package nz.ac.auckland.se206.components.canvas;
 
 import java.util.function.Consumer;
-import javafx.scene.Node;
 import javafx.scene.control.Separator;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -14,17 +15,17 @@ public class ZenPenOptions extends VBox {
   private static final Color[] COLOURS =
       new Color[] {
         Color.BLACK,
-        Color.WHITE,
-        Color.BLUE,
+        Color.web("#424549"), // Gray-25
+        Color.web("#8e460f"), // Brown
         Color.RED,
-        Color.GREEN,
-        Color.YELLOW,
         Color.ORANGE,
-        Color.PURPLE,
-        Color.BROWN,
-        Color.GRAY,
-        Color.web("#FFC0CB"),
-        Color.web("#FFA500")
+        Color.web("#ddc02e"), // Yellow
+        Color.web("#1bad1e"), // Green
+        Color.web("#a132c9"), // Purple
+        Color.web("#FFC0CB"), // Pink
+        Color.BLUE,
+        Color.web("#5865F2"), // Blurple
+        Color.web("#42a4e5") // Light blue
       };
 
   private static final int COLOURS_PER_ROW = 3;
@@ -46,8 +47,9 @@ public class ZenPenOptions extends VBox {
     // Keep a reference to this so that the background colour can be as the user switches the pen
     // colour.
     this.currentColour = this.renderCurrentColour(initialColour);
+    Tooltip.install(this.currentColour, new Tooltip("The current pen colour"));
 
-    this.getStyleClass().addAll("bg-lightgray-100", "icon-btn-row", "pen-options");
+    this.getStyleClass().add("pen-options");
 
     // Render and add all the subcomponents
     this.getChildren()
@@ -81,6 +83,12 @@ public class ZenPenOptions extends VBox {
     colourPalette.setHgap(5);
     colourPalette.setVgap(5);
 
+    for (int i = 0; i < COLOURS_PER_ROW; i++) {
+      final ColumnConstraints columnConstraints = new ColumnConstraints();
+      columnConstraints.setPercentWidth(100D / COLOURS_PER_ROW);
+      colourPalette.getColumnConstraints().add(columnConstraints);
+    }
+
     // Add all the colours to the colour palette.
     for (int i = 0; i < COLOURS.length; i++) {
       // Calculate the position in the grid for this colour given a fixed number of colours per row
@@ -88,7 +96,6 @@ public class ZenPenOptions extends VBox {
       final int column = i % COLOURS_PER_ROW;
       final Color colour = COLOURS[i];
       final Pane colourOption = new Pane();
-      System.out.println(colour);
       this.setBackground(colourOption, colour);
 
       // Anytime one of these colour options are clicked we want to switch the current colour
@@ -113,19 +120,35 @@ public class ZenPenOptions extends VBox {
    */
   private Pane renderCurrentColour(final Color initialColour) {
     final Pane currentColour = new Pane();
-    currentColour.getStyleClass().add("current-colour");
+    currentColour.getStyleClass().add("selected-colour-indicator");
     // Initially, use the specified colour
     this.setBackground(currentColour, initialColour);
     return currentColour;
   }
 
   /**
-   * Set the background colour for a specific node to the specified colour.
+   * Set the background colour for a specific pane to the specified colour.
    *
-   * @param node The node to set the background colour for
+   * @param pane The pane to set the background colour for
    * @param colour The colour to set the background to
    */
-  private void setBackground(final Node node, final Color colour) {
-    node.setStyle("-fx-background-color: %s;".formatted(colour));
+  private void setBackground(final Pane pane, final Color colour) {
+    pane.setStyle("-fx-background-color: %s;".formatted(this.toHex(colour)));
+  }
+
+  /**
+   * Converts a JavaFX colour to a hex string.
+   *
+   * @param colour The colour to convert
+   * @return The hex string representation of the colour
+   */
+  private String toHex(final Color colour) {
+    // By default, the colour values are in the range of 0-1. We need to multiply by 255 to get
+    // the range of 0-255.
+    return String.format(
+        "#%02X%02X%02X",
+        (int) (colour.getRed() * 255),
+        (int) (colour.getGreen() * 255),
+        (int) (colour.getBlue() * 255));
   }
 }

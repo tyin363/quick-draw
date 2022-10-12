@@ -9,6 +9,8 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
+import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.util.Helpers;
 
 @Singleton
@@ -27,6 +29,7 @@ public class MainMenuController implements LoadListener {
   @FXML private AnchorPane header;
 
   @Inject private SceneManager sceneManager;
+  @Inject private CanvasStateMachine stateMachine;
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -46,6 +49,16 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartGame() {
+    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+  }
+
+  /**
+   * Sets the canvas state machine to the zen mode state and switches to the confirmation screen
+   * where users will have time to think about the word before the timer starts.
+   */
+  @FXML
+  private void onStartZenMode() {
+    this.stateMachine.switchState(ZenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 

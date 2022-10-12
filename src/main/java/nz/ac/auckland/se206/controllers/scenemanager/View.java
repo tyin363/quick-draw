@@ -5,7 +5,7 @@ import java.util.Locale;
 public enum View {
   MAIN_MENU,
   CONFIRMATION_SCREEN,
-  CANVAS("zen_mode"),
+  CANVAS,
   PROFILE_PAGE,
   SWITCH_USER;
 
