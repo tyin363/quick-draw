@@ -40,14 +40,14 @@
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
                         <Label alignment="CENTER" prefHeight="17.0" prefWidth="185.0" text="Words" />
-                        <RadioButton fx:id="easyWordButton" mnemonicParsing="false" onAction="#onSetWords" text="Easy">
+                        <RadioButton fx:id="easyWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Easy">
                            <toggleGroup>
                               <ToggleGroup fx:id="words" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" onAction="#onSetWords" text="Medium" toggleGroup="$words" />
+                        <RadioButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Medium" toggleGroup="$words" />
                         <RadioButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Hard" toggleGroup="$words" />
-                        <RadioButton mnemonicParsing="false" onAction="#onSetWords" text="Master" toggleGroup="$words" />
+                        <RadioButton fx:id="wordsMasterButton" mnemonicParsing="false" onAction="#onSetWords" text="Master" toggleGroup="$words" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
