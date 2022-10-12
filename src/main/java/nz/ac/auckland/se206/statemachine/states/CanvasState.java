@@ -30,7 +30,7 @@ public abstract class CanvasState {
   /**
    * If the canvas controller is showing predictions, this will be passed the predictions.
    *
-   * @param predictions The predictions to handle.
+   * @param predictions The predictions that have been made
    */
   public void handlePredictions(final List<Classification> predictions) {
     this.canvasController.displayPredictions(predictions);

@@ -37,6 +37,10 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     super(canvasController);
   }
 
+  /**
+   * When the default canvas state is loaded, make sure the game over actions aren't visible and
+   * reset the count-down timer.
+   */
   @Override
   public void onLoad() {
     this.canvasController.getGameOverActionsContainer().setVisible(false);
@@ -44,6 +48,12 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     this.timer.playFromStart();
   }
 
+  /**
+   * After the predictions have been rendered, check to see if the correct word is within the
+   * winning placement. If so, then the user has won the round.
+   *
+   * @param predictions The predictions that have been made
+   */
   @Override
   public void handlePredictions(final List<Classification> predictions) {
     super.handlePredictions(predictions);
@@ -66,6 +76,10 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     }
   }
 
+  /**
+   * When this state is first created, construct a timer instance that can be reused to count down
+   * the time the user has remaining.
+   */
   @Override
   public void onEnable() {
     // Create a timeline that reduces the number of seconds remaining by 1 every second
@@ -115,6 +129,7 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     this.canvasController.getGameOverActionsContainer().setVisible(true);
   }
 
+  /** When the application is terminated, make sure to stop the timer. */
   @Override
   public void onTerminate() {
     this.timer.stop();
