@@ -119,9 +119,7 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @Override
   public void onLoad() {
-    this.targetWordLabel.setText(
-        this.wordService.getTargetWord().substring(0, 1).toUpperCase()
-            + this.wordService.getTargetWord().substring(1));
+    this.targetWordLabel.setText(this.wordService.getTargetWord());
 
     this.predictionHandler.startPredicting();
 

@@ -33,8 +33,11 @@
           <children>
             <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
               <font>
-                <Font size="28.0" />
+                <Font size="32.0" />
               </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
             </Label>
             <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
               <font>
