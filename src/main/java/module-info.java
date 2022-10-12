@@ -11,6 +11,8 @@ open module SE206Project {
   requires com.fasterxml.jackson.databind;
   requires com.fasterxml.jackson.annotation;
   requires javafx.graphics;
+  requires okhttp3;
+  requires org.json;
 
   exports nz.ac.auckland.se206;
 }
