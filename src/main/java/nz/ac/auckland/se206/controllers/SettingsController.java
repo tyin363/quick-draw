@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
@@ -49,14 +50,14 @@ public class SettingsController implements LoadListener {
   }
 
   @FXML
-  private void onSetAccuracy() {}
+  private void onSetAccuracy(ActionEvent event) {}
 
   @FXML
-  private void onSetWords() {}
+  private void onSetWords(ActionEvent event) {}
 
   @FXML
-  private void onSetTime() {}
+  private void onSetTime(ActionEvent event) {}
 
   @FXML
-  private void onSetConfidence() {}
+  private void onSetConfidence(ActionEvent event) {}
 }
