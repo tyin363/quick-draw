@@ -46,7 +46,7 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartGame() {
-    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+    this.sceneManager.switchToView(View.SETTINGS);
   }
 
   /**

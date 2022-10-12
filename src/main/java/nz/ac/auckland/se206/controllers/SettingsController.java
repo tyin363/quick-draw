@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.AnchorPane;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -14,6 +15,14 @@ import nz.ac.auckland.se206.words.WordService;
 public class SettingsController implements LoadListener {
 
   @FXML private AnchorPane header;
+  @FXML private RadioButton easyAccuracyButton, mediumAccuracyButton, hardAccuracyButton;
+  @FXML private RadioButton easyWordsButton, mediumWordsButton, hardWordsButton, masterWordsButton;
+  @FXML private RadioButton easyTimeButton, mediumTimeButton, hardTimeButton, masterTimeButton;
+  @FXML
+  private RadioButton easyConfidenceButton,
+      mediumConfidenceButton,
+      hardConfidenceButton,
+      masterConfidenceButton;
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
@@ -38,4 +47,16 @@ public class SettingsController implements LoadListener {
   private void onSwitchBack() {
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
+
+  @FXML
+  private void onSetAccuracy() {}
+
+  @FXML
+  private void onSetWords() {}
+
+  @FXML
+  private void onSetTime() {}
+
+  @FXML
+  private void onSetConfidence() {}
 }
