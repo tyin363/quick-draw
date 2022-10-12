@@ -22,6 +22,7 @@ import nz.ac.auckland.se206.dictionary.WordNotFoundException;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.words.Difficulty;
 import nz.ac.auckland.se206.words.WordService;
+import org.apache.commons.lang3.StringUtils;
 
 @Singleton
 public class ConfirmationScreenController implements LoadListener {
@@ -56,8 +57,6 @@ public class ConfirmationScreenController implements LoadListener {
 
     if (HIDDEN_MODE) {
       getDefinitions(this.wordService.getTargetWord());
-      changeFontDynamically();
-
     } else {
       this.targetWordLabel.setText(this.wordService.getTargetWord());
     }
@@ -65,27 +64,40 @@ public class ConfirmationScreenController implements LoadListener {
 
   /** This method will change the label font size to fit the screen accordingly */
   public void changeFontDynamically() {
-
+    this.targetWordLabel.setStyle(null);
+    String definition = this.targetWordLabel.getText();
+    System.out.println(definition);
     double maxWidth = 682;
     double defaultFontSize = 36;
     Font defaultFont = Font.font(defaultFontSize);
-    System.out.println(this.targetWordLabel.getText());
 
-    this.targetWordLabel
-        .textProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              Text tmpText = new Text(this.targetWordLabel.getText());
-              tmpText.setFont(defaultFont);
+    Text tmpText = new Text(this.targetWordLabel.getText());
+    tmpText.setFont(defaultFont);
+    double textWidth = tmpText.getLayoutBounds().getWidth();
 
-              double textWidth = tmpText.getLayoutBounds().getWidth();
+    // check if text width is smaller than maximum width allowed
+    if (textWidth > maxWidth) {
+      int spaceCount = StringUtils.countMatches(definition, " ");
+      int firstPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 3);
+      int secondPlacement = StringUtils.ordinalIndexOf(definition, " ", 2 * spaceCount / 3);
 
-              // check if text width is smaller than maximum width allowed
-              if (textWidth > maxWidth) {
-                double newFontSize = defaultFontSize * maxWidth / textWidth - 1;
-                this.targetWordLabel.setStyle("-fx-font-size: " + newFontSize + ";");
-              }
-            });
+      String threeSentence =
+          definition.substring(0, firstPlacement)
+              + "\n"
+              + definition.substring(firstPlacement + 1, secondPlacement)
+              + "\n"
+              + definition.substring(secondPlacement + 1);
+
+      System.out.println("\n" + threeSentence);
+      tmpText = new Text(threeSentence);
+      tmpText.setFont(defaultFont);
+      textWidth = tmpText.getLayoutBounds().getWidth();
+      if (textWidth > maxWidth) {
+        double newFontSize = defaultFontSize * maxWidth / textWidth - 1;
+        this.targetWordLabel.setStyle("-fx-font-size: " + newFontSize + ";");
+      }
+      this.targetWordLabel.setText(threeSentence);
+    }
   }
 
   /**
@@ -109,6 +121,7 @@ public class ConfirmationScreenController implements LoadListener {
                   () -> {
                     targetWordLabel.setText(
                         wordResult.getWordEntries().get(0).getDefinitions().get(0));
+                    changeFontDynamically();
                   });
               for (WordEntry entry : wordResult.getWordEntries()) {
                 for (String definition : entry.getDefinitions()) {

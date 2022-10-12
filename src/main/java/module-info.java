@@ -13,6 +13,7 @@ open module SE206Project {
   requires javafx.graphics;
   requires okhttp3;
   requires org.json;
+  requires org.apache.commons.lang3;
 
   exports nz.ac.auckland.se206;
 }
