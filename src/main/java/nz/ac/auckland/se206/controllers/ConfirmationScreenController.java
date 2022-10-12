@@ -116,18 +116,17 @@ public class ConfirmationScreenController implements LoadListener {
             try {
               // get word info
               WordInfo wordResult = DictionaryLookup.searchWordInfo(queryWord);
-
-              Platform.runLater(
-                  () -> {
-                    targetWordLabel.setText(
-                        wordResult.getWordEntries().get(0).getDefinitions().get(0));
-                    changeFontDynamically();
-                  });
               for (WordEntry entry : wordResult.getWordEntries()) {
                 for (String definition : entry.getDefinitions()) {
                   defintions.add(definition);
                 }
               }
+
+              Platform.runLater(
+                  () -> {
+                    targetWordLabel.setText(defintions.get(0));
+                    changeFontDynamically();
+                  });
             } catch (IOException e) {
               e.printStackTrace();
             } catch (WordNotFoundException e) {
