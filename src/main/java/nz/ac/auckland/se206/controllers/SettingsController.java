@@ -48,7 +48,11 @@ public class SettingsController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
-    currentUser = this.userService.getCurrentUser();
+    this.currentUser = this.userService.getCurrentUser();
+    this.loadAccuracy(currentUser);
+    this.loadWords(currentUser);
+    this.loadTime(currentUser);
+    this.loadConfidence(currentUser);
   }
 
   /** When the user clicks the back button, take them back to the main menu. */
@@ -111,5 +115,51 @@ public class SettingsController implements LoadListener {
       currentUser.getGameSettings().setConfidence("Master");
     }
     this.userService.saveUser(currentUser);
+  }
+
+  private void loadAccuracy(User currentUser) {
+    if (currentUser.getGameSettings().getAccuracy().contentEquals("Easy")) {
+      easyAccuracyButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getAccuracy().contentEquals("Medium")) {
+      mediumAccuracyButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getAccuracy().contentEquals("Hard")) {
+      hardAccuracyButton.setSelected(true);
+    }
+  }
+
+  private void loadWords(User currentUser) {
+    if (currentUser.getGameSettings().getWords().contentEquals("Easy")) {
+      easyWordsButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getWords().contentEquals("Medium")) {
+      mediumWordsButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getWords().contentEquals("Hard")) {
+      hardWordsButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getWords().contentEquals("Master")) {
+      masterWordsButton.setSelected(true);
+    }
+  }
+
+  private void loadTime(User currentUser) {
+    if (currentUser.getGameSettings().getTime() == 60) {
+      easyTimeButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getTime() == 45) {
+      mediumTimeButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getTime() == 30) {
+      hardTimeButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getTime() == 15) {
+      masterTimeButton.setSelected(true);
+    }
+  }
+
+  private void loadConfidence(User currentUser) {
+    if (currentUser.getGameSettings().getConfidence().contentEquals("Easy")) {
+      easyConfidenceButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getConfidence().contentEquals("Medium")) {
+      mediumConfidenceButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getConfidence().contentEquals("Hard")) {
+      hardConfidenceButton.setSelected(true);
+    } else if (currentUser.getGameSettings().getConfidence().contentEquals("Master")) {
+      masterConfidenceButton.setSelected(true);
+    }
   }
 }

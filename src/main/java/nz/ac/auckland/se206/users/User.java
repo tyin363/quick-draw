@@ -36,6 +36,7 @@ public class User {
     this.username = username;
     this.profilePicture = "src/main/resources/images/defaultUserImage.jpg";
     this.pastRounds = new ArrayList<>();
+    this.gameSettings = new GameSettings();
   }
 
   public GameSettings getGameSettings() {

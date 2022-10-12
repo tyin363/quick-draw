@@ -54,7 +54,7 @@
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                      <children>
                         <Label alignment="CENTER" prefHeight="17.0" prefWidth="185.0" text="Time" />
-                        <RadioButton mnemonicParsing="false" onAction="#onSetTime" text="Easy">
+                        <RadioButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onSetTime" text="Easy">
                            <toggleGroup>
                               <ToggleGroup fx:id="time" />
                            </toggleGroup>
