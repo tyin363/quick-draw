@@ -1,0 +1,20 @@
+.colour-palette {
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.colour-palette > Pane {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-background-color: #96e575;
+}
+
+.selected-colour {
+    -fx-border-width: 2px;
+    -fx-border-color: -fx-highlight;
+    -fx-border-insets: -1px;
+}

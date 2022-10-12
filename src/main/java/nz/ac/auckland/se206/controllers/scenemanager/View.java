@@ -5,7 +5,7 @@ import java.util.Locale;
 public enum View {
   MAIN_MENU,
   CONFIRMATION_SCREEN,
-  CANVAS,
+  CANVAS("zen_mode"),
   PROFILE_PAGE,
   SWITCH_USER;
 
@@ -14,6 +14,15 @@ public enum View {
   /** Constructs a view where the fxml filename is the same as the view name in lowercase. */
   View() {
     this.fxml = this.name().toLowerCase(Locale.ROOT);
+  }
+
+  /**
+   * Constructs a view where the fxml filename can be manually specified.
+   *
+   * @param fxml The name of the fxml file
+   */
+  View(final String fxml) {
+    this.fxml = fxml;
   }
 
   /**
