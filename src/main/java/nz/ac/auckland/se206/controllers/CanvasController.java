@@ -416,4 +416,16 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.onClear();
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
+
+  public Pane getEraserPane() {
+    return this.eraserPane;
+  }
+
+  public Pane getPenPane() {
+    return this.penPane;
+  }
+
+  public Pane getClearPane() {
+    return this.clearPane;
+  }
 }
