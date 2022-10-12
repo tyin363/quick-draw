@@ -12,10 +12,20 @@ public class WordEntry {
     this.definitions = definitions;
   }
 
+  /**
+   * This method retrieves the part of speech
+   *
+   * @return The part of speech
+   */
   public String getPartOfSpeech() {
     return partOfSpeech;
   }
 
+  /**
+   * This method retrieves the definitions
+   *
+   * @return The definitions
+   */
   public List<String> getDefinitions() {
     return definitions;
   }

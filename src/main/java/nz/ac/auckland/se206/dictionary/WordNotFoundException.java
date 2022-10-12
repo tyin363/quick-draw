@@ -6,16 +6,26 @@ public class WordNotFoundException extends Exception {
   private String word;
   private String subMessage;
 
-  WordNotFoundException(String word, String message, String subMessage) {
+  public WordNotFoundException(String word, String message, String subMessage) {
     super(message);
     this.word = word;
     this.subMessage = subMessage;
   }
 
+  /**
+   * This method retrieves the required word
+   *
+   * @return The word
+   */
   public String getWord() {
     return word;
   }
 
+  /**
+   * This method retrieves the required sub message
+   *
+   * @return The sub message
+   */
   public String getSubMessage() {
     return subMessage;
   }
