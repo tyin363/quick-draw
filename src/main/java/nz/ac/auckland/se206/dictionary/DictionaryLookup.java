@@ -3,7 +3,6 @@ package nz.ac.auckland.se206.dictionary;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.concurrent.Task;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -84,62 +83,5 @@ public class DictionaryLookup {
     }
 
     return new WordInfo(query, entries);
-  }
-
-  /**
-   * This method searches the word info of the given query word
-   *
-   * @param queryWord The word to search up on
-   */
-  public static void searchWord(String queryWord) {
-
-    Task<Void> backgroundTask =
-        new Task<Void>() {
-
-          @Override
-          protected Void call() throws Exception {
-
-            try {
-              WordInfo wordResult = DictionaryLookup.searchWordInfo(queryWord);
-              System.out.println(
-                  "\""
-                      + wordResult.getWord()
-                      + "\" has "
-                      + wordResult.getNumberOfEntries()
-                      + " dictionary entries.");
-
-              // get word info
-              List<WordEntry> entries = wordResult.getWordEntries();
-
-              // Print word
-              for (int e = 0; e < entries.size(); e++) {
-                WordEntry entry = entries.get(e);
-
-                System.out.println(
-                    "Entry "
-                        + (e + 1)
-                        + " of "
-                        + entries.size()
-                        + " ["
-                        + entry.getPartOfSpeech()
-                        + "]:");
-
-                // Print definitions
-                for (String definition : entry.getDefinitions()) {
-                  System.out.println(definition);
-                }
-              }
-            } catch (IOException e) {
-              e.printStackTrace();
-            } catch (WordNotFoundException e) {
-              System.out.println("\"" + e.getWord() + "\" has problems: " + e.getMessage());
-            }
-
-            return null;
-          }
-        };
-
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
   }
 }

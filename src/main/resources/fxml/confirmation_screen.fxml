@@ -15,14 +15,14 @@
         <fx:include fx:id="header" source="header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" VBox.vgrow="ALWAYS">
             <children>
-              <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
+              <VBox alignment="CENTER" prefHeight="179.0" prefWidth="1150.0" spacing="10.0">
                 <children>
                   <Label styleClass="text-default" text="You have 60 seconds to draw:">
                     <font>
                       <Font name="SansSerif Regular" size="24.0" />
                     </font>
                   </Label>
-                  <Label fx:id="targetWordLabel" styleClass="text-default" text="Label">
+                  <Label fx:id="targetWordLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="142.0" prefWidth="682.0" styleClass="text-default" text="Loading definition..." textAlignment="CENTER">
                     <font>
                       <Font name="SansSerif Bold" size="36.0" />
                     </font>
