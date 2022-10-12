@@ -17,6 +17,7 @@ public class ConfirmationScreenController implements LoadListener {
 
   @FXML private Label targetWordLabel;
   @FXML private AnchorPane header;
+  @FXML private Label timeLimitLabel;
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
@@ -40,6 +41,10 @@ public class ConfirmationScreenController implements LoadListener {
     this.wordService.selectRandomTarget(
         this.userService.getCurrentUser().getGameSettings().getWords());
     this.targetWordLabel.setText(this.wordService.getTargetWord());
+    this.timeLimitLabel.setText(
+        "You have "
+            + this.userService.getCurrentUser().getGameSettings().getTime()
+            + " seconds to draw:");
   }
 
   /** When the user clicks the back button, take them back to the main menu. */
