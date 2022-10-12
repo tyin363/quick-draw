@@ -9,6 +9,7 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.words.WordService;
@@ -30,6 +31,8 @@ public class SettingsController implements LoadListener {
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
 
+  private User currentUser;
+
   /** Hook up the back button action when the view is initialised. */
   @FXML
   private void initialize() {
@@ -44,7 +47,9 @@ public class SettingsController implements LoadListener {
 
   /** Everytime this scene is switched to select a new random word. */
   @Override
-  public void onLoad() {}
+  public void onLoad() {
+    currentUser = this.userService.getCurrentUser();
+  }
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
@@ -54,50 +59,57 @@ public class SettingsController implements LoadListener {
   @FXML
   private void onSetAccuracy(ActionEvent event) {
     if (easyAccuracyButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setAccuracy("Easy");
+      currentUser.getGameSettings().setAccuracy("Easy");
     } else if (mediumAccuracyButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setAccuracy("Medium");
+      currentUser.getGameSettings().setAccuracy("Medium");
     } else if (hardAccuracyButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setAccuracy("Hard");
+      currentUser.getGameSettings().setAccuracy("Hard");
     }
+
+    this.userService.saveUser(currentUser);
   }
 
   @FXML
   private void onSetWords(ActionEvent event) {
     if (easyWordsButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setWords("Easy");
+      currentUser.getGameSettings().setWords("Easy");
     } else if (mediumWordsButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setWords("Medium");
+      currentUser.getGameSettings().setWords("Medium");
     } else if (hardWordsButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setWords("Hard");
+      currentUser.getGameSettings().setWords("Hard");
     } else if (masterWordsButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setWords("Master");
+      currentUser.getGameSettings().setWords("Master");
     }
+
+    this.userService.saveUser(currentUser);
   }
 
   @FXML
   private void onSetTime(ActionEvent event) {
     if (easyTimeButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setTime(60);
+      currentUser.getGameSettings().setTime(60);
     } else if (mediumTimeButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setTime(45);
+      currentUser.getGameSettings().setTime(45);
     } else if (hardTimeButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setTime(30);
+      currentUser.getGameSettings().setTime(30);
     } else if (masterTimeButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setTime(15);
+      currentUser.getGameSettings().setTime(15);
     }
+
+    this.userService.saveUser(currentUser);
   }
 
   @FXML
   private void onSetConfidence(ActionEvent event) {
     if (easyConfidenceButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setConfidence("Easy");
+      currentUser.getGameSettings().setConfidence("Easy");
     } else if (mediumConfidenceButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setConfidence("Medium");
+      currentUser.getGameSettings().setConfidence("Medium");
     } else if (hardConfidenceButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setConfidence("Hard");
+      currentUser.getGameSettings().setConfidence("Hard");
     } else if (masterConfidenceButton.isSelected()) {
-      userService.getCurrentUser().getGameSettings().setConfidence("Master");
+      currentUser.getGameSettings().setConfidence("Master");
     }
+    this.userService.saveUser(currentUser);
   }
 }
