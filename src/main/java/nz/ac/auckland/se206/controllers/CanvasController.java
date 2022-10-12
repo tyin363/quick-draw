@@ -33,6 +33,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.speech.TextToSpeech;
+import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.users.Round;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
@@ -73,6 +74,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Inject private TextToSpeech textToSpeech;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
+  @Inject private CanvasStateMachine stateMachine;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
