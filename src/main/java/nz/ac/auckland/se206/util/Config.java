@@ -175,4 +175,17 @@ public class Config {
   public int getMaxUserCount() {
     return 6;
   }
+
+  public int getConfidenceNeeded() {
+    User currentUser = this.userService.getCurrentUser();
+    if (currentUser.getGameSettings().getConfidence().contentEquals("Easy")) {
+      return 1;
+    } else if (currentUser.getGameSettings().getConfidence().contentEquals("Medium")) {
+      return 10;
+    } else if (currentUser.getGameSettings().getConfidence().contentEquals("Hard")) {
+      return 25;
+    } else {
+      return 50;
+    }
+  }
 }
