@@ -35,7 +35,7 @@
                   </Pane>
               <Button mnemonicParsing="false" onAction="#onStartGame" prefHeight="37.0" prefWidth="169.0" styleClass="btn" text="Start Game" />
                   <Button mnemonicParsing="false" onAction="#onStartZenMode" prefHeight="37.0" prefWidth="169.0" styleClass="btn" text="Zen Mode" />
-              <Label fx:id="messageLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="116.0" prefWidth="296.0" styleClass="text-default" text="Some message goes here" wrapText="true">
+              <Label fx:id="messageLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="64.0" prefWidth="863.0" styleClass="text-default" text="Some message goes here" wrapText="true">
                 <font>
                   <Font name="SansSerif Italic" size="18.0" />
                 </font>
