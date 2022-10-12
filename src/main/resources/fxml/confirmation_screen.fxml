@@ -35,7 +35,7 @@
                                     </Label>
                                  </children>
                               </VBox>
-                        <Label fx:id="targetWordLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="186.0" prefWidth="682.0" styleClass="text-default" text="Loading definition..." textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                        <Label fx:id="targetWordLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="186.0" prefWidth="682.0" styleClass="text-default" text="Target Word" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                           <font>
                             <Font name="SansSerif Regular" size="36.0" />
                           </font>
@@ -54,7 +54,7 @@
                         </HBox>
                 </children>
               </VBox>
-                  <Label fx:id="numberOfDefinitionLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Number of definitions...">
+                  <Label fx:id="numberOfDefinitionLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="403.0" styleClass="text-default" text="Number of definitions...">
                      <font>
                         <Font size="28.0" />
                      </font>

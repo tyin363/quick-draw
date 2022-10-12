@@ -121,8 +121,8 @@ public class ConfirmationScreenController implements LoadListener {
     if (HIDDEN_MODE) {
       this.targetWordLabel.setText("Loading Definitions");
       numberOfDefinitionLabel.setVisible(true);
-      System.out.println(this.wordService.getTargetWord());
-      getDefinitions(this.wordService.getTargetWord());
+      System.out.println("The word is: " + this.wordService.getTargetWord());
+      getDefinitions("Tennis racquet");
     } else {
       this.targetWordLabel.setText(this.wordService.getTargetWord());
     }
@@ -207,7 +207,13 @@ public class ConfirmationScreenController implements LoadListener {
             } catch (IOException e) {
               e.printStackTrace();
             } catch (WordNotFoundException e) {
-              System.out.println("\"" + e.getWord() + "\" has problems: " + e.getMessage());
+              System.out.println("Sorry there were no definitions!");
+              Platform.runLater(
+                  () -> {
+                    targetWordLabel.setText("Sorry! There was no definition for " + queryWord);
+                    changeFontDynamically();
+                    numberOfDefinitionLabel.setText("Number of definitions = 0");
+                  });
             }
 
             return null;
