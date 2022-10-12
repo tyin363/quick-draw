@@ -13,10 +13,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.util.Duration;
+import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PredictionHandler {
+public class PredictionHandler implements TerminationListener {
 
   public static final int NUMBER_OF_PREDICTIONS = 10;
 
@@ -106,5 +107,11 @@ public class PredictionHandler {
     if (this.backgroundTask != null && this.backgroundTask.isRunning()) {
       this.backgroundTask.cancel();
     }
+  }
+
+  /** When the application is closing, stop the predicting task. */
+  @Override
+  public void onTerminate() {
+    this.stopPredicting();
   }
 }
