@@ -8,10 +8,14 @@ import java.io.InputStreamReader;
 import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.users.User;
+import nz.ac.auckland.se206.users.UserService;
 import org.slf4j.Logger;
 
 @Singleton
 public class Config {
+
+  @Inject private UserService userService;
 
   private final Logger logger;
   private final File userDataFile = new File("UserData");
@@ -106,7 +110,16 @@ public class Config {
    * @return The number of seconds to complete the drawing
    */
   public int getDrawingTimeSeconds() {
-    return 60;
+    User user = this.userService.getCurrentUser();
+    if (user.getGameSettings().getTime() == 60) {
+      return 60;
+    } else if (user.getGameSettings().getTime() == 45) {
+      return 45;
+    } else if (user.getGameSettings().getTime() == 30) {
+      return 30;
+    } else {
+      return 15;
+    }
   }
 
   /**
