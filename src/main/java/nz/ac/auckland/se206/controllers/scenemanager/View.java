@@ -18,6 +18,15 @@ public enum View {
   }
 
   /**
+   * Constructs a view where the fxml filename can be manually specified.
+   *
+   * @param fxml The name of the fxml file
+   */
+  View(final String fxml) {
+    this.fxml = fxml;
+  }
+
+  /**
    * Retrieves the fxml filename for the view.
    *
    * @return The fxml filename for the view.

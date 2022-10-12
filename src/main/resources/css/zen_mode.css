@@ -1,0 +1,44 @@
+.colour-palette {
+  -fx-padding: 10px 5px 10px 5px;
+}
+
+.colour-palette > Pane {
+  -fx-pref-width: 30px;
+  -fx-pref-height: 30px;
+  -fx-max-width: 30px;
+  -fx-max-height: 30px;
+  -fx-border-radius: 4px;
+  -fx-background-radius: 4px;
+}
+
+.colour-palette > Pane:hover {
+  -fx-scale-y: 1.05;
+  -fx-scale-x: 1.05;
+}
+
+.selected-colour {
+  -fx-border-width: 3px;
+  -fx-border-insets: -1px;
+  -fx-border-color: white;
+}
+
+.selected-colour-indicator {
+  -fx-border-radius: 4px;
+  -fx-background-radius: 4px;
+  -fx-border-color: -fx-highlight;
+  -fx-border-insets: 5px 10px 5px 10px;
+  -fx-padding: 5px 10px 5px 10px;
+  -fx-background-insets: 5px 10px 5px 10px;
+  -fx-background-color: black;
+  -fx-pref-height: 40px;
+}
+
+.pen-options {
+  -fx-background-color: -fx-lightgray-100;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.pen-options > HBox {
+  -fx-padding: 5px;
+}
