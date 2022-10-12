@@ -1,5 +1,5 @@
 .colour-palette {
-  -fx-padding: 5px;
+  -fx-padding: 10px 5px 10px 5px;
 }
 
 .colour-palette > Pane {

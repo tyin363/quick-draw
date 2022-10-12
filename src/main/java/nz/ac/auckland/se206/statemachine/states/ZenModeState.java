@@ -12,19 +12,28 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 @Singleton
 public class ZenModeState extends CanvasState implements EnableListener {
 
-  @Inject private CanvasController canvasController;
-
   private ZenPenOptions zenPenOptions;
   private Node oldToolContainerContent;
+
+  /**
+   * Creates a new ZenModeState which handles the stateful logic of the canvas when the zen mode has
+   * been selected.
+   *
+   * @param canvasController The canvas controller instance
+   */
+  @Inject
+  public ZenModeState(final CanvasController canvasController) {
+    super(canvasController);
+  }
 
   /** Switch the UI elements to the Zen Mode UI. */
   @Override
   public void onEnter() {
-    super.onEnter();
-
+    // Swap out the old tool container content with the zen mode version
     final VBox toolContainer = this.canvasController.getToolContainer();
     toolContainer.getChildren().clear();
     toolContainer.getChildren().add(this.zenPenOptions);
+    this.canvasController.getGameOverActionsContainer().setVisible(true);
   }
 
   /** Place the default canvas content back when we leave this state. */
@@ -34,6 +43,7 @@ public class ZenModeState extends CanvasState implements EnableListener {
     final VBox toolContainer = this.canvasController.getToolContainer();
     toolContainer.getChildren().clear();
     toolContainer.getChildren().add(this.oldToolContainerContent);
+    this.canvasController.getGameOverActionsContainer().setVisible(false);
   }
 
   /**
