@@ -5,9 +5,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 import nz.ac.auckland.se206.core.models.ActionResponse;
-import nz.ac.auckland.se206.core.models.CompleteDrawingModel;
+import nz.ac.auckland.se206.core.models.CompleteDrawingResponse;
+import nz.ac.auckland.se206.core.models.DrawingSessionRequest;
 
 public class ClientSocketHandler extends Thread {
 
@@ -15,6 +17,7 @@ public class ClientSocketHandler extends Thread {
   private final Socket clientSocket;
   private final ObjectMapper objectMapper;
   private BufferedReader reader;
+  private PrintWriter writer;
   private ActionResponse.Action action = null;
 
   public ClientSocketHandler(
@@ -29,6 +32,7 @@ public class ClientSocketHandler extends Thread {
     try {
       final InputStream input = this.clientSocket.getInputStream();
       this.reader = new BufferedReader(new InputStreamReader(input));
+      this.writer = new PrintWriter(this.clientSocket.getOutputStream(), true);
 
       while (!this.clientSocket.isClosed()) {
         final String line = this.reader.readLine();
@@ -52,6 +56,14 @@ public class ClientSocketHandler extends Thread {
     this.close();
   }
 
+  public void sendDrawingSessionRequest(final DrawingSessionRequest request) {
+    try {
+      this.writer.println(this.objectMapper.writeValueAsString(request));
+    } catch (final IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   public void close() {
     try {
       this.clientSocket.close();
@@ -61,12 +73,12 @@ public class ClientSocketHandler extends Thread {
     }
   }
 
-  public void handleResponse(final ActionResponse.Action action, final String line)
+  private void handleResponse(final ActionResponse.Action action, final String line)
       throws IOException {
     if (action == ActionResponse.Action.COMPLETE_DRAWING) {
-      final CompleteDrawingModel completeDrawingModel =
-          this.objectMapper.readValue(line, CompleteDrawingModel.class);
-      System.out.println(completeDrawingModel);
+      final CompleteDrawingResponse completeDrawingResponse =
+          this.objectMapper.readValue(line, CompleteDrawingResponse.class);
+      System.out.println(completeDrawingResponse);
     }
   }
 }

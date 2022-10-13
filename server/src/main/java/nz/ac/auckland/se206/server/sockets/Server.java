@@ -9,6 +9,7 @@ import nz.ac.auckland.se206.core.annotations.Inject;
 import nz.ac.auckland.se206.core.annotations.Singleton;
 import nz.ac.auckland.se206.core.listeners.EnableListener;
 import nz.ac.auckland.se206.core.listeners.TerminationListener;
+import nz.ac.auckland.se206.core.models.DrawingSessionRequest;
 import org.slf4j.Logger;
 
 @Singleton
@@ -44,6 +45,11 @@ public class Server implements TerminationListener, EnableListener {
         this.logger.error("Failed to accept client connection", e);
       }
     }
+  }
+
+  public void startDrawingSession(final String word) {
+    final DrawingSessionRequest request = new DrawingSessionRequest(word);
+    this.clients.forEach(client -> client.sendDrawingSessionRequest(request));
   }
 
   public void stop() {

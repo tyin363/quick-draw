@@ -6,7 +6,7 @@ import nz.ac.auckland.se206.client.sockets.ClientSocket;
 import nz.ac.auckland.se206.client.util.View;
 import nz.ac.auckland.se206.core.di.ApplicationContext;
 import nz.ac.auckland.se206.core.models.ActionResponse;
-import nz.ac.auckland.se206.core.models.CompleteDrawingModel;
+import nz.ac.auckland.se206.core.models.CompleteDrawingResponse;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
@@ -29,6 +29,7 @@ public class App extends Application {
     final ApplicationContext applicationContext =
         ApplicationContext.start(stage, View.SWITCH_USER, View.values());
     final ClientSocket clientSocket = applicationContext.get(ClientSocket.class);
-    clientSocket.send(ActionResponse.Action.COMPLETE_DRAWING, new CompleteDrawingModel(20, true));
+    clientSocket.send(
+        ActionResponse.Action.COMPLETE_DRAWING, new CompleteDrawingResponse(20, true));
   }
 }
