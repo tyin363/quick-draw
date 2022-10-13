@@ -30,10 +30,10 @@
     </AnchorPane>
     <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
       <children>
-            <StackPane prefHeight="150.0" prefWidth="200.0">
+            <StackPane prefHeight="198.0" prefWidth="1150.0">
                <children>
                   <fx:include fx:id="wordDefinition" source="word_definition.fxml" />
-              <HBox fx:id="defaultHbox" alignment="CENTER" spacing="5.0">
+              <HBox fx:id="defaultHbox" alignment="CENTER" prefHeight="190.0" prefWidth="1150.0" spacing="5.0">
                 <children>
                   <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
                     <font>

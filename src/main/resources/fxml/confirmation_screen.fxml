@@ -21,7 +21,7 @@
                 <Font name="SansSerif Regular" size="24.0" />
               </font>
             </Label>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                  <StackPane prefHeight="229.0" prefWidth="1150.0">
                      <children>
                         <fx:include fx:id="wordDefinition" source="word_definition.fxml" />
                         <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
