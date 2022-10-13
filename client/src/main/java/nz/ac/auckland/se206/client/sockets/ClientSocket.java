@@ -24,7 +24,8 @@ public class ClientSocket implements EnableListener, TerminationListener {
   private PrintWriter writer;
   private BufferedReader reader;
   private Thread handlerThread;
-  private boolean connected = true;
+  private boolean isConnected = true;
+  private boolean isStopped = false;
 
   public void send(final ActionResponse.Action action, final Object value) {
     if (!this.isConnected()) {
@@ -46,7 +47,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
   }
 
   private void handleSocketConnection() {
-    while (true) {
+    while (!this.isStopped) {
       try {
         this.checkForServer();
         if (!this.isConnected()) {
@@ -59,7 +60,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
       } catch (final IOException ignored) {
         // If we fail to read the input, it's likely we've lost connection to the server
         this.logger.info("Lost connection to server");
-        this.connected = false;
+        this.isConnected = false;
       }
     }
   }
@@ -69,7 +70,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
     // https://www.alpharithms.com/detecting-client-disconnections-java-sockets-091416/
     if (this.reader.read() == -1) {
       this.logger.info("Lost connection to server");
-      this.connected = false;
+      this.isConnected = false;
       return;
     }
 
@@ -82,7 +83,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
   }
 
   public boolean isConnected() {
-    return this.socket != null && this.socket.isConnected() && this.connected;
+    return this.socket != null && this.socket.isConnected() && this.isConnected;
   }
 
   private void tryConnectToServer() throws IOException {
@@ -92,7 +93,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
     this.writer = new PrintWriter(this.socket.getOutputStream(), true);
     final InputStream input = this.socket.getInputStream();
     this.reader = new BufferedReader(new InputStreamReader(input));
-    this.connected = true;
+    this.isConnected = true;
   }
 
   private void checkForServer() {
@@ -111,7 +112,13 @@ public class ClientSocket implements EnableListener, TerminationListener {
 
   @Override
   public void onTerminate() {
-    this.handlerThread.interrupt();
     this.logger.info("Terminating client socket");
+    try {
+      this.isStopped = true;
+      this.handlerThread.interrupt();
+      this.socket.close();
+    } catch (final IOException e) {
+      this.logger.error("Failed to close socket", e);
+    }
   }
 }
