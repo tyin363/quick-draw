@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -98,7 +99,11 @@
                   </VBox>
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" onAction="#onConfirmReady" text="Ready" />
+            <Button mnemonicParsing="false" onAction="#onConfirmReady" text="Ready">
+               <styleClass>
+                  <String fx:value="regular-btn" />
+                  <String fx:value="text-default" />
+               </styleClass></Button>
          </children>
       </VBox>
    </children>
