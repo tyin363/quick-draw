@@ -73,14 +73,13 @@
                         <StackPane alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="122.0">
                            <children>
                               <Button fx:id="setUsernameButton" minWidth="60.0" mnemonicParsing="false" onAction="#onSetUsername" prefHeight="37.0" prefWidth="60.0" styleClass="btn" text="Set" textFill="WHITE" />
-                              <Button fx:id="editUsernameButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditUsername">
+                              <Button fx:id="editUsernameButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditUsername" prefHeight="40.0" prefWidth="52.0">
                                  <graphic>
-                                    <Pane prefHeight="32.0" prefWidth="44.0" style="-fx-background-color: white;" />
+                                    <Pane prefHeight="32.0" prefWidth="40.0" style="-fx-background-color: white;" />
                                  </graphic>
                                  <styleClass>
                                     <String fx:value="edit-icon" />
                                     <String fx:value="bg-highlight" />
-                                    <String fx:value="icon" />
                                  </styleClass>
                               </Button>
                            </children>
