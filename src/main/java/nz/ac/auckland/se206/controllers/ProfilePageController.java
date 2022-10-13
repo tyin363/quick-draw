@@ -157,11 +157,10 @@ public class ProfilePageController implements LoadListener {
   /** This method sets the width of the stackpane which the username label is in. */
   private void setUsernameWidth() {
     Text tmpText = new Text(this.user.getUsername());
-    double textWidth;
     tmpText.setFont(this.usernameLabel.getFont());
 
     // Add extra 10 size to be sure
-    textWidth = tmpText.getLayoutBounds().getWidth() + 10;
+    double textWidth = tmpText.getLayoutBounds().getWidth() + 10;
     this.usernameStackPane.setPrefWidth(textWidth);
   }
 
