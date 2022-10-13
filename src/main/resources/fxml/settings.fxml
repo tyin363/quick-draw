@@ -15,7 +15,8 @@
       <VBox layoutY="-4.0" prefHeight="809.0" prefWidth="1151.0">
          <children>
             <fx:include fx:id="header" source="header.fxml" />
-            <GridPane prefHeight="263.0" prefWidth="605.0">
+            <Label prefHeight="108.0" prefWidth="1172.0" text="Choose your game settings:" />
+            <GridPane prefHeight="519.0" prefWidth="1151.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
