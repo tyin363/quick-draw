@@ -11,6 +11,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.statemachine.states.DefaultCanvasState;
+import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
 import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.util.Helpers;
 
@@ -73,6 +74,7 @@ public class MainMenuController implements LoadListener {
   @FXML
   private void onStartHidden() {
     HIDDEN_MODE = true;
+    this.stateMachine.switchState(HiddenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
