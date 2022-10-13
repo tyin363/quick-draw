@@ -8,4 +8,5 @@ open module SE206Core {
   exports nz.ac.auckland.se206.core.di;
   exports nz.ac.auckland.se206.core.listeners;
   exports nz.ac.auckland.se206.core.scenemanager;
+  exports nz.ac.auckland.se206.core.models;
 }

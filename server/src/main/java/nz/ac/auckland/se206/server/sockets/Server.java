@@ -26,7 +26,7 @@ public class Server implements TerminationListener, EnableListener {
           port,
           this.serverSocket.getInetAddress().getHostAddress());
       while (true) {
-        new ClientSocket(this, this.serverSocket.accept(), this.objectMapper).start();
+        new ClientSocketHandler(this, this.serverSocket.accept(), this.objectMapper).start();
       }
     } catch (final IOException e) {
       this.logger.error("Failed to start server", e);

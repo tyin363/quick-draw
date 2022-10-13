@@ -1,4 +1,4 @@
-package nz.ac.auckland.se206.server.models;
+package nz.ac.auckland.se206.core.models;
 
 public record ActionResponse(Action action) {
 
