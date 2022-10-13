@@ -48,6 +48,7 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
     this.canvasController.getGameOverActionsContainer().setVisible(false);
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.canvasController.getMainLabel().setText(this.config.getDrawingTimeSeconds() + " Seconds");
+    this.canvasController.setHiddenMode();
     this.timer.playFromStart();
   }
 

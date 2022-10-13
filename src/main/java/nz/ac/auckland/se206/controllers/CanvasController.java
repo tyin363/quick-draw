@@ -28,6 +28,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
+import nz.ac.auckland.se206.hiddenmode.HiddenMode;
 import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.util.BrushType;
@@ -53,13 +54,19 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Canvas canvas;
   @FXML private VBox predictionVertBox;
   @FXML private HBox gameOverActionsContainer;
+  @FXML private VBox hiddenModeVbox;
+  @FXML private HBox defaultHbox;
   @FXML private VBox toolContainer;
   @FXML private Pane eraserPane;
   @FXML private Pane penPane;
   @FXML private Pane clearPane;
   @FXML private Button saveButton;
   @FXML private Label targetWordLabel;
+  @FXML private Label definitionsLabel;
   @FXML private Label mainLabel;
+  @FXML private VBox previousDefinitionVbox;
+  @FXML private VBox nextDefinitionVbox;
+  @FXML private Label numberOfDefinitionLabel;
   private Label[] predictionLabels;
 
   @Inject private Logger logger;
@@ -67,6 +74,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   @Inject private CanvasStateMachine stateMachine;
+  @Inject private HiddenMode hiddenMode;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
@@ -74,6 +82,8 @@ public class CanvasController implements LoadListener, TerminationListener {
   private boolean isUpdatingPredictions;
   private Color penColour = Color.BLACK;
 
+  private double maxWidth = 670;
+  private double defaultFontSize = 36;
   // Mouse coordinates
   private double currentX;
   private double currentY;
@@ -113,12 +123,60 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   private BrushType selectedBrushType = this.disabledBrush;
 
+  /** The previous definition of the given word will be shown. */
+  @FXML
+  private void onClickPrevious() {
+    this.hiddenMode.previousDefinition();
+    this.hiddenMode.setElements(
+        definitionsLabel,
+        numberOfDefinitionLabel,
+        maxWidth,
+        defaultFontSize,
+        previousDefinitionVbox,
+        nextDefinitionVbox);
+  }
+
+  /** The next definition of the given word will be shown. */
+  @FXML
+  private void onClickNext() {
+    this.hiddenMode.nextDefinition();
+    this.hiddenMode.setElements(
+        definitionsLabel,
+        numberOfDefinitionLabel,
+        maxWidth,
+        defaultFontSize,
+        previousDefinitionVbox,
+        nextDefinitionVbox);
+  }
+
+  /** Sets the game mode to the Hidden word Game mode */
+  public void setHiddenMode() {
+    // Make hidden word game mode exclusive elements visible
+    this.hiddenModeVbox.setVisible(true);
+    this.defaultHbox.setVisible(false);
+    this.definitionsLabel.setText("Loading Definitions");
+    this.numberOfDefinitionLabel.setText("Number of Definitions");
+    this.numberOfDefinitionLabel.setVisible(true);
+
+    // Print out word to console in case ther is no definitnion
+    System.out.println("The word is: " + this.wordService.getTargetWord());
+    this.hiddenMode.setElements(
+        definitionsLabel,
+        numberOfDefinitionLabel,
+        maxWidth,
+        defaultFontSize,
+        previousDefinitionVbox,
+        nextDefinitionVbox);
+  }
+
   /**
    * This method is called everytime this view is switched to. It manages the resetting of any
    * changes that might have been made during the last time the view was switched to.
    */
   @Override
   public void onLoad() {
+    this.hiddenModeVbox.setVisible(false);
+    this.defaultHbox.setVisible(true);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
 
     this.predictionHandler.startPredicting();

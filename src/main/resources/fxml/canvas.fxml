@@ -13,10 +13,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
+<VBox alignment="TOP_CENTER" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
   <children>
     <AnchorPane styleClass="app-bar">
       <children>
@@ -29,23 +30,65 @@
     </AnchorPane>
     <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
       <children>
-        <HBox alignment="CENTER" spacing="5.0">
-          <children>
-            <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
-              <font>
-                <Font size="32.0" />
-              </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-            </Label>
-            <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
-              <font>
-                <Font name="SansSerif Bold" size="42.0" />
-              </font>
-            </Label>
-          </children>
-        </HBox>
+            <StackPane prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <VBox fx:id="hiddenModeVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="181.0" prefWidth="1150.0">
+                           <children>
+                              <VBox fx:id="previousDefinitionVbox" alignment="BOTTOM_CENTER" prefHeight="137.0" prefWidth="222.0" spacing="25.0">
+                                 <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClickPrevious" prefHeight="69.0" prefWidth="87.0" style="-fx-background-color: white; -fx-pref-width: 40; -fx-pref-height: 80;" styleClass="left-icon" VBox.vgrow="SOMETIMES" />
+                                    <Label onMouseClicked="#onClickPrevious" styleClass="text-default" text="Previous Definition">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <Label fx:id="definitionsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="186.0" prefWidth="682.0" styleClass="text-default" text="Target Word" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="36.0" />
+                                 </font>
+                              </Label>
+                              <VBox fx:id="nextDefinitionVbox" alignment="BOTTOM_CENTER" prefHeight="137.0" prefWidth="222.0" spacing="25.0">
+                                 <children>
+                                    <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onClickNext" prefHeight="69.0" prefWidth="87.0" style="-fx-background-color: white; -fx-pref-width: 40; -fx-pref-height: 80; -fx-rotate: 180;" styleClass="left-icon" VBox.vgrow="SOMETIMES" />
+                                    <Label onMouseClicked="#onClickNext" styleClass="text-default" text="Next Definition">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <Label fx:id="numberOfDefinitionLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="403.0" styleClass="text-default" text="Number of definitions...">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+              <HBox fx:id="defaultHbox" alignment="CENTER" spacing="5.0">
+                <children>
+                  <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
+                    <font>
+                      <Font size="32.0" />
+                    </font>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                  </Label>
+                  <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                      <Font name="SansSerif Bold" size="42.0" />
+                    </font>
+                  </Label>
+                </children>
+              </HBox>
+               </children>
+            </StackPane>
         <HBox alignment="CENTER" styleClass="bg-gray-25">
           <children>
             <Pane minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
@@ -74,7 +117,7 @@
                 </Label>
                 <Pane maxWidth="521.0" prefWidth="521.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                   <children>
-                    <Canvas fx:id="canvas" height="315.0" styleClass="bg-highlight" width="483.0">
+                    <Canvas fx:id="canvas" height="315.0" layoutY="-10.0" styleClass="bg-highlight" width="483.0">
                       <cursor>
                         <Cursor fx:constant="HAND" />
                       </cursor>
