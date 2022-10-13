@@ -18,15 +18,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.annotations.Singleton;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.LoadListener;
-import nz.ac.auckland.se206.client.controllers.scenemanager.SceneManager;
-import nz.ac.auckland.se206.client.controllers.scenemanager.View;
 import nz.ac.auckland.se206.client.users.Round;
 import nz.ac.auckland.se206.client.users.User;
 import nz.ac.auckland.se206.client.users.UserService;
 import nz.ac.auckland.se206.client.util.Helpers;
+import nz.ac.auckland.se206.client.util.View;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.annotations.Singleton;
+import nz.ac.auckland.se206.core.listeners.LoadListener;
+import nz.ac.auckland.se206.core.scenemanager.SceneManager;
 import org.slf4j.Logger;
 
 @Singleton

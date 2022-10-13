@@ -3,14 +3,14 @@ package nz.ac.auckland.se206.client.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.annotations.Singleton;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.LoadListener;
-import nz.ac.auckland.se206.client.controllers.scenemanager.SceneManager;
-import nz.ac.auckland.se206.client.controllers.scenemanager.View;
 import nz.ac.auckland.se206.client.util.Helpers;
+import nz.ac.auckland.se206.client.util.View;
 import nz.ac.auckland.se206.client.words.Difficulty;
 import nz.ac.auckland.se206.client.words.WordService;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.annotations.Singleton;
+import nz.ac.auckland.se206.core.listeners.LoadListener;
+import nz.ac.auckland.se206.core.scenemanager.SceneManager;
 
 @Singleton
 public class ConfirmationScreenController implements LoadListener {

@@ -14,7 +14,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.util.Duration;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.TerminationListener;
+import nz.ac.auckland.se206.core.listeners.TerminationListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

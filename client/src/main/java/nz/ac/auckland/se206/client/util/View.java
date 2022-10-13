@@ -1,8 +1,9 @@
-package nz.ac.auckland.se206.client.controllers.scenemanager;
+package nz.ac.auckland.se206.client.util;
 
 import java.util.Locale;
+import nz.ac.auckland.se206.core.scenemanager.FxmlView;
 
-public enum View {
+public enum View implements FxmlView {
   MAIN_MENU,
   CONFIRMATION_SCREEN,
   CANVAS,

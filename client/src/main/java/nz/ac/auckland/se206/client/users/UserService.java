@@ -9,10 +9,10 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.annotations.Singleton;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.EnableListener;
 import nz.ac.auckland.se206.client.util.Config;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.annotations.Singleton;
+import nz.ac.auckland.se206.core.listeners.EnableListener;
 import org.slf4j.Logger;
 
 @Singleton
@@ -75,8 +75,7 @@ public class UserService implements EnableListener {
   }
 
   /**
-   * Saves the given user to their respective JSON file and returns whether the save was
-   * successful.
+   * Saves the given user to their respective JSON file and returns whether the save was successful.
    *
    * @param user The user to save
    * @return Whether the save was successful

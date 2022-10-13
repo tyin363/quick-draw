@@ -23,17 +23,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javax.imageio.ImageIO;
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.annotations.Singleton;
-import nz.ac.auckland.se206.client.controllers.scenemanager.SceneManager;
-import nz.ac.auckland.se206.client.controllers.scenemanager.View;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.LoadListener;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.client.ml.PredictionHandler;
 import nz.ac.auckland.se206.client.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.client.util.BrushType;
 import nz.ac.auckland.se206.client.util.Config;
+import nz.ac.auckland.se206.client.util.View;
 import nz.ac.auckland.se206.client.words.WordService;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.annotations.Singleton;
+import nz.ac.auckland.se206.core.listeners.LoadListener;
+import nz.ac.auckland.se206.core.listeners.TerminationListener;
+import nz.ac.auckland.se206.core.scenemanager.SceneManager;
 import org.slf4j.Logger;
 
 /**
@@ -43,10 +43,10 @@ import org.slf4j.Logger;
  *
  * <p>!! IMPORTANT !!
  *
- * <p>Although we added the scale of the image, you need to be careful when changing the size of
- * the drawable canvas and the brush size. If you make the brush too big or too small with respect
- * to the canvas size, the ML model will not work correctly. So be careful. If you make some changes
- * in the canvas and brush sizes, make sure that the prediction works fine.
+ * <p>Although we added the scale of the image, you need to be careful when changing the size of the
+ * drawable canvas and the brush size. If you make the brush too big or too small with respect to
+ * the canvas size, the ML model will not work correctly. So be careful. If you make some changes in
+ * the canvas and brush sizes, make sure that the prediction works fine.
  */
 @Singleton
 public class CanvasController implements LoadListener, TerminationListener {
@@ -207,8 +207,7 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   /**
    * This method is called when the "Save" button is pressed. It saves the current drawing as a PNG
-   * to a file of the users choosing. If the file is saved successfully the save button is
-   * disabled.
+   * to a file of the users choosing. If the file is saved successfully the save button is disabled.
    */
   @FXML
   private void onSave() {

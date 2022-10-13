@@ -11,6 +11,7 @@ open module SE206Client {
   requires com.fasterxml.jackson.databind;
   requires com.fasterxml.jackson.annotation;
   requires javafx.graphics;
+  requires SE206Core;
 
   exports nz.ac.auckland.se206.client;
 }

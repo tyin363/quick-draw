@@ -1,9 +1,9 @@
 package nz.ac.auckland.se206.client.statemachine;
 
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.annotations.Singleton;
-import nz.ac.auckland.se206.client.controllers.scenemanager.InstanceFactory;
 import nz.ac.auckland.se206.client.statemachine.states.CanvasState;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.annotations.Singleton;
+import nz.ac.auckland.se206.core.di.InstanceFactory;
 
 @Singleton
 public class CanvasStateMachine {

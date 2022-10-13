@@ -3,11 +3,11 @@ package nz.ac.auckland.se206.client.statemachine.states;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.annotations.Singleton;
-import nz.ac.auckland.se206.client.controllers.CanvasController;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.EnableListener;
 import nz.ac.auckland.se206.client.components.canvas.ZenPenOptions;
+import nz.ac.auckland.se206.client.controllers.CanvasController;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.annotations.Singleton;
+import nz.ac.auckland.se206.core.listeners.EnableListener;
 
 @Singleton
 public class ZenModeState extends CanvasState implements EnableListener {
@@ -62,9 +62,9 @@ public class ZenModeState extends CanvasState implements EnableListener {
   public void onEnable() {
     // Reuse the same instances that already exist so that the on click functions remain unaffected.
     final Pane[] tools = {
-        this.canvasController.getEraserPane(),
-        this.canvasController.getPenPane(),
-        this.canvasController.getClearPane(),
+      this.canvasController.getEraserPane(),
+      this.canvasController.getPenPane(),
+      this.canvasController.getClearPane(),
     };
 
     this.zenPenOptions =

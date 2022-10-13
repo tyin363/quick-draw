@@ -6,13 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
-import nz.ac.auckland.se206.client.annotations.Controller;
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.controllers.scenemanager.SceneManager;
-import nz.ac.auckland.se206.client.controllers.scenemanager.View;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.client.users.User;
 import nz.ac.auckland.se206.client.users.UserService;
+import nz.ac.auckland.se206.client.util.View;
+import nz.ac.auckland.se206.core.annotations.Controller;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.listeners.LoadListener;
+import nz.ac.auckland.se206.core.scenemanager.SceneManager;
 
 /**
  * Note: This cannot be annotated with @Singleton as a new instance is created for every view it's

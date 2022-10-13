@@ -4,26 +4,27 @@ import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.annotations.Singleton;
-import nz.ac.auckland.se206.client.controllers.scenemanager.SceneManager;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.LoadListener;
-import nz.ac.auckland.se206.client.controllers.scenemanager.View;
 import nz.ac.auckland.se206.client.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.client.statemachine.states.DefaultCanvasState;
 import nz.ac.auckland.se206.client.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.client.util.Helpers;
+import nz.ac.auckland.se206.client.util.View;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.annotations.Singleton;
+import nz.ac.auckland.se206.core.listeners.LoadListener;
+import nz.ac.auckland.se206.core.scenemanager.FxmlView;
+import nz.ac.auckland.se206.core.scenemanager.SceneManager;
 
 @Singleton
 public class MainMenuController implements LoadListener {
 
   private final Random random = new Random();
   private final String[] messages = {
-      "Speed is key! Make sure to focus on features that are most identifiable",
-      "\"The object of art is not to reproduce reality, but to create a reality of the same"
-          + " intensity\"  – Alberto Giacometti",
-      "\"The art of the artist is the art of the tools\"  – Pablo Picasso",
-      "Made with love by Team 9 :)"
+    "Speed is key! Make sure to focus on features that are most identifiable",
+    "\"The object of art is not to reproduce reality, but to create a reality of the same"
+        + " intensity\"  – Alberto Giacometti",
+    "\"The art of the artist is the art of the tools\"  – Pablo Picasso",
+    "Made with love by Team 9 :)"
   };
 
   @FXML private Label messageLabel;
@@ -69,7 +70,7 @@ public class MainMenuController implements LoadListener {
    * just at the profile page, in which case go back to that page.
    */
   private void onSwitchBack() {
-    final View previousView = this.sceneManager.getPreviousView();
+    final FxmlView previousView = this.sceneManager.getPreviousView();
     // Only switch back to the profile page if they were just on it
     if (previousView == View.PROFILE_PAGE) {
       this.sceneManager.switchToView(View.PROFILE_PAGE);

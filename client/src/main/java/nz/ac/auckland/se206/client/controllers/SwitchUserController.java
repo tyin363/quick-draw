@@ -5,15 +5,15 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.annotations.Singleton;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.client.components.UserProfile;
-import nz.ac.auckland.se206.client.controllers.scenemanager.SceneManager;
-import nz.ac.auckland.se206.client.controllers.scenemanager.View;
 import nz.ac.auckland.se206.client.users.User;
 import nz.ac.auckland.se206.client.users.UserService;
 import nz.ac.auckland.se206.client.util.Config;
+import nz.ac.auckland.se206.client.util.View;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.annotations.Singleton;
+import nz.ac.auckland.se206.core.listeners.LoadListener;
+import nz.ac.auckland.se206.core.scenemanager.SceneManager;
 
 @Singleton
 public class SwitchUserController implements LoadListener {

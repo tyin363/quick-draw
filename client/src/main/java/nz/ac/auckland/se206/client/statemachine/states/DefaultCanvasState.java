@@ -5,16 +5,16 @@ import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import nz.ac.auckland.se206.client.annotations.Inject;
 import nz.ac.auckland.se206.client.controllers.CanvasController;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.EnableListener;
-import nz.ac.auckland.se206.client.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.client.speech.TextToSpeech;
 import nz.ac.auckland.se206.client.users.Round;
-import nz.ac.auckland.se206.client.util.Config;
-import nz.ac.auckland.se206.client.words.WordService;
 import nz.ac.auckland.se206.client.users.User;
 import nz.ac.auckland.se206.client.users.UserService;
+import nz.ac.auckland.se206.client.util.Config;
+import nz.ac.auckland.se206.client.words.WordService;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.listeners.EnableListener;
+import nz.ac.auckland.se206.core.listeners.TerminationListener;
 
 public class DefaultCanvasState extends CanvasState implements EnableListener, TerminationListener {
 

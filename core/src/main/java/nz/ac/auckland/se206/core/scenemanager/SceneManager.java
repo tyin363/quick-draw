@@ -79,7 +79,7 @@ public class SceneManager {
   private boolean loadView(final FxmlView view) {
     try {
       final FXMLLoader fxmlLoader =
-          new FXMLLoader(SceneManager.class.getResource("/fxml/" + view.getFxml() + ".fxml"));
+          new FXMLLoader(view.getClass().getResource("/fxml/" + view.getFxml() + ".fxml"));
 
       // Use custom controller factory to support dependency injection within the controller.
       fxmlLoader.setControllerFactory(this.applicationContext);

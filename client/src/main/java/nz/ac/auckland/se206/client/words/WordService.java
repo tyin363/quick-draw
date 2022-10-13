@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
-import nz.ac.auckland.se206.client.annotations.Inject;
-import nz.ac.auckland.se206.client.annotations.Singleton;
 import nz.ac.auckland.se206.client.exceptions.MissingResourceException;
 import nz.ac.auckland.se206.client.users.Round;
 import nz.ac.auckland.se206.client.users.UserService;
 import nz.ac.auckland.se206.client.util.Config;
+import nz.ac.auckland.se206.core.annotations.Inject;
+import nz.ac.auckland.se206.core.annotations.Singleton;
 import org.slf4j.Logger;
 
 @Singleton
