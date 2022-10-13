@@ -41,7 +41,7 @@
             </Label>
           </children>
         </VBox>
-        <VBox alignment="CENTER" prefHeight="388.0" prefWidth="560.0" spacing="15.0">
+        <VBox alignment="CENTER" prefHeight="375.0" prefWidth="598.0" spacing="15.0">
           <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
@@ -68,17 +68,9 @@
                         </StackPane>
                      </children>
                   </StackPane>
-                  <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="349.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="109.0" />
-                      <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="ALWAYS" maxWidth="346.0" minWidth="10.0" prefWidth="346.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="105.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <StackPane alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="122.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="122.0">
                            <children>
                               <Button fx:id="setUsernameButton" minWidth="60.0" mnemonicParsing="false" onAction="#onSetUsername" prefHeight="37.0" prefWidth="60.0" styleClass="btn" text="Set" textFill="WHITE" />
                               <Button fx:id="editUsernameButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditUsername">
@@ -95,21 +87,46 @@
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
                         </StackPane>
-                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="339.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                        <StackPane fx:id="usernameStackPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="451.0">
                            <children>
-                        <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxWidth="1.7976931348623157E308" prefWidth="320.0" styleClass="text-default" text="Username">
+                        <Label fx:id="usernameLabel" alignment="CENTER" contentDisplay="CENTER" ellipsisString="" maxWidth="1.7976931348623157E308" styleClass="text-default" text="Username">
                           <font>
                             <Font size="38.0" />
                           </font>
                         </Label>
-                    <TextField fx:id="usernameTextField" alignment="CENTER" prefHeight="35.0" prefWidth="329.0" />
+                    <TextField fx:id="usernameTextField" alignment="CENTER" prefHeight="35.0" prefWidth="282.0" />
                            </children>
                         </StackPane>
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="122.0" visible="false">
+                           <children>
+                              <Button fx:id="setUsernameButton1" minWidth="60.0" mnemonicParsing="false" onAction="#onSetUsername" prefHeight="37.0" prefWidth="60.0" styleClass="btn" text="Set" textFill="WHITE" />
+                              <Button fx:id="editUsernameButton1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditUsername">
+                                 <graphic>
+                                    <Pane prefHeight="32.0" prefWidth="44.0" style="-fx-background-color: white;" />
+                                 </graphic>
+                                 <styleClass>
+                                    <String fx:value="edit-icon" />
+                                    <String fx:value="bg-highlight" />
+                                    <String fx:value="icon" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </StackPane>
                      </children>
+                  </HBox>
+                  <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="349.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="109.0" />
+                      <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="ALWAYS" maxWidth="346.0" minWidth="10.0" prefWidth="346.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="105.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
                   </GridPane>
           </children>
         </VBox>

@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -47,10 +48,12 @@ public class ProfilePageController implements LoadListener {
   @FXML private Button setUsernameButton;
   @FXML private Button editUsernameButton;
   @FXML private StackPane hoverImageStackPane;
+  @FXML private StackPane usernameStackPane;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
 
+  private double usernameTextFieldWidth = 250;
   private User user;
 
   /** Hook up the back button action when the view is initialised. */
@@ -74,6 +77,7 @@ public class ProfilePageController implements LoadListener {
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
+    this.usernameStackPane.setPrefWidth(usernameTextFieldWidth);
     this.editUsernameButton.setVisible(false);
     this.usernameLabel.setVisible(false);
     this.setUsernameButton.setVisible(true);
@@ -127,6 +131,7 @@ public class ProfilePageController implements LoadListener {
       this.usernameLabel.setVisible(true);
       this.setUsernameButton.setVisible(false);
       this.usernameTextField.setVisible(false);
+      setUsernameWidth();
     }
   }
 
@@ -144,6 +149,17 @@ public class ProfilePageController implements LoadListener {
   @FXML
   private void onExitImage() {
     this.hoverImageStackPane.setVisible(false);
+  }
+
+  /** This method sets the width of the stackpane which the username label is in. */
+  private void setUsernameWidth() {
+    Text tmpText = new Text(this.user.getUsername());
+    double textWidth;
+    tmpText.setFont(this.usernameLabel.getFont());
+
+    // Add extra 10 size to be sure
+    textWidth = tmpText.getLayoutBounds().getWidth() + 10;
+    this.usernameStackPane.setPrefWidth(textWidth);
   }
 
   /**
@@ -176,6 +192,8 @@ public class ProfilePageController implements LoadListener {
     this.gamesLostLabel.setText(Integer.toString(this.user.getGamesLost()));
     this.gamesWonLabel.setText(Integer.toString(this.user.getGamesWon()));
     this.usernameLabel.setText(this.user.getUsername());
+    setUsernameWidth();
+
     this.currentWinstreakLabel.setText(Integer.toString(this.user.getCurrentWinStreak()));
     this.bestWinstreakLabel.setText(Integer.toString(this.user.getBestWinStreak()));
 
