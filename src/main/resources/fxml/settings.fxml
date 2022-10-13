@@ -15,10 +15,10 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.SettingsController">
    <children>
-      <VBox layoutX="-10.0" layoutY="-3.0" prefHeight="809.0" prefWidth="1151.0" styleClass="bg-gray-25">
+      <VBox layoutY="-4.0" prefHeight="810.0" prefWidth="1150.0" styleClass="bg-gray-25">
          <children>
             <fx:include fx:id="header" source="header.fxml" />
-            <VBox alignment="TOP_CENTER" prefHeight="857.0" prefWidth="1151.0">
+            <VBox alignment="TOP_CENTER" prefHeight="838.0" prefWidth="1150.0">
                <children>
                   <Label alignment="CENTER" prefHeight="108.0" prefWidth="1172.0" styleClass="text-default" text="Choose your game settings:">
                      <font>
