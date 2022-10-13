@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.annotations.Controller;
@@ -19,9 +20,40 @@ public class WordDefinitionController implements LoadListener {
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   @Inject private HiddenMode hiddenMode;
-
+  @FXML private Button nextButton;
+  @FXML private Label nextLabel;
+  @FXML private Button previousButton;
+  @FXML private Label previousLabel;
   private double maxWidth = 670;
   private double defaultFontSize = 40;
+
+  /** This will recolour the previous definition buttons to a light gray. */
+  @FXML
+  private void onEnterPreviousButton() {
+    this.previousButton.setStyle("-fx-background-color: -fx-lightgray-100;");
+    this.previousLabel.setStyle("-fx-text-fill: -fx-lightgray-100;");
+  }
+
+  /** This will recolour the previous definition buttons to a light gray. */
+  @FXML
+  private void onEnterNextButton() {
+    this.nextButton.setStyle("-fx-background-color: -fx-lightgray-100;");
+    this.nextLabel.setStyle("-fx-text-fill: -fx-lightgray-100;");
+  }
+
+  /** This will reset the colour of the previous definition buttons. */
+  @FXML
+  private void onExitPreviousButton() {
+    this.previousButton.setStyle("-fx-background-color: -fx-text-default;");
+    this.previousLabel.setStyle("-fx-text-fill: -fx-text-default;");
+  }
+
+  /** This will reset the colour of the next definition buttons. */
+  @FXML
+  private void onExitNextButton() {
+    this.nextButton.setStyle("-fx-background-color: -fx-text-default;");
+    this.nextLabel.setStyle("-fx-text-fill: -fx-text-default;");
+  }
 
   /** The previous definition of the given word will be shown. */
   @FXML
