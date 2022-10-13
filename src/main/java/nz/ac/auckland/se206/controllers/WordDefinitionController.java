@@ -21,7 +21,7 @@ public class WordDefinitionController implements LoadListener {
   @Inject private HiddenMode hiddenMode;
 
   private double maxWidth = 670;
-  private double defaultFontSize = 36;
+  private double defaultFontSize = 40;
 
   /** The previous definition of the given word will be shown. */
   @FXML

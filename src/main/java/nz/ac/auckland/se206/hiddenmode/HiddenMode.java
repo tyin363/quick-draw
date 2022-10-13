@@ -62,46 +62,54 @@ public class HiddenMode {
 
   /** This method will change the label font size to fit the screen accordingly */
   public void changeFontDynamically(Label target, double maxWidth, double defaultFontSize) {
-    // Clear any styles on the target word
-    target.setStyle(null);
 
     String definition = target.getText();
-
+    double allowableFontSize = defaultFontSize * 3 / 4;
     Font defaultFont = Font.font(defaultFontSize);
     Text tmpText = new Text(target.getText());
     double textWidth;
     tmpText.setFont(defaultFont);
     textWidth = tmpText.getLayoutBounds().getWidth();
 
-    /*
-     * Check if text width is smaller than maximum width allowed.
-     *
-     * If the sentence is too big, split it into 3 smaller sentences
-     */
-    if (textWidth > maxWidth) {
-      int spaceCount = StringUtils.countMatches(definition, " ");
-      int firstPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 3);
-      int secondPlacement = StringUtils.ordinalIndexOf(definition, " ", 2 * spaceCount / 3);
+    // Clear any styles on the target word
+    target.setStyle(null);
 
-      // Create new string and combining the three split sentences
+    // If the sentence is too big, split it into smaller sentences
+    if (textWidth > maxWidth) {
+      double newFontSize;
+      int spaceCount = StringUtils.countMatches(definition, " ");
+      int halfPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 2);
+      int oneThirdPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 3);
+      int secondThirdPlacement = StringUtils.ordinalIndexOf(definition, " ", 2 * spaceCount / 3);
+
+      // Two variations of the definition sentence
+      String twoSentence =
+          definition.substring(0, halfPlacement) + "\n" + definition.substring(halfPlacement + 1);
       String threeSentence =
-          definition.substring(0, firstPlacement)
+          definition.substring(0, oneThirdPlacement)
               + "\n"
-              + definition.substring(firstPlacement + 1, secondPlacement)
+              + definition.substring(oneThirdPlacement + 1, secondThirdPlacement)
               + "\n"
-              + definition.substring(secondPlacement + 1);
+              + definition.substring(secondThirdPlacement + 1);
+
+      tmpText = new Text(twoSentence);
+      tmpText.setFont(defaultFont);
+      textWidth = tmpText.getLayoutBounds().getWidth();
+      newFontSize = defaultFontSize * maxWidth / textWidth - 1;
+
+      // Return with two sentences if size is allowable
+      if (newFontSize >= allowableFontSize) {
+        target.setStyle("-fx-font-size: " + newFontSize + ";");
+        target.setText(twoSentence);
+        return;
+      }
+
+      // Otherwise, return with three sentences and downsize the font
       tmpText = new Text(threeSentence);
       tmpText.setFont(defaultFont);
       textWidth = tmpText.getLayoutBounds().getWidth();
-      /*
-       * Check if text width is smaller than maximum width allowed.
-       *
-       * If the sentence is too big, make the font smaller
-       */
-      if (textWidth > maxWidth) {
-        double newFontSize = defaultFontSize * maxWidth / textWidth - 1;
-        target.setStyle("-fx-font-size: " + newFontSize + ";");
-      }
+      newFontSize = defaultFontSize * maxWidth / textWidth - 1;
+      target.setStyle("-fx-font-size: " + newFontSize + ";");
       target.setText(threeSentence);
     }
   }
