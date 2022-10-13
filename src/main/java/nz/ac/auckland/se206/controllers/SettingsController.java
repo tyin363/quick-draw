@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -26,6 +27,7 @@ public class SettingsController implements LoadListener {
       mediumConfidenceButton,
       hardConfidenceButton,
       masterConfidenceButton;
+  @FXML private ToggleGroup accuracy;
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
@@ -48,6 +50,21 @@ public class SettingsController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
+    this.easyAccuracyButton.setSelected(false);
+    this.mediumAccuracyButton.setSelected(false);
+    this.hardAccuracyButton.setSelected(false);
+    this.easyWordsButton.setSelected(false);
+    this.mediumWordsButton.setSelected(false);
+    this.hardWordsButton.setSelected(false);
+    this.masterWordsButton.setSelected(false);
+    this.easyTimeButton.setSelected(false);
+    this.mediumTimeButton.setSelected(false);
+    this.hardTimeButton.setSelected(false);
+    this.masterTimeButton.setSelected(false);
+    this.easyConfidenceButton.setSelected(false);
+    this.mediumConfidenceButton.setSelected(false);
+    this.hardConfidenceButton.setSelected(false);
+    this.masterConfidenceButton.setSelected(false);
     this.currentUser = this.userService.getCurrentUser();
     this.loadAccuracy(currentUser);
     this.loadWords(currentUser);
