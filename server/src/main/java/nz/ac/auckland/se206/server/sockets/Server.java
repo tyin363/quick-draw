@@ -62,8 +62,14 @@ public class Server implements TerminationListener, EnableListener {
     this.onClientCountChangeListeners.add(listener);
   }
 
+  public void removeClient(final ClientSocketHandler clientSocketHandler) {
+    this.clients.remove(clientSocketHandler);
+    this.onClientCountChangeListeners.forEach(Runnable::run);
+  }
+
   public void stop() {
     try {
+      this.clients.forEach(ClientSocketHandler::close);
       this.serverSocket.close();
     } catch (final IOException e) {
       this.logger.error("Failed to close the server", e);

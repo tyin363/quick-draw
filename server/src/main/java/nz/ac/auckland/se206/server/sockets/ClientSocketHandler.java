@@ -71,6 +71,7 @@ public class ClientSocketHandler extends Thread {
     } catch (final IOException e) {
       e.printStackTrace();
     }
+    this.server.removeClient(this);
   }
 
   private void handleResponse(final ActionResponse.Action action, final String line)
