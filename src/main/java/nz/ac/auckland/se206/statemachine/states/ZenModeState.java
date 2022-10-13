@@ -1,8 +1,7 @@
 package nz.ac.auckland.se206.statemachine.states;
 
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.components.canvas.ZenPenOptions;
@@ -13,7 +12,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 public class ZenModeState extends CanvasState implements EnableListener {
 
   private ZenPenOptions zenPenOptions;
-  private Node oldToolContainerContent;
+  private VBox oldToolContainerContent;
 
   /**
    * Creates a new ZenModeState which handles the stateful logic of the canvas when the zen mode has
@@ -35,6 +34,12 @@ public class ZenModeState extends CanvasState implements EnableListener {
     toolContainer.getChildren().add(this.zenPenOptions);
     this.canvasController.getGameOverActionsContainer().setVisible(true);
     this.canvasController.getMainLabel().setText("Zen Mode");
+
+    // Reuse the same instances that already exist so that the on click functions remain unaffected.
+    this.zenPenOptions.setTools(
+        this.canvasController.getEraserPane(),
+        this.canvasController.getPenPane(),
+        this.canvasController.getClearPane());
   }
 
   /** Place the default canvas content back when we leave this state. */
@@ -44,7 +49,15 @@ public class ZenModeState extends CanvasState implements EnableListener {
     final VBox toolContainer = this.canvasController.getToolContainer();
     toolContainer.getChildren().clear();
     toolContainer.getChildren().add(this.oldToolContainerContent);
-    this.canvasController.getGameOverActionsContainer().setVisible(false);
+    // When you add the tools to the zen pen options, it removes them from the old tool container
+    // so we need to manually add them back :(
+    this.oldToolContainerContent
+        .getChildren()
+        .addAll(
+            this.canvasController.getEraserPane(),
+            this.canvasController.getPenPane(),
+            this.canvasController.getClearPane());
+    this.canvasController.setPenColour(Color.BLACK);
   }
 
   /** When the user leaves the canvas scene, stop the timer. */
@@ -60,19 +73,12 @@ public class ZenModeState extends CanvasState implements EnableListener {
    */
   @Override
   public void onEnable() {
-    // Reuse the same instances that already exist so that the on click functions remain unaffected.
-    final Pane[] tools = {
-      this.canvasController.getEraserPane(),
-      this.canvasController.getPenPane(),
-      this.canvasController.getClearPane(),
-    };
-
     this.zenPenOptions =
         new ZenPenOptions(
-            this.canvasController.getPenColour(), this.canvasController::setPenColour, tools);
+            this.canvasController.getPenColour(), this.canvasController::setPenColour);
 
     // Save the old tool container content so that it can be restored when the state is exited
     final VBox toolContainer = this.canvasController.getToolContainer();
-    this.oldToolContainerContent = toolContainer.getChildren().get(0);
+    this.oldToolContainerContent = (VBox) toolContainer.getChildren().get(0);
   }
 }
