@@ -37,6 +37,11 @@
       <artifactId>logback-classic</artifactId>
       <groupId>ch.qos.logback</groupId>
     </dependency>
+    <dependency>
+      <groupId>nz.ac.auckland.se206</groupId>
+      <artifactId>core</artifactId>
+      <version>2.0.0</version>
+    </dependency>
   </dependencies>
   <modelVersion>4.0.0</modelVersion>
 
