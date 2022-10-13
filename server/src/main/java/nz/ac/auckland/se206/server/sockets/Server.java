@@ -21,6 +21,10 @@ public class Server implements TerminationListener, EnableListener {
   private final Vector<ClientSocketHandler> clients = new Vector<>();
   private ServerSocket serverSocket;
 
+  public boolean isRunning() {
+    return this.serverSocket != null && !this.serverSocket.isClosed();
+  }
+
   public void start(final String host, final int port) {
     try {
       this.serverSocket = new ServerSocket(port, 100, InetAddress.getByName(host));
@@ -35,7 +39,7 @@ public class Server implements TerminationListener, EnableListener {
   }
 
   public void handleClientConnections() {
-    while (true) {
+    while (this.isRunning()) {
       try {
         final ClientSocketHandler client =
             new ClientSocketHandler(this, this.serverSocket.accept(), this.objectMapper);

@@ -25,6 +25,7 @@ public class ClientSocket implements EnableListener {
 
   public void send(final ActionResponse.Action action, final Object value) {
     if (!this.isConnected()) {
+      this.logger.warn("Cannot send message to server, not connected");
       return;
     }
     try {
