@@ -49,7 +49,7 @@ public class ZenModeState extends CanvasState implements EnableListener {
     final VBox toolContainer = this.canvasController.getToolContainer();
     toolContainer.getChildren().clear();
     toolContainer.getChildren().add(this.oldToolContainerContent);
-    // When you add the tools to the zen pen options, it removes them from the old tool container
+    // When you add the tools to the zen pen options, it removes them from the old tool container,
     // so we need to manually add them back :(
     this.oldToolContainerContent
         .getChildren()
