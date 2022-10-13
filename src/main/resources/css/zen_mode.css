@@ -1,3 +1,13 @@
+.pen-options {
+  -fx-background-color: -fx-lightgray-100;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.pen-options > HBox {
+  -fx-padding: 5px;
+}
+
 .colour-palette {
   -fx-padding: 10px 5px 10px 5px;
 }
@@ -31,14 +41,4 @@
   -fx-background-insets: 5px 10px 5px 10px;
   -fx-background-color: black;
   -fx-pref-height: 40px;
-}
-
-.pen-options {
-  -fx-background-color: -fx-lightgray-100;
-  -fx-border-radius: 8px;
-  -fx-background-radius: 8px;
-}
-
-.pen-options > HBox {
-  -fx-padding: 5px;
 }
