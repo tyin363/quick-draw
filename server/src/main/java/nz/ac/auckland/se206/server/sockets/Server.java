@@ -15,10 +15,10 @@ import org.slf4j.Logger;
 @Singleton
 public class Server implements TerminationListener, EnableListener {
 
+  private final Vector<ClientSocketHandler> clients = new Vector<>();
+  private final Vector<Runnable> onClientCountChangeListeners = new Vector<>();
   @Inject private Logger logger;
   @Inject private ObjectMapper objectMapper;
-
-  private final Vector<ClientSocketHandler> clients = new Vector<>();
   private ServerSocket serverSocket;
 
   public boolean isRunning() {
@@ -45,6 +45,7 @@ public class Server implements TerminationListener, EnableListener {
             new ClientSocketHandler(this, this.serverSocket.accept(), this.objectMapper);
         this.clients.add(client);
         client.start();
+        this.onClientCountChangeListeners.forEach(Runnable::run);
       } catch (final IOException e) {
         this.logger.error("Failed to accept client connection", e);
       }
@@ -52,8 +53,13 @@ public class Server implements TerminationListener, EnableListener {
   }
 
   public void startDrawingSession(final String word) {
+    this.logger.info("Sending drawing session request to {} clients", this.clients.size());
     final DrawingSessionRequest request = new DrawingSessionRequest(word);
     this.clients.forEach(client -> client.sendDrawingSessionRequest(request));
+  }
+
+  public void addClientCountChangeListener(final Runnable listener) {
+    this.onClientCountChangeListeners.add(listener);
   }
 
   public void stop() {
@@ -62,6 +68,15 @@ public class Server implements TerminationListener, EnableListener {
     } catch (final IOException e) {
       this.logger.error("Failed to close the server", e);
     }
+  }
+
+  /**
+   * Retrieve the number of currently connected clients.
+   *
+   * @return The number of currently connected clients
+   */
+  public int clientCount() {
+    return this.clients.size();
   }
 
   @Override
