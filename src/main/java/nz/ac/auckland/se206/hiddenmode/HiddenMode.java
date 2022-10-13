@@ -65,17 +65,13 @@ public class HiddenMode {
 
     String definition = target.getText();
     double allowableFontSize = defaultFontSize * 3 / 4;
-    Font defaultFont = Font.font(defaultFontSize);
-    Text tmpText = new Text(target.getText());
-    double textWidth;
-    tmpText.setFont(defaultFont);
-    textWidth = tmpText.getLayoutBounds().getWidth();
+    double textWidth = getTemporaryWidth(definition, defaultFontSize);
 
     // Clear any styles on the target word
     target.setStyle(null);
 
     // If the sentence is too big, split it into smaller sentences
-    if (textWidth > maxWidth) {
+    if (textWidth >= maxWidth) {
       double newFontSize;
       int spaceCount = StringUtils.countMatches(definition, " ");
       int halfPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 2);
@@ -92,26 +88,50 @@ public class HiddenMode {
               + "\n"
               + definition.substring(secondThirdPlacement + 1);
 
-      tmpText = new Text(twoSentence);
-      tmpText.setFont(defaultFont);
-      textWidth = tmpText.getLayoutBounds().getWidth();
-      newFontSize = defaultFontSize * maxWidth / textWidth - 1;
+      // Get new width for two sentences
+      textWidth = getTemporaryWidth(twoSentence, defaultFontSize);
 
       // Return with two sentences if size is allowable
+      newFontSize = defaultFontSize * maxWidth / textWidth - 1;
       if (newFontSize >= allowableFontSize) {
-        target.setStyle("-fx-font-size: " + newFontSize + ";");
-        target.setText(twoSentence);
-        return;
+        if (textWidth >= maxWidth) {
+          target.setStyle("-fx-font-size: " + newFontSize + ";");
+          target.setText(twoSentence);
+          return;
+        } else {
+          target.setText(twoSentence);
+          return;
+        }
       }
 
       // Otherwise, return with three sentences and downsize the font
-      tmpText = new Text(threeSentence);
-      tmpText.setFont(defaultFont);
-      textWidth = tmpText.getLayoutBounds().getWidth();
+      textWidth = getTemporaryWidth(threeSentence, defaultFontSize);
       newFontSize = defaultFontSize * maxWidth / textWidth - 1;
+      ;
       target.setStyle("-fx-font-size: " + newFontSize + ";");
       target.setText(threeSentence);
     }
+  }
+
+  /**
+   * This is a helper method for the changeFontDynamically method.
+   *
+   * <p>It calculates the width of a text element given the text that is in it.
+   *
+   * @param sentence The text to be put in the Text element
+   * @param fontSize The size of the font
+   * @return The width of the text element
+   */
+  private double getTemporaryWidth(String sentence, double fontSize) {
+    Font defaultFont = Font.font(fontSize);
+    Text tmpText = new Text(sentence);
+    double textWidth;
+    tmpText.setFont(defaultFont);
+
+    // Get width of the text
+    textWidth = tmpText.getLayoutBounds().getWidth();
+
+    return textWidth;
   }
 
   /** This gets the number of definitions and the current index number */
