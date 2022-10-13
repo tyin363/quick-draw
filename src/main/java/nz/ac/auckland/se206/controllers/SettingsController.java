@@ -99,7 +99,6 @@ public class SettingsController implements LoadListener {
     } else if (masterTimeButton.isSelected()) {
       currentUser.getGameSettings().setTime(15);
     }
-
     this.userService.saveUser(currentUser);
   }
 
