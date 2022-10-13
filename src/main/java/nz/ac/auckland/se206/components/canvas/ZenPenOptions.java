@@ -3,7 +3,6 @@ package nz.ac.auckland.se206.components.canvas;
 import java.util.function.Consumer;
 import javafx.geometry.Pos;
 import javafx.scene.control.Separator;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -31,6 +30,7 @@ public class ZenPenOptions extends VBox {
   private static final int COLOURS_PER_ROW = 3;
 
   private final Consumer<Color> handleSwitchColour;
+  private final HBox toolContainer;
   private Pane currentColour;
 
   /**
@@ -44,30 +44,32 @@ public class ZenPenOptions extends VBox {
       final Color initialColour, final Consumer<Color> handleSwitchColour, final Pane... tools) {
 
     this.handleSwitchColour = handleSwitchColour;
-    // Keep a reference to this so that the background colour can be as the user switches the pen
-    // colour.
-    Tooltip.install(this.currentColour, new Tooltip("The current pen colour"));
+    this.toolContainer = this.renderToolContainer();
 
     this.getStyleClass().add("pen-options");
 
     // Render and add all the subcomponents
     this.getChildren()
-        .addAll(
-            this.renderToolContainer(tools),
-            new Separator(),
-            this.renderColourPalette(initialColour));
+        .addAll(this.toolContainer, new Separator(), this.renderColourPalette(initialColour));
+  }
+
+  /**
+   * Sets the tools to be contained within the tool container.
+   *
+   * @param tools The tools to place in the container
+   */
+  public void setTools(final Pane... tools) {
+    this.toolContainer.getChildren().clear();
+    this.toolContainer.getChildren().addAll(tools);
   }
 
   /**
    * Renders a horizontal container for the tool icons.
    *
-   * @param tools The tool icons to render
    * @return The rendered tool container
    */
-  private HBox renderToolContainer(final Pane... tools) {
-    final HBox toolContainer = new HBox();
-    toolContainer.getChildren().addAll(tools);
-    return toolContainer;
+  private HBox renderToolContainer() {
+    return new HBox();
   }
 
   /**
