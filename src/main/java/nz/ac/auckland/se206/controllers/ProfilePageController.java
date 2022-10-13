@@ -85,6 +85,7 @@ public class ProfilePageController implements LoadListener {
   @FXML
   private void onEditUsername() {
     this.usernameStackPane.setPrefWidth(usernameTextFieldWidth);
+    this.usernameTextField.setText(this.user.getUsername());
     setEditUsernameMode(true);
   }
 
