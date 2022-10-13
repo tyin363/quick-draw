@@ -1,4 +1,4 @@
-package nz.ac.auckland.se206.server;
+package nz.ac.auckland.se206.server.sockets;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.BufferedReader;
@@ -34,8 +34,6 @@ public class ClientSocket extends Thread {
         final ActionResponse actionResponse =
             this.objectMapper.readValue(this.reader, ActionResponse.class);
         this.handleResponse(actionResponse.action());
-
-        this.clientSocket.close();
       }
     } catch (final IOException e) {
       e.printStackTrace();
@@ -47,6 +45,8 @@ public class ClientSocket extends Thread {
       final CompleteDrawingModel completeDrawingModel =
           this.objectMapper.readValue(this.reader, CompleteDrawingModel.class);
       System.out.println(completeDrawingModel);
+    } else if (action == ActionResponse.Action.TERMINATE_CONNECTION) {
+      this.clientSocket.close();
     }
   }
 }

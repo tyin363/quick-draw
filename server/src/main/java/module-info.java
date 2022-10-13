@@ -6,4 +6,5 @@ open module SE206Server {
   requires SE206Core;
 
   exports nz.ac.auckland.se206.server;
+  exports nz.ac.auckland.se206.server.sockets;
 }
