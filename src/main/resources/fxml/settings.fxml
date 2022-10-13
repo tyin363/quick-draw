@@ -22,7 +22,7 @@
                   <Font name="SansSerif Bold" size="40.0" />
                </font>
             </Label>
-            <GridPane prefHeight="519.0" prefWidth="1151.0">
+            <GridPane prefHeight="450.0" prefWidth="1151.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,53 +35,65 @@
                <children>
                   <VBox prefHeight="263.0" prefWidth="243.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="185.0" text="Accuracy" />
-                        <RadioButton fx:id="easyAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" text="Easy">
+                        <Label id="title" alignment="CENTER" prefHeight="50.0" prefWidth="301.0" styleClass="text-lightgray-100" text="Accuracy">
+                           <font>
+                              <Font name="SansSerif Regular" size="30.0" />
+                           </font></Label>
+                        <RadioButton fx:id="easyAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" prefHeight="100.0" prefWidth="320.0" styleClass="te" text="Easy">
                            <toggleGroup>
                               <ToggleGroup fx:id="accuracy" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="mediumAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" text="Medium" toggleGroup="$accuracy" />
-                        <RadioButton fx:id="hardAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" text="Hard" toggleGroup="$accuracy" />
+                        <RadioButton fx:id="mediumAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" prefHeight="100.0" prefWidth="303.0" text="Medium" toggleGroup="$accuracy" />
+                        <RadioButton fx:id="hardAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" prefHeight="100.0" prefWidth="328.0" text="Hard" toggleGroup="$accuracy" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                      <children>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="185.0" text="Words" />
-                        <RadioButton fx:id="easyWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Easy">
+                        <Label id="settings-title" alignment="CENTER" prefHeight="50.0" prefWidth="410.0" styleClass="text-lightgray-100" text="Words">
+                           <font>
+                              <Font size="30.0" />
+                           </font></Label>
+                        <RadioButton fx:id="easyWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="521.0" text="Easy">
                            <toggleGroup>
                               <ToggleGroup fx:id="words" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Medium" toggleGroup="$words" />
-                        <RadioButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Hard" toggleGroup="$words" />
-                        <RadioButton fx:id="masterWordsButton" mnemonicParsing="false" onAction="#onSetWords" text="Master" toggleGroup="$words" />
+                        <RadioButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="432.0" text="Medium" toggleGroup="$words" />
+                        <RadioButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="539.0" text="Hard" toggleGroup="$words" />
+                        <RadioButton fx:id="masterWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="412.0" text="Master" toggleGroup="$words" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                      <children>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="185.0" text="Time" />
-                        <RadioButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onSetTime" text="Easy">
+                        <Label id="settings-title" alignment="CENTER" prefHeight="50.0" prefWidth="390.0" styleClass="text-lightgray-100" text="Time">
+                           <font>
+                              <Font name="SansSerif Regular" size="30.0" />
+                           </font></Label>
+                        <RadioButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="427.0" text="Easy">
                            <toggleGroup>
                               <ToggleGroup fx:id="time" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="mediumTimeButton" mnemonicParsing="false" onAction="#onSetTime" text="Medium" toggleGroup="$time" />
-                        <RadioButton fx:id="hardTimeButton" mnemonicParsing="false" onAction="#onSetTime" text="Hard" toggleGroup="$time" />
-                        <RadioButton fx:id="masterTimeButton" mnemonicParsing="false" onAction="#onSetTime" text="Master" toggleGroup="$time" />
+                        <RadioButton fx:id="mediumTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="399.0" text="Medium" toggleGroup="$time" />
+                        <RadioButton fx:id="hardTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="398.0" text="Hard" toggleGroup="$time" />
+                        <RadioButton fx:id="masterTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="459.0" text="Master" toggleGroup="$time" />
                      </children>
                   </VBox>
                   <VBox prefHeight="667.0" prefWidth="609.0" GridPane.columnIndex="3">
                      <children>
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="185.0" text="Confidence" />
-                        <RadioButton fx:id="easyConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" text="Easy">
+                        <Label id="settings-title" alignment="CENTER" prefHeight="50.0" prefWidth="400.0" styleClass="text-lightgray-100" text="Confidence">
+                           <font>
+                              <Font name="SansSerif Bold" size="30.0" />
+                           </font></Label>
+                        <RadioButton fx:id="easyConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" prefHeight="100.0" prefWidth="340.0" text="Easy">
                            <toggleGroup>
                               <ToggleGroup fx:id="confidence" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="mediumConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" text="Medium" toggleGroup="$confidence" />
-                        <RadioButton fx:id="hardConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" text="Hard" toggleGroup="$confidence" />
-                        <RadioButton fx:id="masterConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" text="Master" toggleGroup="$confidence" />
+                        <RadioButton fx:id="mediumConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" prefHeight="100.0" prefWidth="300.0" text="Medium" toggleGroup="$confidence" />
+                        <RadioButton fx:id="hardConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" prefHeight="100.0" prefWidth="300.0" text="Hard" toggleGroup="$confidence" />
+                        <RadioButton fx:id="masterConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" prefHeight="100.0" prefWidth="300.0" text="Master" toggleGroup="$confidence" />
                      </children>
                   </VBox>
                </children>
@@ -93,5 +105,6 @@
    <stylesheets>
       <URL value="@../css/styles.css" />
       <URL value="@../css/colours.css" />
+      <URL value="@../css/settings.css" />
    </stylesheets>
 </AnchorPane>
