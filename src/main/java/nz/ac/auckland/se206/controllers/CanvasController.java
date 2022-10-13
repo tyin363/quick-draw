@@ -381,6 +381,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onReturnToMainMenu() {
     this.onClear();
+    this.hiddenMode.clearDefinitions();
     this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
