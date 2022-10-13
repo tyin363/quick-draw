@@ -10,12 +10,13 @@ import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Text-to-speech API using the JavaX speech library. */
 @Singleton
-public class TextToSpeech {
+public class TextToSpeech implements TerminationListener {
 
   /** Custom unchecked exception for Text-to-speech issues. */
   static class TextToSpeechException extends RuntimeException {
@@ -39,7 +40,7 @@ public class TextToSpeech {
     final TextToSpeech textToSpeech = new TextToSpeech(LoggerFactory.getLogger(TextToSpeech.class));
 
     textToSpeech.speak(args);
-    textToSpeech.terminate();
+    textToSpeech.onTerminate();
   }
 
   private final Logger logger;
@@ -148,7 +149,8 @@ public class TextToSpeech {
    * It deallocates the speech synthesizer. If you are experiencing an IllegalThreadStateException,
    * avoid using this method and run the speak method without terminating.
    */
-  public void terminate() {
+  @Override
+  public void onTerminate() {
     try {
       this.speakingTask.cancel();
       this.synthesizer.deallocate();
