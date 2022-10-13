@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.util.Vector;
 import nz.ac.auckland.se206.core.annotations.Inject;
 import nz.ac.auckland.se206.core.annotations.Singleton;
 import nz.ac.auckland.se206.core.listeners.EnableListener;
@@ -16,6 +17,7 @@ public class Server implements TerminationListener, EnableListener {
   @Inject private Logger logger;
   @Inject private ObjectMapper objectMapper;
 
+  private final Vector<ClientSocketHandler> clients = new Vector<>();
   private ServerSocket serverSocket;
 
   public void start(final String host, final int port) {
@@ -25,11 +27,22 @@ public class Server implements TerminationListener, EnableListener {
           "Server started on port {} at {}",
           port,
           this.serverSocket.getInetAddress().getHostAddress());
-      while (true) {
-        new ClientSocketHandler(this, this.serverSocket.accept(), this.objectMapper).start();
-      }
+      new Thread(this::handleClientConnections).start();
     } catch (final IOException e) {
       this.logger.error("Failed to start server", e);
+    }
+  }
+
+  public void handleClientConnections() {
+    while (true) {
+      try {
+        final ClientSocketHandler client =
+            new ClientSocketHandler(this, this.serverSocket.accept(), this.objectMapper);
+        this.clients.add(client);
+        client.start();
+      } catch (final IOException e) {
+        this.logger.error("Failed to accept client connection", e);
+      }
     }
   }
 
