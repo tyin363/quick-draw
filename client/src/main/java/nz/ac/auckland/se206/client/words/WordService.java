@@ -104,6 +104,15 @@ public class WordService {
   }
 
   /**
+   * Sets the target word to be drawn.
+   *
+   * @param targetWord The target word to be drawn
+   */
+  public void setTargetWord(final String targetWord) {
+    this.targetWord = targetWord;
+  }
+
+  /**
    * Gets an unmodifiable reference to the word mapping.
    *
    * @return The word mapping

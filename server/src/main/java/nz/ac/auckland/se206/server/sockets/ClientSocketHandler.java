@@ -35,19 +35,25 @@ public class ClientSocketHandler extends Thread {
       this.writer = new PrintWriter(this.clientSocket.getOutputStream(), true);
 
       while (!this.clientSocket.isClosed()) {
-        final String line = this.reader.readLine();
-        if (line != null) {
-          if (this.action == null) {
-            final ActionResponse actionResponse =
-                this.objectMapper.readValue(line, ActionResponse.class);
-            this.action = actionResponse.action();
-            if (this.action == ActionResponse.Action.TERMINATE_CONNECTION) {
-              break;
-            }
-          } else {
-            this.handleResponse(this.action, line);
-            this.action = null;
+        // Modified from:
+        // https://www.alpharithms.com/detecting-client-disconnections-java-sockets-091416/
+        final int peek = this.reader.read();
+        if (peek == -1) {
+          // The client has disconnected
+          break;
+        }
+
+        final String line = (char) peek + this.reader.readLine();
+        if (this.action == null) {
+          final ActionResponse actionResponse =
+              this.objectMapper.readValue(line, ActionResponse.class);
+          this.action = actionResponse.action();
+          if (this.action == ActionResponse.Action.TERMINATE_CONNECTION) {
+            break;
           }
+        } else {
+          this.handleResponse(this.action, line);
+          this.action = null;
         }
       }
     } catch (final IOException ignored) {

@@ -7,18 +7,29 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import javafx.application.Platform;
+import nz.ac.auckland.se206.client.statemachine.CanvasStateMachine;
+import nz.ac.auckland.se206.client.statemachine.states.DefaultCanvasState;
+import nz.ac.auckland.se206.client.users.UserService;
+import nz.ac.auckland.se206.client.util.View;
+import nz.ac.auckland.se206.client.words.WordService;
 import nz.ac.auckland.se206.core.annotations.Inject;
 import nz.ac.auckland.se206.core.annotations.Singleton;
 import nz.ac.auckland.se206.core.listeners.EnableListener;
 import nz.ac.auckland.se206.core.listeners.TerminationListener;
 import nz.ac.auckland.se206.core.models.ActionResponse;
 import nz.ac.auckland.se206.core.models.DrawingSessionRequest;
+import nz.ac.auckland.se206.core.scenemanager.SceneManager;
 import org.slf4j.Logger;
 
 @Singleton
 public class ClientSocket implements EnableListener, TerminationListener {
 
   @Inject private ObjectMapper objectMapper;
+  @Inject private WordService wordService;
+  @Inject private SceneManager sceneManager;
+  @Inject private UserService userService;
+  @Inject private CanvasStateMachine stateMachine;
   @Inject private Logger logger;
   private Socket socket;
   private PrintWriter writer;
@@ -28,7 +39,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
   private boolean isStopped = false;
 
   public void send(final ActionResponse.Action action, final Object value) {
-    if (!this.isConnected()) {
+    if (!this.isConnected() || this.writer == null) {
       this.logger.warn("Cannot send message to server, not connected");
       return;
     }
@@ -66,20 +77,27 @@ public class ClientSocket implements EnableListener, TerminationListener {
   }
 
   private void handleSocketInput() throws IOException {
-    // This is a method that can be used to detect if the connection has been lost
-    // https://www.alpharithms.com/detecting-client-disconnections-java-sockets-091416/
-    if (this.reader.read() == -1) {
+
+    final int peek = this.reader.read();
+    if (peek == -1) {
       this.logger.info("Lost connection to server");
       this.isConnected = false;
       return;
     }
 
-    final String line = this.reader.readLine();
-    if (line != null) {
-      final DrawingSessionRequest request =
-          this.objectMapper.readValue(line, DrawingSessionRequest.class);
-      this.logger.info("Received drawing session request: {}", request);
+    final String line = (char) peek + this.reader.readLine();
+    this.logger.info(line);
+    final DrawingSessionRequest request =
+        this.objectMapper.readValue(line, DrawingSessionRequest.class);
+    if (this.userService.getCurrentUser() != null) {
+      this.wordService.setTargetWord(request.word());
+      Platform.runLater(
+          () -> {
+            this.stateMachine.switchState(DefaultCanvasState.class);
+            this.sceneManager.switchToView(View.CANVAS);
+          });
     }
+    this.logger.info("Received drawing session request: {}", request);
   }
 
   public boolean isConnected() {
@@ -87,6 +105,9 @@ public class ClientSocket implements EnableListener, TerminationListener {
   }
 
   private void tryConnectToServer() throws IOException {
+    if (this.socket != null) {
+      this.socket.close();
+    }
     this.logger.info("Trying to connect to server");
     // Establish a connection to the server and create a reader/writer
     this.socket = new Socket("localhost", 5001);
