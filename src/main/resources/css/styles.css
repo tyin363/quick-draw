@@ -5,6 +5,14 @@
   -fx-screen-height: 800px;
 }
 
+.text-field {
+  -fx-font-size: 16px;
+  -fx-text-fill: -fx-text-default;
+  -fx-prompt-text-fill: -fx-lightgray-100;
+  -fx-background-color: -fx-gray-50;
+  -fx-highlight-fill: -fx-highlight;
+}
+
 .root-element {
   -fx-pref-width: -fx-screen-width;
   -fx-pref-height: -fx-screen-height;
