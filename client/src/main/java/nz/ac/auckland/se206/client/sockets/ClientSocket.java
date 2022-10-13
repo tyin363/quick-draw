@@ -56,14 +56,23 @@ public class ClientSocket implements EnableListener, TerminationListener {
         }
       } catch (final InterruptedException e) {
         this.logger.error("Failed to sleep", e);
-      } catch (final IOException e) {
+      } catch (final IOException ignored) {
         // If we fail to read the input, it's likely we've lost connection to the server
+        this.logger.info("Lost connection to server");
         this.connected = false;
       }
     }
   }
 
   private void handleSocketInput() throws IOException {
+    // This is a method that can be used to detect if the connection has been lost
+    // https://www.alpharithms.com/detecting-client-disconnections-java-sockets-091416/
+    if (this.reader.read() == -1) {
+      this.logger.info("Lost connection to server");
+      this.connected = false;
+      return;
+    }
+
     final String line = this.reader.readLine();
     if (line != null) {
       final DrawingSessionRequest request =
@@ -73,7 +82,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
   }
 
   public boolean isConnected() {
-    return this.socket != null && !this.socket.isClosed() && this.connected;
+    return this.socket != null && this.socket.isConnected() && this.connected;
   }
 
   private void tryConnectToServer() throws IOException {
@@ -103,5 +112,6 @@ public class ClientSocket implements EnableListener, TerminationListener {
   @Override
   public void onTerminate() {
     this.handlerThread.interrupt();
+    this.logger.info("Terminating client socket");
   }
 }

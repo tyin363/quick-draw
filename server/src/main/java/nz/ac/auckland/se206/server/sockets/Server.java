@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.Vector;
+import java.util.concurrent.CopyOnWriteArrayList;
 import nz.ac.auckland.se206.core.annotations.Inject;
 import nz.ac.auckland.se206.core.annotations.Singleton;
 import nz.ac.auckland.se206.core.listeners.EnableListener;
@@ -15,7 +16,7 @@ import org.slf4j.Logger;
 @Singleton
 public class Server implements TerminationListener, EnableListener {
 
-  private final Vector<ClientSocketHandler> clients = new Vector<>();
+  private final CopyOnWriteArrayList<ClientSocketHandler> clients = new CopyOnWriteArrayList<>();
   private final Vector<Runnable> onClientCountChangeListeners = new Vector<>();
   @Inject private Logger logger;
   @Inject private ObjectMapper objectMapper;

@@ -50,8 +50,8 @@ public class ClientSocketHandler extends Thread {
           }
         }
       }
-    } catch (final IOException e) {
-      e.printStackTrace();
+    } catch (final IOException ignored) {
+      // We've likely lost connection to the client
     }
     this.close();
   }
