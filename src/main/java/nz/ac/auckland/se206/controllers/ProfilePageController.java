@@ -78,22 +78,14 @@ public class ProfilePageController implements LoadListener {
   /** Delete the current user and then take them back to the switch user view. */
   @FXML
   private void onCancelEdit() {
-    this.editUsernameButton.setVisible(true);
-    this.usernameLabel.setVisible(true);
-    this.setUsernameButton.setVisible(false);
-    this.usernameTextField.setVisible(false);
-    this.cancelButton.setVisible(false);
+    setEditUsernameMode(false);
   }
 
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
     this.usernameStackPane.setPrefWidth(usernameTextFieldWidth);
-    this.editUsernameButton.setVisible(false);
-    this.usernameLabel.setVisible(false);
-    this.setUsernameButton.setVisible(true);
-    this.usernameTextField.setVisible(true);
-    this.cancelButton.setVisible(true);
+    setEditUsernameMode(true);
   }
 
   /** Prompts the user to select a file to choose a profile picture */
@@ -139,10 +131,8 @@ public class ProfilePageController implements LoadListener {
       // Clear text field after use
       this.usernameTextField.clear();
 
-      this.editUsernameButton.setVisible(true);
-      this.usernameLabel.setVisible(true);
-      this.setUsernameButton.setVisible(false);
-      this.usernameTextField.setVisible(false);
+      // Set username elements
+      setEditUsernameMode(false);
       setUsernameWidth();
     }
   }
@@ -172,6 +162,22 @@ public class ProfilePageController implements LoadListener {
     // Add extra 10 size to be sure
     textWidth = tmpText.getLayoutBounds().getWidth() + 10;
     this.usernameStackPane.setPrefWidth(textWidth);
+  }
+
+  /**
+   * This sets the visibility of elements concerned with editing the username
+   *
+   * @param isEdit The boolean value that will determines visibility of elements
+   */
+  private void setEditUsernameMode(boolean isEdit) {
+    // Visibility of default elements are visible
+    this.editUsernameButton.setVisible(!isEdit);
+    this.usernameLabel.setVisible(!isEdit);
+
+    // Visibility of edit username elements are opposite of default
+    this.setUsernameButton.setVisible(isEdit);
+    this.usernameTextField.setVisible(isEdit);
+    this.cancelButton.setVisible(isEdit);
   }
 
   /**
