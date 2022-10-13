@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -111,7 +111,7 @@ public class HiddenMode {
    * This method checks if there is a previous and next definition and hides or shows appropriate
    * buttons when needed.
    */
-  public void checkForPreviousAndNext(VBox previous, VBox next) {
+  public void checkForPreviousAndNext(Node previous, Node next) {
     // Check previous definition
     if (definitionIndex == 0) {
       previous.setVisible(false);
@@ -133,7 +133,7 @@ public class HiddenMode {
    * @param target The chosen target word
    * @param numberOfDefinitionLabel The label showing the number of definitions and current index
    * @param maxWidth The max width of the target label
-   * @param defaultFontSize The deafult font size of the target label
+   * @param defaultFontSize The default font size of the target label
    * @param previousDefinitionVbox The previous box
    * @param nextDefinitionVbox The next box
    */
@@ -142,8 +142,8 @@ public class HiddenMode {
       Label numberOfDefinitionLabel,
       double maxWidth,
       double defaultFontSize,
-      VBox previousDefinitionVbox,
-      VBox nextDefinitionVbox) {
+      Node previousDefinitionVbox,
+      Node nextDefinitionVbox) {
     target.setText(getDefinitions().get(this.definitionIndex));
     changeFontDynamically(target, maxWidth, defaultFontSize);
     checkForPreviousAndNext(previousDefinitionVbox, nextDefinitionVbox);
@@ -175,8 +175,8 @@ public class HiddenMode {
       Label numberOfDefinitions,
       double maxWidth,
       double fontSize,
-      VBox previous,
-      VBox next) {
+      Node previous,
+      Node next) {
 
     Task<Void> backgroundTask =
         new Task<Void>() {
