@@ -46,6 +46,16 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     this.canvasController.getGameOverActionsContainer().setVisible(false);
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.canvasController.getMainLabel().setText(this.config.getDrawingTimeSeconds() + " Seconds");
+    this.timer =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                e -> {
+                  this.secondsRemaining--;
+                  this.canvasController.getMainLabel().setText(this.secondsRemaining + " Seconds");
+                }));
+    this.timer.setCycleCount(this.config.getDrawingTimeSeconds());
+    this.timer.setOnFinished(e -> this.gameOver(false));
     this.timer.playFromStart();
   }
 
@@ -87,16 +97,16 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
   @Override
   public void onEnable() {
     // Create a timeline that reduces the number of seconds remaining by 1 every second
-    this.timer =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(1),
-                e -> {
-                  this.secondsRemaining--;
-                  this.canvasController.getMainLabel().setText(this.secondsRemaining + " Seconds");
-                }));
-    this.timer.setCycleCount(this.config.getDrawingTimeSeconds());
-    this.timer.setOnFinished(e -> this.gameOver(false));
+    // this.timer =
+    // new Timeline(
+    // new KeyFrame(
+    // Duration.seconds(1),
+    // e -> {
+    // this.secondsRemaining--;
+    // this.canvasController.getMainLabel().setText(this.secondsRemaining + " Seconds");
+    // }));
+    // this.timer.setCycleCount(this.config.getDrawingTimeSeconds());
+    // this.timer.setOnFinished(e -> this.gameOver(false));
   }
 
   /**
