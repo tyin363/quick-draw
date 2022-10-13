@@ -7,8 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -23,7 +21,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -32,10 +29,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.ml.PredictionHandler;
-import nz.ac.auckland.se206.speech.TextToSpeech;
-import nz.ac.auckland.se206.users.Round;
-import nz.ac.auckland.se206.users.User;
-import nz.ac.auckland.se206.users.UserService;
+import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.util.BrushType;
 import nz.ac.auckland.se206.util.Config;
 import nz.ac.auckland.se206.words.WordService;
@@ -58,7 +52,8 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   @FXML private Canvas canvas;
   @FXML private VBox predictionVertBox;
-  @FXML private HBox gameOverActionsHoriBox;
+  @FXML private HBox gameOverActionsContainer;
+  @FXML private VBox toolContainer;
   @FXML private Pane eraserPane;
   @FXML private Pane penPane;
   @FXML private Pane clearPane;
@@ -70,16 +65,14 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Inject private Logger logger;
   @Inject private Config config;
   @Inject private WordService wordService;
-  @Inject private TextToSpeech textToSpeech;
   @Inject private SceneManager sceneManager;
-  @Inject private UserService userService;
+  @Inject private CanvasStateMachine stateMachine;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
-  private Timeline timer;
-  private int secondsRemaining;
-  private User user;
+
   private boolean isUpdatingPredictions;
+  private Color penColour = Color.BLACK;
 
   // Mouse coordinates
   private double currentX;
@@ -90,7 +83,7 @@ public class CanvasController implements LoadListener, TerminationListener {
         final double x = e.getX() - this.config.getBrushSize() / 2;
         final double y = e.getY() - this.config.getBrushSize() / 2;
 
-        this.graphic.setFill(Color.BLACK);
+        this.graphic.setStroke(this.penColour);
         this.graphic.setLineWidth(this.config.getBrushSize());
 
         // Create a line that goes from the point (currentX, currentY) and (x,y)
@@ -126,16 +119,8 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @Override
   public void onLoad() {
-
-    // Set current user as user
-    this.user = this.userService.getCurrentUser();
-
-    this.gameOverActionsHoriBox.setVisible(false);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
-    // Reset the timer and start predicting instantly
-    this.secondsRemaining = this.config.getDrawingTimeSeconds();
-    this.mainLabel.setText(this.config.getDrawingTimeSeconds() + " Seconds");
-    this.timer.playFromStart();
+
     this.predictionHandler.startPredicting();
 
     // Clear any previous predictions
@@ -147,6 +132,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.clearPane.setDisable(false);
     this.saveButton.setDisable(false);
     this.onSelectPen();
+    this.stateMachine.getCurrentState().onLoad();
   }
 
   /**
@@ -184,18 +170,6 @@ public class CanvasController implements LoadListener, TerminationListener {
       this.predictionLabels[i] = new Label();
       this.predictionVertBox.getChildren().add(this.predictionLabels[i]);
     }
-
-    // Create a timeline that reduces the number of seconds remaining by 1 every second
-    this.timer =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(1),
-                e -> {
-                  this.secondsRemaining--;
-                  this.mainLabel.setText(this.secondsRemaining + " Seconds");
-                }));
-    this.timer.setCycleCount(this.config.getDrawingTimeSeconds());
-    this.timer.setOnFinished(e -> this.gameOver(false));
   }
 
   /** This method is called when the "Clear" button is pressed and clears the canvas. */
@@ -248,6 +222,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onRestart() {
     this.onClear();
+    this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
@@ -262,17 +237,16 @@ public class CanvasController implements LoadListener, TerminationListener {
       return;
     }
 
-    boolean wasGuessed = false;
-    // Check if the target word is in the top number of predictions. If it is, you win.
-    for (int i = 0; i < this.config.getWinPlacement(); i++) {
-      // The target word uses spaces rather than underscores
-      final String guess = predictions.get(i).getClassName().replaceAll("_", " ");
-      if (guess.equals(this.wordService.getTargetWord())) {
-        wasGuessed = true;
-        break;
-      }
-    }
+    this.stateMachine.getCurrentState().handlePredictions(predictions);
+  }
 
+  /**
+   * Displays the predictions on the screen with the text colouring being closer to the highlight
+   * the more confident the model is in the prediction.
+   *
+   * @param predictions The predictions to display
+   */
+  public void displayPredictions(final List<Classification> predictions) {
     for (int i = 0; i < predictions.size(); i++) {
       final Classification prediction = predictions.get(i);
       final String guess = prediction.getClassName().replaceAll("_", " ");
@@ -283,50 +257,13 @@ public class CanvasController implements LoadListener, TerminationListener {
       this.predictionLabels[i].setText(guess);
       this.predictionLabels[i].setTextFill(textColour);
     }
-
-    if (wasGuessed) {
-      this.gameOver(true);
-    }
-  }
-
-  /**
-   * This method is called when the game is over. It updates the main label to show the appropriate
-   * text depending on whether the user won or lost and handles all the necessary logic for
-   * preventing further interaction with the game.
-   *
-   * @param wasGuessed Whether the user won or lost.
-   */
-  private void gameOver(final boolean wasGuessed) {
-    // Get time taken
-    final int timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
-
-    // Get current round
-    final Round round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
-
-    this.predictionHandler.stopPredicting();
-    this.timer.stop();
-    this.disableBrush();
-    // Prevent the user from clearing their drawing
-    this.clearPane.setDisable(true);
-    final String message = wasGuessed ? "You Win!" : "Time up!";
-
-    // Update statistics
-    this.user.addPastRound(round);
-    this.userService.saveUser(this.user);
-
-    // Display game conclusion
-    this.mainLabel.setText(message);
-    this.textToSpeech.queueSentence(message);
-
-    // Allow the user to save the image and restart the game
-    this.gameOverActionsHoriBox.setVisible(true);
   }
 
   /**
    * Disables the brush so that you can't draw anymore. This also prevents you from clicking the
    * brush type buttons.
    */
-  private void disableBrush() {
+  public void disableBrush() {
     this.selectedBrushType = this.disabledBrush;
     // Remove the selected css class from the brush type buttons if they have it
     this.penPane.getStyleClass().remove("icon-btn-selected");
@@ -397,8 +334,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Override
   public void onTerminate() {
     this.predictionHandler.stopPredicting();
-    this.timer.stop();
-    this.textToSpeech.terminate();
   }
 
   /** Clears any prediction text by setting all prediction labels to an empty string */
@@ -412,6 +347,88 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onReturnToMainMenu() {
     this.onClear();
+    this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.MAIN_MENU);
+  }
+
+  /**
+   * Retrieve the eraser brush icon container.
+   *
+   * @return The eraser brush icon container
+   */
+  public Pane getEraserPane() {
+    return this.eraserPane;
+  }
+
+  /**
+   * Retrieve the pen brush icon container.
+   *
+   * @return The pen brush icon container
+   */
+  public Pane getPenPane() {
+    return this.penPane;
+  }
+
+  /**
+   * Retrieve the clear canvas icon container.
+   *
+   * @return The clear canvas icon container
+   */
+  public Pane getClearPane() {
+    return this.clearPane;
+  }
+
+  /**
+   * Retrieves the container which holds the 3 action icon buttons.
+   *
+   * @return The container which holds the 3 action icon buttons
+   */
+  public VBox getToolContainer() {
+    return this.toolContainer;
+  }
+
+  /**
+   * Retrieve the container for the 3 buttons that appear when the game ends.
+   *
+   * @return The game over action container
+   */
+  public HBox getGameOverActionsContainer() {
+    return this.gameOverActionsContainer;
+  }
+
+  /**
+   * Retrieve the main label which appears just above the canvas.
+   *
+   * @return The main label
+   */
+  public Label getMainLabel() {
+    return this.mainLabel;
+  }
+
+  /**
+   * Retrieve the current pen colour being used.
+   *
+   * @return The current pen colour
+   */
+  public Color getPenColour() {
+    return this.penColour;
+  }
+
+  /**
+   * Set the current pen colour to use when drawing.
+   *
+   * @param penColour The new pen colour
+   */
+  public void setPenColour(final Color penColour) {
+    this.penColour = penColour;
+  }
+
+  /**
+   * Retrieves the prediction handler instance which is used to make predictions.
+   *
+   * @return The prediction handler instance
+   */
+  public PredictionHandler getPredictionHandler() {
+    return this.predictionHandler;
   }
 }

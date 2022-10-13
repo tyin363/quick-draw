@@ -130,7 +130,6 @@
 }
 
 .icon-btn-row {
-  -fx-border-color: -fx-primary-border-color;
   -fx-border-radius: 8px;
   -fx-background-radius: 8px;
 }
