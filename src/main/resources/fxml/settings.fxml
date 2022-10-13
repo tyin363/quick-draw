@@ -15,7 +15,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.SettingsController">
    <children>
-      <VBox layoutY="-4.0" prefHeight="810.0" prefWidth="1150.0" styleClass="bg-gray-25">
+      <VBox prefHeight="806.0" prefWidth="1150.0" styleClass="bg-gray-25">
          <children>
             <fx:include fx:id="header" source="header.fxml" />
             <VBox alignment="TOP_CENTER" prefHeight="838.0" prefWidth="1150.0">
@@ -40,10 +40,10 @@
                            <children>
                               <Label id="title" alignment="CENTER" prefHeight="50.0" prefWidth="301.0" styleClass="text-lightgray-100" text="Accuracy">
                                  <font>
-                                    <Font name="SansSerif Bold" size="30.0" />
+                                    <Font name="SansSerif Bold" size="28.0" />
                                  </font>
                               </Label>
-                              <RadioButton fx:id="easyAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" prefHeight="100.0" prefWidth="320.0" text="Easy">
+                              <RadioButton fx:id="easyAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" prefHeight="100.0" prefWidth="309.0" text="Easy">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="accuracy" />
                                  </toggleGroup>
@@ -56,7 +56,7 @@
                            <children>
                               <Label id="title" alignment="CENTER" prefHeight="50.0" prefWidth="410.0" styleClass="text-lightgray-100" text="Words">
                                  <font>
-                                    <Font name="System Bold" size="30.0" />
+                                    <Font name="SansSerif Bold" size="28.0" />
                                  </font>
                               </Label>
                               <RadioButton fx:id="easyWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="521.0" text="Easy">
@@ -73,7 +73,7 @@
                            <children>
                               <Label id="title" alignment="CENTER" prefHeight="50.0" prefWidth="390.0" styleClass="text-lightgray-100" text="Time">
                                  <font>
-                                    <Font name="SansSerif Bold" size="30.0" />
+                                    <Font name="SansSerif Bold" size="28.0" />
                                  </font>
                               </Label>
                               <RadioButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="427.0" text="Easy">
@@ -90,7 +90,7 @@
                            <children>
                               <Label id="title" alignment="CENTER" prefHeight="50.0" prefWidth="400.0" styleClass="text-lightgray-100" text="Confidence">
                                  <font>
-                                    <Font name="SansSerif Bold" size="30.0" />
+                                    <Font name="SansSerif Bold" size="28.0" />
                                  </font>
                               </Label>
                               <RadioButton fx:id="easyConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" prefHeight="100.0" prefWidth="340.0" text="Easy">
