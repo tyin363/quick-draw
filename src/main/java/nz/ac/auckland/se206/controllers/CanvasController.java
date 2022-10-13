@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -33,6 +34,7 @@ import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.util.BrushType;
 import nz.ac.auckland.se206.util.Config;
+import nz.ac.auckland.se206.words.Difficulty;
 import nz.ac.auckland.se206.words.WordService;
 import org.slf4j.Logger;
 
@@ -67,6 +69,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private VBox previousDefinitionVbox;
   @FXML private VBox nextDefinitionVbox;
   @FXML private Label numberOfDefinitionLabel;
+  @FXML private AnchorPane wordDefinition;
   private Label[] predictionLabels;
 
   @Inject private Logger logger;
@@ -82,8 +85,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   private boolean isUpdatingPredictions;
   private Color penColour = Color.BLACK;
 
-  private double maxWidth = 670;
-  private double defaultFontSize = 36;
   // Mouse coordinates
   private double currentX;
   private double currentY;
@@ -123,60 +124,14 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   private BrushType selectedBrushType = this.disabledBrush;
 
-  /** The previous definition of the given word will be shown. */
-  @FXML
-  private void onClickPrevious() {
-    this.hiddenMode.previousDefinition();
-    this.hiddenMode.setElements(
-        definitionsLabel,
-        numberOfDefinitionLabel,
-        maxWidth,
-        defaultFontSize,
-        previousDefinitionVbox,
-        nextDefinitionVbox);
-  }
-
-  /** The next definition of the given word will be shown. */
-  @FXML
-  private void onClickNext() {
-    this.hiddenMode.nextDefinition();
-    this.hiddenMode.setElements(
-        definitionsLabel,
-        numberOfDefinitionLabel,
-        maxWidth,
-        defaultFontSize,
-        previousDefinitionVbox,
-        nextDefinitionVbox);
-  }
-
-  /** Sets the game mode to the Hidden word Game mode */
-  public void setHiddenMode() {
-    // Make hidden word game mode exclusive elements visible
-    this.hiddenModeVbox.setVisible(true);
-    this.defaultHbox.setVisible(false);
-    this.definitionsLabel.setText("Loading Definitions");
-    this.numberOfDefinitionLabel.setText("Number of Definitions");
-    this.numberOfDefinitionLabel.setVisible(true);
-
-    // Print out word to console in case ther is no definitnion
-    System.out.println("The word is: " + this.wordService.getTargetWord());
-    this.hiddenMode.setElements(
-        definitionsLabel,
-        numberOfDefinitionLabel,
-        maxWidth,
-        defaultFontSize,
-        previousDefinitionVbox,
-        nextDefinitionVbox);
-  }
-
   /**
    * This method is called everytime this view is switched to. It manages the resetting of any
    * changes that might have been made during the last time the view was switched to.
    */
   @Override
   public void onLoad() {
-    this.hiddenModeVbox.setVisible(false);
-    this.defaultHbox.setVisible(true);
+    this.wordDefinition.setVisible(false);
+    this.targetWordLabel.setVisible(true);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
 
     this.predictionHandler.startPredicting();
@@ -230,6 +185,25 @@ public class CanvasController implements LoadListener, TerminationListener {
     }
   }
 
+  /**
+   * This retrieves the Anchor pane responsible for displaying the word definitions in the hidden
+   * game mode
+   *
+   * @return The anchor pane for hidden game mode
+   */
+  public AnchorPane getWordDefinition() {
+    return wordDefinition;
+  }
+
+  /**
+   * This retrieves the Hbox that contains the normal game mode elements
+   *
+   * @return Normal game mode Hbox
+   */
+  public HBox getDefaultHbox() {
+    return defaultHbox;
+  }
+
   /** This method is called when the "Clear" button is pressed and clears the canvas. */
   @FXML
   private void onClear() {
@@ -281,6 +255,8 @@ public class CanvasController implements LoadListener, TerminationListener {
   private void onRestart() {
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
+    this.wordService.selectRandomTarget(Difficulty.EASY);
+    this.hiddenMode.clearDefinitions();
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 

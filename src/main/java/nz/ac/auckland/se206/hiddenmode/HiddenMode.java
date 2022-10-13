@@ -30,6 +30,12 @@ public class HiddenMode {
     return definitions;
   }
 
+  /** This method clears the definition list and resets the index */
+  public void clearDefinitions() {
+    this.definitions.clear();
+    resetIndex();
+  }
+
   /**
    * This method returns the definition index of the definitions list
    *
@@ -203,6 +209,7 @@ public class HiddenMode {
               Platform.runLater(
                   () -> {
                     target.setText("Sorry! There was no definition for " + queryWord);
+                    definitions.add("Sorry! There was no definition for " + queryWord);
                     changeFontDynamically(target, maxWidth, fontSize);
                   });
             }

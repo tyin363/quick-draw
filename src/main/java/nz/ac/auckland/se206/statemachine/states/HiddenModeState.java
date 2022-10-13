@@ -10,6 +10,7 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.CanvasController;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
+import nz.ac.auckland.se206.hiddenmode.HiddenMode;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.users.Round;
 import nz.ac.auckland.se206.users.User;
@@ -24,6 +25,7 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
   @Inject private UserService userService;
   @Inject private WordService wordService;
   @Inject private Config config;
+  @Inject private HiddenMode hiddenMode;
 
   private int secondsRemaining;
   private Timeline timer;
@@ -45,10 +47,11 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
    */
   @Override
   public void onLoad() {
+    this.canvasController.getWordDefinition().setVisible(true);
+    this.canvasController.getDefaultHbox().setVisible(false);
     this.canvasController.getGameOverActionsContainer().setVisible(false);
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.canvasController.getMainLabel().setText(this.config.getDrawingTimeSeconds() + " Seconds");
-    this.canvasController.setHiddenMode();
     this.timer.playFromStart();
   }
 
@@ -94,6 +97,7 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
                 e -> {
                   this.secondsRemaining--;
                   this.canvasController.getMainLabel().setText(this.secondsRemaining + " Seconds");
+                  System.out.println(this.wordService.getTargetWord());
                 }));
     this.timer.setCycleCount(this.config.getDrawingTimeSeconds());
     this.timer.setOnFinished(e -> this.gameOver(false));
@@ -131,6 +135,15 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
 
     // Allow the user to save the image and restart the game
     this.canvasController.getGameOverActionsContainer().setVisible(true);
+  }
+
+  /** Place the default canvas content back when we leave this state. */
+  @Override
+  public void onExit() {
+    this.hiddenMode.clearDefinitions();
+    this.canvasController.getWordDefinition().setVisible(false);
+    this.canvasController.getDefaultHbox().setVisible(true);
+    this.canvasController.getGameOverActionsContainer().setVisible(false);
   }
 
   /** When the application is terminated, make sure to stop the timer. */
