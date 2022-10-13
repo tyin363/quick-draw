@@ -47,6 +47,7 @@ public class ProfilePageController implements LoadListener {
   @FXML private AnchorPane header;
   @FXML private Button setUsernameButton;
   @FXML private Button editUsernameButton;
+  @FXML private Button cancelButton;
   @FXML private StackPane hoverImageStackPane;
   @FXML private StackPane usernameStackPane;
   @Inject private SceneManager sceneManager;
@@ -74,6 +75,16 @@ public class ProfilePageController implements LoadListener {
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
 
+  /** Delete the current user and then take them back to the switch user view. */
+  @FXML
+  private void onCancelEdit() {
+    this.editUsernameButton.setVisible(true);
+    this.usernameLabel.setVisible(true);
+    this.setUsernameButton.setVisible(false);
+    this.usernameTextField.setVisible(false);
+    this.cancelButton.setVisible(false);
+  }
+
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
@@ -82,6 +93,7 @@ public class ProfilePageController implements LoadListener {
     this.usernameLabel.setVisible(false);
     this.setUsernameButton.setVisible(true);
     this.usernameTextField.setVisible(true);
+    this.cancelButton.setVisible(true);
   }
 
   /** Prompts the user to select a file to choose a profile picture */
@@ -175,6 +187,7 @@ public class ProfilePageController implements LoadListener {
     this.usernameLabel.setVisible(true);
     this.setUsernameButton.setVisible(false);
     this.usernameTextField.setVisible(false);
+    this.cancelButton.setVisible(false);
 
     // Clear past words
     this.pastWordsVbox.getChildren().clear();

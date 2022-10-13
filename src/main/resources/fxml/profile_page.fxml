@@ -98,19 +98,9 @@
                     <TextField fx:id="usernameTextField" alignment="CENTER" prefHeight="35.0" prefWidth="282.0" />
                            </children>
                         </StackPane>
-                        <StackPane alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="122.0" visible="false">
+                        <StackPane alignment="CENTER_RIGHT" prefHeight="49.0" prefWidth="122.0">
                            <children>
-                              <Button fx:id="setUsernameButton1" minWidth="60.0" mnemonicParsing="false" onAction="#onSetUsername" prefHeight="37.0" prefWidth="60.0" styleClass="btn" text="Set" textFill="WHITE" />
-                              <Button fx:id="editUsernameButton1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onEditUsername">
-                                 <graphic>
-                                    <Pane prefHeight="32.0" prefWidth="44.0" style="-fx-background-color: white;" />
-                                 </graphic>
-                                 <styleClass>
-                                    <String fx:value="edit-icon" />
-                                    <String fx:value="bg-highlight" />
-                                    <String fx:value="icon" />
-                                 </styleClass>
-                              </Button>
+                              <Button fx:id="cancelButton" minWidth="60.0" mnemonicParsing="false" onAction="#onCancelEdit" prefHeight="37.0" prefWidth="60.0" styleClass="btn" text="Cancel" textFill="WHITE" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -118,16 +108,6 @@
                         </StackPane>
                      </children>
                   </HBox>
-                  <GridPane alignment="CENTER" prefHeight="60.0" prefWidth="349.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="109.0" />
-                      <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="ALWAYS" maxWidth="346.0" minWidth="10.0" prefWidth="346.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.0" minWidth="10.0" prefWidth="105.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                  </GridPane>
           </children>
         </VBox>
         <VBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="180.0" spacing="40.0" HBox.hgrow="ALWAYS">
