@@ -207,11 +207,13 @@ public class User {
     return this.bestWinStreak;
   }
 
+  /** Retrieves the user's ID hash code */
   @Override
   public int hashCode() {
     return this.id.hashCode();
   }
 
+  /** Equals method for checking the equality of two users */
   @Override
   public boolean equals(final Object o) {
     if (this == o) {
@@ -224,6 +226,7 @@ public class User {
     return this.id.equals(user.id);
   }
 
+  /** ToString method for formatting the string of User class */
   @Override
   public String toString() {
     return String.format("User{id=%s, username='%s'}", this.id, this.username);

@@ -14,6 +14,14 @@ public class GameSettings {
     this.confidence = "";
   }
 
+  /**
+   * A constructor for the user's game settings
+   *
+   * @param accuracy
+   * @param words
+   * @param time
+   * @param confidence
+   */
   public GameSettings(String accuracy, String words, int time, String confidence) {
     this.accuracy = accuracy;
     this.words = words;
@@ -21,34 +29,74 @@ public class GameSettings {
     this.confidence = confidence;
   }
 
+  /**
+   * Returns the user's current accuracy setting
+   *
+   * @return accuracy setting
+   */
   public String getAccuracy() {
     return accuracy;
   }
 
+  /**
+   * Sets the user's current accuracy setting
+   *
+   * @return accuracy setting
+   */
   public void setAccuracy(String accuracy) {
     this.accuracy = accuracy;
   }
 
+  /**
+   * Returns the user's current words setting
+   *
+   * @return words setting
+   */
   public String getWords() {
     return words;
   }
 
+  /**
+   * Sets the user's current words setting
+   *
+   * @return words setting
+   */
   public void setWords(String words) {
     this.words = words;
   }
 
+  /**
+   * Gets the user's current time setting
+   *
+   * @return time setting
+   */
   public int getTime() {
     return time;
   }
 
+  /**
+   * Sets the user's current time setting
+   *
+   * @return time setting
+   */
   public void setTime(int time) {
     this.time = time;
   }
 
+  /**
+   * Returns the user's current confidence setting
+   *
+   * @return confidence setting
+   */
   public String getConfidence() {
     return confidence;
   }
 
+  /**
+   * Sets the user's confidence words setting
+   *
+   * @return confidence setting
+   */
   public void setConfidence(String confidence) {
     this.confidence = confidence;
   }

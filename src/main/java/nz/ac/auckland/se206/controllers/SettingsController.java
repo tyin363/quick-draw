@@ -33,7 +33,6 @@ public class SettingsController implements LoadListener {
   @FXML private ToggleGroup words;
   @FXML private ToggleGroup time;
   @FXML private ToggleGroup confidence;
-
   @FXML private Button readyButton;
 
   @Inject private WordService wordService;
@@ -48,17 +47,22 @@ public class SettingsController implements LoadListener {
     Helpers.getBackButton(this.header).setOnAction(event -> this.onSwitchBack());
   }
 
-  /** When the user confirms they are ready, switch to the canvas view. */
+  /** When the user confirms they are ready, switch to the confirmation screen. */
   @FXML
   private void onConfirmReady() {
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
-  /** Everytime this scene is switched to select a new random word. */
+  /** Everytime this scene is switched to set the tooltpis and load user's previous settings. */
   @Override
   public void onLoad() {
+
     this.setToolTips();
+
+    // Disabling the ready button initially
     this.readyButton.setDisable(true);
+
+    // Unselecting all settings initially to prevent same settings transferred between users
     this.easyAccuracyButton.setSelected(false);
     this.mediumAccuracyButton.setSelected(false);
     this.hardAccuracyButton.setSelected(false);
@@ -74,11 +78,15 @@ public class SettingsController implements LoadListener {
     this.mediumConfidenceButton.setSelected(false);
     this.hardConfidenceButton.setSelected(false);
     this.masterConfidenceButton.setSelected(false);
+
+    // Loading current user's settings
     this.currentUser = this.userService.getCurrentUser();
     this.loadAccuracy(currentUser);
     this.loadWords(currentUser);
     this.loadTime(currentUser);
     this.loadConfidence(currentUser);
+
+    // Enable ready button if all settings are selected
     this.checkSettings();
   }
 
@@ -87,8 +95,16 @@ public class SettingsController implements LoadListener {
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
+  /**
+   * When user clicks an accuracy button, store the accuracy settings locally in the current user's
+   * data
+   *
+   * @param event ActionEvent when clicking an accuracy setting
+   */
   @FXML
   private void onSetAccuracy(ActionEvent event) {
+
+    // Storing accuracy setting into current user's data depending on selection
     if (easyAccuracyButton.isSelected()) {
       currentUser.getGameSettings().setAccuracy("Easy");
     } else if (mediumAccuracyButton.isSelected()) {
@@ -96,13 +112,21 @@ public class SettingsController implements LoadListener {
     } else if (hardAccuracyButton.isSelected()) {
       currentUser.getGameSettings().setAccuracy("Hard");
     }
-
-    this.checkSettings();
     this.userService.saveUser(currentUser);
+
+    // Enabling ready button if all settings are checked
+    this.checkSettings();
   }
 
+  /**
+   * When user clicks a words button, store the words settings locally in the current user's data
+   *
+   * @param event ActionEvent when clicking a words setting
+   */
   @FXML
   private void onSetWords(ActionEvent event) {
+
+    // Storing word setting into current user's data depending on selection
     if (easyWordsButton.isSelected()) {
       currentUser.getGameSettings().setWords("Easy");
     } else if (mediumWordsButton.isSelected()) {
@@ -112,13 +136,21 @@ public class SettingsController implements LoadListener {
     } else if (masterWordsButton.isSelected()) {
       currentUser.getGameSettings().setWords("Master");
     }
-
-    this.checkSettings();
     this.userService.saveUser(currentUser);
+
+    // Enabling ready button if all settings are checked
+    this.checkSettings();
   }
 
+  /**
+   * When user clicks a time button, store the time settings locally in the current user's data
+   *
+   * @param event ActionEvent when clicking a time setting
+   */
   @FXML
   private void onSetTime(ActionEvent event) {
+
+    // Storing time setting into current user's data depending on selection
     if (easyTimeButton.isSelected()) {
       currentUser.getGameSettings().setTime(60);
     } else if (mediumTimeButton.isSelected()) {
@@ -128,13 +160,22 @@ public class SettingsController implements LoadListener {
     } else if (masterTimeButton.isSelected()) {
       currentUser.getGameSettings().setTime(15);
     }
-
-    this.checkSettings();
     this.userService.saveUser(currentUser);
+
+    // Enabling time button if all settings are checked
+    this.checkSettings();
   }
 
+  /**
+   * When user clicks a confidence button, store the confidence settings locally in the current
+   * user's data
+   *
+   * @param event ActionEvent when clicking a confidence setting
+   */
   @FXML
   private void onSetConfidence(ActionEvent event) {
+
+    // Storing confidence setting into current user's data depending on selection
     if (easyConfidenceButton.isSelected()) {
       currentUser.getGameSettings().setConfidence("Easy");
     } else if (mediumConfidenceButton.isSelected()) {
@@ -144,12 +185,20 @@ public class SettingsController implements LoadListener {
     } else if (masterConfidenceButton.isSelected()) {
       currentUser.getGameSettings().setConfidence("Master");
     }
-
-    this.checkSettings();
     this.userService.saveUser(currentUser);
+
+    // Enabling time button if all settings are checked
+    this.checkSettings();
   }
 
+  /**
+   * Retrieves and loads the current's user accuracy settings
+   *
+   * @param currentUser Current user in play
+   */
   private void loadAccuracy(User currentUser) {
+
+    // Selects accuracy setting depending on user's current accuracy setting stored
     if (currentUser.getGameSettings().getAccuracy().contentEquals("Easy")) {
       easyAccuracyButton.setSelected(true);
     } else if (currentUser.getGameSettings().getAccuracy().contentEquals("Medium")) {
@@ -159,7 +208,14 @@ public class SettingsController implements LoadListener {
     }
   }
 
+  /**
+   * Retrieves and loads the current's user words settings
+   *
+   * @param currentUser Current user in play
+   */
   private void loadWords(User currentUser) {
+
+    // Selects words setting depending on user's current words setting stored
     if (currentUser.getGameSettings().getWords().contentEquals("Easy")) {
       easyWordsButton.setSelected(true);
     } else if (currentUser.getGameSettings().getWords().contentEquals("Medium")) {
@@ -171,7 +227,14 @@ public class SettingsController implements LoadListener {
     }
   }
 
+  /**
+   * Retrieves and loads the current's user time settings
+   *
+   * @param currentUser Current user in play
+   */
   private void loadTime(User currentUser) {
+
+    // Selects time setting depending on user's current time setting stored
     if (currentUser.getGameSettings().getTime() == 60) {
       easyTimeButton.setSelected(true);
     } else if (currentUser.getGameSettings().getTime() == 45) {
@@ -183,7 +246,14 @@ public class SettingsController implements LoadListener {
     }
   }
 
+  /**
+   * Retrieves and loads the current's user confidence settings
+   *
+   * @param currentUser Current user in play
+   */
   private void loadConfidence(User currentUser) {
+
+    // Selects confidence setting depending on user's current confidence setting stored
     if (currentUser.getGameSettings().getConfidence().contentEquals("Easy")) {
       easyConfidenceButton.setSelected(true);
     } else if (currentUser.getGameSettings().getConfidence().contentEquals("Medium")) {
@@ -195,6 +265,7 @@ public class SettingsController implements LoadListener {
     }
   }
 
+  /** Enables ready button if all settings are selected */
   private void checkSettings() {
     if ((accuracy.getSelectedToggle() != null)
         && (words.getSelectedToggle() != null)
@@ -204,21 +275,27 @@ public class SettingsController implements LoadListener {
     }
   }
 
+  /** Sets the tool tips for all the different game settings */
   private void setToolTips() {
+
+    // Creating accuracy tool tips
     Tooltip easyAccuracyTip = new Tooltip("Your word must be in the top 3 predictions");
     Tooltip mediumAccuracyTip = new Tooltip("Your word must be in the top 2 predictions");
     Tooltip hardAccuracyTip = new Tooltip("Your word must be the top 1 prediction");
 
+    // Creating words tool tips
     Tooltip easyWordsTip = new Tooltip("Easy words only");
     Tooltip mediumWordsTip = new Tooltip("Easy and Medium words only");
     Tooltip hardWordsTip = new Tooltip("All words");
     Tooltip masterWordsTip = new Tooltip("Hard words only");
 
+    // Creating time tool tips
     Tooltip easyTimeTip = new Tooltip("60 seconds to draw");
     Tooltip mediumTimeTip = new Tooltip("45 seconds to draw");
     Tooltip hardTimeTip = new Tooltip("30 seconds to draw");
     Tooltip masterTimeTip = new Tooltip("15 seconds to draw");
 
+    // Creating confidence tool tips
     Tooltip easyConfidenceTip = new Tooltip("Your drawing's confidence level must be at least 1%");
     Tooltip mediumConfidenceTip =
         new Tooltip("Your drawing's confidence level must be at least 10%");
@@ -226,20 +303,24 @@ public class SettingsController implements LoadListener {
     Tooltip masterConfidenceTip =
         new Tooltip("Your drawing's confidence level must be at least 50%");
 
+    // Setting accuracy tool tips
     this.easyAccuracyButton.setTooltip(easyAccuracyTip);
     this.mediumAccuracyButton.setTooltip(mediumAccuracyTip);
     this.hardAccuracyButton.setTooltip(hardAccuracyTip);
 
+    // Setting words tool tips
     this.easyWordsButton.setTooltip(easyWordsTip);
     this.mediumWordsButton.setTooltip(mediumWordsTip);
     this.hardWordsButton.setTooltip(hardWordsTip);
     this.masterWordsButton.setTooltip(masterWordsTip);
 
+    // Setting time tool tips
     this.easyTimeButton.setTooltip(easyTimeTip);
     this.mediumTimeButton.setTooltip(mediumTimeTip);
     this.hardTimeButton.setTooltip(hardTimeTip);
     this.masterTimeButton.setTooltip(masterTimeTip);
 
+    // Setting confidence tool tips
     this.easyConfidenceButton.setTooltip(easyConfidenceTip);
     this.mediumConfidenceButton.setTooltip(mediumConfidenceTip);
     this.hardConfidenceButton.setTooltip(hardConfidenceTip);

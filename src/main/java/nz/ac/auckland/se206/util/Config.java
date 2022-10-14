@@ -87,7 +87,7 @@ public class Config {
   }
 
   /**
-   * Retrieves the highlight colour.
+   * Retrieves the highlight colour used in the game.
    *
    * @return The highlight colour
    */
@@ -176,6 +176,11 @@ public class Config {
     return 6;
   }
 
+  /**
+   * Retrieves the target confidence level depending on the confidence setting.
+   *
+   * @return The target confidence level
+   */
   public double getTargetConfidence() {
     User currentUser = this.userService.getCurrentUser();
     if (currentUser.getGameSettings().getConfidence().contentEquals("Easy")) {

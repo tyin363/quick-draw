@@ -44,8 +44,12 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
   @Override
   public void onLoad() {
     this.canvasController.getGameOverActionsContainer().setVisible(false);
+
+    // Getting the time depending time setting and setting the respective time label
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.canvasController.getMainLabel().setText(this.config.getDrawingTimeSeconds() + " Seconds");
+
+    // Creating and starting the timer
     this.timer =
         new Timeline(
             new KeyFrame(
@@ -90,23 +94,10 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     }
   }
 
-  /**
-   * When this state is first created, construct a timer instance that can be reused to count down
-   * the time the user has remaining.
-   */
+  /** When this state is first created indicate to the user by printing to the console */
   @Override
   public void onEnable() {
-    // Create a timeline that reduces the number of seconds remaining by 1 every second
-    // this.timer =
-    // new Timeline(
-    // new KeyFrame(
-    // Duration.seconds(1),
-    // e -> {
-    // this.secondsRemaining--;
-    // this.canvasController.getMainLabel().setText(this.secondsRemaining + " Seconds");
-    // }));
-    // this.timer.setCycleCount(this.config.getDrawingTimeSeconds());
-    // this.timer.setOnFinished(e -> this.gameOver(false));
+    System.out.println("Default Canvas State created");
   }
 
   /**

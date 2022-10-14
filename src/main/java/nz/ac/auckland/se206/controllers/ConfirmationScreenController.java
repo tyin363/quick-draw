@@ -44,6 +44,8 @@ public class ConfirmationScreenController implements LoadListener {
     this.wordService.selectRandomTarget(
         this.userService.getCurrentUser().getGameSettings().getWords());
     this.targetWordLabel.setText(this.wordService.getTargetWord());
+
+    // Change time label depending on if zen or normal mode is selected
     if (stateMachine.getCurrentState().getClass() == ZenModeState.class) {
       this.timeLimitLabel.setText("You have unlimited time to draw:");
     } else {
@@ -54,7 +56,10 @@ public class ConfirmationScreenController implements LoadListener {
     }
   }
 
-  /** When the user clicks the back button, take them back to the main menu. */
+  /**
+   * When the user clicks the back button, take them back to the main menu if in zen mode or
+   * settings otherwise.
+   */
   private void onSwitchBack() {
     if (stateMachine.getCurrentState().getClass() == ZenModeState.class) {
       this.sceneManager.switchToView(View.MAIN_MENU);

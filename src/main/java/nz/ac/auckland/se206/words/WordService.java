@@ -114,8 +114,18 @@ public class WordService {
     return this.wordMapping;
   }
 
+  /**
+   * Retrieves the selection of words depending on words difficulty setting
+   *
+   * @param difficulty
+   * @return word selection
+   */
   public List<String> getWordSelection(String difficulty) {
+
+    // Initialising word selection
     List<String> words = null;
+
+    // Setting word selection depending on words difficulty setting
     if (difficulty.contains("Easy")) {
       words = this.wordMapping.get(Difficulty.EASY);
     } else if (difficulty.contains("Medium")) {

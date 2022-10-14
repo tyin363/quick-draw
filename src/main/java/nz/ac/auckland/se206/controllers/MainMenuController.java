@@ -45,8 +45,8 @@ public class MainMenuController implements LoadListener {
   }
 
   /**
-   * Switch to the confirmation screen, where the user will have time to think about the word before
-   * the timer starts.
+   * Switch to the settings screen, where the user will have time to think about the word before the
+   * timer starts.
    */
   @FXML
   private void onStartGame() {
