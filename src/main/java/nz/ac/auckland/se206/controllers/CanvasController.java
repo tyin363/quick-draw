@@ -254,7 +254,8 @@ public class CanvasController implements LoadListener, TerminationListener {
       final Color textColour =
           Color.BLACK.interpolate(this.config.getHighlight(), prediction.getProbability() * 10);
 
-      this.predictionLabels[i].setText(guess + String.format("%.2f", prediction.getProbability()));
+      this.predictionLabels[i].setText(
+          guess + " " + String.format("%.0f", prediction.getProbability() * 100) + "%");
       this.predictionLabels[i].setTextFill(textColour);
     }
   }
