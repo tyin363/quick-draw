@@ -29,7 +29,7 @@
                   </Label>
                 </children>
               </VBox>
-              <Button mnemonicParsing="false" onAction="#onConfirmSwitch" prefHeight="25.0" prefWidth="137.0" styleClass="btn" text="Ready!" />
+              <Button mnemonicParsing="false" onAction="#onConfirmSwitch" prefHeight="25.0" prefWidth="137.0" styleClass="btn" text="Start" />
             </children>
           </VBox>
          </children>
