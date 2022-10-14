@@ -16,7 +16,7 @@
 }
 
 .radio-button:selected {
-  -fx-background-color: #53575f;
+  -fx-background-color: #454951;
   -fx-text-fill: #f2f2f3;
 }
 
@@ -31,4 +31,24 @@
 .radio-button:selected > .radio > .dot {
   -fx-background-color: white;
   -fx-background-insets: 0;
+}
+
+.easy {
+  -fx-border-color: #3aa55d;
+  -fx-border-width: 0 0 0 5;
+}
+
+.medium {
+  -fx-border-color: #cb8516;
+  -fx-border-width: 0 0 0 5;
+}
+
+.hard {
+  -fx-border-color: #ed4245;
+  -fx-border-width: 0 0 0 5;
+}
+
+.master {
+  -fx-border-color: -fx-highlight;
+  -fx-border-width: 0 0 0 5;
 }
