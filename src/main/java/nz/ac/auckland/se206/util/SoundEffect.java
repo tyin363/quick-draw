@@ -5,7 +5,6 @@ import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.annotations.Singleton;
-import nz.ac.auckland.se206.controllers.scenemanager.View;
 
 @Singleton
 public class SoundEffect {
@@ -16,7 +15,7 @@ public class SoundEffect {
   private MediaPlayer mediaPlayer;
   private MediaPlayer backgroundMediaPlayer;
   private String mainMusic = "src/main/resources/sounds/Pixel-Peeker-Polka-faster.mp3";
-  private String canvasMusic = "src/main/resources/sounds/Exit-the-Premises.mp3";
+  private String defaultCanvasMusic = "src/main/resources/sounds/Exit-the-Premises.mp3";
   private String winSound = "src/main/resources/sounds/mixkit-achievement-bell-600.wav";
   private String loseSound = "src/main/resources/sounds/mixkit-negative-answer-lose-2032.wav";
   private String victoryMusic = "src/main/resources/sounds/Victory.mp3";
@@ -25,28 +24,6 @@ public class SoundEffect {
       "src/main/resources/sounds/Loyalty_Freak_Music_-_05_-_We_all_gonna_die_.mp3";
   private String specialClickSound =
       "src/main/resources/sounds/mixkit-quick-win-video-game-notification-269.wav";
-
-  /**
-   * This method will change the music the media player would play depending on the current view.
-   * This is done by retrieving the different music file locations.
-   *
-   * @param view The current view.
-   * @return The file location of music choice.
-   */
-  public void changeMusic(View view) {
-    String music;
-
-    switch (view) {
-      case CANVAS:
-        music = canvasMusic;
-        break;
-      default:
-        music = mainMusic;
-        break;
-    }
-
-    playBackgroundMusic(music);
-  }
 
   /**
    * This method plays a sound effect given the file location of the sound effect and its volume.
@@ -102,6 +79,16 @@ public class SoundEffect {
         };
     Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
+  }
+
+  /** This method plays the default canvas background music of the game. */
+  public void playDefaultCanvasMusic() {
+    playBackgroundMusic(defaultCanvasMusic);
+  }
+
+  /** This method plays the main background music of the game. */
+  public void playMainMusic() {
+    playBackgroundMusic(mainMusic);
   }
 
   /** This method plays the canvas victory background music of the game. */

@@ -51,7 +51,7 @@ public class SceneManager {
   protected void initialise(final boolean lazyLoading, final View startingView) {
 
     // Initialise background music
-    this.soundEffect.changeMusic(startingView);
+    this.soundEffect.playMainMusic();
 
     // Prevent you from trying to initialise the SceneManager twice
     if (this.scene != null) {
@@ -117,15 +117,6 @@ public class SceneManager {
    * @param view The view to switch to
    */
   public void switchToView(final View view) {
-
-    boolean isCanvas = view.equals(View.CANVAS);
-    boolean isPreviousCanvas = this.currentView.equals(View.CANVAS);
-
-    // Set Background music
-    if (isCanvas || isPreviousCanvas) {
-      this.soundEffect.terminateBackgroundMusic();
-      this.soundEffect.changeMusic(view);
-    }
 
     if (!this.views.containsKey(view)) {
       if (!this.loadView(view)) {

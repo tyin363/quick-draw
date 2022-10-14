@@ -46,6 +46,11 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
    */
   @Override
   public void onLoad() {
+
+    // Set Background music
+    this.soundEffect.terminateBackgroundMusic();
+    this.soundEffect.playDefaultCanvasMusic();
+
     this.canvasController.getGameOverActionsContainer().setVisible(false);
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.canvasController.getMainLabel().setText(this.config.getDrawingTimeSeconds() + " Seconds");

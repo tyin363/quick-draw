@@ -224,7 +224,12 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onRestart() {
+
+    // Play music and sounds
     this.soundEffect.playClickSound();
+    this.soundEffect.terminateBackgroundMusic();
+    this.soundEffect.playMainMusic();
+
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
@@ -350,7 +355,11 @@ public class CanvasController implements LoadListener, TerminationListener {
   /** Clears the canvas and switches back to the Main Menu Screen */
   @FXML
   private void onReturnToMainMenu() {
+    // Play music and sounds
     this.soundEffect.playClickSound();
+    this.soundEffect.terminateBackgroundMusic();
+    this.soundEffect.playMainMusic();
+
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.MAIN_MENU);
