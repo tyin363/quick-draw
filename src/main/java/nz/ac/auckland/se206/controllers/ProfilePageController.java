@@ -189,11 +189,7 @@ public class ProfilePageController implements LoadListener {
   public void onLoad() {
 
     // Set visible and invisible initial nodes
-    this.editUsernameButton.setVisible(true);
-    this.usernameLabel.setVisible(true);
-    this.setUsernameButton.setVisible(false);
-    this.usernameTextField.setVisible(false);
-    this.cancelButton.setVisible(false);
+    setEditUsernameMode(false);
 
     // Clear past words
     this.pastWordsVbox.getChildren().clear();
