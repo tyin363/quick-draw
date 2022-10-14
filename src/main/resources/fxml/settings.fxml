@@ -76,7 +76,7 @@
                                     <Font name="SansSerif Bold" size="28.0" />
                                  </font>
                               </Label>
-                              <RadioButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="427.0" styleClass="easy" text="Easy">
+                              <RadioButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="427.0" styleClass="easy" stylesheets="@../css/settings.css" text="Easy">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="time" />
                                  </toggleGroup>

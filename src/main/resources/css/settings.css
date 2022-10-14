@@ -26,13 +26,11 @@
 .radio-button > .radio {
   -fx-border-width: 2px;
   -fx-border-color: white;
-  -fx-background-color: -fx-light-gray-100;
   -fx-border-radius: 15px;
   -fx-padding: 2.5px;
 }
 
 .radio-button:selected > .radio > .dot {
-  -fx-background-color: white;
   -fx-background-insets: 0;
 }
 
