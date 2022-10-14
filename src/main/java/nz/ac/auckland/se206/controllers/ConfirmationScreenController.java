@@ -8,6 +8,8 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
+import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.words.WordService;
@@ -22,6 +24,7 @@ public class ConfirmationScreenController implements LoadListener {
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
+  @Inject private CanvasStateMachine stateMachine;
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -41,14 +44,22 @@ public class ConfirmationScreenController implements LoadListener {
     this.wordService.selectRandomTarget(
         this.userService.getCurrentUser().getGameSettings().getWords());
     this.targetWordLabel.setText(this.wordService.getTargetWord());
-    this.timeLimitLabel.setText(
-        "You have "
-            + this.userService.getCurrentUser().getGameSettings().getTime()
-            + " seconds to draw:");
+    if (stateMachine.getCurrentState().getClass() == ZenModeState.class) {
+      this.timeLimitLabel.setText("You have unlimited time to draw:");
+    } else {
+      this.timeLimitLabel.setText(
+          "You have "
+              + this.userService.getCurrentUser().getGameSettings().getTime()
+              + " seconds to draw:");
+    }
   }
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
-    this.sceneManager.switchToView(View.SETTINGS);
+    if (stateMachine.getCurrentState().getClass() == ZenModeState.class) {
+      this.sceneManager.switchToView(View.MAIN_MENU);
+    } else {
+      this.sceneManager.switchToView(View.SETTINGS);
+    }
   }
 }
