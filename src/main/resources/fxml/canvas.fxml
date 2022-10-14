@@ -95,11 +95,11 @@
                   <children>
                     <VBox fx:id="toolContainer" alignment="CENTER" VBox.vgrow="ALWAYS">
                       <children>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" styleClass="vertical-pen-options">
                           <children>
                             <Pane fx:id="eraserPane" accessibleHelp="Select the eraser" accessibleRole="BUTTON" onMouseClicked="#onSelectEraser">
                               <children>
-                                <Pane layoutX="8.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
+                                <Pane layoutX="7.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
                               </children>
                               <styleClass>
                                 <String fx:value="eraser-icon" />
@@ -108,7 +108,7 @@
                             </Pane>
                             <Pane fx:id="penPane" accessibleHelp="Select the pen brush" accessibleRole="BUTTON" onMouseClicked="#onSelectPen">
                               <children>
-                                <Pane layoutX="9.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
+                                <Pane layoutX="8.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
                               </children>
                               <styleClass>
                                 <String fx:value="icon" />
@@ -117,7 +117,7 @@
                             </Pane>
                             <Pane fx:id="clearPane" accessibleHelp="Clear the canvas" accessibleRole="BUTTON" onMouseClicked="#onClear">
                               <children>
-                                <Pane layoutX="11.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
+                                <Pane layoutX="10.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
                               </children>
                               <styleClass>
                                 <String fx:value="icon" />
@@ -125,10 +125,6 @@
                               </styleClass>
                             </Pane>
                           </children>
-                          <styleClass>
-                            <String fx:value="icon-btn-row" />
-                            <String fx:value="bg-lightgray-100" />
-                          </styleClass>
                         </VBox>
                       </children>
                     </VBox>
@@ -163,5 +159,6 @@
     <URL value="@../css/styles.css" />
     <URL value="@../css/colours.css" />
     <URL value="@../css/zen_mode.css" />
+      <URL value="@../css/canvas.css" />
   </stylesheets>
 </VBox>
