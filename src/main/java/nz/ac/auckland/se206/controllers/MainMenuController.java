@@ -55,6 +55,7 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartGame() {
+    HIDDEN_MODE = false;
     this.stateMachine.switchState(DefaultCanvasState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
@@ -65,6 +66,7 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartZenMode() {
+    HIDDEN_MODE = false;
     this.stateMachine.switchState(ZenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
