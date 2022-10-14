@@ -8,6 +8,8 @@
   -fx-background-radius: 5px;
   -fx-font-weight: bold;
   -fx-font-size: 16px;
+  -fx-border-width: 0 0 0 5px;
+  -fx-border-radius: 4 0 0 4;
 }
 
 .radio-button:hover {
@@ -35,40 +37,32 @@
 
 .easy {
   -fx-border-color: #3aa55d;
-  -fx-border-width: 0 0 0 5;
 }
 
 .easy:selected {
   -fx-border-color: #3ba25c;
-  -fx-border-width: 0 0 0 5;
 }
 
 .medium {
   -fx-border-color: #c68218;
-  -fx-border-width: 0 0 0 5;
 }
 
 .medium:selected {
   -fx-border-color: #cb8516;
-  -fx-border-width: 0 0 0 5;
 }
 
 .hard {
   -fx-border-color: #ed4245;
-  -fx-border-width: 0 0 0 5;
 }
 
 .hard:selected {
   -fx-border-color: #ed4245;
-  -fx-border-width: 0 0 0 5;
 }
 
 .master {
   -fx-border-color: -fx-highlight;
-  -fx-border-width: 0 0 0 5;
 }
 
 .master:selected {
   -fx-border-color: -fx-highlight-lightened;
-  -fx-border-width: 0 0 0 5;
 }
