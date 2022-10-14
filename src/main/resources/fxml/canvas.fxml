@@ -73,8 +73,8 @@
                       </HBox>
                               <HBox fx:id="hintsHbox" alignment="CENTER" prefHeight="43.0" prefWidth="1150.0" spacing="10.0" visible="false">
                                  <children>
-                                    <Button minWidth="119.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="119.0" styleClass="btn" text="Get Hint" />
-                                    <Label fx:id="hintLabel" prefHeight="49.0" prefWidth="375.0" styleClass="text-default" text="Hint">
+                                    <Button minWidth="119.0" mnemonicParsing="false" onAction="#onGetHint" prefHeight="37.0" prefWidth="119.0" styleClass="btn" text="Get Hint" />
+                                    <Label fx:id="hintLabel" prefHeight="49.0" prefWidth="375.0" styleClass="text-default">
                                        <font>
                                           <Font size="25.0" />
                                        </font>

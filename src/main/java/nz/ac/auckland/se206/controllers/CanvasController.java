@@ -151,6 +151,15 @@ public class CanvasController implements LoadListener, TerminationListener {
   }
 
   /**
+   * This retrieves the label with the word hint on it
+   *
+   * @return The label with the word hint
+   */
+  public Label getHintLabel() {
+    return hintLabel;
+  }
+
+  /**
    * This retrieves the Hbox containing the hints elements
    *
    * @return The Hbox containing the hints elements
@@ -215,6 +224,16 @@ public class CanvasController implements LoadListener, TerminationListener {
     return defaultHbox;
   }
 
+  /** This method is called when the "Get Hint" button is pressed and gets a hint. */
+  @FXML
+  private void onGetHint() {
+    if (this.targetWordLabel == null) {
+      return;
+    }
+    char firstCharacter = this.targetWordLabel.getText().toUpperCase().charAt(0);
+    this.hintLabel.setText("The word starts with: " + firstCharacter);
+  }
+
   /** This method is called when the "Clear" button is pressed and clears the canvas. */
   @FXML
   private void onClear() {
@@ -267,8 +286,11 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
     this.wordService.selectRandomTarget(Difficulty.EASY);
-    this.hiddenMode.clearDefinitions();
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+
+    // Hidden mode exclusive
+    this.hiddenMode.clearDefinitions();
+    this.hintLabel.setText(null);
   }
 
   /**
@@ -392,9 +414,12 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onReturnToMainMenu() {
     this.onClear();
-    this.hiddenMode.clearDefinitions();
     this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.MAIN_MENU);
+
+    // Hidden mode exclusive
+    this.hiddenMode.clearDefinitions();
+    this.hintLabel.setText(null);
   }
 
   /**
