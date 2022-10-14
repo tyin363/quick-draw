@@ -65,7 +65,7 @@
                                  </toggleGroup>
                               </RadioButton>
                               <RadioButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="432.0" styleClass="medium" text="Medium" toggleGroup="$words" />
-                              <RadioButton fx:id="hardWordsButton" accessibleText="hi" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="539.0" styleClass="hard" text="Hard" toggleGroup="$words" />
+                              <RadioButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="539.0" styleClass="hard" text="Hard" toggleGroup="$words" />
                               <RadioButton fx:id="masterWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="412.0" styleClass="master" text="Master" toggleGroup="$words" />
                            </children>
                         </VBox>

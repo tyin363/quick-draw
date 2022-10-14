@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -56,6 +57,46 @@ public class SettingsController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
+    Tooltip easyAccuracyTip = new Tooltip("Your word must be the top 1 prediction!");
+    Tooltip mediumAccuracyTip = new Tooltip("Your word must be in the top 2 predictions!");
+    Tooltip hardAccuracyTip = new Tooltip("Your word must be in the top 3 predictions!");
+
+    Tooltip easyWordsTip = new Tooltip("Easy words only");
+    Tooltip mediumWordsTip = new Tooltip("Easy and Medium words only");
+    Tooltip hardWordsTip = new Tooltip("All words");
+    Tooltip masterWordsTip = new Tooltip("Hard words only");
+
+    Tooltip easyTimeTip = new Tooltip("60 seconds to draw");
+    Tooltip mediumTimeTip = new Tooltip("45 seconds to draw");
+    Tooltip hardTimeTip = new Tooltip("30 seconds to draw");
+    Tooltip masterTimeTip = new Tooltip("15 seconds to draw");
+
+    Tooltip easyConfidenceTip = new Tooltip("Your drawing's confidence level must be at least 1%");
+    Tooltip mediumConfidenceTip =
+        new Tooltip("Your drawing's confidence level must be at least 10%");
+    Tooltip hardConfidenceTip = new Tooltip("Your drawing's confidence level must be at least 25%");
+    Tooltip masterConfidenceTip =
+        new Tooltip("Your drawing's confidence level must be at least 50%");
+
+    this.easyAccuracyButton.setTooltip(easyAccuracyTip);
+    this.mediumAccuracyButton.setTooltip(mediumAccuracyTip);
+    this.hardAccuracyButton.setTooltip(hardAccuracyTip);
+
+    this.easyWordsButton.setTooltip(easyWordsTip);
+    this.mediumWordsButton.setTooltip(mediumWordsTip);
+    this.hardWordsButton.setTooltip(hardWordsTip);
+    this.masterWordsButton.setTooltip(masterWordsTip);
+
+    this.easyTimeButton.setTooltip(easyTimeTip);
+    this.mediumTimeButton.setTooltip(mediumTimeTip);
+    this.hardTimeButton.setTooltip(hardTimeTip);
+    this.masterTimeButton.setTooltip(masterTimeTip);
+
+    this.easyConfidenceButton.setTooltip(easyConfidenceTip);
+    this.mediumConfidenceButton.setTooltip(mediumConfidenceTip);
+    this.hardConfidenceButton.setTooltip(hardConfidenceTip);
+    this.masterConfidenceButton.setTooltip(masterConfidenceTip);
+
     this.readyButton.setDisable(true);
     this.easyAccuracyButton.setSelected(false);
     this.mediumAccuracyButton.setSelected(false);
