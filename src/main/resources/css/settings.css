@@ -10,6 +10,7 @@
   -fx-font-size: 16px;
   -fx-border-width: 0 0 0 5px;
   -fx-border-radius: 4 0 0 4;
+  -fx-label-padding: 0 0 0 10;
 }
 
 .radio-button:hover {

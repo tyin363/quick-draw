@@ -59,13 +59,13 @@
                                     <Font name="SansSerif Bold" size="28.0" />
                                  </font>
                               </Label>
-                              <RadioButton fx:id="easyWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="521.0" styleClass="easy" text="Easy">
+                              <RadioButton fx:id="easyWordsButton" lineSpacing="2000.0" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="521.0" styleClass="easy" text="Easy&#10;&#10;">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="words" />
                                  </toggleGroup>
                               </RadioButton>
                               <RadioButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="432.0" styleClass="medium" text="Medium" toggleGroup="$words" />
-                              <RadioButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="539.0" styleClass="hard" text="Hard" toggleGroup="$words" />
+                              <RadioButton fx:id="hardWordsButton" accessibleText="hi" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="539.0" styleClass="hard" text="Hard" toggleGroup="$words" />
                               <RadioButton fx:id="masterWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="412.0" styleClass="master" text="Master" toggleGroup="$words" />
                            </children>
                         </VBox>
@@ -108,7 +108,7 @@
                         <Insets bottom="50.0" left="25.0" right="25.0" />
                      </VBox.margin>
                   </GridPane>
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#onConfirmReady" styleClass="btn" text="Ready" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="readyButton" alignment="CENTER" mnemonicParsing="false" onAction="#onConfirmReady" styleClass="btn" text="Ready" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>

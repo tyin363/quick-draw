@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -28,6 +29,11 @@ public class SettingsController implements LoadListener {
       hardConfidenceButton,
       masterConfidenceButton;
   @FXML private ToggleGroup accuracy;
+  @FXML private ToggleGroup words;
+  @FXML private ToggleGroup time;
+  @FXML private ToggleGroup confidence;
+
+  @FXML private Button readyButton;
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
@@ -50,6 +56,7 @@ public class SettingsController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
+    this.readyButton.setDisable(true);
     this.easyAccuracyButton.setSelected(false);
     this.mediumAccuracyButton.setSelected(false);
     this.hardAccuracyButton.setSelected(false);
@@ -70,6 +77,7 @@ public class SettingsController implements LoadListener {
     this.loadWords(currentUser);
     this.loadTime(currentUser);
     this.loadConfidence(currentUser);
+    this.checkSettings();
   }
 
   /** When the user clicks the back button, take them back to the main menu. */
@@ -87,6 +95,7 @@ public class SettingsController implements LoadListener {
       currentUser.getGameSettings().setAccuracy("Hard");
     }
 
+    this.checkSettings();
     this.userService.saveUser(currentUser);
   }
 
@@ -102,6 +111,7 @@ public class SettingsController implements LoadListener {
       currentUser.getGameSettings().setWords("Master");
     }
 
+    this.checkSettings();
     this.userService.saveUser(currentUser);
   }
 
@@ -116,6 +126,8 @@ public class SettingsController implements LoadListener {
     } else if (masterTimeButton.isSelected()) {
       currentUser.getGameSettings().setTime(15);
     }
+
+    this.checkSettings();
     this.userService.saveUser(currentUser);
   }
 
@@ -130,6 +142,8 @@ public class SettingsController implements LoadListener {
     } else if (masterConfidenceButton.isSelected()) {
       currentUser.getGameSettings().setConfidence("Master");
     }
+
+    this.checkSettings();
     this.userService.saveUser(currentUser);
   }
 
@@ -176,6 +190,15 @@ public class SettingsController implements LoadListener {
       hardConfidenceButton.setSelected(true);
     } else if (currentUser.getGameSettings().getConfidence().contentEquals("Master")) {
       masterConfidenceButton.setSelected(true);
+    }
+  }
+
+  private void checkSettings() {
+    if ((accuracy.getSelectedToggle() != null)
+        && (words.getSelectedToggle() != null)
+        && (time.getSelectedToggle() != null)
+        && (confidence.getSelectedToggle() != null)) {
+      this.readyButton.setDisable(false);
     }
   }
 }
