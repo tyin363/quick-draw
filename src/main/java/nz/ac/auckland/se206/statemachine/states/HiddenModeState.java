@@ -132,7 +132,7 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
     this.canvasController.getClearPane().setDisable(true);
 
     final String showWord = "The word was " + this.wordService.getTargetWord();
-    final String message = wasGuessed ? "You Win! " + showWord : "Time up!" + showWord;
+    final String message = wasGuessed ? "You Win! " + showWord : "Time up! " + showWord;
 
     // Update statistics
     currentUser.addPastRound(round);

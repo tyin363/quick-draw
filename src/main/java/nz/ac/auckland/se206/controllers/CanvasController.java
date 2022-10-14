@@ -283,14 +283,14 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onRestart() {
+    // Hidden mode exclusive
+    this.hiddenMode.clearDefinitions();
+    this.hintLabel.setText(null);
+
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
     this.wordService.selectRandomTarget(Difficulty.EASY);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
-
-    // Hidden mode exclusive
-    this.hiddenMode.clearDefinitions();
-    this.hintLabel.setText(null);
   }
 
   /**
@@ -413,13 +413,13 @@ public class CanvasController implements LoadListener, TerminationListener {
   /** Clears the canvas and switches back to the Main Menu Screen */
   @FXML
   private void onReturnToMainMenu() {
-    this.onClear();
-    this.stateMachine.getCurrentState().onLeave();
-    this.sceneManager.switchToView(View.MAIN_MENU);
-
     // Hidden mode exclusive
     this.hiddenMode.clearDefinitions();
     this.hintLabel.setText(null);
+
+    this.onClear();
+    this.stateMachine.getCurrentState().onLeave();
+    this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
   /**
