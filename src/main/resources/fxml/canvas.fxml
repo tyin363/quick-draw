@@ -33,7 +33,7 @@
             <StackPane prefHeight="198.0" prefWidth="1150.0">
                <children>
                   <fx:include fx:id="wordDefinition" source="word_definition.fxml" />
-              <HBox fx:id="defaultHbox" alignment="CENTER" prefHeight="190.0" prefWidth="1150.0" spacing="5.0">
+              <HBox fx:id="defaultHbox" alignment="CENTER" prefHeight="171.0" prefWidth="1150.0" spacing="5.0">
                 <children>
                   <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
                     <font>
@@ -52,7 +52,7 @@
               </HBox>
                </children>
             </StackPane>
-        <HBox alignment="CENTER" styleClass="bg-gray-25">
+        <HBox alignment="CENTER" prefHeight="483.0" prefWidth="1150.0" styleClass="bg-gray-25">
           <children>
             <Pane minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
             <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="431.0" prefWidth="690.0" vgap="20.0" HBox.hgrow="ALWAYS">
@@ -61,13 +61,28 @@
               </HBox.margin>
               <children>
                 <HBox alignment="CENTER" prefHeight="39.0" prefWidth="187.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <HBox fx:id="gameOverActionsContainer" alignment="CENTER" prefHeight="30.0" prefWidth="516.0" spacing="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                  <children>
-                    <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefWidth="145.0" styleClass="btn" text="Save" />
-                    <Button mnemonicParsing="false" onAction="#onRestart" prefWidth="145.0" styleClass="btn" text="Play Again" />
-                    <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" styleClass="btn" text=" Main Menu" />
-                  </children>
-                </HBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
+                        <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                      <HBox fx:id="gameOverActionsContainer" alignment="CENTER" prefHeight="30.0" prefWidth="516.0" spacing="20.0">
+                        <children>
+                          <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefWidth="145.0" styleClass="btn" text="Save" />
+                          <Button mnemonicParsing="false" onAction="#onRestart" prefWidth="145.0" styleClass="btn" text="Play Again" />
+                          <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" styleClass="btn" text=" Main Menu" />
+                        </children>
+                      </HBox>
+                              <HBox alignment="CENTER" prefHeight="43.0" prefWidth="1150.0" spacing="10.0">
+                                 <children>
+                                    <Button minWidth="119.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="119.0" styleClass="btn" text="Get Hint" />
+                                    <Label prefHeight="49.0" prefWidth="375.0" styleClass="text-default" text="Hint">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
                 <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                   <font>
                     <Font name="SansSerif Regular" size="24.0" />
@@ -78,9 +93,9 @@
                     <Font name="SansSerif Regular" size="24.0" />
                   </font>
                 </Label>
-                <Pane maxWidth="521.0" prefWidth="521.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+                <Pane maxWidth="521.0" prefHeight="342.0" prefWidth="516.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                   <children>
-                    <Canvas fx:id="canvas" height="315.0" layoutY="-10.0" styleClass="bg-highlight" width="483.0">
+                    <Canvas fx:id="canvas" height="293.0" styleClass="bg-highlight" width="516.0">
                       <cursor>
                         <Cursor fx:constant="HAND" />
                       </cursor>
@@ -147,9 +162,9 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.0" minWidth="-Infinity" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints vgrow="NEVER" />
-                <RowConstraints vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                <RowConstraints maxHeight="94.0" minHeight="20.0" prefHeight="20.0" vgrow="NEVER" />
+                <RowConstraints maxHeight="293.0" minHeight="230.0" prefHeight="293.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="61.0" vgrow="NEVER" />
               </rowConstraints>
             </GridPane>
             <Pane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
