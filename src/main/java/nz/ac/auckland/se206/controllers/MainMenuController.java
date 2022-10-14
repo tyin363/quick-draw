@@ -64,6 +64,7 @@ public class MainMenuController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onStartZenMode() {
+    this.soundEffect.playClickSound();
     this.stateMachine.switchState(ZenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
