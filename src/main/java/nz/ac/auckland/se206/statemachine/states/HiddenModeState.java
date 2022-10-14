@@ -130,7 +130,9 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
     this.canvasController.disableBrush();
     // Prevent the user from clearing their drawing
     this.canvasController.getClearPane().setDisable(true);
-    final String message = wasGuessed ? "You Win!" : "Time up!";
+
+    final String showWord = "The word was " + this.wordService.getTargetWord();
+    final String message = wasGuessed ? "You Win! " + showWord : "Time up!" + showWord;
 
     // Update statistics
     currentUser.addPastRound(round);
