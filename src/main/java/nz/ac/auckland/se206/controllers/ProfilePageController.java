@@ -79,6 +79,7 @@ public class ProfilePageController implements LoadListener {
   @FXML
   private void onCancelEdit() {
     setEditUsernameMode(false);
+    setUsernameWidth();
   }
 
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
