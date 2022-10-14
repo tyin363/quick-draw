@@ -70,6 +70,8 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private VBox nextDefinitionVbox;
   @FXML private Label numberOfDefinitionLabel;
   @FXML private AnchorPane wordDefinition;
+  @FXML private Label hintLabel;
+  @FXML private HBox hintsHbox;
   private Label[] predictionLabels;
 
   @Inject private Logger logger;
@@ -146,6 +148,15 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.saveButton.setDisable(false);
     this.onSelectPen();
     this.stateMachine.getCurrentState().onLoad();
+  }
+
+  /**
+   * This retrieves the Hbox containing the hints elements
+   *
+   * @return The Hbox containing the hints elements
+   */
+  public HBox getHintsHbox() {
+    return hintsHbox;
   }
 
   /**

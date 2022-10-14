@@ -42,13 +42,16 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
   }
 
   /**
-   * When the default canvas state is loaded, make sure the game over actions aren't visible and
+   * When the hidden mode canvas state is loaded, make sure the game over actions aren't visible and
    * reset the count-down timer.
    */
   @Override
   public void onLoad() {
+    // Set hidden mode exclusive elements to be visible
+    this.canvasController.getHintsHbox().setVisible(true);
     this.canvasController.getWordDefinition().setVisible(true);
     this.canvasController.getDefaultHbox().setVisible(false);
+
     this.canvasController.getGameOverActionsContainer().setVisible(false);
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.canvasController.getMainLabel().setText(this.config.getDrawingTimeSeconds() + " Seconds");
@@ -111,6 +114,10 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
    * @param wasGuessed Whether the user won or lost.
    */
   public void gameOver(final boolean wasGuessed) {
+
+    // Set hints elements invisible
+    this.canvasController.getHintsHbox().setVisible(false);
+
     // Get time taken
     final int timeTaken = this.config.getDrawingTimeSeconds() - this.secondsRemaining;
     final User currentUser = this.userService.getCurrentUser();
@@ -141,6 +148,9 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
   @Override
   public void onExit() {
     this.hiddenMode.clearDefinitions();
+
+    // Make appropriate elements invisible or visible again
+    this.canvasController.getHintsHbox().setVisible(false);
     this.canvasController.getWordDefinition().setVisible(false);
     this.canvasController.getDefaultHbox().setVisible(true);
     this.canvasController.getGameOverActionsContainer().setVisible(false);
