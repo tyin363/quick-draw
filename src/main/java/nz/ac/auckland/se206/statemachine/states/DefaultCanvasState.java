@@ -14,6 +14,7 @@ import nz.ac.auckland.se206.users.Round;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Config;
+import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.WordService;
 
 public class DefaultCanvasState extends CanvasState implements EnableListener, TerminationListener {
@@ -21,6 +22,8 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
   @Inject private TextToSpeech textToSpeech;
   @Inject private UserService userService;
   @Inject private WordService wordService;
+  @Inject private SoundEffect soundEffect;
+
   @Inject private Config config;
 
   private int secondsRemaining;
@@ -110,7 +113,15 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
 
     // Get current round
     final Round round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
-
+    // Play sound effect and music based on if the user won or lost
+    this.soundEffect.terminateBackgroundMusic();
+    if (wasGuessed) {
+      this.soundEffect.playVictorySound();
+      this.soundEffect.playVictoryMusic();
+    } else {
+      this.soundEffect.playLoseSound();
+      this.soundEffect.playLoseMusic();
+    }
     this.canvasController.getPredictionHandler().stopPredicting();
     this.timer.stop();
     this.canvasController.disableBrush();
@@ -134,5 +145,6 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
   @Override
   public void onTerminate() {
     this.timer.stop();
+    this.soundEffect.terminate();
   }
 }
