@@ -57,9 +57,9 @@ public class SettingsController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
-    Tooltip easyAccuracyTip = new Tooltip("Your word must be the top 1 prediction!");
-    Tooltip mediumAccuracyTip = new Tooltip("Your word must be in the top 2 predictions!");
-    Tooltip hardAccuracyTip = new Tooltip("Your word must be in the top 3 predictions!");
+    Tooltip easyAccuracyTip = new Tooltip("Your word must be the top 1 prediction");
+    Tooltip mediumAccuracyTip = new Tooltip("Your word must be in the top 2 predictions");
+    Tooltip hardAccuracyTip = new Tooltip("Your word must be in the top 3 predictions");
 
     Tooltip easyWordsTip = new Tooltip("Easy words only");
     Tooltip mediumWordsTip = new Tooltip("Easy and Medium words only");
