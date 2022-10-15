@@ -63,44 +63,28 @@
               <children>
                 <HBox alignment="CENTER" prefHeight="39.0" prefWidth="187.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="39.0" prefWidth="309.0">
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.4400634765625" minWidth="10.0" prefWidth="153.4400634765625" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.72122192382812" minWidth="10.0" prefWidth="47.0599365234375" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <ImageView fx:id="confidenceLevelImage" fitHeight="45.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" prefHeight="43.0" prefWidth="141.0" text="Label">
+                                       <padding>
+                                          <Insets left="55.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
                                  <styleClass>
                                     <String fx:value="bg-lightgray-100" />
                                     <String fx:value="prediction-container" />
                                  </styleClass>
-                                 <children>
-                                    <GridPane prefHeight="39.0" prefWidth="200.0">
-                                      <columnConstraints>
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <ImageView fx:id="confidenceLevelImage" fitHeight="34.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                                          <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="152.0" text="Target">
-                                             <padding>
-                                                <Insets left="35.0" />
-                                             </padding>
-                                             <font>
-                                                <Font size="20.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </GridPane>
-                                 </children>
-                              </HBox>
+                              </GridPane>
                            </children></HBox>
-                <HBox fx:id="gameOverActionsContainer" alignment="CENTER" prefHeight="30.0" prefWidth="516.0" spacing="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                  <children>
-                    <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefWidth="145.0" styleClass="btn" text="Save" />
-                    <Button mnemonicParsing="false" onAction="#onRestart" prefWidth="145.0" styleClass="btn" text="Play Again" />
-                    <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" styleClass="btn" text=" Main Menu" />
-                  </children>
-                </HBox>
-                <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <HBox alignment="CENTER" prefHeight="39.0" prefWidth="187.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
                         <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                   <font>
                     <Font name="SansSerif Regular" size="24.0" />
