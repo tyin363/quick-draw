@@ -16,6 +16,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.controllers.CanvasController;
@@ -105,13 +106,16 @@ public class PredictionHandler implements TerminationListener {
                 // level
                 if (probability > currentProbability) {
                   canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                  canvasController.getTargetWordConfidenceLabel().setTextFill(Color.GREEN);
                   File upArrowFile = new File("src/main/resources/images/upArrow.png");
                   canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
                 } else if (probability < currentProbability) {
                   canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                  canvasController.getTargetWordConfidenceLabel().setTextFill(Color.RED);
                   File downArrowFile = new File("src/main/resources/images/downArrow.png");
                   canvasController.setConfidenceImage(new Image(downArrowFile.toURI().toString()));
                 } else {
+                  canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
                   canvasController.resetConfidenceImage();
                 }
               }

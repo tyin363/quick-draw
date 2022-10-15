@@ -66,17 +66,20 @@
                               <GridPane>
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.4400634765625" minWidth="10.0" prefWidth="153.4400634765625" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.72122192382812" minWidth="10.0" prefWidth="47.0599365234375" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="92.72122192382812" minWidth="10.0" prefWidth="47.0599365234375" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
                                     <ImageView fx:id="confidenceLevelImage" fitHeight="45.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" prefHeight="43.0" prefWidth="141.0" text="Label">
+                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" prefHeight="43.0" prefWidth="141.0" styleClass="confidence" text="Label">
                                        <padding>
                                           <Insets left="55.0" />
                                        </padding>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
                                     </Label>
                                  </children>
                                  <styleClass>

@@ -284,7 +284,6 @@ public class CanvasController implements LoadListener, TerminationListener {
       // Make the text colour more blue if it's more confident in the prediction.
       final Color textColour =
           Color.BLACK.interpolate(this.config.getHighlight(), prediction.getProbability() * 10);
-
       this.predictionLabels[i].setText(
           guess + " " + String.format("%.0f", prediction.getProbability() * 100) + "%");
       this.predictionLabels[i].setTextFill(textColour);
@@ -536,5 +535,9 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   public HBox getDefaultHbox() {
     return this.defaultHbox;
+  }
+
+  public Label getTargetWordConfidenceLabel() {
+    return this.targetWordConfidenceLabel;
   }
 }

@@ -56,3 +56,7 @@
   -fx-font-family: SansSerif;
   -fx-font-size: 18px;
 }
+
+.confidence {
+  -fx-font-size: 22px;
+}
