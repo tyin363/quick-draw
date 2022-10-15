@@ -69,7 +69,7 @@
                                           <Insets left="35.0" />
                                        </padding>
                                     </Label>
-                                    <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="confidenceLevelImage" fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>

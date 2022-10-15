@@ -258,6 +258,7 @@ public class CanvasController implements LoadListener, TerminationListener {
       this.predictionLabels[i].setText(guess);
       this.predictionLabels[i].setTextFill(textColour);
     }
+    System.out.println("DISPLAYIGN PREDICTION YO");
   }
 
   /**
