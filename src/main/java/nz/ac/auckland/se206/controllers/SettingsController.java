@@ -63,21 +63,21 @@ public class SettingsController implements LoadListener {
     this.readyButton.setDisable(true);
 
     // Unselecting all settings initially to prevent same settings transferred between users
-    this.easyAccuracyButton.setSelected(false);
-    this.mediumAccuracyButton.setSelected(false);
-    this.hardAccuracyButton.setSelected(false);
-    this.easyWordsButton.setSelected(false);
-    this.mediumWordsButton.setSelected(false);
-    this.hardWordsButton.setSelected(false);
-    this.masterWordsButton.setSelected(false);
-    this.easyTimeButton.setSelected(false);
-    this.mediumTimeButton.setSelected(false);
-    this.hardTimeButton.setSelected(false);
-    this.masterTimeButton.setSelected(false);
-    this.easyConfidenceButton.setSelected(false);
-    this.mediumConfidenceButton.setSelected(false);
-    this.hardConfidenceButton.setSelected(false);
-    this.masterConfidenceButton.setSelected(false);
+    if (this.accuracy.getSelectedToggle() != null) {
+      this.accuracy.getSelectedToggle().setSelected(false);
+    }
+
+    if (this.words.getSelectedToggle() != null) {
+      this.words.getSelectedToggle().setSelected(false);
+    }
+
+    if (this.time.getSelectedToggle() != null) {
+      this.time.getSelectedToggle().setSelected(false);
+    }
+
+    if (this.confidence.getSelectedToggle() != null) {
+      this.confidence.getSelectedToggle().setSelected(false);
+    }
 
     // Loading current user's settings
     this.currentUser = this.userService.getCurrentUser();
