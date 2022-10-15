@@ -60,7 +60,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Button saveButton;
   @FXML private Label targetWordLabel;
   @FXML private Label mainLabel;
-  private Label[] predictionLabels;
+  @FXML private Label targetWordConfidenceLabel;
 
   @Inject private Logger logger;
   @Inject private Config config;
@@ -70,9 +70,9 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
-
   private boolean isUpdatingPredictions;
   private Color penColour = Color.BLACK;
+  private Label[] predictionLabels;
 
   // Mouse coordinates
   private double currentX;
@@ -120,6 +120,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Override
   public void onLoad() {
     this.targetWordLabel.setText(this.wordService.getTargetWord());
+    this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
 
     this.predictionHandler.startPredicting();
 

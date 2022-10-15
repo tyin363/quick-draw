@@ -64,12 +64,12 @@
                                     <String fx:value="prediction-container" />
                                  </styleClass>
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="39.0" prefWidth="179.0" text="Target">
+                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" prefHeight="39.0" prefWidth="179.0" text="Target">
                                        <padding>
                                           <Insets left="35.0" />
                                        </padding>
                                     </Label>
-                                    <ImageView fitHeight="39.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="32.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
