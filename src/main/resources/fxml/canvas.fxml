@@ -124,14 +124,10 @@
                                 <String fx:value="icon" />
                               </styleClass>
                             </Pane>
-                            <Pane fx:id="penPane" accessibleHelp="Select the pen brush" accessibleRole="BUTTON" onMouseClicked="#onSelectPen">
+                            <Pane fx:id="penPane" accessibleHelp="Select the pen brush" accessibleRole="BUTTON" onMouseClicked="#onSelectPen" styleClass="icon">
                               <children>
-                                <Pane layoutX="8.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
+                                <Pane layoutX="8.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" styleClass="pen-icon" />
                               </children>
-                              <styleClass>
-                                <String fx:value="icon" />
-                                <String fx:value="pen-icon" />
-                              </styleClass>
                             </Pane>
                             <Pane fx:id="clearPane" accessibleHelp="Clear the canvas" accessibleRole="BUTTON" onMouseClicked="#onClear">
                               <children>

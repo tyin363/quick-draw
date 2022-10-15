@@ -96,7 +96,7 @@
                                     </HBox>
                                     <HBox fx:id="winBarContainer" prefHeight="6.0">
                                        <children>
-                                          <Pane prefWidth="120.0" styleClass="bg-green" />
+                                          <Pane prefWidth="170.0" styleClass="bg-green" />
                                           <Pane styleClass="bg-red" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
@@ -119,6 +119,103 @@
                               </VBox>
                            </children>
                         </AnchorPane>
+                        <VBox styleClass="stats-column">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card">
+                                 <children>
+                                    <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <HBox alignment="BASELINE_LEFT" spacing="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label fx:id="fastestTime" text="3">
+                                                   <styleClass>
+                                                      <String fx:value="stat-primary" />
+                                                      <String fx:value="text-highlight" />
+                                                   </styleClass>
+                                                </Label>
+                                                <Label fx:id="numRoundsPlayed11" styleClass="stat-label" text="seconds" />
+                                             </children>
+                                          </HBox>
+                                          <Pane AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <styleClass>
+                                                <String fx:value="clock-icon" />
+                                                <String fx:value="stat-icon" />
+                                             </styleClass>
+                                          </Pane>
+                                       </children>
+                                    </AnchorPane>
+                                    <Label styleClass="stat-label" text="Fastest Time" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label fx:id="numRoundsPlayed" text="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <styleClass>
+                                                <String fx:value="stat-primary" />
+                                                <String fx:value="text-highlight" />
+                                             </styleClass>
+                                          </Label>
+                                          <Pane AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <styleClass>
+                                                <String fx:value="pen-icon" />
+                                                <String fx:value="stat-icon" />
+                                             </styleClass>
+                                          </Pane>
+                                       </children>
+                                    </AnchorPane>
+                                    <Label styleClass="stat-label" text="Rounds Played" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <VBox styleClass="stats-column">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label fx:id="currentWinStreak" text="2" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <styleClass>
+                                                <String fx:value="stat-primary" />
+                                                <String fx:value="text-orange" />
+                                             </styleClass>
+                                          </Label>
+                                          <Pane prefHeight="26.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <styleClass>
+                                                <String fx:value="fire-simple-icon" />
+                                                <String fx:value="stat-icon" />
+                                             </styleClass>
+                                          </Pane>
+                                       </children>
+                                    </AnchorPane>
+                                    <Label styleClass="stat-label" text="Current Win Streak" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card">
+                                 <children>
+                                    <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label fx:id="bestWinStreak" text="5" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <styleClass>
+                                                <String fx:value="stat-primary" />
+                                                <String fx:value="text-orange" />
+                                             </styleClass>
+                                          </Label>
+                                          <Pane prefHeight="26.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <styleClass>
+                                                <String fx:value="fire-curved-icon" />
+                                                <String fx:value="stat-icon" />
+                                             </styleClass>
+                                          </Pane>
+                                       </children>
+                                    </AnchorPane>
+                                    <Label styleClass="stat-label" text="Best Win Streak" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>
