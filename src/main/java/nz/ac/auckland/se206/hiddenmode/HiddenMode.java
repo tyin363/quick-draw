@@ -15,7 +15,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListen
 import nz.ac.auckland.se206.dictionary.DictionaryLookup;
 import nz.ac.auckland.se206.dictionary.WordEntry;
 import nz.ac.auckland.se206.dictionary.WordInfo;
-import nz.ac.auckland.se206.dictionary.WordNotFoundException;
+import nz.ac.auckland.se206.exceptions.WordNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 

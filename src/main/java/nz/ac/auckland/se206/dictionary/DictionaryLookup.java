@@ -3,6 +3,7 @@ package nz.ac.auckland.se206.dictionary;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import nz.ac.auckland.se206.exceptions.WordNotFoundException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
