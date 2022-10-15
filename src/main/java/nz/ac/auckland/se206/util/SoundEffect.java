@@ -34,23 +34,11 @@ public class SoundEffect {
    * @param volume The volume of the sound effect
    */
   private void playSound(String soundLocation, double volume) {
-    soundTask =
-        new Task<Void>() {
 
-          @Override
-          protected Void call() throws Exception {
-
-            soundEffect = new Media(new File(soundLocation).toURI().toString());
-            mediaPlayer = new MediaPlayer(soundEffect);
-            mediaPlayer.setVolume(volume);
-            mediaPlayer.play();
-
-            return null;
-          }
-          ;
-        };
-    Thread backgroundThread = new Thread(soundTask);
-    backgroundThread.start();
+    soundEffect = new Media(new File(soundLocation).toURI().toString());
+    mediaPlayer = new MediaPlayer(soundEffect);
+    mediaPlayer.setVolume(volume);
+    mediaPlayer.play();
   }
 
   /**
@@ -60,27 +48,15 @@ public class SoundEffect {
    * @param volume The volume of the sound effect
    */
   private void playBackgroundMusic(String music) {
-    backgroundTask =
-        new Task<Void>() {
 
-          @Override
-          protected Void call() throws Exception {
+    soundEffect = new Media(new File(music).toURI().toString());
+    backgroundMediaPlayer = new MediaPlayer(soundEffect);
+    backgroundMediaPlayer.setVolume(0.1);
+    backgroundMediaPlayer.play();
 
-            soundEffect = new Media(new File(music).toURI().toString());
-            backgroundMediaPlayer = new MediaPlayer(soundEffect);
-            backgroundMediaPlayer.setVolume(0.1);
-            backgroundMediaPlayer.play();
-
-            if (music == mainMusic || music == defaultCanvasMusic) {
-              backgroundMediaPlayer.setCycleCount(Integer.MAX_VALUE);
-            }
-
-            return null;
-          }
-          ;
-        };
-    Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
+    if (music == mainMusic || music == defaultCanvasMusic) {
+      backgroundMediaPlayer.setCycleCount(Integer.MAX_VALUE);
+    }
   }
 
   /** This method plays the default canvas background music of the game. */
@@ -135,7 +111,6 @@ public class SoundEffect {
   public void terminate() {
     if (!(this.mediaPlayer == null)) {
       this.mediaPlayer.stop();
-      this.soundTask.cancel();
     }
   }
 
@@ -146,7 +121,6 @@ public class SoundEffect {
   public void terminateBackgroundMusic() {
     if (!(this.backgroundMediaPlayer == null)) {
       this.backgroundMediaPlayer.stop();
-      this.backgroundTask.cancel();
     }
   }
 }
