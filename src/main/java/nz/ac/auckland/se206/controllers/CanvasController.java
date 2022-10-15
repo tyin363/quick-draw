@@ -122,7 +122,7 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @Override
   public void onLoad() {
-    this.setCurrentWordConfidenceLevel(0.0);
+    this.setCurrentWordConfidenceLevel(0.00);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
     this.resetConfidenceImage();
@@ -180,6 +180,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   /** This method is called when the "Clear" button is pressed and clears the canvas. */
   @FXML
   private void onClear() {
+    this.setCurrentWordConfidenceLevel(0.00);
     this.resetConfidenceImage();
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     this.clearPredictions();

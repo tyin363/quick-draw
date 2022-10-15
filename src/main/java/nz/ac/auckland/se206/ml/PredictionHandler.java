@@ -96,21 +96,27 @@ public class PredictionHandler implements TerminationListener {
               if (prediction.getClassName().equals(targetWord)) {
                 double probability = prediction.getProbability();
                 double currentProbability = canvasController.getCurrentWordConfidenceLevel();
-                DecimalFormat df = new DecimalFormat("#.##");
+                DecimalFormat df = new DecimalFormat("#.###");
+                DecimalFormat df2 = new DecimalFormat("#.########");
                 probability = Double.parseDouble(df.format(probability));
                 currentProbability = Double.parseDouble(df.format(currentProbability));
-
-                // Changing confidence level image depending on the current word's confidence level
-                if (probability > currentProbability) {
-                  canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-                  File upArrowFile = new File("src/main/resources/images/upArrow.png");
-                  canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
-                } else if (probability < currentProbability) {
-                  canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-                  File downArrowFile = new File("src/main/resources/images/downArrow.png");
-                  canvasController.setConfidenceImage(new Image(downArrowFile.toURI().toString()));
-                } else {
-                  canvasController.resetConfidenceImage();
+                System.out.println(probability);
+                if (Double.parseDouble(df2.format(probability))
+                    != Double.parseDouble(df2.format(0.0029912306927144527))) {
+                  // Changing confidence level image depending on the current word's confidence
+                  // level
+                  if (probability > currentProbability) {
+                    canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                    File upArrowFile = new File("src/main/resources/images/upArrow.png");
+                    canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
+                  } else if (probability < currentProbability) {
+                    canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                    File downArrowFile = new File("src/main/resources/images/downArrow.png");
+                    canvasController.setConfidenceImage(
+                        new Image(downArrowFile.toURI().toString()));
+                  } else {
+                    canvasController.resetConfidenceImage();
+                  }
                 }
               }
             }

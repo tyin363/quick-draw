@@ -63,16 +63,26 @@
                                     <String fx:value="prediction-container" />
                                  </styleClass>
                                  <children>
-                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" prefHeight="39.0" prefWidth="159.0" text="Target">
-                                       <padding>
-                                          <Insets left="35.0" />
-                                       </padding>
-                                    </Label>
-                                    <ImageView fx:id="confidenceLevelImage" fitHeight="34.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                                       <HBox.margin>
-                                          <Insets right="5.0" />
-                                       </HBox.margin>
-                                    </ImageView>
+                                    <GridPane prefHeight="39.0" prefWidth="200.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <ImageView fx:id="confidenceLevelImage" fitHeight="34.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                                          <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="39.0" prefWidth="152.0" text="Target">
+                                             <padding>
+                                                <Insets left="35.0" />
+                                             </padding>
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </GridPane>
                                  </children>
                               </HBox>
                            </children></HBox>
