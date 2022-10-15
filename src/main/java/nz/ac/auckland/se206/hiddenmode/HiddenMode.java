@@ -145,8 +145,13 @@ public class HiddenMode implements TerminationListener {
     return textWidth;
   }
 
-  /** This gets the number of definitions and the current index numbe.r */
-  public void getNumberOfDefinitions(final Label target) {
+  /**
+   * This updates the label with the current definition index out of the total number of
+   * definitions.
+   *
+   * @param target The label to update
+   */
+  public void setNumberOfDefinitions(final Label target) {
     final int index = this.definitionIndex + 1;
     final int size = this.definitions.size();
     target.setText(index + "/" + size);
@@ -155,6 +160,9 @@ public class HiddenMode implements TerminationListener {
   /**
    * This method checks if there is a previous and next definition and hides or shows appropriate
    * buttons when needed.
+   *
+   * @param previous The previous button container
+   * @param next The next button container
    */
   public void checkForPreviousAndNext(final Node previous, final Node next) {
     // Check previous definition
@@ -185,7 +193,7 @@ public class HiddenMode implements TerminationListener {
     target.setText(this.getDefinitions().get(this.definitionIndex));
     this.changeFontDynamically(target, maxWidth, defaultFontSize);
     this.checkForPreviousAndNext(previousDefinitionVbox, nextDefinitionVbox);
-    this.getNumberOfDefinitions(numberOfDefinitionLabel);
+    this.setNumberOfDefinitions(numberOfDefinitionLabel);
   }
 
   /** The previous definition of the given word will be shown. */
