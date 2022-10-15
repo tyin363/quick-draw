@@ -62,7 +62,7 @@
                                     <Font name="SansSerif Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Label contentDisplay="RIGHT" onMouseClicked="#onSwitchUser" text="Switch User">
+                              <Label fx:id="switchUserLabel" contentDisplay="RIGHT" onMouseClicked="#onSwitchUser" text="Switch User">
                                  <font>
                                     <Font name="SansSerif Regular" size="16.0" />
                                  </font>

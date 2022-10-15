@@ -31,6 +31,7 @@ public class HeaderController implements LoadListener {
 
   @FXML private ImageView profilePicture;
   @FXML private Label username;
+  @FXML private Label switchUserLabel;
   @FXML private Slider volumeSlider;
 
   private User currentUser;
@@ -75,6 +76,13 @@ public class HeaderController implements LoadListener {
       return;
     }
 
+    if (this.sceneManager.getCurrentView().equals(View.CANVAS)) {
+      this.profilePicture.setMouseTransparent(true);
+      this.switchUserLabel.setMouseTransparent(true);
+    } else {
+      this.profilePicture.setMouseTransparent(false);
+      this.switchUserLabel.setMouseTransparent(false);
+    }
     this.currentUser = newCurrentUser;
     this.renderUserProfile(this.currentUser);
   }

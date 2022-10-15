@@ -185,4 +185,13 @@ public class SceneManager {
   public View getPreviousView() {
     return this.previousView;
   }
+
+  /**
+   * Get the current view of the current screen.
+   *
+   * @return The current view
+   */
+  public View getCurrentView() {
+    return currentView;
+  }
 }
