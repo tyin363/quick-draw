@@ -60,3 +60,15 @@
 .text-lightgray-100 {
   -fx-text-fill: -fx-lightgray-100;
 }
+
+.text-green {
+  -fx-text-fill: -fx-green;
+}
+
+.text-red {
+  -fx-text-fill: -fx-red;
+}
+
+.text-orange {
+  -fx-text-fill: -fx-orange;
+}

@@ -4,7 +4,9 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
@@ -17,7 +19,69 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="250.0" styleClass="round-history">
                <children>
-                  <Label text="Word History" />
+                  <Label text="Round History" />
+                  <VBox fx:id="roundHistoryEntries" prefHeight="200.0" prefWidth="100.0" styleClass="round-history-entries" VBox.vgrow="ALWAYS">
+                     <children>
+                        <AnchorPane styleClass="round-entry">
+                           <children>
+                              <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
+                              <Label layoutX="69.0" styleClass="round-won" text="20s" AnchorPane.rightAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane styleClass="round-entry">
+                           <children>
+                              <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
+                              <Label layoutX="69.0" text="20s" AnchorPane.rightAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane styleClass="round-entry">
+                           <children>
+                              <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
+                              <Label layoutX="69.0" text="20s" AnchorPane.rightAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane styleClass="round-entry">
+                           <children>
+                              <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
+                              <Label layoutX="69.0" text="20s" AnchorPane.rightAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="stats-overview">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card">
+                           <children>
+                              <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Label fx:id="winRate" text="90%">
+                                             <styleClass>
+                                                <String fx:value="stat-primary" />
+                                                <String fx:value="text-green" />
+                                             </styleClass>
+                                          </Label>
+                                          <Label styleClass="stat-label" text="Win Rate" />
+                                       </children>
+                                    </VBox>
+                                    <Pane AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <styleClass>
+                                          <String fx:value="stat-icon" />
+                                          <String fx:value="check-icon" />
+                                       </styleClass>
+                                    </Pane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
