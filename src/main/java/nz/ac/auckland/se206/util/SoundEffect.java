@@ -35,11 +35,12 @@ public class SoundEffect {
    * @param soundLocation The location of the sound file
    * @param volume The volume of the sound effect
    */
-  private void playSound(String soundLocation, double volume) {
+  private void playSound(String soundLocation) {
 
+    // Play sound effect
     soundEffect = new Media(new File(soundLocation).toURI().toString());
     mediaPlayer = new MediaPlayer(soundEffect);
-    mediaPlayer.setVolume(volume);
+    mediaPlayer.setVolume(soundEffectVolume);
     mediaPlayer.play();
   }
 
@@ -50,17 +51,22 @@ public class SoundEffect {
    * @param volume The volume of the sound effect
    */
   private void playBackgroundMusic(String music) {
+    // Set volume
     getUserVolume();
+
+    // Play music
     soundEffect = new Media(new File(music).toURI().toString());
     backgroundMediaPlayer = new MediaPlayer(soundEffect);
     backgroundMediaPlayer.setVolume(musicVolume);
     backgroundMediaPlayer.play();
 
+    // Loop if music is the main or canvas music
     if (music == mainMusic || music == defaultCanvasMusic) {
       backgroundMediaPlayer.setCycleCount(Integer.MAX_VALUE);
     }
   }
 
+  /** Gets the user volume and sets it if a current user exists */
   private void getUserVolume() {
     if (this.userService.getCurrentUser() != null) {
       this.musicVolume = this.userService.getCurrentUser().getMusicVolume();
@@ -126,27 +132,27 @@ public class SoundEffect {
 
   /** This method plays the click sound effect of the game. */
   public void playClickSound() {
-    playSound(clickSound, soundEffectVolume);
+    playSound(clickSound);
   }
 
   /** This method plays the special click sound effect of the game. */
   public void playSpecialClickSound() {
-    playSound(specialClickSound, soundEffectVolume);
+    playSound(specialClickSound);
   }
 
   /** This method plays the canvas victory sound effect of the game. */
   public void playVictorySound() {
-    playSound(winSound, soundEffectVolume);
+    playSound(winSound);
   }
 
   /** This method plays the canvas lose sound effect of the game. */
   public void playLoseSound() {
-    playSound(loseSound, soundEffectVolume);
+    playSound(loseSound);
   }
 
   /** This method plays the settings click sound effect of the game. */
   public void playSettingsClickSound() {
-    playSound(settingsClickSound, soundEffectVolume);
+    playSound(settingsClickSound);
   }
 
   /**
