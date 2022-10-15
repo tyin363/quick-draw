@@ -2,13 +2,10 @@ package nz.ac.auckland.se206.statemachine.states;
 
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
-import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
-import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.hiddenmode.HiddenMode;
 
 @Singleton(injectSuper = true)
-public class HiddenModeState extends DefaultCanvasState
-    implements EnableListener, TerminationListener {
+public class HiddenModeState extends DefaultCanvasState {
 
   @Inject private HiddenMode hiddenMode;
 

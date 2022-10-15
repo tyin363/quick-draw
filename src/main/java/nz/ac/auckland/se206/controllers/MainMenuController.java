@@ -14,8 +14,6 @@ import nz.ac.auckland.se206.statemachine.states.DefaultCanvasState;
 import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
 import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.util.Helpers;
-import nz.ac.auckland.se206.words.Difficulty;
-import nz.ac.auckland.se206.words.WordService;
 
 @Singleton
 public class MainMenuController implements LoadListener {
@@ -31,7 +29,6 @@ public class MainMenuController implements LoadListener {
 
   @FXML private Label messageLabel;
   @FXML private AnchorPane header;
-  @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   @Inject private CanvasStateMachine stateMachine;
 
@@ -44,7 +41,6 @@ public class MainMenuController implements LoadListener {
   /** Everytime this scene is switched to select a new random message. */
   @Override
   public void onLoad() {
-    this.wordService.selectRandomTarget(Difficulty.EASY);
     this.messageLabel.setText(this.messages[this.random.nextInt(this.messages.length)]);
   }
 
@@ -75,7 +71,7 @@ public class MainMenuController implements LoadListener {
   @FXML
   private void onStartHidden() {
     this.stateMachine.switchState(HiddenModeState.class);
-    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+    this.sceneManager.switchToView(View.SETTINGS);
   }
 
   /**

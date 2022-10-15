@@ -21,16 +21,13 @@ public class ConfirmationScreenController implements LoadListener {
   @FXML private Label targetWordLabel;
   @FXML private AnchorPane header;
   @FXML private AnchorPane wordDefinition;
-  @Inject private WordService wordService;
-  @Inject private SceneManager sceneManager;
-  @Inject private HiddenMode hiddenMode;
   @FXML private Label timeLimitLabel;
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
+  @Inject private HiddenMode hiddenMode;
   @Inject private UserService userService;
   @Inject private CanvasStateMachine stateMachine;
-
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -56,7 +53,7 @@ public class ConfirmationScreenController implements LoadListener {
     this.targetWordLabel.setText(this.wordService.getTargetWord());
 
     // Change time label depending on if zen or normal mode is selected
-    if (stateMachine.getCurrentState().getClass() == ZenModeState.class) {
+    if (this.stateMachine.getCurrentState().getClass() == ZenModeState.class) {
       this.timeLimitLabel.setText("You have unlimited time to draw:");
     } else {
       this.timeLimitLabel.setText(
@@ -73,7 +70,7 @@ public class ConfirmationScreenController implements LoadListener {
   private void onSwitchBack() {
     this.hiddenMode.clearDefinitions();
     this.sceneManager.switchToView(View.MAIN_MENU);
-    if (stateMachine.getCurrentState().getClass() == ZenModeState.class) {
+    if (this.stateMachine.getCurrentState().getClass() == ZenModeState.class) {
       this.sceneManager.switchToView(View.MAIN_MENU);
     } else {
       this.sceneManager.switchToView(View.SETTINGS);

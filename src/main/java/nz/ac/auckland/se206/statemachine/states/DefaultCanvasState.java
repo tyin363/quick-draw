@@ -7,7 +7,6 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
-import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.users.Round;
@@ -17,7 +16,7 @@ import nz.ac.auckland.se206.util.Config;
 import nz.ac.auckland.se206.words.WordService;
 
 @Singleton(injectSuper = true)
-public class DefaultCanvasState extends CanvasState implements EnableListener, TerminationListener {
+public class DefaultCanvasState extends CanvasState implements TerminationListener {
 
   @Inject protected TextToSpeech textToSpeech;
   @Inject protected UserService userService;
@@ -84,12 +83,6 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     }
   }
 
-  /** When this state is first created indicate to the user by printing to the console */
-  @Override
-  public void onEnable() {
-    System.out.println("Default Canvas State created");
-  }
-
   /**
    * This method is called when the game is over. It updates the main label to show the appropriate
    * text depending on whether the user won or lost and handles all the necessary logic for
@@ -137,6 +130,8 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
   /** When the application is terminated, make sure to stop the timer. */
   @Override
   public void onTerminate() {
-    this.timer.stop();
+    if (this.timer != null) {
+      this.timer.stop();
+    }
   }
 }
