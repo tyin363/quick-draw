@@ -12,6 +12,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.statemachine.states.DefaultCanvasState;
+import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
 import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.util.SoundEffect;
@@ -30,7 +31,6 @@ public class MainMenuController implements LoadListener, TerminationListener {
 
   @FXML private Label messageLabel;
   @FXML private AnchorPane header;
-
   @Inject private SceneManager sceneManager;
   @Inject private SoundEffect soundEffect;
   @Inject private CanvasStateMachine stateMachine;
@@ -48,14 +48,14 @@ public class MainMenuController implements LoadListener, TerminationListener {
   }
 
   /**
-   * Switch to the confirmation screen, where the user will have time to think about the word before
-   * the timer starts.
+   * Switch to the settings screen, where the user will have time to think about the word before the
+   * timer starts.
    */
   @FXML
   private void onStartGame() {
     this.soundEffect.playClickSound();
     this.stateMachine.switchState(DefaultCanvasState.class);
-    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+    this.sceneManager.switchToView(View.SETTINGS);
   }
 
   /**
@@ -67,6 +67,16 @@ public class MainMenuController implements LoadListener, TerminationListener {
     this.soundEffect.playClickSound();
     this.stateMachine.switchState(ZenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+  }
+
+  /**
+   * Switch to the confirmation screen, where the user will have time to think about the word before
+   * the timer starts.
+   */
+  @FXML
+  private void onStartHidden() {
+    this.stateMachine.switchState(HiddenModeState.class);
+    this.sceneManager.switchToView(View.SETTINGS);
   }
 
   /**

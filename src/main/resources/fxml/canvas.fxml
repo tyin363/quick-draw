@@ -13,10 +13,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
+<VBox alignment="TOP_CENTER" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
   <children>
     <AnchorPane styleClass="app-bar">
       <children>
@@ -29,24 +30,29 @@
     </AnchorPane>
     <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
       <children>
-        <HBox alignment="CENTER" spacing="5.0">
-          <children>
-            <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
-              <font>
-                <Font size="32.0" />
-              </font>
-                     <HBox.margin>
-                        <Insets right="10.0" />
-                     </HBox.margin>
-            </Label>
-            <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
-              <font>
-                <Font name="SansSerif Bold" size="42.0" />
-              </font>
-            </Label>
-          </children>
-        </HBox>
-        <HBox alignment="CENTER" styleClass="bg-gray-25">
+        <StackPane prefHeight="198.0" prefWidth="1150.0">
+               <children>
+                  <HBox fx:id="defaultHbox" alignment="CENTER" prefHeight="171.0" prefWidth="1150.0" spacing="5.0">
+                <children>
+                  <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
+                    <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <font>
+                      <Font size="32.0" />
+                    </font>
+                  </Label>
+                  <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                      <Font name="SansSerif Bold" size="42.0" />
+                    </font>
+                  </Label>
+                </children>
+              </HBox>
+              <fx:include fx:id="wordDefinition" source="word_definition.fxml" />
+               </children>
+            </StackPane>
+            <HBox alignment="CENTER" prefHeight="483.0" prefWidth="1150.0" styleClass="bg-gray-25">
           <children>
             <Pane minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
             <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="431.0" prefWidth="690.0" vgap="20.0" HBox.hgrow="ALWAYS">
@@ -55,26 +61,19 @@
               </HBox.margin>
               <children>
                 <HBox alignment="CENTER" prefHeight="39.0" prefWidth="187.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-                <HBox fx:id="gameOverActionsContainer" alignment="CENTER" prefHeight="30.0" prefWidth="516.0" spacing="20.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-                  <children>
-                    <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefWidth="145.0" styleClass="btn" text="Save" />
-                    <Button mnemonicParsing="false" onAction="#onRestart" prefWidth="145.0" styleClass="btn" text="Play Again" />
-                    <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" styleClass="btn" text=" Main Menu" />
-                  </children>
-                </HBox>
-                <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                   <font>
                     <Font name="SansSerif Regular" size="24.0" />
                   </font>
                 </Label>
-                <Label styleClass="text-default" text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Label styleClass="text-default" text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                   <font>
                     <Font name="SansSerif Regular" size="24.0" />
                   </font>
                 </Label>
-                <Pane maxWidth="521.0" prefWidth="521.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+                <Pane maxWidth="521.0" prefHeight="342.0" prefWidth="516.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                   <children>
-                    <Canvas fx:id="canvas" height="315.0" styleClass="bg-highlight" width="483.0">
+                    <Canvas fx:id="canvas" height="293.0" styleClass="bg-highlight" width="516.0">
                       <cursor>
                         <Cursor fx:constant="HAND" />
                       </cursor>
@@ -82,10 +81,29 @@
                   </children>
                 </Pane>
                 <Pane minHeight="0.0" minWidth="0.0" />
-                <VBox fx:id="predictionVertBox" alignment="TOP_CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                  <padding>
-                    <Insets top="30.0" />
-                  </padding>
+                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                      <HBox fx:id="gameOverActionsContainer" alignment="CENTER" prefHeight="30.0" prefWidth="516.0" spacing="20.0">
+                        <children>
+                          <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefWidth="145.0" styleClass="btn" text="Save" />
+                          <Button mnemonicParsing="false" onAction="#onRestart" prefWidth="145.0" styleClass="btn" text="Play Again" />
+                          <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" styleClass="btn" text=" Main Menu" />
+                        </children>
+                      </HBox>
+                              <HBox fx:id="hintsHbox" alignment="CENTER" prefHeight="43.0" prefWidth="1150.0" spacing="10.0" visible="false">
+                                 <children>
+                                    <Button minWidth="119.0" mnemonicParsing="false" onAction="#onGetHint" prefHeight="37.0" prefWidth="119.0" styleClass="btn" text="Get Hint" />
+                                    <Label fx:id="hintLabel" prefHeight="49.0" prefWidth="375.0" styleClass="text-default">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
+                <VBox prefHeight="200.0" prefWidth="100.0" />
+                <VBox fx:id="predictionVertBox" alignment="CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                   <styleClass>
                     <String fx:value="prediction-container" />
                     <String fx:value="bg-lightgray-100" />
@@ -93,9 +111,9 @@
                 </VBox>
                 <VBox GridPane.columnIndex="2" GridPane.rowIndex="1">
                   <children>
-                    <VBox fx:id="toolContainer" alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="toolContainer" alignment="CENTER_LEFT" fillWidth="false" VBox.vgrow="ALWAYS">
                       <children>
-                        <VBox alignment="CENTER" styleClass="vertical-pen-options">
+                        <VBox alignment="CENTER" fillWidth="false" styleClass="vertical-pen-options">
                           <children>
                             <Pane fx:id="eraserPane" accessibleHelp="Select the eraser" accessibleRole="BUTTON" onMouseClicked="#onSelectEraser">
                               <children>
@@ -137,9 +155,9 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.0" minWidth="-Infinity" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints vgrow="NEVER" />
-                <RowConstraints vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" vgrow="NEVER" />
+                <RowConstraints maxHeight="94.0" minHeight="20.0" prefHeight="20.0" vgrow="NEVER" />
+                <RowConstraints maxHeight="293.0" minHeight="230.0" prefHeight="293.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="61.0" vgrow="NEVER" />
               </rowConstraints>
             </GridPane>
             <Pane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
@@ -159,6 +177,6 @@
     <URL value="@../css/styles.css" />
     <URL value="@../css/colours.css" />
     <URL value="@../css/zen_mode.css" />
-      <URL value="@../css/canvas.css" />
+    <URL value="@../css/canvas.css" />
   </stylesheets>
 </VBox>

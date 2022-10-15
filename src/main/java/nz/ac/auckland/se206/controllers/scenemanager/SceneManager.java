@@ -179,7 +179,7 @@ public class SceneManager {
   }
 
   /**
-   * Get the previous view.
+   * Get the previous view of the current screen.
    *
    * @return The previous view
    */

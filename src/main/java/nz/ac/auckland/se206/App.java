@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.controllers.scenemanager.ApplicationContext;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
+import nz.ac.auckland.se206.speech.TextToSpeech;
 
 /**
  * This is the entry point of the JavaFX application, while you can change this class, it should
@@ -23,6 +24,7 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) {
-    ApplicationContext.start(stage, View.SWITCH_USER);
+    final ApplicationContext context = ApplicationContext.start(stage, View.SWITCH_USER);
+    context.get(TextToSpeech.class);
   }
 }

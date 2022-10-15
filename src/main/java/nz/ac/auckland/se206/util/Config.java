@@ -8,10 +8,14 @@ import java.io.InputStreamReader;
 import javafx.scene.paint.Color;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.users.User;
+import nz.ac.auckland.se206.users.UserService;
 import org.slf4j.Logger;
 
 @Singleton
 public class Config {
+
+  @Inject private UserService userService;
 
   private final Logger logger;
   private final File userDataFile = new File("UserData");
@@ -83,7 +87,7 @@ public class Config {
   }
 
   /**
-   * Retrieves the highlight colour.
+   * Retrieves the highlight colour used in the game.
    *
    * @return The highlight colour
    */
@@ -106,7 +110,8 @@ public class Config {
    * @return The number of seconds to complete the drawing
    */
   public int getDrawingTimeSeconds() {
-    return 60;
+    User currentUser = this.userService.getCurrentUser();
+    return currentUser.getGameSettings().getTime();
   }
 
   /**
@@ -116,7 +121,14 @@ public class Config {
    * @return The winning placement
    */
   public int getWinPlacement() {
-    return 3;
+    User currentUser = this.userService.getCurrentUser();
+    if (currentUser.getGameSettings().getAccuracy().contentEquals("Easy")) {
+      return 3;
+    } else if (currentUser.getGameSettings().getAccuracy().contentEquals("Medium")) {
+      return 2;
+    } else {
+      return 1;
+    }
   }
 
   /**
@@ -154,5 +166,23 @@ public class Config {
    */
   public int getMaxUserCount() {
     return 6;
+  }
+
+  /**
+   * Retrieves the target confidence level depending on the confidence setting.
+   *
+   * @return The target confidence level
+   */
+  public double getTargetConfidence() {
+    User currentUser = this.userService.getCurrentUser();
+    if (currentUser.getGameSettings().getConfidence().contentEquals("Easy")) {
+      return 0.01;
+    } else if (currentUser.getGameSettings().getConfidence().contentEquals("Medium")) {
+      return 0.1;
+    } else if (currentUser.getGameSettings().getConfidence().contentEquals("Hard")) {
+      return 0.25;
+    } else {
+      return 0.50;
+    }
   }
 }
