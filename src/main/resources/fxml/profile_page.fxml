@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
   <children>
     <fx:include fx:id="header" source="header.fxml" />
       <HBox spacing="24.0" VBox.vgrow="ALWAYS">
@@ -31,19 +31,7 @@
                         <AnchorPane styleClass="round-entry">
                            <children>
                               <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
-                              <Label layoutX="69.0" text="20s" AnchorPane.rightAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane styleClass="round-entry">
-                           <children>
-                              <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
-                              <Label layoutX="69.0" text="20s" AnchorPane.rightAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane styleClass="round-entry">
-                           <children>
-                              <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
-                              <Label layoutX="69.0" text="20s" AnchorPane.rightAnchor="0.0" />
+                              <Label layoutX="69.0" styleClass="round-won" text="20s" AnchorPane.rightAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -85,7 +73,7 @@
                                  <children>
                                     <HBox alignment="BASELINE_LEFT" spacing="4.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Label fx:id="numWins" text="9">
+                                          <Label fx:id="winsCount" text="9">
                                              <styleClass>
                                                 <String fx:value="stat-secondary" />
                                                 <String fx:value="text-green" />
@@ -96,7 +84,7 @@
                                     </HBox>
                                     <HBox fx:id="winBarContainer" prefHeight="6.0">
                                        <children>
-                                          <Pane prefWidth="170.0" styleClass="bg-green" />
+                                          <Pane fx:id="winSection" prefWidth="170.0" styleClass="bg-green" />
                                           <Pane styleClass="bg-red" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>
@@ -107,7 +95,7 @@
                                                 <Insets top="3.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Label fx:id="numLosses" text="1">
+                                          <Label fx:id="lossesCount" text="1">
                                              <styleClass>
                                                 <String fx:value="stat-secondary" />
                                                 <String fx:value="text-red" />
@@ -151,7 +139,7 @@
                                  <children>
                                     <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Label fx:id="numRoundsPlayed" text="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <Label fx:id="roundsPlayed" text="10" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <styleClass>
                                                 <String fx:value="stat-primary" />
                                                 <String fx:value="text-highlight" />

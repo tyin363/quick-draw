@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -24,7 +26,6 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
-import nz.ac.auckland.se206.users.Round;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
@@ -33,17 +34,21 @@ import org.slf4j.Logger;
 @Singleton
 public class ProfilePageController implements LoadListener {
 
-  @FXML private Label gamesLostLabel;
-  @FXML private Label gamesWonLabel;
+  @FXML private Label winRate;
+  @FXML private Label winsCount;
+  @FXML private Label lossesCount;
+  @FXML private Label fastestTime;
+  @FXML private Label roundsPlayed;
+  @FXML private Label currentWinStreak;
+  @FXML private Label bestWinStreak;
+  @FXML private HBox winBarContainer;
+  @FXML private Pane winSection;
+  @FXML private VBox roundHistoryEntries;
+
   @FXML private Label usernameLabel;
-  @FXML private Label fastestTimeLabel;
+
   @FXML private ImageView profileImageView;
   @FXML private TextField usernameTextField;
-  @FXML private VBox pastWordsVbox;
-  @FXML private Label secondsLabel;
-  @FXML private Label currentWinstreakLabel;
-  @FXML private Label bestWinstreakLabel;
-  @FXML private StackPane fireStackPane;
   @FXML private AnchorPane header;
   @FXML private Button setUsernameButton;
   @FXML private Button editUsernameButton;
@@ -61,6 +66,15 @@ public class ProfilePageController implements LoadListener {
   @FXML
   private void initialize() {
     Helpers.getBackButton(this.header).setOnAction(event -> this.onSwitchBack());
+    this.winBarContainer
+        .widthProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (this.user != null) {
+                final double winWidth = newValue.doubleValue() * this.user.getWinRate();
+                this.winSection.setPrefWidth(winWidth);
+              }
+            });
   }
 
   /** When the user clicks the back button, take them back to the main menu. */
@@ -78,16 +92,16 @@ public class ProfilePageController implements LoadListener {
   /** Delete the current user and then take them back to the switch user view. */
   @FXML
   private void onCancelEdit() {
-    setEditUsernameMode(false);
-    setUsernameWidth();
+    this.setEditUsernameMode(false);
+    this.setUsernameWidth();
   }
 
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
-    this.usernameStackPane.setPrefWidth(usernameTextFieldWidth);
+    this.usernameStackPane.setPrefWidth(this.usernameTextFieldWidth);
     this.usernameTextField.setText(this.user.getUsername());
-    setEditUsernameMode(true);
+    this.setEditUsernameMode(true);
   }
 
   /** Prompts the user to select a file to choose a profile picture */
@@ -134,8 +148,8 @@ public class ProfilePageController implements LoadListener {
       this.usernameTextField.clear();
 
       // Set username elements
-      setEditUsernameMode(false);
-      setUsernameWidth();
+      this.setEditUsernameMode(false);
+      this.setUsernameWidth();
     }
   }
 
@@ -157,11 +171,11 @@ public class ProfilePageController implements LoadListener {
 
   /** This method sets the width of the stackpane which the username label is in. */
   private void setUsernameWidth() {
-    Text tmpText = new Text(this.user.getUsername());
+    final Text tmpText = new Text(this.user.getUsername());
     tmpText.setFont(this.usernameLabel.getFont());
 
     // Add extra 10 size to be sure
-    double textWidth = tmpText.getLayoutBounds().getWidth() + 10;
+    final double textWidth = tmpText.getLayoutBounds().getWidth() + 10;
     this.usernameStackPane.setPrefWidth(textWidth);
   }
 
@@ -170,7 +184,7 @@ public class ProfilePageController implements LoadListener {
    *
    * @param isEdit The boolean value that will determines visibility of elements
    */
-  private void setEditUsernameMode(boolean isEdit) {
+  private void setEditUsernameMode(final boolean isEdit) {
     // Visibility of default elements are visible
     this.editUsernameButton.setVisible(!isEdit);
     this.usernameLabel.setVisible(!isEdit);
@@ -190,10 +204,10 @@ public class ProfilePageController implements LoadListener {
   public void onLoad() {
 
     // Set visible and invisible initial nodes
-    setEditUsernameMode(false);
+    // this.setEditUsernameMode(false);
 
     // Clear past words
-    this.pastWordsVbox.getChildren().clear();
+    this.roundHistoryEntries.getChildren().clear();
 
     // Sanity check, this should never be true.
     if (this.userService.getCurrentUser() == null) {
@@ -201,43 +215,62 @@ public class ProfilePageController implements LoadListener {
     }
     this.user = this.userService.getCurrentUser();
 
+    this.renderCurrentUserStatistics();
+
     // Set fire to current win streak if 1 or above
-    this.fireStackPane.setVisible(this.user.getCurrentWinStreak() > 0);
+    // this.fireStackPane.setVisible(this.user.getCurrentWinStreak() > 0);
 
-    // Set labels on GUI
-    this.gamesLostLabel.setText(Integer.toString(this.user.getGamesLost()));
-    this.gamesWonLabel.setText(Integer.toString(this.user.getGamesWon()));
-    this.usernameLabel.setText(this.user.getUsername());
-    setUsernameWidth();
+    //    this.usernameLabel.setText(this.user.getUsername());
+    //    this.setUsernameWidth();
+    //
+    //    // Set profile picture
+    //    final File file = new File(this.user.getProfilePicture());
+    //    final Image image = new Image(file.toURI().toString());
+    //    this.profileImageView.setImage(image);
+    //    this.addBorderToImage(this.profileImageView, image, 20);
+    //    this.hoverImageStackPane.setVisible(false);
+    //
+    //    // Display past words of user
+    //    for (final Round round : this.user.getPastRounds()) {
+    //      final Label pastWord = new Label();
+    //      pastWord.setText(round.getWord());
+    //      // Add colour to word
+    //      pastWord.getStyleClass().add("text-default");
+    //      pastWord.setStyle("-fx-font-size: 25px;");
+    //      this.pastWordsVbox.getChildren().add(pastWord);
+    //    }
+  }
 
-    this.currentWinstreakLabel.setText(Integer.toString(this.user.getCurrentWinStreak()));
-    this.bestWinstreakLabel.setText(Integer.toString(this.user.getBestWinStreak()));
+  /** Renders the current users statistics and updates the win/loss bar. */
+  private void renderCurrentUserStatistics() {
+    final double winRate = this.user.getWinRate();
+    final int totalGames = this.user.getTotalGames();
 
-    // Set profile picture
-    final File file = new File(this.user.getProfilePicture());
-    final Image image = new Image(file.toURI().toString());
-    this.profileImageView.setImage(image);
-    this.addBorderToImage(this.profileImageView, image, 20);
-    this.hoverImageStackPane.setVisible(false);
-
-    // If fastest time is -1 (hasn't played a game yet), display no time
-    if (this.user.getFastestTime() == -1) {
-      this.secondsLabel.setVisible(false);
-      this.fastestTimeLabel.setText("No Time");
+    // If the user hasn't won any games, display '-%' instead
+    if (totalGames == 0) {
+      this.winsCount.setText("-%");
     } else {
-      this.secondsLabel.setVisible(true);
-      this.fastestTimeLabel.setText(Integer.toString(this.user.getFastestTime()));
+      this.winRate.setText(Math.round(100 * winRate) + "%");
     }
 
-    // Display past words of user
-    for (final Round round : this.user.getPastRounds()) {
-      final Label pastWord = new Label();
-      pastWord.setText(round.getWord());
-      // Add colour to word
-      pastWord.getStyleClass().add("text-default");
-      pastWord.setStyle("-fx-font-size: 25px;");
-      this.pastWordsVbox.getChildren().add(pastWord);
+    // Render all the user statistics
+    this.winsCount.setText(Integer.toString(this.user.getGamesWon()));
+    this.lossesCount.setText(Integer.toString(this.user.getGamesLost()));
+    this.roundsPlayed.setText(Integer.toString(totalGames));
+    this.currentWinStreak.setText(Integer.toString(this.user.getCurrentWinStreak()));
+    this.bestWinStreak.setText(Integer.toString(this.user.getBestWinStreak()));
+
+    // If the user doesn't have a fastest time, display '-' instead.
+    final int fastestTime = this.user.getFastestTime();
+    if (fastestTime == -1) {
+      this.fastestTime.setText("-");
+    } else {
+      this.fastestTime.setText(Integer.toString(fastestTime));
     }
+
+    // Render the win/loss bar
+    final double winWidth = this.winBarContainer.getWidth() * winRate;
+    this.winSection.setPrefWidth(winWidth);
   }
 
   /**

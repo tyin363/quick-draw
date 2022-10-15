@@ -40,10 +40,10 @@ public class User {
   }
 
   public GameSettings getGameSettings() {
-    return gameSettings;
+    return this.gameSettings;
   }
 
-  public void setGameSettings(GameSettings gameSettings) {
+  public void setGameSettings(final GameSettings gameSettings) {
     this.gameSettings = gameSettings;
   }
 
@@ -187,6 +187,20 @@ public class User {
   @JsonIgnore
   public int getTotalGames() {
     return this.gamesWon + this.gamesLost;
+  }
+
+  /**
+   * Retrieves the percentage of games that the user has won in the range 0-1. If they haven't
+   * played any games then this will return 1.
+   *
+   * @return The win rate of the user in the range 0-1.
+   */
+  @JsonIgnore
+  public double getWinRate() {
+    if (this.getTotalGames() == 0) {
+      return 1;
+    }
+    return (double) this.gamesWon / this.getTotalGames();
   }
 
   /**
