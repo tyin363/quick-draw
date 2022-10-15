@@ -23,6 +23,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.components.profile.RoundEntry;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
@@ -206,15 +207,13 @@ public class ProfilePageController implements LoadListener {
     // Set visible and invisible initial nodes
     // this.setEditUsernameMode(false);
 
-    // Clear past words
-    this.roundHistoryEntries.getChildren().clear();
-
     // Sanity check, this should never be true.
     if (this.userService.getCurrentUser() == null) {
       return;
     }
     this.user = this.userService.getCurrentUser();
 
+    this.renderRoundHistory();
     this.renderCurrentUserStatistics();
 
     // Set fire to current win streak if 1 or above
@@ -271,6 +270,21 @@ public class ProfilePageController implements LoadListener {
     // Render the win/loss bar
     final double winWidth = this.winBarContainer.getWidth() * winRate;
     this.winSection.setPrefWidth(winWidth);
+  }
+
+  /**
+   * Renders the current users past rounds. This will automatically clear any previously rendered
+   * rounds first.
+   */
+  private void renderRoundHistory() {
+    // Clear any previous round history
+    this.roundHistoryEntries.getChildren().clear();
+
+    // Convert the users past rounds into round entry components
+    final List<RoundEntry> entries =
+        this.user.getPastRounds().stream().map(RoundEntry::new).toList();
+
+    this.roundHistoryEntries.getChildren().addAll(entries);
   }
 
   /**

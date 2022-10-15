@@ -1,8 +1,8 @@
 .round-history {
+  -fx-spacing: 12px;
   -fx-background-radius: 16px;
   -fx-background-color: -fx-gray-50;
   -fx-padding: 12px 20px;
-  -fx-spacing: 12px;
 }
 
 .round-history > Label {

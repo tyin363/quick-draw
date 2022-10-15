@@ -1,4 +1,4 @@
-package nz.ac.auckland.se206.components;
+package nz.ac.auckland.se206.components.profile;
 
 import java.io.File;
 import java.util.Arrays;

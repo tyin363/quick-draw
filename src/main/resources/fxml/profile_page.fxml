@@ -4,6 +4,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -17,27 +18,31 @@
             <Insets bottom="48.0" left="48.0" right="48.0" top="24.0" />
          </padding>
          <children>
-            <VBox prefHeight="200.0" prefWidth="250.0" styleClass="round-history">
-               <children>
-                  <Label text="Round History" />
-                  <VBox fx:id="roundHistoryEntries" prefHeight="200.0" prefWidth="100.0" styleClass="round-history-entries" VBox.vgrow="ALWAYS">
+            <ScrollPane fitToHeight="true" hbarPolicy="NEVER" styleClass="bg-gray-25">
+               <content>
+                  <VBox maxHeight="1.7976931348623157E308" prefHeight="486.0" prefWidth="250.0" styleClass="round-history">
                      <children>
-                        <AnchorPane styleClass="round-entry">
+                        <Label text="Round History" />
+                        <VBox fx:id="roundHistoryEntries" prefHeight="200.0" prefWidth="100.0" styleClass="round-history-entries" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
-                              <Label layoutX="69.0" styleClass="round-won" text="20s" AnchorPane.rightAnchor="0.0" />
+                              <AnchorPane styleClass="round-entry">
+                                 <children>
+                                    <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
+                                    <Label layoutX="69.0" styleClass="round-won" text="20s" AnchorPane.rightAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane styleClass="round-entry">
+                                 <children>
+                                    <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
+                                    <Label layoutX="69.0" styleClass="round-won" text="20s" AnchorPane.rightAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
                            </children>
-                        </AnchorPane>
-                        <AnchorPane styleClass="round-entry">
-                           <children>
-                              <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
-                              <Label layoutX="69.0" styleClass="round-won" text="20s" AnchorPane.rightAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
+                        </VBox>
                      </children>
                   </VBox>
-               </children>
-            </VBox>
+               </content>
+            </ScrollPane>
             <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
