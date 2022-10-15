@@ -89,6 +89,8 @@ public class PredictionHandler implements TerminationListener {
             // another thread.
             List<Classifications.Classification> predictions =
                 PredictionHandler.this.model.getPredictions(snapshot, 345);
+
+            // Finding current word in prediction list
             for (Classification prediction : predictions) {
               String targetWord = wordService.getTargetWord().replace(" ", "_");
               if (prediction.getClassName().equals(targetWord)) {
@@ -97,13 +99,13 @@ public class PredictionHandler implements TerminationListener {
                 DecimalFormat df = new DecimalFormat("#.##");
                 probability = Double.parseDouble(df.format(probability));
                 currentProbability = Double.parseDouble(df.format(currentProbability));
+
+                // Changing confidence level image depending on the current word's confidence level
                 if (probability > currentProbability) {
                   canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-                  System.out.println("PROBABILTY UP");
                   File upArrowFile = new File("src/main/resources/images/upArrow.png");
                   canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
                 } else if (probability < currentProbability) {
-                  System.out.println("PROBABLITY DOWN");
                   canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
                   File downArrowFile = new File("src/main/resources/images/downArrow.png");
                   canvasController.setConfidenceImage(new Image(downArrowFile.toURI().toString()));

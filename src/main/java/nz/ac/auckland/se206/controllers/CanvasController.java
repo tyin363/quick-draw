@@ -122,7 +122,7 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @Override
   public void onLoad() {
-    this.currentWordConfidenceLevel = 0.0;
+    this.setCurrentWordConfidenceLevel(0.0);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
     this.resetConfidenceImage();
@@ -438,18 +438,34 @@ public class CanvasController implements LoadListener, TerminationListener {
     return this.predictionHandler;
   }
 
+  /**
+   * Retrieves the confidence level of the current word
+   *
+   * @return current word confidence level
+   */
   public double getCurrentWordConfidenceLevel() {
     return this.currentWordConfidenceLevel;
   }
 
+  /**
+   * Sets the confidence level of the current word
+   *
+   * @param confidence level
+   */
   public void setCurrentWordConfidenceLevel(double confidenceLevel) {
     this.currentWordConfidenceLevel = confidenceLevel;
   }
 
+  /**
+   * Sets the confidence level image of the current word
+   *
+   * @param image
+   */
   public void setConfidenceImage(Image image) {
     this.confidenceLevelImage.setImage(image);
   }
 
+  /** Reset the confidence level of the current word to the equal sign */
   public void resetConfidenceImage() {
     File equalFile = new File("src/main/resources/images/equal.png");
     this.confidenceLevelImage.setImage(new Image(equalFile.toURI().toString()));
