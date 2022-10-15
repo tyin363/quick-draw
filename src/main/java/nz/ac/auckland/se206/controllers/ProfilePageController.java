@@ -2,7 +2,9 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
@@ -282,7 +284,10 @@ public class ProfilePageController implements LoadListener {
 
     // Convert the users past rounds into round entry components
     final List<RoundEntry> entries =
-        this.user.getPastRounds().stream().map(RoundEntry::new).toList();
+        this.user.getPastRounds().stream().map(RoundEntry::new).collect(Collectors.toList());
+
+    // Display most recent rounds at the top
+    Collections.reverse(entries);
 
     this.roundHistoryEntries.getChildren().addAll(entries);
   }
