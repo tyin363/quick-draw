@@ -96,8 +96,6 @@ public class PredictionHandler implements TerminationListener {
               if (prediction.getClassName().equals(targetWord)) {
                 double probability = prediction.getProbability();
                 double currentProbability = canvasController.getCurrentWordConfidenceLevel();
-                System.out.println(probability);
-                System.out.println(currentProbability);
                 // Changing confidence level image depending on the current word's confidence
                 // level
                 if (currentProbability != 0.0) {
