@@ -122,6 +122,7 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @Override
   public void onLoad() {
+    this.currentWordConfidenceLevel = 0.0;
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
     this.resetConfidenceImage();
