@@ -9,6 +9,7 @@ import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.hiddenmode.HiddenMode;
 import nz.ac.auckland.se206.words.WordService;
+import org.slf4j.Logger;
 
 @Controller
 public class WordDefinitionController implements LoadListener {
@@ -17,12 +18,15 @@ public class WordDefinitionController implements LoadListener {
   @FXML private VBox previousDefinitionVbox;
   @FXML private VBox nextDefinitionVbox;
   @FXML private Label numberOfDefinitionLabel;
-  @Inject private WordService wordService;
-  @Inject private HiddenMode hiddenMode;
   @FXML private Button nextButton;
   @FXML private Label nextLabel;
   @FXML private Button previousButton;
   @FXML private Label previousLabel;
+
+  @Inject private WordService wordService;
+  @Inject private HiddenMode hiddenMode;
+  @Inject private Logger logger;
+
   private double maxWidth = 670;
   private double defaultFontSize = 40;
 
@@ -80,6 +84,10 @@ public class WordDefinitionController implements LoadListener {
         this.nextDefinitionVbox);
   }
 
+  /**
+   * Whenever the scene is switched to, either display the current definition or if there is none,
+   * then fetch the definitions based on the current target word.
+   */
   @Override
   public void onLoad() {
     // Clear any styles on the target word
@@ -105,7 +113,8 @@ public class WordDefinitionController implements LoadListener {
     this.targetWordLabel.setText("Loading Definitions");
     this.numberOfDefinitionLabel.setText("Number of Definitions");
     this.numberOfDefinitionLabel.setVisible(true);
-    System.out.println("The word is: " + this.wordService.getTargetWord());
+    this.logger.info("The word is: {}", this.wordService.getTargetWord());
+    // Search for the definition of the current target word.
     this.hiddenMode.searchWord(
         this.wordService.getTargetWord(),
         this.targetWordLabel,
