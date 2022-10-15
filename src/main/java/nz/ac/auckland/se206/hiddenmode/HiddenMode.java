@@ -3,6 +3,8 @@ package nz.ac.auckland.se206.hiddenmode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Node;
@@ -28,7 +30,7 @@ public class HiddenMode implements TerminationListener {
   @Inject private CanvasStateMachine stateMachine;
   private List<String> definitions = new ArrayList<String>();
   private int definitionIndex = 0;
-  private Task<Void> backgroundTask;
+  private ExecutorService executer = Executors.newFixedThreadPool(5);
 
   /**
    * This method returns the list of definitions
@@ -234,7 +236,7 @@ public class HiddenMode implements TerminationListener {
       final Node next) {
 
     // Keep a reference to the task so that it can be cancelled if the application closes mid-task
-    this.backgroundTask =
+    final Task<Void> backgroundTask =
         new Task<>() {
 
           @Override
@@ -270,7 +272,7 @@ public class HiddenMode implements TerminationListener {
         };
 
     // Perform the search on a background thread so that it doesn't cause the UI to freeze
-    new Thread(this.backgroundTask).start();
+    this.executer.execute(backgroundTask);
   }
 
   /**
@@ -285,8 +287,6 @@ public class HiddenMode implements TerminationListener {
   /** If the Application closes, make sure to cancel the background task. */
   @Override
   public void onTerminate() {
-    if (this.backgroundTask != null) {
-      this.backgroundTask.cancel();
-    }
+    this.executer.shutdownNow();
   }
 }
