@@ -247,9 +247,9 @@ public class ProfilePageController implements LoadListener {
     final double winRate = this.user.getWinRate();
     final int totalGames = this.user.getTotalGames();
 
-    // If the user hasn't won any games, display '-%' instead
+    // If the user hasn't won any games, display '–%' instead
     if (totalGames == 0) {
-      this.winsCount.setText("-%");
+      this.winRate.setText("–%");
     } else {
       this.winRate.setText(Math.round(100 * winRate) + "%");
     }
@@ -261,10 +261,10 @@ public class ProfilePageController implements LoadListener {
     this.currentWinStreak.setText(Integer.toString(this.user.getCurrentWinStreak()));
     this.bestWinStreak.setText(Integer.toString(this.user.getBestWinStreak()));
 
-    // If the user doesn't have a fastest time, display '-' instead.
+    // If the user doesn't have a fastest time, display '–' instead.
     final int fastestTime = this.user.getFastestTime();
     if (fastestTime == -1) {
-      this.fastestTime.setText("-");
+      this.fastestTime.setText("–");
     } else {
       this.fastestTime.setText(Integer.toString(fastestTime));
     }
