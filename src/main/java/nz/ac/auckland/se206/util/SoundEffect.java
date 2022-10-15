@@ -3,10 +3,13 @@ package nz.ac.auckland.se206.util;
 import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.users.UserService;
 
 @Singleton
 public class SoundEffect {
+  @Inject private UserService userService;
 
   private Media soundEffect;
   private MediaPlayer mediaPlayer;
@@ -47,7 +50,7 @@ public class SoundEffect {
    * @param volume The volume of the sound effect
    */
   private void playBackgroundMusic(String music) {
-
+    getUserVolume();
     soundEffect = new Media(new File(music).toURI().toString());
     backgroundMediaPlayer = new MediaPlayer(soundEffect);
     backgroundMediaPlayer.setVolume(musicVolume);
@@ -55,6 +58,13 @@ public class SoundEffect {
 
     if (music == mainMusic || music == defaultCanvasMusic) {
       backgroundMediaPlayer.setCycleCount(Integer.MAX_VALUE);
+    }
+  }
+
+  private void getUserVolume() {
+    if (this.userService.getCurrentUser() != null) {
+      this.musicVolume = this.userService.getCurrentUser().getMusicVolume();
+      this.soundEffectVolume = this.userService.getCurrentUser().getSoundEffectVolume();
     }
   }
 

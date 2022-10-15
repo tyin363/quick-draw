@@ -81,6 +81,7 @@ public class HeaderController implements LoadListener {
     this.volumeSlider.setOnMouseReleased(
         event -> {
           this.currentUser.setMusicVolume(volumeSlider.getValue() / 500);
+          this.soundEffect.getBackgroundMediaPlayer().setVolume(volumeSlider.getValue() / 500);
           this.userService.saveUser(this.currentUser);
         });
   }
