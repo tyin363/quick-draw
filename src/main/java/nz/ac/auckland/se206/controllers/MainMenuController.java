@@ -53,6 +53,7 @@ public class MainMenuController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onStartGame() {
+    // Play click sound effect
     this.soundEffect.playClickSound();
     this.stateMachine.switchState(DefaultCanvasState.class);
     this.sceneManager.switchToView(View.SETTINGS);
@@ -64,6 +65,7 @@ public class MainMenuController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onStartZenMode() {
+    // Play click sound effect
     this.soundEffect.playClickSound();
     this.stateMachine.switchState(ZenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
@@ -75,6 +77,8 @@ public class MainMenuController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onStartHidden() {
+    // Play click sound effect
+    this.soundEffect.playClickSound();
     this.stateMachine.switchState(HiddenModeState.class);
     this.sceneManager.switchToView(View.SETTINGS);
   }
@@ -84,6 +88,7 @@ public class MainMenuController implements LoadListener, TerminationListener {
    * just at the profile page, in which case go back to that page.
    */
   private void onSwitchBack() {
+    // Play click sound effect
     this.soundEffect.playClickSound();
 
     final View previousView = this.sceneManager.getPreviousView();

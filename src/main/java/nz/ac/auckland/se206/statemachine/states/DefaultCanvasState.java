@@ -145,7 +145,6 @@ public class DefaultCanvasState extends CanvasState implements TerminationListen
   /** When the application is terminated, make sure to stop the timer. */
   @Override
   public void onTerminate() {
-    this.timer.stop();
     this.soundEffect.terminate();
     if (this.timer != null) {
       this.timer.stop();
