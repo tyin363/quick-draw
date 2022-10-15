@@ -87,3 +87,14 @@
   -fx-min-height: 20px;
   -fx-background-color: -fx-lightgray-100;
 }
+
+.change-image-overlay > Pane {
+  -fx-background-color: white;
+  -fx-opacity: 65%;
+}
+
+.change-image-overlay > Label {
+  -fx-text-fill: -fx-gray-50;
+  -fx-font-size: 28px;
+  -fx-font-weight: bold;
+}

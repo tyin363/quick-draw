@@ -3,15 +3,20 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.ProfilePageController">
   <children>
@@ -19,7 +24,7 @@
       <GridPane hgap="24.0" vgap="24.0" VBox.vgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
             <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -227,6 +232,35 @@
                   </VBox>
                </children>
             </HBox>
+            <VBox alignment="TOP_CENTER" GridPane.columnIndex="1">
+               <children>
+                  <StackPane fx:id="profilePictureContainer" maxHeight="220.0" maxWidth="220.0" minHeight="220.0" minWidth="220.0" prefHeight="220.0" prefWidth="220.0" styleClass="bg-lightgray-100">
+                     <children>
+                        <ImageView fx:id="profileImageView" fitHeight="220.0" fitWidth="220.0" onMouseClicked="#onChangePicture" onMouseEntered="#onEnterImage" pickOnBounds="true" preserveRatio="true">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <image>
+                              <Image url="@../images/defaultUserImage.jpg" />
+                           </image>
+                        </ImageView>
+                        <StackPane fx:id="changeImageOverlay" onMouseClicked="#onChangePicture" onMouseExited="#onExitImage" styleClass="change-image-overlay">
+                           <children>
+                              <Pane StackPane.alignment="CENTER" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" text="Change Image" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </StackPane>
+                     </children>
+                  </StackPane>
+               </children>
+            </VBox>
          </children>
          <padding>
             <Insets bottom="48.0" left="48.0" right="48.0" top="24.0" />

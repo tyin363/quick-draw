@@ -6,19 +6,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.fxml.FXML;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -47,16 +44,17 @@ public class ProfilePageController implements LoadListener {
   @FXML private HBox winBarContainer;
   @FXML private Pane winSection;
   @FXML private VBox roundHistoryEntries;
+  @FXML private StackPane profilePictureContainer;
+  @FXML private ImageView profileImageView;
+  @FXML private StackPane changeImageOverlay;
 
   @FXML private Label usernameLabel;
 
-  @FXML private ImageView profileImageView;
   @FXML private TextField usernameTextField;
   @FXML private AnchorPane header;
   @FXML private Button setUsernameButton;
   @FXML private Button editUsernameButton;
   @FXML private Button cancelButton;
-  @FXML private StackPane hoverImageStackPane;
   @FXML private StackPane usernameStackPane;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
@@ -69,6 +67,7 @@ public class ProfilePageController implements LoadListener {
   @FXML
   private void initialize() {
     Helpers.getBackButton(this.header).setOnAction(event -> this.onSwitchBack());
+    // Make the win bar scale with the window
     this.winBarContainer
         .widthProperty()
         .addListener(
@@ -78,6 +77,12 @@ public class ProfilePageController implements LoadListener {
                 this.winSection.setPrefWidth(winWidth);
               }
             });
+
+    // Make the profile picture slightly rounded.
+    final Rectangle rect = new Rectangle(220, 220);
+    rect.setArcWidth(10);
+    rect.setArcHeight(10);
+    this.profilePictureContainer.setClip(rect);
   }
 
   /** When the user clicks the back button, take them back to the main menu. */
@@ -122,14 +127,13 @@ public class ProfilePageController implements LoadListener {
     final File file = fileChooser.showOpenDialog(this.sceneManager.getStage());
     if (file != null) {
       try {
-        // set chosen file as profile picture
-        final Image image = new Image(file.toURI().toString());
-        this.user.setProfilePicture(file.getAbsolutePath());
-        this.profileImageView.setImage(image);
-        this.addBorderToImage(this.profileImageView, image, 20);
+        // Set the chosen file as profile picture
+        final String absolutePath = file.getAbsolutePath();
+        this.renderUserProfilePicture(absolutePath);
+        this.user.setProfilePicture(absolutePath);
         this.userService.saveUser(this.user);
       } catch (final SecurityException e) {
-        this.logger.error("Error saving image", e);
+        this.logger.error("Error loading image", e);
       }
     }
   }
@@ -161,7 +165,7 @@ public class ProfilePageController implements LoadListener {
    */
   @FXML
   private void onEnterImage() {
-    this.hoverImageStackPane.setVisible(true);
+    this.changeImageOverlay.setVisible(true);
   }
 
   /**
@@ -169,7 +173,7 @@ public class ProfilePageController implements LoadListener {
    */
   @FXML
   private void onExitImage() {
-    this.hoverImageStackPane.setVisible(false);
+    this.changeImageOverlay.setVisible(false);
   }
 
   /** This method sets the width of the stackpane which the username label is in. */
@@ -217,19 +221,13 @@ public class ProfilePageController implements LoadListener {
 
     this.renderRoundHistory();
     this.renderCurrentUserStatistics();
+    this.renderUserProfilePicture(this.user.getProfilePicture());
 
     // Set fire to current win streak if 1 or above
     // this.fireStackPane.setVisible(this.user.getCurrentWinStreak() > 0);
 
     //    this.usernameLabel.setText(this.user.getUsername());
     //    this.setUsernameWidth();
-    //
-    //    // Set profile picture
-    //    final File file = new File(this.user.getProfilePicture());
-    //    final Image image = new Image(file.toURI().toString());
-    //    this.profileImageView.setImage(image);
-    //    this.addBorderToImage(this.profileImageView, image, 20);
-    //    this.hoverImageStackPane.setVisible(false);
     //
     //    // Display past words of user
     //    for (final Round round : this.user.getPastRounds()) {
@@ -293,37 +291,13 @@ public class ProfilePageController implements LoadListener {
   }
 
   /**
-   * This will make the ImageView have rounded corners. This gives a similar effect as the border
-   * radius effect on a button.
+   * Renders the image at the path specified as the users profile picture.
    *
-   * @param imageView The ImageView displayed on fxml
-   * @param image The original image
-   * @param borderRadius The border radius of the image
+   * @param absolutePath The absolute path to the image
    */
-  private void addBorderToImage(
-      final ImageView imageView, final Image image, final int borderRadius) {
-    // Get height and width of image
-    final double aspectRatio = image.getWidth() / image.getHeight();
-    final double realWidth =
-        Math.min(imageView.getFitWidth(), imageView.getFitHeight() * aspectRatio);
-    final double realHeight =
-        Math.min(imageView.getFitHeight(), imageView.getFitWidth() / aspectRatio);
-
-    // Clip the imageView to a rectangle with rounded borders
-    final Rectangle clip = new Rectangle();
-    clip.setWidth(realWidth);
-    clip.setHeight(realHeight);
-    clip.setArcHeight(borderRadius);
-    clip.setArcWidth(borderRadius);
-    imageView.setClip(clip);
-
-    // Snapshot the clipped image and store it as the ImageView
-    final SnapshotParameters parameters = new SnapshotParameters();
-    parameters.setFill(Color.TRANSPARENT);
-    final WritableImage writableImage = imageView.snapshot(parameters, null);
-    imageView.setImage(writableImage);
-
-    // Remove previous clip from ImageView
-    imageView.setClip(null);
+  private void renderUserProfilePicture(final String absolutePath) {
+    final Image image = new Image(absolutePath);
+    this.profileImageView.setImage(image);
+    this.changeImageOverlay.setVisible(false);
   }
 }
