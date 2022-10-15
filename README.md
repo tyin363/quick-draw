@@ -233,7 +233,7 @@ External resources used:
 - "[plus - solid](https://fontawesome.com/icons/plus?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[Pen - solid](https://fontawesome.com/icons/pen?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[User - regular](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
-- "[Circle-check - regular](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font 
-  Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/circle-check?s=regular&f=classic). Has been resized and recoloured.
-- "[Fire-flame-simple - regular](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font
-  Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/fire-flame-simple?s=solid&f=classic). Has been resized and recoloured.
+- "[Circle-check - regular](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/circle-check?s=regular&f=classic). Has been resized and recoloured.
+- "[Fire-flame-simple - regular](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/fire-flame-simple?s=solid&f=classic). Has been resized and recoloured.
+- "[Eye-slash - solid](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/eye-slash?s=solid&f=classic). Has been resized and recoloured.
+- "[Eye - solid](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/eye?s=solid&f=classic). Has been resized and recoloured.

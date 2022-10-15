@@ -28,13 +28,33 @@
                               <AnchorPane styleClass="round-entry">
                                  <children>
                                     <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
-                                    <Label layoutX="69.0" styleClass="round-won" text="20s" AnchorPane.rightAnchor="0.0" />
+                                    <HBox alignment="CENTER" layoutX="184.0" spacing="4.0" styleClass="round-won" AnchorPane.rightAnchor="0.0">
+                                       <children>
+                                          <Label text="20s" />
+                                          <Pane>
+                                             <styleClass>
+                                                <String fx:value="round-entry-icon" />
+                                                <String fx:value="eye-slash-icon" />
+                                             </styleClass>
+                                          </Pane>
+                                       </children>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
                               <AnchorPane styleClass="round-entry">
                                  <children>
                                     <Label text="Flashlight" AnchorPane.leftAnchor="0.0" />
-                                    <Label layoutX="69.0" styleClass="round-won" text="20s" AnchorPane.rightAnchor="0.0" />
+                                    <HBox alignment="CENTER" layoutX="184.0" spacing="4.0" styleClass="round-lost" AnchorPane.rightAnchor="0.0">
+                                       <children>
+                                          <Label text="20s" />
+                                          <Pane>
+                                             <styleClass>
+                                                <String fx:value="round-entry-icon" />
+                                                <String fx:value="eye-icon" />
+                                             </styleClass>
+                                          </Pane>
+                                       </children>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
                            </children>

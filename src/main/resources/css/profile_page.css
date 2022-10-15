@@ -15,16 +15,34 @@
   -fx-spacing: 8px;
 }
 
-.round-entry > Label, .round-entry > AnchorPane > Label {
+.round-entry > Label, .round-entry > HBox > Label {
   -fx-font-size: 16px;
   -fx-text-fill: -fx-lightgray-100;
 }
 
-.round-won {
+.eye-icon {
+  -fx-min-width: 18px;
+  -fx-max-height: 14px;
+}
+
+.eye-slash-icon {
+  -fx-max-height: 16px;
+  -fx-pref-width: 20px;
+}
+
+.round-won > Pane {
+  -fx-background-color: -fx-green;
+}
+
+.round-won > Label {
   -fx-text-fill: -fx-green;
 }
 
-.round-lost {
+.round-lost > Pane {
+  -fx-background-color: -fx-red;
+}
+
+.round-lost > Label {
   -fx-text-fill: -fx-red;
 }
 
@@ -64,7 +82,8 @@
 
 .stat-icon {
   -fx-pref-width: 20px;
-  -fx-min-height: 20px;
+  -fx-min-width: 20px;
   -fx-max-width: 20px;
+  -fx-min-height: 20px;
   -fx-background-color: -fx-lightgray-100;
 }
