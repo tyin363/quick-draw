@@ -17,13 +17,22 @@ public class HiddenModeState extends DefaultCanvasState
    * visible.
    */
   @Override
-  public void onLoad() {
+  public void onEnter() {
     // Set hidden mode exclusive elements to be visible
     this.canvasController.getHintsHbox().setVisible(true);
     this.canvasController.getWordDefinition().setVisible(true);
     this.canvasController.getDefaultHbox().setVisible(false);
+  }
 
-    super.onLoad();
+  /** Place the default canvas content back when we leave this state. */
+  @Override
+  public void onExit() {
+    this.hiddenMode.clearDefinitions();
+
+    // Make appropriate elements invisible or visible again
+    this.canvasController.getHintsHbox().setVisible(false);
+    this.canvasController.getWordDefinition().setVisible(false);
+    this.canvasController.getDefaultHbox().setVisible(true);
   }
 
   /**
@@ -48,16 +57,5 @@ public class HiddenModeState extends DefaultCanvasState
   protected String getConclusionMessage(final boolean wasGuessed) {
     return "%s The word was %s."
         .formatted(super.getConclusionMessage(wasGuessed), this.wordService.getTargetWord());
-  }
-
-  /** Place the default canvas content back when we leave this state. */
-  @Override
-  public void onExit() {
-    this.hiddenMode.clearDefinitions();
-
-    // Make appropriate elements invisible or visible again
-    this.canvasController.getHintsHbox().setVisible(false);
-    this.canvasController.getWordDefinition().setVisible(false);
-    this.canvasController.getDefaultHbox().setVisible(true);
   }
 }

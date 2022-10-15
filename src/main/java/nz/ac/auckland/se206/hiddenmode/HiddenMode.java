@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 
 @Singleton
 public class HiddenMode {
+
   private List<String> definitions = new ArrayList<String>();
   private int definitionIndex = 0;
 
@@ -27,13 +28,13 @@ public class HiddenMode {
    * @return The list of definitions
    */
   public List<String> getDefinitions() {
-    return definitions;
+    return this.definitions;
   }
 
   /** This method clears the definition list and resets the index */
   public void clearDefinitions() {
     this.definitions.clear();
-    resetIndex();
+    this.resetIndex();
   }
 
   /**
@@ -42,30 +43,31 @@ public class HiddenMode {
    * @return The definition index
    */
   public int getDefinitionIndex() {
-    return definitionIndex;
+    return this.definitionIndex;
   }
 
   /** This method increments the definition index */
   public void incrementIndex() {
-    definitionIndex++;
+    this.definitionIndex++;
   }
 
   /** This method decrements the definition index */
   public void decrementIndex() {
-    definitionIndex--;
+    this.definitionIndex--;
   }
 
   /** This method resets the definition index to zero */
   public void resetIndex() {
-    definitionIndex = 0;
+    this.definitionIndex = 0;
   }
 
   /** This method will change the label font size to fit the screen accordingly */
-  public void changeFontDynamically(Label target, double maxWidth, double defaultFontSize) {
+  public void changeFontDynamically(
+      final Label target, final double maxWidth, final double defaultFontSize) {
 
-    String definition = target.getText();
-    double allowableFontSize = defaultFontSize * 3 / 4;
-    double textWidth = getTemporaryWidth(definition, defaultFontSize);
+    final String definition = target.getText();
+    final double allowableFontSize = defaultFontSize * 3 / 4;
+    double textWidth = this.getTemporaryWidth(definition, defaultFontSize);
 
     // Clear any styles on the target word
     target.setStyle(null);
@@ -73,23 +75,18 @@ public class HiddenMode {
     // If the sentence is too big, split it into smaller sentences
     if (textWidth >= maxWidth) {
       double newFontSize;
-      int spaceCount = StringUtils.countMatches(definition, " ");
-      int halfPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 2);
-      int oneThirdPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 3);
-      int secondThirdPlacement = StringUtils.ordinalIndexOf(definition, " ", 2 * spaceCount / 3);
+      final int spaceCount = StringUtils.countMatches(definition, " ");
+      final int halfPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 2);
+      final int oneThirdPlacement = StringUtils.ordinalIndexOf(definition, " ", spaceCount / 3);
+      final int secondThirdPlacement =
+          StringUtils.ordinalIndexOf(definition, " ", 2 * spaceCount / 3);
 
       // Two variations of the definition sentence
-      String twoSentence =
+      final String twoSentence =
           definition.substring(0, halfPlacement) + "\n" + definition.substring(halfPlacement + 1);
-      String threeSentence =
-          definition.substring(0, oneThirdPlacement)
-              + "\n"
-              + definition.substring(oneThirdPlacement + 1, secondThirdPlacement)
-              + "\n"
-              + definition.substring(secondThirdPlacement + 1);
 
       // Get new width for two sentences
-      textWidth = getTemporaryWidth(twoSentence, defaultFontSize);
+      textWidth = this.getTemporaryWidth(twoSentence, defaultFontSize);
 
       // Return with two sentences if size is allowable
       newFontSize = defaultFontSize * maxWidth / textWidth - 1;
@@ -104,10 +101,16 @@ public class HiddenMode {
         }
       }
 
+      final String threeSentence =
+          "%s\n%s\n%s"
+              .formatted(
+                  definition.substring(0, oneThirdPlacement),
+                  definition.substring(oneThirdPlacement + 1, secondThirdPlacement),
+                  definition.substring(secondThirdPlacement + 1));
+
       // Otherwise, return with three sentences and downsize the font
-      textWidth = getTemporaryWidth(threeSentence, defaultFontSize);
+      textWidth = this.getTemporaryWidth(threeSentence, defaultFontSize);
       newFontSize = defaultFontSize * maxWidth / textWidth - 1;
-      ;
       target.setStyle("-fx-font-size: " + newFontSize + ";");
       target.setText(threeSentence);
     }
@@ -122,10 +125,10 @@ public class HiddenMode {
    * @param fontSize The size of the font
    * @return The width of the text element
    */
-  private double getTemporaryWidth(String sentence, double fontSize) {
-    Font defaultFont = Font.font(fontSize);
-    Text tmpText = new Text(sentence);
-    double textWidth;
+  private double getTemporaryWidth(final String sentence, final double fontSize) {
+    final Font defaultFont = Font.font(fontSize);
+    final Text tmpText = new Text(sentence);
+    final double textWidth;
     tmpText.setFont(defaultFont);
 
     // Get width of the text
@@ -135,9 +138,9 @@ public class HiddenMode {
   }
 
   /** This gets the number of definitions and the current index number */
-  public void getNumberOfDefinitions(Label target) {
-    int index = definitionIndex + 1;
-    int size = definitions.size();
+  public void getNumberOfDefinitions(final Label target) {
+    final int index = this.definitionIndex + 1;
+    final int size = this.definitions.size();
     target.setText(index + "/" + size);
   }
 
@@ -145,20 +148,12 @@ public class HiddenMode {
    * This method checks if there is a previous and next definition and hides or shows appropriate
    * buttons when needed.
    */
-  public void checkForPreviousAndNext(Node previous, Node next) {
+  public void checkForPreviousAndNext(final Node previous, final Node next) {
     // Check previous definition
-    if (definitionIndex == 0) {
-      previous.setVisible(false);
-    } else {
-      previous.setVisible(true);
-    }
+    previous.setVisible(this.definitionIndex != 0);
 
     // Check next definition
-    if (definitionIndex == definitions.size() - 1) {
-      next.setVisible(false);
-    } else {
-      next.setVisible(true);
-    }
+    next.setVisible(this.definitionIndex != this.definitions.size() - 1);
   }
 
   /**
@@ -172,29 +167,29 @@ public class HiddenMode {
    * @param nextDefinitionVbox The next box
    */
   public void setElements(
-      Label target,
-      Label numberOfDefinitionLabel,
-      double maxWidth,
-      double defaultFontSize,
-      Node previousDefinitionVbox,
-      Node nextDefinitionVbox) {
-    target.setText(getDefinitions().get(this.definitionIndex));
-    changeFontDynamically(target, maxWidth, defaultFontSize);
-    checkForPreviousAndNext(previousDefinitionVbox, nextDefinitionVbox);
-    getNumberOfDefinitions(numberOfDefinitionLabel);
+      final Label target,
+      final Label numberOfDefinitionLabel,
+      final double maxWidth,
+      final double defaultFontSize,
+      final Node previousDefinitionVbox,
+      final Node nextDefinitionVbox) {
+    target.setText(this.getDefinitions().get(this.definitionIndex));
+    this.changeFontDynamically(target, maxWidth, defaultFontSize);
+    this.checkForPreviousAndNext(previousDefinitionVbox, nextDefinitionVbox);
+    this.getNumberOfDefinitions(numberOfDefinitionLabel);
   }
 
   /** The previous definition of the given word will be shown. */
   public void previousDefinition() {
     if (this.definitionIndex - 1 >= 0) {
-      decrementIndex();
+      this.decrementIndex();
     }
   }
 
   /** The next definition of the given word will be shown. */
   public void nextDefinition() {
-    if (this.definitionIndex + 1 <= getDefinitions().size() - 1) {
-      incrementIndex();
+    if (this.definitionIndex + 1 <= this.getDefinitions().size() - 1) {
+      this.incrementIndex();
     }
   }
 
@@ -204,41 +199,43 @@ public class HiddenMode {
    * @param queryWord The word to search up on
    */
   public void searchWord(
-      String queryWord,
-      Label target,
-      Label numberOfDefinitions,
-      double maxWidth,
-      double fontSize,
-      Node previous,
-      Node next) {
+      final String queryWord,
+      final Label target,
+      final Label numberOfDefinitions,
+      final double maxWidth,
+      final double fontSize,
+      final Node previous,
+      final Node next) {
 
-    Task<Void> backgroundTask =
+    final Task<Void> backgroundTask =
         new Task<Void>() {
 
           @Override
           protected Void call() throws Exception {
             try {
               // get word info
-              WordInfo wordResult = DictionaryLookup.searchWordInfo(queryWord);
-              for (WordEntry entry : wordResult.getWordEntries()) {
-                for (String definition : entry.getDefinitions()) {
-                  definitions.add(definition);
+              final WordInfo wordResult = DictionaryLookup.searchWordInfo(queryWord);
+              for (final WordEntry entry : wordResult.getWordEntries()) {
+                for (final String definition : entry.getDefinitions()) {
+                  HiddenMode.this.definitions.add(definition);
                 }
               }
 
               Platform.runLater(
                   () -> {
-                    setElements(target, numberOfDefinitions, maxWidth, fontSize, previous, next);
+                    HiddenMode.this.setElements(
+                        target, numberOfDefinitions, maxWidth, fontSize, previous, next);
                   });
-            } catch (IOException e) {
+            } catch (final IOException e) {
               e.printStackTrace();
-            } catch (WordNotFoundException e) {
+            } catch (final WordNotFoundException e) {
               System.out.println("Sorry there were no definitions!");
               Platform.runLater(
                   () -> {
                     target.setText("Sorry! There was no definition for " + queryWord);
-                    definitions.add("Sorry! There was no definition for " + queryWord);
-                    changeFontDynamically(target, maxWidth, fontSize);
+                    HiddenMode.this.definitions.add(
+                        "Sorry! There was no definition for " + queryWord);
+                    HiddenMode.this.changeFontDynamically(target, maxWidth, fontSize);
                   });
             }
 
@@ -246,7 +243,7 @@ public class HiddenMode {
           }
         };
 
-    Thread backgroundThread = new Thread(backgroundTask);
+    final Thread backgroundThread = new Thread(backgroundTask);
     backgroundThread.start();
   }
 }

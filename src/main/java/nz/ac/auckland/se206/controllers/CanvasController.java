@@ -56,7 +56,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Canvas canvas;
   @FXML private VBox predictionVertBox;
   @FXML private HBox gameOverActionsContainer;
-  @FXML private VBox hiddenModeVbox;
   @FXML private HBox defaultHbox;
   @FXML private VBox toolContainer;
   @FXML private Pane eraserPane;
@@ -64,11 +63,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Pane clearPane;
   @FXML private Button saveButton;
   @FXML private Label targetWordLabel;
-  @FXML private Label definitionsLabel;
   @FXML private Label mainLabel;
-  @FXML private VBox previousDefinitionVbox;
-  @FXML private VBox nextDefinitionVbox;
-  @FXML private Label numberOfDefinitionLabel;
   @FXML private AnchorPane wordDefinition;
   @FXML private Label hintLabel;
   @FXML private HBox hintsHbox;
@@ -132,7 +127,6 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @Override
   public void onLoad() {
-    this.wordDefinition.setVisible(false);
     this.targetWordLabel.setVisible(true);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
 
