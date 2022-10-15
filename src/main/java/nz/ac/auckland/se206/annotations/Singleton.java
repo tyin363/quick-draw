@@ -7,4 +7,12 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Singleton {}
+public @interface Singleton {
+
+  /**
+   * Whether the super class should be checked for injectable fields.
+   *
+   * @return If the super class should be checked for injectable fields
+   */
+  boolean injectSuper() default false;
+}

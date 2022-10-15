@@ -1,0 +1,84 @@
+.radio-button { 
+  -fx-background-color: -fx-gray-50;
+  -fx-padding: 8px 16px 8px 16px;
+  -fx-border-insets: 5px;
+  -fx-background-insets: 5px;
+  -fx-text-fill: -fx-lightgray-100;
+  -fx-border-radius: 5px;
+  -fx-background-radius: 5px;
+  -fx-font-weight: bold;
+  -fx-font-size: 16px;
+  -fx-border-width: 0 0 0 5px;
+  -fx-label-padding: 0 0 0 10;
+}
+
+.radio-button:hover {
+  -fx-background-color: #3b3f44;
+  -fx-text-fill: #bdbfc2;
+}
+
+.radio-button:selected {
+  -fx-background-color: #454951;
+  -fx-text-fill: #f2f2f3;
+}
+
+.radio-button > .radio {
+  -fx-pref-width: 16px;
+  -fx-pref-height: 16px;
+  -fx-border-width: 3px;
+  -fx-border-insets: -3px;
+  -fx-border-color: white;
+  -fx-border-radius: 10px;
+  -fx-padding: 0px;
+}
+
+.radio-button > .radio > .dot {
+  -fx-border-color: transparent;
+  -fx-border-width: 3px;
+  -fx-border-insets: 0px;
+  -fx-padding: 1px;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-background-color: -fx-gray-50;
+}
+
+.radio-button:hover > .radio > .dot {
+  -fx-background-color: #3b3f44;
+}
+
+.radio-button:selected > .radio > .dot {
+  -fx-border-color: #454951;
+  -fx-background-color: white;
+}
+
+.easy {
+  -fx-border-color: #3aa55d;
+}
+
+.easy:selected {
+  -fx-border-color: #3ba25c;
+}
+
+.medium {
+  -fx-border-color: #c68218;
+}
+
+.medium:selected {
+  -fx-border-color: #cb8516;
+}
+
+.hard {
+  -fx-border-color: #ed4245;
+}
+
+.hard:selected {
+  -fx-border-color: #ed4245;
+}
+
+.master {
+  -fx-border-color: -fx-highlight;
+}
+
+.master:selected {
+  -fx-border-color: -fx-highlight-lightened;
+}

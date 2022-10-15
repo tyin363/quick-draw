@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.SettingsController">
+   <children>
+      <VBox prefHeight="806.0" prefWidth="1150.0" styleClass="bg-gray-25">
+         <children>
+            <fx:include fx:id="header" source="header.fxml" />
+            <VBox alignment="TOP_CENTER" prefHeight="838.0" prefWidth="1150.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="108.0" prefWidth="1172.0" styleClass="text-default" text="Choose your game settings:">
+                     <font>
+                        <Font name="SansSerif Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <GridPane prefHeight="450.0" prefWidth="1151.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox prefHeight="263.0" prefWidth="243.0">
+                           <children>
+                              <Label id="title" alignment="CENTER" prefHeight="50.0" prefWidth="301.0" styleClass="text-lightgray-100" text="Accuracy">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="28.0" />
+                                 </font>
+                              </Label>
+                              <RadioButton fx:id="easyAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" prefHeight="100.0" prefWidth="309.0" styleClass="easy" text="Easy">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="accuracy" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="mediumAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" prefHeight="100.0" prefWidth="303.0" styleClass="medium" text="Medium" toggleGroup="$accuracy" />
+                              <RadioButton fx:id="hardAccuracyButton" mnemonicParsing="false" onAction="#onSetAccuracy" prefHeight="100.0" prefWidth="328.0" styleClass="hard" text="Hard" toggleGroup="$accuracy" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label id="title" alignment="CENTER" prefHeight="50.0" prefWidth="410.0" styleClass="text-lightgray-100" text="Words">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="28.0" />
+                                 </font>
+                              </Label>
+                              <RadioButton fx:id="easyWordsButton" lineSpacing="2000.0" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="521.0" styleClass="easy" text="Easy&#10;&#10;">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="words" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="mediumWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="432.0" styleClass="medium" text="Medium" toggleGroup="$words" />
+                              <RadioButton fx:id="hardWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="539.0" styleClass="hard" text="Hard" toggleGroup="$words" />
+                              <RadioButton fx:id="masterWordsButton" mnemonicParsing="false" onAction="#onSetWords" prefHeight="100.0" prefWidth="412.0" styleClass="master" text="Master" toggleGroup="$words" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                           <children>
+                              <Label id="title" alignment="CENTER" prefHeight="50.0" prefWidth="390.0" styleClass="text-lightgray-100" text="Time">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="28.0" />
+                                 </font>
+                              </Label>
+                              <RadioButton fx:id="easyTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="427.0" styleClass="easy" stylesheets="@../css/settings.css" text="Easy">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="time" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="mediumTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="399.0" styleClass="medium" text="Medium" toggleGroup="$time" />
+                              <RadioButton fx:id="hardTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="398.0" styleClass="hard" text="Hard" toggleGroup="$time" />
+                              <RadioButton fx:id="masterTimeButton" mnemonicParsing="false" onAction="#onSetTime" prefHeight="100.0" prefWidth="459.0" styleClass="master" text="Master" toggleGroup="$time" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="667.0" prefWidth="609.0" GridPane.columnIndex="3">
+                           <children>
+                              <Label id="title" alignment="CENTER" prefHeight="50.0" prefWidth="400.0" styleClass="text-lightgray-100" text="Confidence">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="28.0" />
+                                 </font>
+                              </Label>
+                              <RadioButton fx:id="easyConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" prefHeight="100.0" prefWidth="340.0" styleClass="easy" text="Easy">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="confidence" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="mediumConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" prefHeight="100.0" prefWidth="300.0" styleClass="medium" text="Medium" toggleGroup="$confidence" />
+                              <RadioButton fx:id="hardConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" prefHeight="100.0" prefWidth="300.0" styleClass="hard" text="Hard" toggleGroup="$confidence" />
+                              <RadioButton fx:id="masterConfidenceButton" mnemonicParsing="false" onAction="#onSetConfidence" prefHeight="100.0" prefWidth="300.0" styleClass="master" text="Master" toggleGroup="$confidence" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="50.0" left="25.0" right="25.0" />
+                     </VBox.margin>
+                  </GridPane>
+                  <Button fx:id="readyButton" alignment="CENTER" mnemonicParsing="false" onAction="#onConfirmReady" styleClass="btn" text="Ready" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@../css/styles.css" />
+      <URL value="@../css/colours.css" />
+      <URL value="@../css/settings.css" />
+   </stylesheets>
+</AnchorPane>

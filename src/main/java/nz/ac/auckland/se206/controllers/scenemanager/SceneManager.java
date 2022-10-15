@@ -1,12 +1,11 @@
 package nz.ac.auckland.se206.controllers.scenemanager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +19,7 @@ import org.slf4j.Logger;
 @Singleton
 public class SceneManager {
 
-  public record ViewControllers(Parent parent, Set<Object> controllers) {}
+  public record ViewControllers(Parent parent, List<Object> controllers) {}
 
   private final Map<View, ViewControllers> views = new EnumMap<>(View.class);
 
@@ -86,7 +85,7 @@ public class SceneManager {
       // Use custom controller factory to support dependency injection within the controller.
       fxmlLoader.setControllerFactory(this.applicationContext);
       final Parent parent = fxmlLoader.load();
-      this.views.put(view, new ViewControllers(parent, new HashSet<>()));
+      this.views.put(view, new ViewControllers(parent, new ArrayList<>()));
 
       final Object controller = fxmlLoader.getController();
       // Cache the view so that we only have to load it once.
@@ -172,7 +171,7 @@ public class SceneManager {
   }
 
   /**
-   * Get the previous view.
+   * Get the previous view of the current screen.
    *
    * @return The previous view
    */

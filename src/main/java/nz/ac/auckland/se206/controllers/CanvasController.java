@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,6 +30,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
+import nz.ac.auckland.se206.hiddenmode.HiddenMode;
 import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.util.BrushType;
@@ -54,6 +56,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Canvas canvas;
   @FXML private VBox predictionVertBox;
   @FXML private HBox gameOverActionsContainer;
+  @FXML private HBox defaultHbox;
   @FXML private VBox toolContainer;
   @FXML private Pane eraserPane;
   @FXML private Pane penPane;
@@ -63,12 +66,16 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Label mainLabel;
   @FXML private Label targetWordConfidenceLabel;
   @FXML private ImageView confidenceLevelImage;
+  @FXML private AnchorPane wordDefinition;
+  @FXML private Label hintLabel;
+  @FXML private HBox hintsHbox;
 
   @Inject private Logger logger;
   @Inject private Config config;
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   @Inject private CanvasStateMachine stateMachine;
+  @Inject private HiddenMode hiddenMode;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
@@ -123,6 +130,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Override
   public void onLoad() {
     this.setCurrentWordConfidenceLevel(0.00);
+    this.targetWordLabel.setVisible(true);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
     this.resetConfidenceImage();
@@ -154,6 +162,8 @@ public class CanvasController implements LoadListener, TerminationListener {
     Tooltip.install(this.clearPane, new Tooltip(this.clearPane.getAccessibleHelp()));
 
     this.graphic = this.canvas.getGraphicsContext2D();
+    // Initially make the word definition visible
+    this.wordDefinition.setVisible(false);
 
     // save coordinates when mouse is pressed on the canvas
     this.canvas.setOnMousePressed(
@@ -175,6 +185,16 @@ public class CanvasController implements LoadListener, TerminationListener {
       this.predictionLabels[i] = new Label();
       this.predictionVertBox.getChildren().add(this.predictionLabels[i]);
     }
+  }
+
+  /** This method is called when the "Get Hint" button is pressed and gets a hint. */
+  @FXML
+  private void onGetHint() {
+    if (this.targetWordLabel == null) {
+      return;
+    }
+    final char firstCharacter = this.targetWordLabel.getText().toUpperCase().charAt(0);
+    this.hintLabel.setText("The word starts with: " + firstCharacter);
   }
 
   /** This method is called when the "Clear" button is pressed and clears the canvas. */
@@ -228,6 +248,10 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onRestart() {
+    // Hidden mode exclusive
+    this.hiddenMode.clearDefinitions();
+    this.hintLabel.setText(null);
+
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
@@ -261,7 +285,8 @@ public class CanvasController implements LoadListener, TerminationListener {
       final Color textColour =
           Color.BLACK.interpolate(this.config.getHighlight(), prediction.getProbability() * 10);
 
-      this.predictionLabels[i].setText(guess);
+      this.predictionLabels[i].setText(
+          guess + " " + String.format("%.0f", prediction.getProbability() * 100) + "%");
       this.predictionLabels[i].setTextFill(textColour);
     }
   }
@@ -353,6 +378,10 @@ public class CanvasController implements LoadListener, TerminationListener {
   /** Clears the canvas and switches back to the Main Menu Screen */
   @FXML
   private void onReturnToMainMenu() {
+    // Hidden mode exclusive
+    this.hiddenMode.clearDefinitions();
+    this.hintLabel.setText(null);
+
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
     this.sceneManager.switchToView(View.MAIN_MENU);
@@ -470,5 +499,42 @@ public class CanvasController implements LoadListener, TerminationListener {
   public void resetConfidenceImage() {
     File equalFile = new File("src/main/resources/images/equal.png");
     this.confidenceLevelImage.setImage(new Image(equalFile.toURI().toString()));
+  }
+  /*
+   * This retrieves the label with the word hint on it
+   *
+   * @return The label with the word hint
+   */
+
+  public Label getHintLabel() {
+    return this.hintLabel;
+  }
+
+  /**
+   * This retrieves the Hbox containing the hints elements
+   *
+   * @return The Hbox containing the hints elements
+   */
+  public HBox getHintsHbox() {
+    return this.hintsHbox;
+  }
+
+  /**
+   * This retrieves the Anchor pane responsible for displaying the word definitions in the hidden
+   * game mode
+   *
+   * @return The anchor pane for hidden game mode
+   */
+  public AnchorPane getWordDefinition() {
+    return this.wordDefinition;
+  }
+
+  /**
+   * This retrieves the Hbox that contains the normal game mode elements
+   *
+   * @return Normal game mode Hbox
+   */
+  public HBox getDefaultHbox() {
+    return this.defaultHbox;
   }
 }
