@@ -43,7 +43,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Slider />
+                        <Slider fx:id="volumeSlider" />
                      </children>
                   </VBox>
                </children>

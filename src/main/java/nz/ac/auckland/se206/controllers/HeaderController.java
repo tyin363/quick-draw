@@ -1,8 +1,11 @@
 package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
@@ -28,6 +31,7 @@ public class HeaderController implements LoadListener {
 
   @FXML private ImageView profilePicture;
   @FXML private Label username;
+  @FXML private Slider volumeSlider;
 
   private User currentUser;
 
@@ -51,6 +55,20 @@ public class HeaderController implements LoadListener {
   @Override
   public void onLoad() {
     final User newCurrentUser = this.userService.getCurrentUser();
+
+    this.volumeSlider.setValue(this.soundEffect.getBackgroundMediaPlayer().getVolume() * 500);
+    this.volumeSlider
+        .valueProperty()
+        .addListener(
+            new ChangeListener<Number>() {
+
+              @Override
+              public void changed(
+                  ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+
+                soundEffect.getBackgroundMediaPlayer().setVolume(volumeSlider.getValue() / 500);
+              }
+            });
 
     // If the user hasn't changed, don't bother trying to update the profile picture.
     if (newCurrentUser == null || newCurrentUser.equals(this.currentUser)) {

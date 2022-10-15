@@ -1,7 +1,6 @@
 package nz.ac.auckland.se206.util;
 
 import java.io.File;
-import javafx.concurrent.Task;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -9,8 +8,6 @@ import nz.ac.auckland.se206.annotations.Singleton;
 @Singleton
 public class SoundEffect {
 
-  private Task<Void> soundTask;
-  private Task<Void> backgroundTask;
   private Media soundEffect;
   private MediaPlayer mediaPlayer;
   private MediaPlayer backgroundMediaPlayer;
@@ -102,6 +99,15 @@ public class SoundEffect {
   /** This method plays the settings click sound effect of the game. */
   public void playSettingsClickSound() {
     playSound(settingsClickSound, 0.2);
+  }
+
+  /**
+   * Get the media player responsible for playing the background music
+   *
+   * @return The media player that plays music
+   */
+  public MediaPlayer getBackgroundMediaPlayer() {
+    return backgroundMediaPlayer;
   }
 
   /**
