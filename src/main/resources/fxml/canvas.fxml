@@ -3,10 +3,10 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -16,40 +16,64 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
+
+<VBox alignment="TOP_CENTER" prefHeight="550.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.controllers.CanvasController">
   <children>
     <AnchorPane styleClass="app-bar">
       <children>
-        <Label AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" maxHeight="70.0" prefHeight="70.0" prefWidth="355.0" text="Quick, Draw! SE206 Edition" textAlignment="CENTER">
+        <Label maxHeight="70.0" prefHeight="70.0" prefWidth="355.0" text="Quick, Draw! SE206 Edition" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
           <font>
             <Font name="SansSerif Regular" size="24.0" />
           </font>
         </Label>
       </children>
     </AnchorPane>
-    <VBox VBox.vgrow="ALWAYS" alignment="CENTER">
+    <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
       <children>
+        <StackPane prefHeight="198.0" prefWidth="1150.0">
+               <children>
+                  <HBox fx:id="defaultHbox" alignment="CENTER" prefHeight="171.0" prefWidth="1150.0" spacing="5.0">
+                <children>
+                  <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
+                    <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <font>
+                      <Font size="32.0" />
+                    </font>
+                  </Label>
+                  <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                      <Font name="SansSerif Bold" size="42.0" />
+                    </font>
+                  </Label>
+                </children>
+              </HBox>
+              <fx:include fx:id="wordDefinition" source="word_definition.fxml" />
+               </children>
+            </StackPane>
             <HBox alignment="CENTER" prefHeight="483.0" prefWidth="1150.0" styleClass="bg-gray-25">
           <children>
-            <GridPane HBox.hgrow="ALWAYS" alignment="TOP_CENTER" hgap="20.0" prefHeight="431.0" prefWidth="690.0" vgap="20.0">
+            <Pane minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
+            <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="431.0" prefWidth="690.0" vgap="20.0" HBox.hgrow="ALWAYS">
               <HBox.margin>
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
               </HBox.margin>
               <children>
-                <HBox GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" alignment="CENTER" prefHeight="39.0" prefWidth="187.0" />
-                        <Label GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" fx:id="mainLabel">
+                <HBox alignment="CENTER" prefHeight="39.0" prefWidth="187.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                        <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                   <font>
                     <Font name="SansSerif Regular" size="24.0" />
                   </font>
                 </Label>
-                        <Label GridPane.halignment="CENTER" GridPane.valignment="CENTER" styleClass="text-default" text="Predictions">
+                        <Label styleClass="text-default" text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                   <font>
                     <Font name="SansSerif Regular" size="24.0" />
                   </font>
                 </Label>
-                <Pane GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER" maxWidth="521.0" prefHeight="342.0" prefWidth="516.0" styleClass="card">
+                <Pane maxWidth="521.0" prefHeight="342.0" prefWidth="516.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                   <children>
-                    <Canvas height="293.0" styleClass="bg-highlight" width="516.0" fx:id="canvas">
+                    <Canvas fx:id="canvas" height="293.0" styleClass="bg-highlight" width="516.0">
                       <cursor>
                         <Cursor fx:constant="HAND" />
                       </cursor>
@@ -57,19 +81,19 @@
                   </children>
                 </Pane>
                 <Pane minHeight="0.0" minWidth="0.0" />
-                <StackPane GridPane.columnIndex="1" GridPane.rowIndex="2" prefHeight="150.0" prefWidth="200.0">
+                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                      <HBox alignment="CENTER" prefHeight="30.0" prefWidth="516.0" spacing="20.0" fx:id="gameOverActionsContainer">
+                      <HBox fx:id="gameOverActionsContainer" alignment="CENTER" prefHeight="30.0" prefWidth="516.0" spacing="20.0">
                         <children>
-                          <Button mnemonicParsing="false" onAction="#onSave" prefWidth="145.0" styleClass="btn" text="Save" fx:id="saveButton" />
+                          <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" prefWidth="145.0" styleClass="btn" text="Save" />
                           <Button mnemonicParsing="false" onAction="#onRestart" prefWidth="145.0" styleClass="btn" text="Play Again" />
                           <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" styleClass="btn" text=" Main Menu" />
                         </children>
                       </HBox>
-                              <HBox alignment="CENTER" prefHeight="43.0" prefWidth="1150.0" spacing="10.0" visible="false" fx:id="hintsHbox">
+                              <HBox fx:id="hintsHbox" alignment="CENTER" prefHeight="43.0" prefWidth="1150.0" spacing="10.0" visible="false">
                                  <children>
                                     <Button minWidth="119.0" mnemonicParsing="false" onAction="#onGetHint" prefHeight="37.0" prefWidth="119.0" styleClass="btn" text="Get Hint" />
-                                    <Label prefHeight="49.0" prefWidth="375.0" styleClass="text-default" fx:id="hintLabel">
+                                    <Label fx:id="hintLabel" prefHeight="49.0" prefWidth="375.0" styleClass="text-default">
                                        <font>
                                           <Font size="25.0" />
                                        </font>
@@ -79,7 +103,7 @@
                            </children>
                         </StackPane>
                 <VBox prefHeight="200.0" prefWidth="100.0" />
-                <VBox GridPane.rowIndex="1" GridPane.valignment="TOP" alignment="TOP_CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" fx:id="predictionVertBox">
+                <VBox fx:id="predictionVertBox" alignment="TOP_CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                   <padding>
                     <Insets top="30.0" />
                   </padding>
@@ -90,11 +114,11 @@
                 </VBox>
                 <VBox GridPane.columnIndex="2" GridPane.rowIndex="1">
                   <children>
-                    <VBox VBox.vgrow="ALWAYS" alignment="CENTER_LEFT" fillWidth="false" fx:id="toolContainer">
+                    <VBox fx:id="toolContainer" alignment="CENTER_LEFT" fillWidth="false" VBox.vgrow="ALWAYS">
                       <children>
                         <VBox alignment="CENTER" fillWidth="false" styleClass="vertical-pen-options">
                           <children>
-                            <Pane accessibleHelp="Select the eraser" accessibleRole="BUTTON" onMouseClicked="#onSelectEraser" fx:id="eraserPane">
+                            <Pane fx:id="eraserPane" accessibleHelp="Select the eraser" accessibleRole="BUTTON" onMouseClicked="#onSelectEraser">
                               <children>
                                 <Pane layoutX="7.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
                               </children>
@@ -103,7 +127,7 @@
                                 <String fx:value="icon" />
                               </styleClass>
                             </Pane>
-                            <Pane accessibleHelp="Select the pen brush" accessibleRole="BUTTON" onMouseClicked="#onSelectPen" fx:id="penPane">
+                            <Pane fx:id="penPane" accessibleHelp="Select the pen brush" accessibleRole="BUTTON" onMouseClicked="#onSelectPen">
                               <children>
                                 <Pane layoutX="8.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
                               </children>
@@ -112,7 +136,7 @@
                                 <String fx:value="pen-icon" />
                               </styleClass>
                             </Pane>
-                            <Pane accessibleHelp="Clear the canvas" accessibleRole="BUTTON" onMouseClicked="#onClear" fx:id="clearPane">
+                            <Pane fx:id="clearPane" accessibleHelp="Clear the canvas" accessibleRole="BUTTON" onMouseClicked="#onClear">
                               <children>
                                 <Pane layoutX="10.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
                               </children>
@@ -139,35 +163,12 @@
                 <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="61.0" vgrow="NEVER" />
               </rowConstraints>
             </GridPane>
-            <Pane HBox.hgrow="ALWAYS" minHeight="0.0" minWidth="0.0" />
-            <Pane HBox.hgrow="ALWAYS" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" />
+            <Pane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
           </children>
           <opaqueInsets>
             <Insets bottom="5.0" left="5.0" right="5.0" />
           </opaqueInsets>
         </HBox>
-        <StackPane prefHeight="198.0" prefWidth="1150.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="171.0" prefWidth="1150.0" spacing="5.0" fx:id="defaultHbox">
-                <children>
-                  <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
-                    <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                           <font>
-                      <Font size="32.0" />
-                    </font>
-                  </Label>
-                  <Label alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE" fx:id="targetWordLabel">
-                    <font>
-                      <Font name="SansSerif Bold" size="42.0" />
-                    </font>
-                  </Label>
-                </children>
-              </HBox>
-              <fx:include source="word_definition.fxml" fx:id="wordDefinition" />
-               </children>
-            </StackPane>
       </children>
     </VBox>
   </children>
