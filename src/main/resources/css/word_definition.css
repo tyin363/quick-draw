@@ -1,15 +1,10 @@
-.button {
+.cycle-btn > Button {
 	-fx-min-width: 35px;
 	-fx-max-width: 35px;
 	-fx-max-height: 60px;
 	-fx-min-height: 60px;
-	-fx-background-color: -fx-text-default;
 }
 
-.button.next {
-	-fx-rotate: 180;
-}
-
-.buttonLabel {
-	-fx-text-fill: -fx-text-default;
+.cycle-btn > Label {
+	-fx-text-fill: -fx-lightgray-100;
 }

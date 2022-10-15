@@ -6,19 +6,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import nz.ac.auckland.se206.annotations.Controller;
 import nz.ac.auckland.se206.annotations.Inject;
-import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.hiddenmode.HiddenMode;
 import nz.ac.auckland.se206.words.WordService;
 
 @Controller
 public class WordDefinitionController implements LoadListener {
+
   @FXML private Label targetWordLabel;
   @FXML private VBox previousDefinitionVbox;
   @FXML private VBox nextDefinitionVbox;
   @FXML private Label numberOfDefinitionLabel;
   @Inject private WordService wordService;
-  @Inject private SceneManager sceneManager;
   @Inject private HiddenMode hiddenMode;
   @FXML private Button nextButton;
   @FXML private Label nextLabel;
@@ -60,12 +59,12 @@ public class WordDefinitionController implements LoadListener {
   private void onClickPrevious() {
     this.hiddenMode.previousDefinition();
     this.hiddenMode.setElements(
-        targetWordLabel,
-        numberOfDefinitionLabel,
-        maxWidth,
-        defaultFontSize,
-        previousDefinitionVbox,
-        nextDefinitionVbox);
+        this.targetWordLabel,
+        this.numberOfDefinitionLabel,
+        this.maxWidth,
+        this.defaultFontSize,
+        this.previousDefinitionVbox,
+        this.nextDefinitionVbox);
   }
 
   /** The next definition of the given word will be shown. */
@@ -73,12 +72,12 @@ public class WordDefinitionController implements LoadListener {
   private void onClickNext() {
     this.hiddenMode.nextDefinition();
     this.hiddenMode.setElements(
-        targetWordLabel,
-        numberOfDefinitionLabel,
-        maxWidth,
-        defaultFontSize,
-        previousDefinitionVbox,
-        nextDefinitionVbox);
+        this.targetWordLabel,
+        this.numberOfDefinitionLabel,
+        this.maxWidth,
+        this.defaultFontSize,
+        this.previousDefinitionVbox,
+        this.nextDefinitionVbox);
   }
 
   @Override
@@ -89,19 +88,19 @@ public class WordDefinitionController implements LoadListener {
     // Clear previous definitions
     if (!this.hiddenMode.getDefinitions().isEmpty()) {
       this.hiddenMode.setElements(
-          targetWordLabel,
-          numberOfDefinitionLabel,
-          maxWidth,
-          defaultFontSize,
-          previousDefinitionVbox,
-          nextDefinitionVbox);
+          this.targetWordLabel,
+          this.numberOfDefinitionLabel,
+          this.maxWidth,
+          this.defaultFontSize,
+          this.previousDefinitionVbox,
+          this.nextDefinitionVbox);
       return;
     }
 
     // Make Hidden mode exclusive elements invisible
-    previousDefinitionVbox.setVisible(false);
-    nextDefinitionVbox.setVisible(false);
-    numberOfDefinitionLabel.setVisible(false);
+    this.previousDefinitionVbox.setVisible(false);
+    this.nextDefinitionVbox.setVisible(false);
+    this.numberOfDefinitionLabel.setVisible(false);
 
     this.targetWordLabel.setText("Loading Definitions");
     this.numberOfDefinitionLabel.setText("Number of Definitions");
@@ -111,9 +110,9 @@ public class WordDefinitionController implements LoadListener {
         this.wordService.getTargetWord(),
         this.targetWordLabel,
         this.numberOfDefinitionLabel,
-        maxWidth,
-        defaultFontSize,
-        previousDefinitionVbox,
-        nextDefinitionVbox);
+        this.maxWidth,
+        this.defaultFontSize,
+        this.previousDefinitionVbox,
+        this.nextDefinitionVbox);
   }
 }
