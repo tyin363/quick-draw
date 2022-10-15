@@ -14,6 +14,7 @@ open module SE206Project {
   requires okhttp3;
   requires org.json;
   requires org.apache.commons.lang3;
+  requires javafx.base;
 
   exports nz.ac.auckland.se206;
 }

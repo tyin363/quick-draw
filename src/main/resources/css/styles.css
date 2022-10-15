@@ -5,6 +5,14 @@
   -fx-screen-height: 800px;
 }
 
+.text-field {
+  -fx-font-size: 16px;
+  -fx-text-fill: -fx-text-default;
+  -fx-prompt-text-fill: -fx-lightgray-100;
+  -fx-background-color: -fx-gray-50;
+  -fx-highlight-fill: -fx-highlight;
+}
+
 .root-element {
   -fx-pref-width: -fx-screen-width;
   -fx-pref-height: -fx-screen-height;
@@ -19,13 +27,6 @@
 .hover-border:hover {
   -fx-border-color: -fx-highlight;
   -fx-border-width: 2px;
-}
-
-.card {
-  -fx-border-width: 1px;
-  -fx-border-radius: 20px;
-  -fx-background-radius: 20px;
-  -fx-background-color: white;
 }
 
 .heading {
@@ -47,7 +48,6 @@
   -fx-font-size: 18px;
   -fx-background-radius: 8px;
   -fx-background-color: -fx-highlight;
-
 }
 
 .btn {
@@ -69,16 +69,6 @@
   -fx-background-color: -fx-highlight-darkened;
 }
 
-.app-bar {
-  -fx-background-color: -fx-highlight;
-  -fx-padding: 8px 24px 8px 24px;
-  -fx-pref-height: 70px;
-}
-
-.app-bar > Label {
-  -fx-text-fill: white;
-}
-
 .icon {
   -fx-pref-width: 40px;
   -fx-pref-height: 40px;
@@ -88,6 +78,16 @@
   -fx-background-color: -fx-highlight;
   -fx-pref-height: 24px;
   -fx-pref-width: 24px;
+}
+
+.edit-icon > * {
+	-fx-shape: "M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.8 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z";
+	-fx-background-color: text-lightgray-100;
+
+}
+
+.edit-icon:hover {
+	-fx-background-color: -fx-highlight-lightened;
 }
 
 .fire-icon {
@@ -124,44 +124,6 @@
 .profile-icon > * {
   -fx-shape: "M272 304h-96C78.8 304 0 382.8 0 480c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32C448 382.8 369.2 304 272 304zM48.99 464C56.89 400.9 110.8 352 176 352h96c65.16 0 119.1 48.95 127 112H48.99zM224 256c70.69 0 128-57.31 128-128c0-70.69-57.31-128-128-128S96 57.31 96 128C96 198.7 153.3 256 224 256zM224 48c44.11 0 80 35.89 80 80c0 44.11-35.89 80-80 80S144 172.1 144 128C144 83.89 179.9 48 224 48z";
   -fx-background-color: white;
-}
-
-.icon-btn-row {
-  -fx-border-radius: 8px;
-  -fx-background-radius: 8px;
-}
-
-.icon-btn-row > .icon:hover {
-  -fx-background-color: -fx-highlight-lightened;
-  -fx-border-radius: 8px;
-  -fx-background-radius: 8px;
-}
-
-.icon-btn-row > .icon:pressed {
-  -fx-background-color: -fx-highlight-darkened;
-  -fx-border-radius: 8px;
-  -fx-background-radius: 8px;
-}
-
-.icon-btn-selected {
-  -fx-background-color: -fx-highlight !important;
-  -fx-border-radius: 8px;
-  -fx-background-radius: 8px;
-}
-
-.icon-btn-row > .icon:hover > Pane, .icon-btn-selected > Pane {
-  -fx-background-color: white;
-}
-
-.prediction-container {
-  -fx-border-width: 1px;
-  -fx-border-radius: 20px;
-  -fx-background-radius: 20px;
-}
-
-.prediction-container > Label {
-  -fx-font-family: SansSerif;
-  -fx-font-size: 18px;
 }
 
 .scroll-pane > .viewport {

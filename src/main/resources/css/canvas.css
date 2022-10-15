@@ -1,0 +1,58 @@
+.app-bar {
+  -fx-background-color: -fx-highlight;
+  -fx-padding: 8px 24px 8px 24px;
+  -fx-pref-height: 70px;
+}
+
+.app-bar > Label {
+  -fx-text-fill: white;
+}
+
+.card {
+  -fx-border-width: 1px;
+  -fx-border-radius: 20px;
+  -fx-background-radius: 20px;
+  -fx-background-color: white;
+}
+
+.vertical-pen-options {
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-background-color: -fx-lightgray-100;
+  -fx-padding: 5px;
+  -fx-pref-width: 50px;
+}
+
+
+.vertical-pen-options > .icon:hover {
+  -fx-background-color: -fx-highlight-lightened;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.vertical-pen-options > .icon:pressed {
+  -fx-background-color: -fx-highlight-darkened;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.vertical-pen-options > .icon:hover > Pane, .icon-btn-selected > Pane {
+  -fx-background-color: white;
+}
+
+.icon-btn-selected {
+  -fx-background-color: -fx-highlight !important;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+}
+
+.prediction-container {
+  -fx-border-width: 1px;
+  -fx-border-radius: 20px;
+  -fx-background-radius: 20px;
+}
+
+.prediction-container > Label {
+  -fx-font-family: SansSerif;
+  -fx-font-size: 18px;
+}
