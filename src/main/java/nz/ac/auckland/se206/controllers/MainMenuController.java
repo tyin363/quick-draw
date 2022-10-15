@@ -20,7 +20,6 @@ import nz.ac.auckland.se206.words.WordService;
 @Singleton
 public class MainMenuController implements LoadListener {
 
-  private static boolean HIDDEN_MODE = false;
   private final Random random = new Random();
   private final String[] messages = {
     "Speed is key! Make sure to focus on features that are most identifiable",
@@ -55,7 +54,6 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartGame() {
-    HIDDEN_MODE = false;
     this.stateMachine.switchState(DefaultCanvasState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
@@ -66,7 +64,6 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartZenMode() {
-    HIDDEN_MODE = false;
     this.stateMachine.switchState(ZenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
@@ -77,18 +74,8 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartHidden() {
-    HIDDEN_MODE = true;
     this.stateMachine.switchState(HiddenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
-  }
-
-  /**
-   * This method returns the static IS_HIDDEN boolean variable
-   *
-   * @return The value of IS_HIDDEN
-   */
-  public static boolean isHiddenMode() {
-    return HIDDEN_MODE;
   }
 
   /**

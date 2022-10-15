@@ -6,7 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.annotations.Inject;
-import nz.ac.auckland.se206.controllers.CanvasController;
+import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.speech.TextToSpeech;
@@ -16,26 +16,16 @@ import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Config;
 import nz.ac.auckland.se206.words.WordService;
 
+@Singleton(injectSuper = true)
 public class DefaultCanvasState extends CanvasState implements EnableListener, TerminationListener {
 
-  @Inject private TextToSpeech textToSpeech;
-  @Inject private UserService userService;
-  @Inject private WordService wordService;
-  @Inject private Config config;
+  @Inject protected TextToSpeech textToSpeech;
+  @Inject protected UserService userService;
+  @Inject protected WordService wordService;
+  @Inject protected Config config;
 
   private int secondsRemaining;
   private Timeline timer;
-
-  /**
-   * Create an instance of the default canvas state with a reference to the canvas controller whose
-   * UI will be modified by this state.
-   *
-   * @param canvasController The canvas controller instance
-   */
-  @Inject
-  public DefaultCanvasState(final CanvasController canvasController) {
-    super(canvasController);
-  }
 
   /**
    * When the default canvas state is loaded, make sure the game over actions aren't visible and
@@ -116,7 +106,7 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     this.canvasController.disableBrush();
     // Prevent the user from clearing their drawing
     this.canvasController.getClearPane().setDisable(true);
-    final String message = wasGuessed ? "You Win!" : "Time up!";
+    final String message = this.getConclusionMessage(wasGuessed);
 
     // Update statistics
     currentUser.addPastRound(round);
@@ -128,6 +118,16 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
 
     // Allow the user to save the image and restart the game
     this.canvasController.getGameOverActionsContainer().setVisible(true);
+  }
+
+  /**
+   * Retrieve the message that is displayed after the game has ended.
+   *
+   * @param wasGuessed If the user guessed the target word
+   * @return The message to display
+   */
+  protected String getConclusionMessage(final boolean wasGuessed) {
+    return wasGuessed ? "You Win!" : "Time up!";
   }
 
   /** When the application is terminated, make sure to stop the timer. */

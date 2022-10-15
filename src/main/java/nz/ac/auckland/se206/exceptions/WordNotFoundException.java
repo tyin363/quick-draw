@@ -1,12 +1,18 @@
-package nz.ac.auckland.se206.dictionary;
+package nz.ac.auckland.se206.exceptions;
 
 public class WordNotFoundException extends Exception {
 
-  private static final long serialVersionUID = 1L;
   private String word;
   private String subMessage;
 
-  public WordNotFoundException(String word, String message, String subMessage) {
+  /**
+   * Constructs a new exception for a word that was not found in the dictionary.
+   *
+   * @param word The word that was not found
+   * @param message The message
+   * @param subMessage The sub message
+   */
+  public WordNotFoundException(final String word, final String message, final String subMessage) {
     super(message);
     this.word = word;
     this.subMessage = subMessage;
@@ -18,7 +24,7 @@ public class WordNotFoundException extends Exception {
    * @return The word
    */
   public String getWord() {
-    return word;
+    return this.word;
   }
 
   /**
@@ -27,6 +33,6 @@ public class WordNotFoundException extends Exception {
    * @return The sub message
    */
   public String getSubMessage() {
-    return subMessage;
+    return this.subMessage;
   }
 }

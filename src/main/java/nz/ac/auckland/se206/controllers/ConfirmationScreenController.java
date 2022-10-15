@@ -37,8 +37,9 @@ public class ConfirmationScreenController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
-    this.wordDefinition.setVisible(MainMenuController.isHiddenMode());
-    this.targetWordLabel.setVisible(!MainMenuController.isHiddenMode());
+    final boolean isHiddenMode = this.hiddenMode.isHiddenMode();
+    this.wordDefinition.setVisible(isHiddenMode);
+    this.targetWordLabel.setVisible(!this.hiddenMode.isHiddenMode());
     this.targetWordLabel.setText(this.wordService.getTargetWord());
   }
 
