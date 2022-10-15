@@ -1,6 +1,6 @@
 .radio-button { 
   -fx-background-color: -fx-gray-50;
-  -fx-padding: 10px;
+  -fx-padding: 8px 16px 8px 16px;
   -fx-border-insets: 5px;
   -fx-background-insets: 5px;
   -fx-text-fill: -fx-lightgray-100;
@@ -23,14 +23,32 @@
 }
 
 .radio-button > .radio {
-  -fx-border-width: 2px;
+  -fx-pref-width: 16px;
+  -fx-pref-height: 16px;
+  -fx-border-width: 3px;
+  -fx-border-insets: -3px;
   -fx-border-color: white;
-  -fx-border-radius: 15px;
-  -fx-padding: 2.5px;
+  -fx-border-radius: 10px;
+  -fx-padding: 0px;
+}
+
+.radio-button > .radio > .dot {
+  -fx-border-color: transparent;
+  -fx-border-width: 3px;
+  -fx-border-insets: 0px;
+  -fx-padding: 1px;
+  -fx-border-radius: 8px;
+  -fx-background-radius: 8px;
+  -fx-background-color: -fx-gray-50;
+}
+
+.radio-button:hover > .radio > .dot {
+  -fx-background-color: #3b3f44;
 }
 
 .radio-button:selected > .radio > .dot {
-  -fx-background-insets: 0;
+  -fx-border-color: #454951;
+  -fx-background-color: white;
 }
 
 .easy {
