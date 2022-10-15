@@ -154,6 +154,12 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @throws IOException If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException {
+
+    // Disable header buttons in canvas controller
+    final HeaderController headerController =
+        this.sceneManager.getSubController(HeaderController.class);
+    headerController.disableButtons();
+
     Tooltip.install(this.eraserPane, new Tooltip(this.eraserPane.getAccessibleHelp()));
     Tooltip.install(this.penPane, new Tooltip(this.penPane.getAccessibleHelp()));
     Tooltip.install(this.clearPane, new Tooltip(this.clearPane.getAccessibleHelp()));

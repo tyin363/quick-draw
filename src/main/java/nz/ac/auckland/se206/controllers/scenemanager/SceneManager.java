@@ -134,6 +134,24 @@ public class SceneManager {
   }
 
   /**
+   * Retrieves the first sub-controller for the currently loading view. This can only be called in
+   * the initialize method of a controller.
+   *
+   * @param type The class of the sub-controller to find
+   * @param <T> The type of the sub-controller
+   * @return The sub-controller if it exists, otherwise null
+   */
+  public <T> T getSubController(final Class<T> type) {
+    // Iterate through all the sub-controllers which have just been loaded.
+    for (final Object controller : this.controllers) {
+      if (type.isInstance(controller)) {
+        return type.cast(controller);
+      }
+    }
+    return null;
+  }
+
+  /**
    * Manually register a controller to be added to the currently loading view.
    *
    * @param controller The controller to register

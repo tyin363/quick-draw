@@ -76,13 +76,6 @@ public class HeaderController implements LoadListener {
       return;
     }
 
-    if (this.sceneManager.getCurrentView().equals(View.CANVAS)) {
-      this.profilePicture.setMouseTransparent(true);
-      this.switchUserLabel.setMouseTransparent(true);
-    } else {
-      this.profilePicture.setMouseTransparent(false);
-      this.switchUserLabel.setMouseTransparent(false);
-    }
     this.currentUser = newCurrentUser;
     this.renderUserProfile(this.currentUser);
   }
@@ -103,6 +96,12 @@ public class HeaderController implements LoadListener {
 
     // If the user doesn't have a profile picture, or it doesn't exist, hide the image.
     this.profilePicture.setVisible(false);
+  }
+
+  /** Buttons are disabled and will not be able to be clicked */
+  public void disableButtons() {
+    this.profilePicture.setMouseTransparent(true);
+    this.switchUserLabel.setMouseTransparent(true);
   }
 
   /** When the user clicks on the profile picture, take them to the profile page view. */
