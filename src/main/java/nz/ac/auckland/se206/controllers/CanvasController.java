@@ -130,6 +130,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Override
   public void onLoad() {
     this.setCurrentWordConfidenceLevel(0.00);
+    this.targetWordConfidenceLabel.setTextFill(Color.BLACK);
     this.targetWordLabel.setVisible(true);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
@@ -201,6 +202,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onClear() {
     this.setCurrentWordConfidenceLevel(0.00);
+    this.targetWordConfidenceLabel.setTextFill(Color.BLACK);
     this.resetConfidenceImage();
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     this.clearPredictions();
