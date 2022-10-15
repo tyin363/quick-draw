@@ -44,6 +44,7 @@ public class SettingsController implements LoadListener {
   /** Hook up the back button action when the view is initialised. */
   @FXML
   private void initialize() {
+    this.setToolTips();
     Helpers.getBackButton(this.header).setOnAction(event -> this.onSwitchBack());
   }
 
@@ -56,9 +57,6 @@ public class SettingsController implements LoadListener {
   /** Everytime this scene is switched to set the tooltpis and load user's previous settings. */
   @Override
   public void onLoad() {
-
-    this.setToolTips();
-
     // Disabling the ready button initially
     this.readyButton.setDisable(true);
 

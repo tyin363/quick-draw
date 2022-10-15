@@ -111,15 +111,7 @@ public class Config {
    */
   public int getDrawingTimeSeconds() {
     User currentUser = this.userService.getCurrentUser();
-    if (currentUser.getGameSettings().getTime() == 60) {
-      return 60;
-    } else if (currentUser.getGameSettings().getTime() == 45) {
-      return 45;
-    } else if (currentUser.getGameSettings().getTime() == 30) {
-      return 30;
-    } else {
-      return 15;
-    }
+    return currentUser.getGameSettings().getTime();
   }
 
   /**
