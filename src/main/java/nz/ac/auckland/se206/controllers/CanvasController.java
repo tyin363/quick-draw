@@ -62,7 +62,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Label targetWordLabel;
   @FXML private Label mainLabel;
   @FXML private Label targetWordConfidenceLabel;
-  @FXML private ImageView confidenceImage;
+  @FXML private ImageView confidenceLevelImage;
 
   @Inject private Logger logger;
   @Inject private Config config;
@@ -124,6 +124,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   public void onLoad() {
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
+    this.resetConfidenceImage();
     this.predictionHandler.startPredicting();
 
     // Clear any previous predictions
@@ -178,6 +179,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   /** This method is called when the "Clear" button is pressed and clears the canvas. */
   @FXML
   private void onClear() {
+    this.resetConfidenceImage();
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     this.clearPredictions();
 
@@ -444,6 +446,11 @@ public class CanvasController implements LoadListener, TerminationListener {
   }
 
   public void setConfidenceImage(Image image) {
-    this.confidenceImage.setImage(image);
+    this.confidenceLevelImage.setImage(image);
+  }
+
+  public void resetConfidenceImage() {
+    File equalFile = new File("src/main/resources/images/equal.png");
+    this.confidenceLevelImage.setImage(new Image(equalFile.toURI().toString()));
   }
 }

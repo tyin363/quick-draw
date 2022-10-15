@@ -5,7 +5,9 @@ import ai.djl.modality.Classifications;
 import ai.djl.modality.Classifications.Classification;
 import ai.djl.translate.TranslateException;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -13,6 +15,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
+import javafx.scene.image.Image;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.controllers.CanvasController;
@@ -89,24 +92,23 @@ public class PredictionHandler implements TerminationListener {
             for (Classification prediction : predictions) {
               String targetWord = wordService.getTargetWord().replace(" ", "_");
               if (prediction.getClassName().equals(targetWord)) {
-                if (prediction.getProbability()
-                    > canvasController.getCurrentWordConfidenceLevel()) {
+                double probability = prediction.getProbability();
+                double currentProbability = canvasController.getCurrentWordConfidenceLevel();
+                DecimalFormat df = new DecimalFormat("#.##");
+                probability = Double.parseDouble(df.format(probability));
+                currentProbability = Double.parseDouble(df.format(currentProbability));
+                if (probability > currentProbability) {
                   canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
                   System.out.println("PROBABILTY UP");
-                  canvasController.setConfidenceImage();
-                  // Image image = new Image(
-                  // getClass().getResourceAsStream("/src/main/resources/images/UpArrow.gif"));
-                  // canvasController.setConfidenceImage(image);
-                } else if (prediction.getProbability()
-                    < canvasController.getCurrentWordConfidenceLevel()) {
-                  // canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                  File upArrowFile = new File("src/main/resources/images/upArrow.png");
+                  canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
+                } else if (probability < currentProbability) {
                   System.out.println("PROBABLITY DOWN");
-                  // File downArrowFile = new File("src/main/resources/images/DownArrow.gif");
-                  // canvasController.setConfidenceImage(new
-                  // Image(downArrowFile.toURI().toString()));
+                  canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                  File downArrowFile = new File("src/main/resources/images/downArrow.png");
+                  canvasController.setConfidenceImage(new Image(downArrowFile.toURI().toString()));
                 } else {
-                  // File equalFile = new File("src/main/resources/images/equalGif.gif");
-                  // canvasController.setConfidenceImage(new Image(equalFile.toURI().toString()));
+                  canvasController.resetConfidenceImage();
                 }
               }
             }
