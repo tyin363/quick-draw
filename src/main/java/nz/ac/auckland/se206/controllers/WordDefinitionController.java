@@ -93,6 +93,11 @@ public class WordDefinitionController implements LoadListener {
     // Clear any styles on the target word
     this.targetWordLabel.setStyle(null);
 
+    // If it's not hidden mode, we can ignore the rest of this method.
+    if (!this.hiddenMode.isHiddenMode()) {
+      return;
+    }
+
     // Clear previous definitions
     if (!this.hiddenMode.getDefinitions().isEmpty()) {
       this.hiddenMode.setElements(

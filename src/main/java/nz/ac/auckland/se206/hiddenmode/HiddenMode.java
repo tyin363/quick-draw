@@ -16,6 +16,8 @@ import nz.ac.auckland.se206.dictionary.DictionaryLookup;
 import nz.ac.auckland.se206.dictionary.WordEntry;
 import nz.ac.auckland.se206.dictionary.WordInfo;
 import nz.ac.auckland.se206.exceptions.WordNotFoundException;
+import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
+import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 
@@ -23,6 +25,7 @@ import org.slf4j.Logger;
 public class HiddenMode implements TerminationListener {
 
   @Inject private Logger logger;
+  @Inject private CanvasStateMachine stateMachine;
   private List<String> definitions = new ArrayList<String>();
   private int definitionIndex = 0;
   private Task<Void> backgroundTask;
@@ -268,6 +271,15 @@ public class HiddenMode implements TerminationListener {
 
     // Perform the search on a background thread so that it doesn't cause the UI to freeze
     new Thread(this.backgroundTask).start();
+  }
+
+  /**
+   * Returns whether the current canvas state is hidden word mode.
+   *
+   * @return If the current canvas state is hidden word mode
+   */
+  public boolean isHiddenMode() {
+    return this.stateMachine.getCurrentState().getClass().equals(HiddenModeState.class);
   }
 
   /** If the Application closes, make sure to cancel the background task. */
