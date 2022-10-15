@@ -241,21 +241,37 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
   /**
    * Checks if any of the fields in the instance are annotated with {@code @Inject} and if so then
    * attempts to automatically inject the fields using either the registered suppliers or by
-   * creating instances of them using the {@link #createInstance(Class)} method.
+   * creating instances of them using the {@link #createInstance(Class)} method. If the type is
+   * annotated with {@code @Singleton} and {@code injectSuper} is true, then it will automatically
+   * tru and inject the super class fields as well.
    *
    * @param instance The instance to inject the fields of
+   * @see #injectFields(Object, Class)
    */
   public void injectFields(final Object instance) {
-    final Class<?> instanceType = instance.getClass();
+    this.injectFields(instance, instance.getClass());
+  }
 
-    for (final Field field : instanceType.getDeclaredFields()) {
+  /**
+   * Checks if any of the fields in the instance are annotated with {@code @Inject} and if so then
+   * attempts to automatically inject the fields using either the registered suppliers or by
+   * creating instances of them using the {@link #createInstance(Class)} method. If the type is
+   * annotated with {@code @Singleton} and {@code injectSuper} is true, then it will automatically
+   * tru and inject the super class fields as well.
+   *
+   * @param instance The instance to inject the fields of
+   * @param type The type of the instance to inject the fields of
+   * @see #injectFields(Object)
+   */
+  public void injectFields(final Object instance, final Class<?> type) {
+    for (final Field field : type.getDeclaredFields()) {
       try {
         // Some of these fields may be private, so we need to make them accessible
         field.setAccessible(true);
         if (field.isAnnotationPresent(Inject.class)) {
           // Only inject fields that are not already set
           if (field.get(instance) == null) {
-            field.set(instance, this.getInstance(field.getType(), instanceType));
+            field.set(instance, this.getInstance(field.getType(), type));
           }
         }
       } catch (final IllegalAccessException | InaccessibleObjectException e) {
@@ -263,8 +279,14 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
         this.logger.error(
             "Failed to inject field {} in type {}",
             field.getName(),
-            instanceType.getCanonicalName(),
+            instance.getClass().getCanonicalName(),
             e);
+      }
+      if (type.isAnnotationPresent(Singleton.class)
+          && type.getAnnotation(Singleton.class).injectSuper()) {
+        // If the type is a singleton and the injectSuper flag is set, then we should also inject
+        // the super class fields
+        this.injectFields(instance, type.getSuperclass());
       }
     }
   }

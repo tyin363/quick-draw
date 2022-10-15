@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -15,21 +16,22 @@
         <fx:include fx:id="header" source="header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" VBox.vgrow="ALWAYS">
             <children>
-              <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
-                <children>
-                  <Label fx:id="timeLimitLabel" styleClass="text-default" text="You have 60 seconds to draw:">
-                    <font>
-                      <Font name="SansSerif Regular" size="24.0" />
-                    </font>
-                  </Label>
-                  <Label fx:id="targetWordLabel" styleClass="text-default" text="Label">
-                    <font>
-                      <Font name="SansSerif Bold" size="36.0" />
-                    </font>
-                  </Label>
-                </children>
-              </VBox>
-              <Button mnemonicParsing="false" onAction="#onConfirmSwitch" prefHeight="25.0" prefWidth="137.0" styleClass="btn" text="Start" />
+            <Label fx:id="timeLimitLabel" styleClass="text-default" text="You have 60 seconds to draw:">
+              <font>
+                <Font name="SansSerif Regular" size="24.0" />
+              </font>
+            </Label>
+                  <StackPane prefHeight="229.0" prefWidth="1150.0">
+                     <children>
+                        <fx:include fx:id="wordDefinition" source="word_definition.fxml" />
+                        <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="SansSerif Bold" size="58.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </StackPane>
+              <Button mnemonicParsing="false" onAction="#onConfirmSwitch" prefHeight="25.0" prefWidth="137.0" styleClass="btn" text="Ready!" />
             </children>
           </VBox>
          </children>

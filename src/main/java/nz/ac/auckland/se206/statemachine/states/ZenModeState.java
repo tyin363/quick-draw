@@ -2,28 +2,15 @@ package nz.ac.auckland.se206.statemachine.states;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.components.canvas.ZenPenOptions;
-import nz.ac.auckland.se206.controllers.CanvasController;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 
-@Singleton
+@Singleton(injectSuper = true)
 public class ZenModeState extends CanvasState implements EnableListener {
 
   private ZenPenOptions zenPenOptions;
   private VBox oldToolContainerContent;
-
-  /**
-   * Creates a new ZenModeState which handles the stateful logic of the canvas when the zen mode has
-   * been selected.
-   *
-   * @param canvasController The canvas controller instance
-   */
-  @Inject
-  public ZenModeState(final CanvasController canvasController) {
-    super(canvasController);
-  }
 
   /** Switch the UI elements to the Zen Mode UI. */
   @Override

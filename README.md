@@ -223,7 +223,10 @@ Windows:
 ## Attributions
 External resources used:  
 - "[fire - solid](https://fontawesome.com/icons/fire?f=classic&s=solid)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
-- "[angle-left - solid](https://fontawesome.com/icons/angle-left?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
+- "[chevron-left - solid](https://fontawesome.com/icons/chevron-left?s=solid&f=classic)" by [Font 
+  Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
+- "[chevron-right - solid](https://fontawesome.com/icons/chevron-right?s=solid&f=classic)" by [Font 
+  Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[eraser - solid](https://fontawesome.com/icons/eraser?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[Clock - regular](https://fontawesome.com/icons/clock?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[Fire flame curved - solid](https://fontawesome.com/icons/fire-flame-curved?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
