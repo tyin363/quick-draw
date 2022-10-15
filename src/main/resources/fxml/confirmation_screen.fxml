@@ -17,7 +17,7 @@
             <children>
               <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
                 <children>
-                  <Label styleClass="text-default" text="You have 60 seconds to draw:">
+                  <Label fx:id="timeLimitLabel" styleClass="text-default" text="You have 60 seconds to draw:">
                     <font>
                       <Font name="SansSerif Regular" size="24.0" />
                     </font>
@@ -29,7 +29,7 @@
                   </Label>
                 </children>
               </VBox>
-              <Button mnemonicParsing="false" onAction="#onConfirmSwitch" prefHeight="25.0" prefWidth="137.0" styleClass="btn" text="Ready!" />
+              <Button mnemonicParsing="false" onAction="#onConfirmSwitch" prefHeight="25.0" prefWidth="137.0" styleClass="btn" text="Start" />
             </children>
           </VBox>
          </children>

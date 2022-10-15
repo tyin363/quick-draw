@@ -28,6 +28,7 @@ public class InstanceFactory implements Callback<Class<?>, Object> {
   private final Map<Class<?>, Object> singletons = new ConcurrentHashMap<>();
   private final List<Consumer<Object>> postConstructionCallbacks;
 
+  /** A constructor for Instance Factory and initialises post construction call backs */
   public InstanceFactory() {
     this.postConstructionCallbacks = new ArrayList<>();
     this.postConstructionCallbacks.add(this::injectFields);
