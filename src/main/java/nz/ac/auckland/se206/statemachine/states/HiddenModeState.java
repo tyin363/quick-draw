@@ -7,7 +7,6 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
-import nz.ac.auckland.se206.controllers.CanvasController;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.hiddenmode.HiddenMode;
@@ -18,7 +17,7 @@ import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Config;
 import nz.ac.auckland.se206.words.WordService;
 
-@Singleton
+@Singleton(injectSuper = true)
 public class HiddenModeState extends CanvasState implements EnableListener, TerminationListener {
 
   @Inject private TextToSpeech textToSpeech;
@@ -29,62 +28,6 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
 
   private int secondsRemaining;
   private Timeline timer;
-
-  /**
-   * Creates a new ZenModeState which handles the stateful logic of the canvas when the zen mode has
-   * been selected.
-   *
-   * @param canvasController The canvas controller instance
-   */
-  @Inject
-  public HiddenModeState(final CanvasController canvasController) {
-    super(canvasController);
-  }
-
-  /**
-   * When the hidden mode canvas state is loaded, make sure the game over actions aren't visible and
-   * reset the count-down timer.
-   */
-  @Override
-  public void onLoad() {
-    // Set hidden mode exclusive elements to be visible
-    this.canvasController.getHintsHbox().setVisible(true);
-    this.canvasController.getWordDefinition().setVisible(true);
-    this.canvasController.getDefaultHbox().setVisible(false);
-
-    this.canvasController.getGameOverActionsContainer().setVisible(false);
-    this.secondsRemaining = this.config.getDrawingTimeSeconds();
-    this.canvasController.getMainLabel().setText(this.config.getDrawingTimeSeconds() + " Seconds");
-    this.timer.playFromStart();
-  }
-
-  /**
-   * After the predictions have been rendered, check to see if the correct word is within the
-   * winning placement. If so, then the user has won the round.
-   *
-   * @param predictions The predictions that have been made
-   */
-  @Override
-  public void handlePredictions(final List<Classification> predictions) {
-    super.handlePredictions(predictions);
-    final int winPlacement = this.config.getWinPlacement();
-    final String targetWord = this.wordService.getTargetWord();
-
-    boolean wasGuessed = false;
-    // Check if the target word is in the top number of predictions. If it is, you win.
-    for (int i = 0; i < winPlacement; i++) {
-      // The target word uses spaces rather than underscores
-      final String guess = predictions.get(i).getClassName().replaceAll("_", " ");
-      if (guess.equals(targetWord)) {
-        wasGuessed = true;
-        break;
-      }
-    }
-
-    if (wasGuessed) {
-      this.gameOver(true);
-    }
-  }
 
   /**
    * When this state is first created, construct a timer instance that can be reused to count down
@@ -156,6 +99,51 @@ public class HiddenModeState extends CanvasState implements EnableListener, Term
     this.canvasController.getWordDefinition().setVisible(false);
     this.canvasController.getDefaultHbox().setVisible(true);
     this.canvasController.getGameOverActionsContainer().setVisible(false);
+  }
+
+  /**
+   * When the hidden mode canvas state is loaded, make sure the game over actions aren't visible and
+   * reset the count-down timer.
+   */
+  @Override
+  public void onLoad() {
+    // Set hidden mode exclusive elements to be visible
+    this.canvasController.getHintsHbox().setVisible(true);
+    this.canvasController.getWordDefinition().setVisible(true);
+    this.canvasController.getDefaultHbox().setVisible(false);
+
+    this.canvasController.getGameOverActionsContainer().setVisible(false);
+    this.secondsRemaining = this.config.getDrawingTimeSeconds();
+    this.canvasController.getMainLabel().setText(this.config.getDrawingTimeSeconds() + " Seconds");
+    this.timer.playFromStart();
+  }
+
+  /**
+   * After the predictions have been rendered, check to see if the correct word is within the
+   * winning placement. If so, then the user has won the round.
+   *
+   * @param predictions The predictions that have been made
+   */
+  @Override
+  public void handlePredictions(final List<Classification> predictions) {
+    super.handlePredictions(predictions);
+    final int winPlacement = this.config.getWinPlacement();
+    final String targetWord = this.wordService.getTargetWord();
+
+    boolean wasGuessed = false;
+    // Check if the target word is in the top number of predictions. If it is, you win.
+    for (int i = 0; i < winPlacement; i++) {
+      // The target word uses spaces rather than underscores
+      final String guess = predictions.get(i).getClassName().replaceAll("_", " ");
+      if (guess.equals(targetWord)) {
+        wasGuessed = true;
+        break;
+      }
+    }
+
+    if (wasGuessed) {
+      this.gameOver(true);
+    }
   }
 
   /** When the application is terminated, make sure to stop the timer. */
