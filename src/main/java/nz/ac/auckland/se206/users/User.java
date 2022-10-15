@@ -54,7 +54,7 @@ public class User {
    * @return Whether the user has previously had to draw the specified word.
    */
   public boolean hasHadWord(final String word) {
-    return this.pastRounds.stream().anyMatch(round -> round.getWord().equals(word));
+    return this.pastRounds.stream().anyMatch(round -> round.word().equals(word));
   }
 
   /**
@@ -77,8 +77,8 @@ public class User {
       }
 
       // Check if this is a new fastest time or if there is not currently a fastest time
-      if (round.getTimeTaken() < this.fastestTime || this.fastestTime == -1) {
-        this.fastestTime = round.getTimeTaken();
+      if (round.timeTaken() < this.fastestTime || this.fastestTime == -1) {
+        this.fastestTime = round.timeTaken();
       }
     } else {
       this.gamesLost++;

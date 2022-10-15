@@ -13,8 +13,8 @@ public class RoundEntry extends AnchorPane {
    */
   public RoundEntry(final Round round) {
     this.getStyleClass().add("round-entry");
-    final Label wordLabel = new Label(round.getWord());
-    final Label timeLabel = new Label(round.getTimeTaken() + "s");
+    final Label wordLabel = new Label(round.word());
+    final Label timeLabel = new Label(round.timeTaken() + "s");
 
     timeLabel.getStyleClass().add(round.wasGuessed() ? "round-won" : "round-lost");
 
