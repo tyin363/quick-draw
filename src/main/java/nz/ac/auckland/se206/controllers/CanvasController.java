@@ -539,6 +539,11 @@ public class CanvasController implements LoadListener, TerminationListener {
     return this.defaultHbox;
   }
 
+  /**
+   * This retrieves the target word confidence label
+   *
+   * @return target word confidence label
+   */
   public Label getTargetWordConfidenceLabel() {
     return this.targetWordConfidenceLabel;
   }
