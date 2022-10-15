@@ -7,7 +7,6 @@ import ai.djl.translate.TranslateException;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -98,25 +97,27 @@ public class PredictionHandler implements TerminationListener {
                 double probability = prediction.getProbability();
                 double currentProbability = canvasController.getCurrentWordConfidenceLevel();
                 System.out.println(probability);
-                DecimalFormat df = new DecimalFormat("#.###");
-                probability = Double.parseDouble(df.format(probability));
-                currentProbability = Double.parseDouble(df.format(currentProbability));
-                System.out.println(probability);
+                System.out.println(currentProbability);
                 // Changing confidence level image depending on the current word's confidence
                 // level
-                if (probability > currentProbability) {
-                  canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-                  canvasController.getTargetWordConfidenceLabel().setTextFill(Color.GREEN);
-                  File upArrowFile = new File("src/main/resources/images/upArrow.png");
-                  canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
-                } else if (probability < currentProbability) {
-                  canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-                  canvasController.getTargetWordConfidenceLabel().setTextFill(Color.RED);
-                  File downArrowFile = new File("src/main/resources/images/downArrow.png");
-                  canvasController.setConfidenceImage(new Image(downArrowFile.toURI().toString()));
+                if (currentProbability != 0.0) {
+                  if (probability > currentProbability) {
+                    canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                    canvasController.getTargetWordConfidenceLabel().setTextFill(Color.GREEN);
+                    File upArrowFile = new File("src/main/resources/images/upArrow.png");
+                    canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
+                  } else if (probability < currentProbability) {
+                    canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                    canvasController.getTargetWordConfidenceLabel().setTextFill(Color.RED);
+                    File downArrowFile = new File("src/main/resources/images/downArrow.png");
+                    canvasController.setConfidenceImage(
+                        new Image(downArrowFile.toURI().toString()));
+                  } else {
+                    canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
+                    canvasController.resetConfidenceImage();
+                  }
                 } else {
-                  canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
-                  canvasController.resetConfidenceImage();
+                  canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
                 }
               }
             }
