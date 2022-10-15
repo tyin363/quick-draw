@@ -71,7 +71,7 @@ public class SoundEffect {
             backgroundMediaPlayer.setVolume(0.1);
             backgroundMediaPlayer.play();
 
-            if (music == mainMusic) {
+            if (music == mainMusic || music == defaultCanvasMusic) {
               backgroundMediaPlayer.setCycleCount(Integer.MAX_VALUE);
             }
 
