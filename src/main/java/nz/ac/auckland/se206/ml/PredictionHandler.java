@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.ml;
 
 import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
+import ai.djl.modality.Classifications.Classification;
 import ai.djl.translate.TranslateException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,7 +14,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
 import javafx.util.Duration;
+import nz.ac.auckland.se206.annotations.Inject;
+import nz.ac.auckland.se206.controllers.CanvasController;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
+import nz.ac.auckland.se206.words.WordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +29,8 @@ public class PredictionHandler implements TerminationListener {
   private final Timeline timeline;
   private final DoodlePrediction model;
   private Task<List<Classifications.Classification>> backgroundTask;
+  private final WordService wordService;
+  private final CanvasController canvasController;
 
   /**
    * Constructs a new prediction handler which will generate predictions every second in the
@@ -35,11 +41,15 @@ public class PredictionHandler implements TerminationListener {
    * @throws ModelException If there is an error in reading the input/output of the DL model
    * @throws IOException If the model cannot be found on the file system
    */
+  @Inject
   public PredictionHandler(
       final Supplier<BufferedImage> snapshotSupplier,
-      final Consumer<List<Classifications.Classification>> onSuccess)
+      final Consumer<List<Classifications.Classification>> onSuccess,
+      final WordService wordService,
+      final CanvasController canvasController)
       throws ModelException, IOException {
-
+    this.wordService = wordService;
+    this.canvasController = canvasController;
     this.model = new DoodlePrediction();
     // Create a timeline that performs a prediction every second indefinitely.
     this.timeline =
@@ -74,6 +84,32 @@ public class PredictionHandler implements TerminationListener {
           protected List<Classifications.Classification> call() throws TranslateException {
             // Using the snapshot retrieved from the main thread, perform the prediction on
             // another thread.
+            List<Classifications.Classification> predictions =
+                PredictionHandler.this.model.getPredictions(snapshot, 345);
+            for (Classification prediction : predictions) {
+              String targetWord = wordService.getTargetWord().replace(" ", "_");
+              if (prediction.getClassName().equals(targetWord)) {
+                if (prediction.getProbability()
+                    > canvasController.getCurrentWordConfidenceLevel()) {
+                  canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                  System.out.println("PROBABILTY UP");
+                  canvasController.setConfidenceImage();
+                  // Image image = new Image(
+                  // getClass().getResourceAsStream("/src/main/resources/images/UpArrow.gif"));
+                  // canvasController.setConfidenceImage(image);
+                } else if (prediction.getProbability()
+                    < canvasController.getCurrentWordConfidenceLevel()) {
+                  // canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+                  System.out.println("PROBABLITY DOWN");
+                  // File downArrowFile = new File("src/main/resources/images/DownArrow.gif");
+                  // canvasController.setConfidenceImage(new
+                  // Image(downArrowFile.toURI().toString()));
+                } else {
+                  // File equalFile = new File("src/main/resources/images/equalGif.gif");
+                  // canvasController.setConfidenceImage(new Image(equalFile.toURI().toString()));
+                }
+              }
+            }
             return PredictionHandler.this.model.getPredictions(snapshot, NUMBER_OF_PREDICTIONS);
           }
         };

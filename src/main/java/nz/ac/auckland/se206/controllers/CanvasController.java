@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -61,6 +62,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Label targetWordLabel;
   @FXML private Label mainLabel;
   @FXML private Label targetWordConfidenceLabel;
+  @FXML private ImageView confidenceImage;
 
   @Inject private Logger logger;
   @Inject private Config config;
@@ -73,6 +75,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   private boolean isUpdatingPredictions;
   private Color penColour = Color.BLACK;
   private Label[] predictionLabels;
+  private double currentWordConfidenceLevel;
 
   // Mouse coordinates
   private double currentX;
@@ -121,7 +124,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   public void onLoad() {
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
-
     this.predictionHandler.startPredicting();
 
     // Clear any previous predictions
@@ -163,7 +165,7 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.canvas.setOnMouseDragged(e -> this.selectedBrushType.accept(e));
 
     this.predictionHandler =
-        new PredictionHandler(this::getCurrentSnapshot, this::onPredictSuccess);
+        new PredictionHandler(this::getCurrentSnapshot, this::onPredictSuccess, wordService, this);
 
     // Generate the labels for all the predictions
     this.predictionLabels = new Label[this.config.getNumberOfPredictions()];
@@ -258,7 +260,6 @@ public class CanvasController implements LoadListener, TerminationListener {
       this.predictionLabels[i].setText(guess);
       this.predictionLabels[i].setTextFill(textColour);
     }
-    System.out.println("DISPLAYIGN PREDICTION YO");
   }
 
   /**
@@ -432,5 +433,17 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   public PredictionHandler getPredictionHandler() {
     return this.predictionHandler;
+  }
+
+  public double getCurrentWordConfidenceLevel() {
+    return this.currentWordConfidenceLevel;
+  }
+
+  public void setCurrentWordConfidenceLevel(double confidenceLevel) {
+    this.currentWordConfidenceLevel = confidenceLevel;
+  }
+
+  public void setConfidenceImage(Image image) {
+    this.confidenceImage.setImage(image);
   }
 }
