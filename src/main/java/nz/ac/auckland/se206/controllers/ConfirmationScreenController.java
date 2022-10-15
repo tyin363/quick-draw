@@ -9,6 +9,8 @@ import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.hiddenmode.HiddenMode;
+import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
+import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.words.WordService;
 
@@ -21,6 +23,7 @@ public class ConfirmationScreenController implements LoadListener {
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   @Inject private HiddenMode hiddenMode;
+  @Inject private CanvasStateMachine stateMachine;
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
@@ -37,8 +40,10 @@ public class ConfirmationScreenController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
-    this.wordDefinition.setVisible(MainMenuController.isHiddenMode());
-    this.targetWordLabel.setVisible(!MainMenuController.isHiddenMode());
+    final boolean isHiddenMode =
+        this.stateMachine.getCurrentState().getClass().equals(HiddenModeState.class);
+    this.wordDefinition.setVisible(isHiddenMode);
+    this.targetWordLabel.setVisible(!isHiddenMode);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
   }
 
