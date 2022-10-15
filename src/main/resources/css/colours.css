@@ -43,6 +43,14 @@
   -fx-background-color: -fx-lightgray-100;
 }
 
+.bg-green {
+  -fx-background-color: -fx-green;
+}
+
+.bg-red {
+  -fx-background-color: -fx-red;
+}
+
 /* Text Colours */
 
 .text-highlight {

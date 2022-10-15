@@ -78,6 +78,45 @@
                                     </Pane>
                                  </children>
                               </AnchorPane>
+                              <VBox spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <HBox alignment="BASELINE_LEFT" spacing="4.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label fx:id="numWins" text="9">
+                                             <styleClass>
+                                                <String fx:value="stat-secondary" />
+                                                <String fx:value="text-green" />
+                                             </styleClass>
+                                          </Label>
+                                          <Label styleClass="stat-label" text="Wins" />
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="winBarContainer" prefHeight="6.0">
+                                       <children>
+                                          <Pane prefWidth="120.0" styleClass="bg-green" />
+                                          <Pane styleClass="bg-red" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="TOP_RIGHT" spacing="4.0">
+                                       <children>
+                                          <Label styleClass="stat-label" text="Losses">
+                                             <HBox.margin>
+                                                <Insets top="3.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="numLosses" text="1">
+                                             <styleClass>
+                                                <String fx:value="stat-secondary" />
+                                                <String fx:value="text-red" />
+                                             </styleClass>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                      </children>
