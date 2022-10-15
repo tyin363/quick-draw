@@ -9,18 +9,23 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.dictionary.DictionaryLookup;
 import nz.ac.auckland.se206.dictionary.WordEntry;
 import nz.ac.auckland.se206.dictionary.WordInfo;
 import nz.ac.auckland.se206.dictionary.WordNotFoundException;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 
 @Singleton
-public class HiddenMode {
+public class HiddenMode implements TerminationListener {
 
+  @Inject private Logger logger;
   private List<String> definitions = new ArrayList<String>();
   private int definitionIndex = 0;
+  private Task<Void> backgroundTask;
 
   /**
    * This method returns the list of definitions
@@ -61,7 +66,13 @@ public class HiddenMode {
     this.definitionIndex = 0;
   }
 
-  /** This method will change the label font size to fit the screen accordingly */
+  /**
+   * This method will change the label font size to fit the screen accordingly.
+   *
+   * @param target The label to change the font size of
+   * @param maxWidth The maximum width of the label
+   * @param defaultFontSize The default font size of the label
+   */
   public void changeFontDynamically(
       final Label target, final double maxWidth, final double defaultFontSize) {
 
@@ -93,12 +104,9 @@ public class HiddenMode {
       if (newFontSize >= allowableFontSize) {
         if (textWidth >= maxWidth) {
           target.setStyle("-fx-font-size: " + newFontSize + ";");
-          target.setText(twoSentence);
-          return;
-        } else {
-          target.setText(twoSentence);
-          return;
         }
+        target.setText(twoSentence);
+        return;
       }
 
       final String threeSentence =
@@ -137,7 +145,7 @@ public class HiddenMode {
     return textWidth;
   }
 
-  /** This gets the number of definitions and the current index number */
+  /** This gets the number of definitions and the current index numbe.r */
   public void getNumberOfDefinitions(final Label target) {
     final int index = this.definitionIndex + 1;
     final int size = this.definitions.size();
@@ -157,7 +165,7 @@ public class HiddenMode {
   }
 
   /**
-   * This method sets text and visibility of the elements involved in the Hidden game mode
+   * This method sets text and visibility of the elements involved in the Hidden game mode.
    *
    * @param target The chosen target word
    * @param numberOfDefinitionLabel The label showing the number of definitions and current index
@@ -173,6 +181,7 @@ public class HiddenMode {
       final double defaultFontSize,
       final Node previousDefinitionVbox,
       final Node nextDefinitionVbox) {
+    // Update the displayed definitions and buttons
     target.setText(this.getDefinitions().get(this.definitionIndex));
     this.changeFontDynamically(target, maxWidth, defaultFontSize);
     this.checkForPreviousAndNext(previousDefinitionVbox, nextDefinitionVbox);
@@ -194,9 +203,15 @@ public class HiddenMode {
   }
 
   /**
-   * This method searches the word info of the given query word and gets its definitions
+   * This method searches the word info of the given query word and gets its definitions.
    *
    * @param queryWord The word to search up on
+   * @param target The target label to display the definitions
+   * @param numberOfDefinitions The label showing the number of definitions and current index
+   * @param maxWidth The max width of the target label
+   * @param fontSize The default font size of the target label
+   * @param previous The previous button container
+   * @param next The next button container
    */
   public void searchWord(
       final String queryWord,
@@ -207,29 +222,29 @@ public class HiddenMode {
       final Node previous,
       final Node next) {
 
-    final Task<Void> backgroundTask =
-        new Task<Void>() {
+    // Keep a reference to the task so that it can be cancelled if the application closes mid-task
+    this.backgroundTask =
+        new Task<>() {
 
           @Override
-          protected Void call() throws Exception {
+          protected Void call() {
             try {
               // get word info
               final WordInfo wordResult = DictionaryLookup.searchWordInfo(queryWord);
               for (final WordEntry entry : wordResult.getWordEntries()) {
-                for (final String definition : entry.getDefinitions()) {
-                  HiddenMode.this.definitions.add(definition);
-                }
+                HiddenMode.this.definitions.addAll(entry.getDefinitions());
               }
 
+              // On the JavaFX Application Thread update the displayed definitions and buttons
               Platform.runLater(
-                  () -> {
-                    HiddenMode.this.setElements(
-                        target, numberOfDefinitions, maxWidth, fontSize, previous, next);
-                  });
+                  () ->
+                      HiddenMode.this.setElements(
+                          target, numberOfDefinitions, maxWidth, fontSize, previous, next));
             } catch (final IOException e) {
-              e.printStackTrace();
+              HiddenMode.this.logger.error("There was an error fetching the definition", e);
             } catch (final WordNotFoundException e) {
-              System.out.println("Sorry there were no definitions!");
+              // Let the user know that there is no definition for this word
+              HiddenMode.this.logger.info("Sorry there were no definitions!");
               Platform.runLater(
                   () -> {
                     target.setText("Sorry! There was no definition for " + queryWord);
@@ -243,7 +258,15 @@ public class HiddenMode {
           }
         };
 
-    final Thread backgroundThread = new Thread(backgroundTask);
-    backgroundThread.start();
+    // Perform the search on a background thread so that it doesn't cause the UI to freeze
+    new Thread(this.backgroundTask).start();
+  }
+
+  /** If the Application closes, make sure to cancel the background task. */
+  @Override
+  public void onTerminate() {
+    if (this.backgroundTask != null) {
+      this.backgroundTask.cancel();
+    }
   }
 }
