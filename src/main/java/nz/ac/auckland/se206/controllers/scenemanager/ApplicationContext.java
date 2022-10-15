@@ -1,6 +1,5 @@
 package nz.ac.auckland.se206.controllers.scenemanager;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -58,11 +57,7 @@ public class ApplicationContext extends InstanceFactory {
     this.registerSupplier(Logger.class, LoggerFactory::getLogger);
     this.bind(this);
     this.bind(InstanceFactory.class, this); // Allow you to inject this as an InstanceFactory
-
-    // When deserialising JSON, use the default value for unknown enum values
-    final ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE);
-    this.bind(objectMapper);
+    this.bind(new ObjectMapper());
   }
 
   /**
