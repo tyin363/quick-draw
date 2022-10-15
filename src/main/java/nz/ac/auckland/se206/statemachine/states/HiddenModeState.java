@@ -19,7 +19,6 @@ public class HiddenModeState extends DefaultCanvasState
   @Override
   public void onEnter() {
     // Set hidden mode exclusive elements to be visible
-    this.canvasController.getHintsHbox().setVisible(true);
     this.canvasController.getWordDefinition().setVisible(true);
     this.canvasController.getDefaultHbox().setVisible(false);
   }
@@ -33,6 +32,12 @@ public class HiddenModeState extends DefaultCanvasState
     this.canvasController.getHintsHbox().setVisible(false);
     this.canvasController.getWordDefinition().setVisible(false);
     this.canvasController.getDefaultHbox().setVisible(true);
+  }
+
+  @Override
+  public void onLoad() {
+    super.onLoad();
+    this.canvasController.getHintsHbox().setVisible(true);
   }
 
   /**

@@ -29,29 +29,29 @@ public class WordDefinitionController implements LoadListener {
   /** This will recolour the previous definition buttons to a light gray. */
   @FXML
   private void onEnterPreviousButton() {
-    this.previousButton.setStyle("-fx-background-color: -fx-lightgray-100;");
-    this.previousLabel.setStyle("-fx-text-fill: -fx-lightgray-100;");
+    this.previousButton.setStyle("-fx-background-color: -fx-text-default;");
+    this.previousLabel.setStyle("-fx-text-fill: -fx-text-default;");
   }
 
   /** This will recolour the previous definition buttons to a light gray. */
   @FXML
   private void onEnterNextButton() {
-    this.nextButton.setStyle("-fx-background-color: -fx-lightgray-100;");
-    this.nextLabel.setStyle("-fx-text-fill: -fx-lightgray-100;");
+    this.nextButton.setStyle("-fx-background-color: -fx-text-default;");
+    this.nextLabel.setStyle("-fx-text-fill: -fx-text-default;");
   }
 
   /** This will reset the colour of the previous definition buttons. */
   @FXML
   private void onExitPreviousButton() {
-    this.previousButton.setStyle("-fx-background-color: -fx-text-default;");
-    this.previousLabel.setStyle("-fx-text-fill: -fx-text-default;");
+    this.previousButton.setStyle("-fx-background-color: -fx-lightgray-100;");
+    this.previousLabel.setStyle("-fx-text-fill: -fx-lightgray-100;");
   }
 
   /** This will reset the colour of the next definition buttons. */
   @FXML
   private void onExitNextButton() {
-    this.nextButton.setStyle("-fx-background-color: -fx-text-default;");
-    this.nextLabel.setStyle("-fx-text-fill: -fx-text-default;");
+    this.nextButton.setStyle("-fx-background-color: -fx-lightgray-100;");
+    this.nextLabel.setStyle("-fx-text-fill: -fx-lightgray-100;");
   }
 
   /** The previous definition of the given word will be shown. */
