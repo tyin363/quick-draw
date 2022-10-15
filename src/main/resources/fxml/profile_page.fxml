@@ -43,7 +43,7 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
                   <HBox prefHeight="100.0" prefWidth="200.0" styleClass="stats-overview">
                      <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
                            <children>
                               <AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -107,7 +107,7 @@
                               </VBox>
                            </children>
                         </AnchorPane>
-                        <VBox styleClass="stats-column">
+                        <VBox styleClass="stats-column" HBox.hgrow="ALWAYS">
                            <children>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card">
                                  <children>
@@ -158,7 +158,7 @@
                               </AnchorPane>
                            </children>
                         </VBox>
-                        <VBox styleClass="stats-column">
+                        <VBox styleClass="stats-column" HBox.hgrow="ALWAYS">
                            <children>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card" VBox.vgrow="ALWAYS">
                                  <children>
