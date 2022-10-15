@@ -23,6 +23,8 @@ public class SoundEffect {
       "src/main/resources/sounds/mixkit-quick-win-video-game-notification-269.wav";
   private String settingsClickSound =
       "src/main/resources/sounds/mixkit-modern-technology-select-3124.wav";
+  private double musicVolume = 0.1;
+  private double soundEffectVolume = 0.3;
 
   /**
    * This method plays a sound effect given the file location of the sound effect and its volume.
@@ -48,12 +50,48 @@ public class SoundEffect {
 
     soundEffect = new Media(new File(music).toURI().toString());
     backgroundMediaPlayer = new MediaPlayer(soundEffect);
-    backgroundMediaPlayer.setVolume(0.1);
+    backgroundMediaPlayer.setVolume(musicVolume);
     backgroundMediaPlayer.play();
 
     if (music == mainMusic || music == defaultCanvasMusic) {
       backgroundMediaPlayer.setCycleCount(Integer.MAX_VALUE);
     }
+  }
+
+  /**
+   * Gets the volume for background music
+   *
+   * @return The music volume
+   */
+  public double getMusicVolume() {
+    return musicVolume;
+  }
+
+  /**
+   * Sets the volume for background music
+   *
+   * @param musicVolume Volume for music
+   */
+  public void setMusicVolume(double musicVolume) {
+    this.musicVolume = musicVolume;
+  }
+
+  /**
+   * Gets the volume for sound effects
+   *
+   * @return The sound effect volume
+   */
+  public double getSoundEffectVolume() {
+    return soundEffectVolume;
+  }
+
+  /**
+   * Sets the volume for sound effects
+   *
+   * @param soundEffectVolume Volume for sound effects
+   */
+  public void setSoundEffectVolume(double soundEffectVolume) {
+    this.soundEffectVolume = soundEffectVolume;
   }
 
   /** This method plays the default canvas background music of the game. */
@@ -78,27 +116,27 @@ public class SoundEffect {
 
   /** This method plays the click sound effect of the game. */
   public void playClickSound() {
-    playSound(clickSound, 0.3);
+    playSound(clickSound, soundEffectVolume);
   }
 
   /** This method plays the special click sound effect of the game. */
   public void playSpecialClickSound() {
-    playSound(specialClickSound, 0.3);
+    playSound(specialClickSound, soundEffectVolume);
   }
 
   /** This method plays the canvas victory sound effect of the game. */
   public void playVictorySound() {
-    playSound(winSound, 0.3);
+    playSound(winSound, soundEffectVolume);
   }
 
   /** This method plays the canvas lose sound effect of the game. */
   public void playLoseSound() {
-    playSound(loseSound, 0.3);
+    playSound(loseSound, soundEffectVolume);
   }
 
   /** This method plays the settings click sound effect of the game. */
   public void playSettingsClickSound() {
-    playSound(settingsClickSound, 0.2);
+    playSound(settingsClickSound, soundEffectVolume);
   }
 
   /**
