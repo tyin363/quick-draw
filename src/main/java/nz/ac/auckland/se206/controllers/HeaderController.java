@@ -57,6 +57,7 @@ public class HeaderController implements LoadListener {
   public void onLoad() {
     final User newCurrentUser = this.userService.getCurrentUser();
 
+    // Add volume slider functionality
     this.volumeSlider.setValue(this.soundEffect.getBackgroundMediaPlayer().getVolume() * 500);
     this.volumeSlider
         .valueProperty()
@@ -68,6 +69,7 @@ public class HeaderController implements LoadListener {
                   ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 
                 soundEffect.getBackgroundMediaPlayer().setVolume(volumeSlider.getValue() / 500);
+                soundEffect.setMusicVolume(volumeSlider.getValue() / 500);
               }
             });
 
