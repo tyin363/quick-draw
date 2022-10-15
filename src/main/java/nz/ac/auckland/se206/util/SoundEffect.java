@@ -24,6 +24,7 @@ public class SoundEffect {
       "src/main/resources/sounds/Loyalty_Freak_Music_-_05_-_We_all_gonna_die_.mp3";
   private String specialClickSound =
       "src/main/resources/sounds/mixkit-quick-win-video-game-notification-269.wav";
+  private String settingsClickSound = "src/main/resources/sounds/mixkit-interface-click-1126.wav";
 
   /**
    * This method plays a sound effect given the file location of the sound effect and its volume.
@@ -119,6 +120,11 @@ public class SoundEffect {
   /** This method plays the canvas lose sound effect of the game. */
   public void playLoseSound() {
     playSound(loseSound, 0.3);
+  }
+
+  /** This method plays the settings click sound effect of the game. */
+  public void playSettingsClickSound() {
+    playSound(settingsClickSound, 0.5);
   }
 
   /**
