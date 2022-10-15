@@ -19,10 +19,10 @@ import nz.ac.auckland.se206.words.WordService;
 @Singleton(injectSuper = true)
 public class DefaultCanvasState extends CanvasState implements EnableListener, TerminationListener {
 
-  @Inject private TextToSpeech textToSpeech;
-  @Inject private UserService userService;
-  @Inject private WordService wordService;
-  @Inject private Config config;
+  @Inject protected TextToSpeech textToSpeech;
+  @Inject protected UserService userService;
+  @Inject protected WordService wordService;
+  @Inject protected Config config;
 
   private int secondsRemaining;
   private Timeline timer;
@@ -106,7 +106,7 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     this.canvasController.disableBrush();
     // Prevent the user from clearing their drawing
     this.canvasController.getClearPane().setDisable(true);
-    final String message = wasGuessed ? "You Win!" : "Time up!";
+    final String message = this.getConclusionMessage(wasGuessed);
 
     // Update statistics
     currentUser.addPastRound(round);
@@ -118,6 +118,16 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
 
     // Allow the user to save the image and restart the game
     this.canvasController.getGameOverActionsContainer().setVisible(true);
+  }
+
+  /**
+   * Retrieve the message that is displayed after the game has ended.
+   *
+   * @param wasGuessed If the user guessed the target word
+   * @return The message to display
+   */
+  protected String getConclusionMessage(final boolean wasGuessed) {
+    return wasGuessed ? "You Win!" : "Time up!";
   }
 
   /** When the application is terminated, make sure to stop the timer. */

@@ -151,24 +151,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   }
 
   /**
-   * This retrieves the label with the word hint on it
-   *
-   * @return The label with the word hint
-   */
-  public Label getHintLabel() {
-    return hintLabel;
-  }
-
-  /**
-   * This retrieves the Hbox containing the hints elements
-   *
-   * @return The Hbox containing the hints elements
-   */
-  public HBox getHintsHbox() {
-    return hintsHbox;
-  }
-
-  /**
    * JavaFX calls this method once the GUI elements are loaded. It contains all the one-off
    * initialisation for this controller, such as setting up the canvas, the prediction handler and
    * the timer.
@@ -205,32 +187,13 @@ public class CanvasController implements LoadListener, TerminationListener {
     }
   }
 
-  /**
-   * This retrieves the Anchor pane responsible for displaying the word definitions in the hidden
-   * game mode
-   *
-   * @return The anchor pane for hidden game mode
-   */
-  public AnchorPane getWordDefinition() {
-    return wordDefinition;
-  }
-
-  /**
-   * This retrieves the Hbox that contains the normal game mode elements
-   *
-   * @return Normal game mode Hbox
-   */
-  public HBox getDefaultHbox() {
-    return defaultHbox;
-  }
-
   /** This method is called when the "Get Hint" button is pressed and gets a hint. */
   @FXML
   private void onGetHint() {
     if (this.targetWordLabel == null) {
       return;
     }
-    char firstCharacter = this.targetWordLabel.getText().toUpperCase().charAt(0);
+    final char firstCharacter = this.targetWordLabel.getText().toUpperCase().charAt(0);
     this.hintLabel.setText("The word starts with: " + firstCharacter);
   }
 
@@ -501,5 +464,42 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   public PredictionHandler getPredictionHandler() {
     return this.predictionHandler;
+  }
+
+  /**
+   * This retrieves the label with the word hint on it
+   *
+   * @return The label with the word hint
+   */
+  public Label getHintLabel() {
+    return this.hintLabel;
+  }
+
+  /**
+   * This retrieves the Hbox containing the hints elements
+   *
+   * @return The Hbox containing the hints elements
+   */
+  public HBox getHintsHbox() {
+    return this.hintsHbox;
+  }
+
+  /**
+   * This retrieves the Anchor pane responsible for displaying the word definitions in the hidden
+   * game mode
+   *
+   * @return The anchor pane for hidden game mode
+   */
+  public AnchorPane getWordDefinition() {
+    return this.wordDefinition;
+  }
+
+  /**
+   * This retrieves the Hbox that contains the normal game mode elements
+   *
+   * @return Normal game mode Hbox
+   */
+  public HBox getDefaultHbox() {
+    return this.defaultHbox;
   }
 }
