@@ -64,19 +64,25 @@ public class HeaderController implements LoadListener {
 
     this.currentUser = newCurrentUser;
     this.renderUserProfile(this.currentUser);
-    System.out.println(newCurrentUser.getMusicVolume() + " " + newCurrentUser.getUsername());
+
     // Add volume slider functionality
     this.volumeSlider
         .valueProperty()
         .addListener(
             new ChangeListener<Number>() {
-
               @Override
               public void changed(
                   ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 soundEffect.getBackgroundMediaPlayer().setVolume(volumeSlider.getValue() / 500);
               }
             });
+
+    // Save volume preference of user
+    this.volumeSlider.setOnMouseReleased(
+        event -> {
+          this.currentUser.setMusicVolume(volumeSlider.getValue() / 500);
+          this.userService.saveUser(this.currentUser);
+        });
   }
 
   /** Update the profile picture and username to match the specified user. */
@@ -108,7 +114,6 @@ public class HeaderController implements LoadListener {
   @FXML
   private void onClickProfile() {
     this.soundEffect.playClickSound();
-    this.currentUser.setMusicVolume(volumeSlider.getValue() / 500);
     this.sceneManager.switchToView(View.PROFILE_PAGE);
   }
 
@@ -116,7 +121,6 @@ public class HeaderController implements LoadListener {
   @FXML
   private void onSwitchUser() {
     this.soundEffect.playClickSound();
-    this.currentUser.setMusicVolume(volumeSlider.getValue() / 500);
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
 }
