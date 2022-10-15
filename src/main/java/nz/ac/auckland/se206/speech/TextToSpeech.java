@@ -151,6 +151,8 @@ public class TextToSpeech implements TerminationListener {
    */
   @Override
   public void onTerminate() {
+
+    // Stopping the text to speech when terminating
     try {
       this.speakingTask.cancel();
       this.synthesizer.deallocate();

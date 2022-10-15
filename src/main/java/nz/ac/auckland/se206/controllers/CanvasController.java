@@ -248,7 +248,6 @@ public class CanvasController implements LoadListener, TerminationListener {
 
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
-    this.wordService.selectRandomTarget(Difficulty.EASY);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
@@ -280,7 +279,8 @@ public class CanvasController implements LoadListener, TerminationListener {
       final Color textColour =
           Color.BLACK.interpolate(this.config.getHighlight(), prediction.getProbability() * 10);
 
-      this.predictionLabels[i].setText(guess);
+      this.predictionLabels[i].setText(
+          guess + " " + String.format("%.0f", prediction.getProbability() * 100) + "%");
       this.predictionLabels[i].setTextFill(textColour);
     }
   }

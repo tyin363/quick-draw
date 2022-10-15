@@ -196,9 +196,9 @@
                     <Font size="100.0" />
                   </font>
                 </Label>
-                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="251.0" prefWidth="287.0" styleClass="bg-gray-25" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="183.0" prefWidth="287.0" styleClass="bg-gray-25" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <content>
-                      <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="239.0" prefWidth="369.0" spacing="5.0" style="-fx-padding: 0,0,0,0;">
+                      <VBox fx:id="pastWordsVbox" alignment="TOP_CENTER" prefHeight="165.0" prefWidth="285.0" spacing="5.0" style="-fx-padding: 0,0,0,0;">
                                  <styleClass>
                                     <String fx:value="text-default" />
                                     <String fx:value="bg-gray-25" />
@@ -209,7 +209,7 @@
                               </VBox>
                            </content>
                            <GridPane.margin>
-                              <Insets top="10.0" />
+                              <Insets bottom="15.0" top="10.0" />
                            </GridPane.margin>
                         </ScrollPane>
               </children>
@@ -228,7 +228,7 @@
         </AnchorPane>
       </children>
     </VBox>
-      <HBox alignment="BOTTOM_RIGHT">
+      <HBox alignment="BOTTOM_RIGHT" prefHeight="9.0" prefWidth="1150.0">
          <children>
             <Button mnemonicParsing="false" onAction="#onDeleteUser" text="Delete User" HBox.hgrow="ALWAYS">
                <font>

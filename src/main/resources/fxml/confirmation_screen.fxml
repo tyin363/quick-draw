@@ -16,7 +16,7 @@
         <fx:include fx:id="header" source="header.fxml" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" VBox.vgrow="ALWAYS">
             <children>
-            <Label styleClass="text-default" text="You have 60 seconds to draw:">
+            <Label fx:id="timeLimitLabel" styleClass="text-default" text="You have 60 seconds to draw:">
               <font>
                 <Font name="SansSerif Regular" size="24.0" />
               </font>

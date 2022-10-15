@@ -34,8 +34,22 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
   @Override
   public void onLoad() {
     this.canvasController.getGameOverActionsContainer().setVisible(false);
+
+    // Getting the time depending time setting and setting the respective time label
     this.secondsRemaining = this.config.getDrawingTimeSeconds();
     this.canvasController.getMainLabel().setText(this.config.getDrawingTimeSeconds() + " Seconds");
+
+    // Creating and starting the timer
+    this.timer =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                e -> {
+                  this.secondsRemaining--;
+                  this.canvasController.getMainLabel().setText(this.secondsRemaining + " Seconds");
+                }));
+    this.timer.setCycleCount(this.config.getDrawingTimeSeconds());
+    this.timer.setOnFinished(e -> this.gameOver(false));
     this.timer.playFromStart();
   }
 
@@ -50,13 +64,16 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     super.handlePredictions(predictions);
     final int winPlacement = this.config.getWinPlacement();
     final String targetWord = this.wordService.getTargetWord();
+    final double targetConfidence = this.config.getTargetConfidence();
 
     boolean wasGuessed = false;
     // Check if the target word is in the top number of predictions. If it is, you win.
     for (int i = 0; i < winPlacement; i++) {
       // The target word uses spaces rather than underscores
       final String guess = predictions.get(i).getClassName().replaceAll("_", " ");
-      if (guess.equals(targetWord)) {
+      final double probability = predictions.get(i).getProbability();
+
+      if ((guess.equals(targetWord)) && (probability >= targetConfidence)) {
         wasGuessed = true;
         break;
       }
@@ -67,23 +84,10 @@ public class DefaultCanvasState extends CanvasState implements EnableListener, T
     }
   }
 
-  /**
-   * When this state is first created, construct a timer instance that can be reused to count down
-   * the time the user has remaining.
-   */
+  /** When this state is first created indicate to the user by printing to the console */
   @Override
   public void onEnable() {
-    // Create a timeline that reduces the number of seconds remaining by 1 every second
-    this.timer =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(1),
-                e -> {
-                  this.secondsRemaining--;
-                  this.canvasController.getMainLabel().setText(this.secondsRemaining + " Seconds");
-                }));
-    this.timer.setCycleCount(this.config.getDrawingTimeSeconds());
-    this.timer.setOnFinished(e -> this.gameOver(false));
+    System.out.println("Default Canvas State created");
   }
 
   /**

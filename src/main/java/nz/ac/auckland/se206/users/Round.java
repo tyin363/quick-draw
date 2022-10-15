@@ -13,6 +13,13 @@ public class Round {
     this.wasGuessed = false;
   }
 
+  /**
+   * A constructor for game rounds for the user
+   *
+   * @param word
+   * @param timeTaken
+   * @param wasGuessed
+   */
   public Round(final String word, final int timeTaken, final boolean wasGuessed) {
     this.word = word;
     this.timeTaken = timeTaken;
