@@ -158,6 +158,8 @@ public class CanvasController implements LoadListener, TerminationListener {
     Tooltip.install(this.clearPane, new Tooltip(this.clearPane.getAccessibleHelp()));
 
     this.graphic = this.canvas.getGraphicsContext2D();
+    // Initially make the word definition visible
+    this.wordDefinition.setVisible(false);
 
     // save coordinates when mouse is pressed on the canvas
     this.canvas.setOnMousePressed(

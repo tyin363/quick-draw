@@ -114,9 +114,9 @@
                 </VBox>
                 <VBox GridPane.columnIndex="2" GridPane.rowIndex="1">
                   <children>
-                    <VBox fx:id="toolContainer" alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="toolContainer" alignment="CENTER_LEFT" fillWidth="false" VBox.vgrow="ALWAYS">
                       <children>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" fillWidth="false">
                           <children>
                             <Pane fx:id="eraserPane" accessibleHelp="Select the eraser" accessibleRole="BUTTON" onMouseClicked="#onSelectEraser">
                               <children>
@@ -138,7 +138,7 @@
                             </Pane>
                             <Pane fx:id="clearPane" accessibleHelp="Clear the canvas" accessibleRole="BUTTON" onMouseClicked="#onClear">
                               <children>
-                                <Pane layoutX="11.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
+                                <Pane layoutX="10.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
                               </children>
                               <styleClass>
                                 <String fx:value="icon" />
