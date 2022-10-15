@@ -103,10 +103,7 @@
                            </children>
                         </StackPane>
                 <VBox prefHeight="200.0" prefWidth="100.0" />
-                <VBox fx:id="predictionVertBox" alignment="TOP_CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                  <padding>
-                    <Insets top="30.0" />
-                  </padding>
+                <VBox fx:id="predictionVertBox" alignment="CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                   <styleClass>
                     <String fx:value="prediction-container" />
                     <String fx:value="bg-lightgray-100" />

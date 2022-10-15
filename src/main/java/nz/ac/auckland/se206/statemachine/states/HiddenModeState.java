@@ -34,6 +34,7 @@ public class HiddenModeState extends DefaultCanvasState
     this.canvasController.getDefaultHbox().setVisible(true);
   }
 
+  /** When the hidden mode canvas is loaded, display the hint container. */
   @Override
   public void onLoad() {
     super.onLoad();
