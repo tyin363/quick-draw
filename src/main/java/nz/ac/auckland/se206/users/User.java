@@ -77,7 +77,7 @@ public class User {
   }
 
   /**
-   * Sets the users dound effect volume preference
+   * Sets the users sound effect volume preference
    *
    * @param soundEffectVolume The sound effect volume to set
    */

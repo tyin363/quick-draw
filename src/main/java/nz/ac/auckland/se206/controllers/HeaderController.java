@@ -56,9 +56,16 @@ public class HeaderController implements LoadListener {
   @Override
   public void onLoad() {
     final User newCurrentUser = this.userService.getCurrentUser();
+    soundEffect.getBackgroundMediaPlayer().setVolume(newCurrentUser.getMusicVolume());
+    // If the user hasn't changed, don't bother trying to update the profile picture.
+    if (newCurrentUser == null || newCurrentUser.equals(this.currentUser)) {
+      return;
+    }
 
+    this.currentUser = newCurrentUser;
+    this.renderUserProfile(this.currentUser);
+    System.out.println(newCurrentUser.getMusicVolume() + " " + newCurrentUser.getUsername());
     // Add volume slider functionality
-    this.volumeSlider.setValue(this.soundEffect.getBackgroundMediaPlayer().getVolume() * 500);
     this.volumeSlider
         .valueProperty()
         .addListener(
@@ -67,24 +74,15 @@ public class HeaderController implements LoadListener {
               @Override
               public void changed(
                   ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-
                 soundEffect.getBackgroundMediaPlayer().setVolume(volumeSlider.getValue() / 500);
-                soundEffect.setMusicVolume(volumeSlider.getValue() / 500);
               }
             });
-
-    // If the user hasn't changed, don't bother trying to update the profile picture.
-    if (newCurrentUser == null || newCurrentUser.equals(this.currentUser)) {
-      return;
-    }
-
-    this.currentUser = newCurrentUser;
-    this.renderUserProfile(this.currentUser);
   }
 
   /** Update the profile picture and username to match the specified user. */
   private void renderUserProfile(final User user) {
     // Set the current user's information
+    this.volumeSlider.setValue(user.getMusicVolume() * 500);
     this.username.setText(user.getUsername());
     this.profilePicture.setVisible(true);
     final File file = new File(user.getProfilePicture());
@@ -110,6 +108,7 @@ public class HeaderController implements LoadListener {
   @FXML
   private void onClickProfile() {
     this.soundEffect.playClickSound();
+    this.currentUser.setMusicVolume(volumeSlider.getValue() / 500);
     this.sceneManager.switchToView(View.PROFILE_PAGE);
   }
 
@@ -117,6 +116,7 @@ public class HeaderController implements LoadListener {
   @FXML
   private void onSwitchUser() {
     this.soundEffect.playClickSound();
+    this.currentUser.setMusicVolume(volumeSlider.getValue() / 500);
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
 }
