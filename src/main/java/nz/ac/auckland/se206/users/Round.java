@@ -1,9 +1,13 @@
 package nz.ac.auckland.se206.users;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Round {
 
   private final String word;
   private final int timeTaken;
+
+  @JsonProperty("wasGuessed")
   private final boolean wasGuessed;
 
   /** An empty constructor is required to deserialize Round from JSON. */
