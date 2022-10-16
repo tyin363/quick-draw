@@ -26,6 +26,8 @@ public class SoundEffect {
       "src/main/resources/sounds/mixkit-quick-win-video-game-notification-269.wav";
   private String settingsClickSound =
       "src/main/resources/sounds/mixkit-modern-technology-select-3124.wav";
+  private String cancelSound =
+      "src/main/resources/sounds/mixkit-negative-tone-interface-tap-2569.wav";
   private double musicVolume = 0.1;
   private double soundEffectVolume = 0.3;
 
@@ -73,8 +75,6 @@ public class SoundEffect {
     if (this.userService.getCurrentUser() != null) {
       this.musicVolume = this.userService.getCurrentUser().getMusicVolume();
       this.soundEffectVolume = this.userService.getCurrentUser().getSoundEffectVolume();
-      System.out.println("music " + this.musicVolume);
-      System.out.println("sound effect " + this.soundEffectVolume);
     }
   }
 
@@ -142,6 +142,11 @@ public class SoundEffect {
   /** This method plays the special click sound effect of the game. */
   public void playSpecialClickSound() {
     playSound(specialClickSound);
+  }
+
+  /** This method plays the special click sound effect of the game. */
+  public void playCancelSound() {
+    playSound(cancelSound);
   }
 
   /** This method plays the canvas victory sound effect of the game. */
