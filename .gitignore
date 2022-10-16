@@ -717,3 +717,4 @@ FodyWeavers.xsd
 
 !client/src/main/resources/ml/doodle_mobilenet.zip
 UserData/
+config.json

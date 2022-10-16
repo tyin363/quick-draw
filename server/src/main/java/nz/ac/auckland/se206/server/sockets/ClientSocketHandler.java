@@ -116,6 +116,7 @@ public class ClientSocketHandler extends Thread {
   private void handleResponse(final ActionResponse.Action action, final String line)
       throws IOException {
     if (action == ActionResponse.Action.COMPLETE_DRAWING) {
+      // Read in the complete drawing response
       final CompleteDrawingResponse completeDrawingResponse =
           this.objectMapper.readValue(line, CompleteDrawingResponse.class);
       System.out.println(completeDrawingResponse);

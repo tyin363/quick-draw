@@ -26,6 +26,6 @@ public class App extends Application {
   public void start(final Stage stage) {
     final ApplicationContext applicationContext =
         ApplicationContext.start(stage, View.SWITCH_USER, View.values());
-    final ClientSocket clientSocket = applicationContext.get(ClientSocket.class);
+    applicationContext.get(ClientSocket.class);
   }
 }

@@ -11,6 +11,8 @@ import nz.ac.auckland.se206.core.annotations.Singleton;
 import nz.ac.auckland.se206.core.listeners.EnableListener;
 import nz.ac.auckland.se206.core.listeners.TerminationListener;
 import nz.ac.auckland.se206.core.models.DrawingSessionRequest;
+import nz.ac.auckland.se206.core.sockets.ServerConfig;
+import nz.ac.auckland.se206.core.sockets.ServerConfigService;
 import org.slf4j.Logger;
 
 @Singleton
@@ -20,20 +22,20 @@ public class Server implements TerminationListener, EnableListener {
   private final Vector<Runnable> onClientCountChangeListeners = new Vector<>();
   @Inject private Logger logger;
   @Inject private ObjectMapper objectMapper;
+  @Inject private ServerConfigService configService;
   private ServerSocket serverSocket;
 
   /**
    * Starts the server on the specified host and port.
    *
-   * @param host The host/ip to start the server on
-   * @param port The port to start the server on
+   * @param config The server config
    */
-  public void start(final String host, final int port) {
+  public void start(final ServerConfig config) {
     try {
       // Start a server socket on the specified host and port
-      final InetAddress address = InetAddress.getByName(host);
-      this.serverSocket = new ServerSocket(port, 100, address);
-      this.logger.info("Server started on port {} at {}", port, address.getHostAddress());
+      final InetAddress address = InetAddress.getByName(config.host());
+      this.serverSocket = new ServerSocket(config.port(), 100, address);
+      this.logger.info("Server started on port {} at {}", config.port(), address.getHostAddress());
       // Start a separate thread for handling incoming connections as this is a blocking call
       new Thread(this::handleClientConnections).start();
     } catch (final IOException e) {
@@ -129,6 +131,6 @@ public class Server implements TerminationListener, EnableListener {
   /** When this instance is created, start the server. */
   @Override
   public void onEnable() {
-    this.start("localhost", 5001);
+    this.start(this.configService.getConfig());
   }
 }
