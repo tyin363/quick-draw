@@ -57,6 +57,8 @@ public class DrawingSessionService {
    * Accept the current drawing session. This will take you to the confirmation screen instantly.
    */
   public void acceptSession() {
+
+    // Accept session
     this.wordService.setTargetWord(this.drawingSessionProperty.get().word());
     this.stateMachine.switchState(NormalCanvasState.class);
     this.sceneManager.switchToView(View.CANVAS);

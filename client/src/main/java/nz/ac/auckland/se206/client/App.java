@@ -15,6 +15,11 @@ import nz.ac.auckland.se206.core.di.ApplicationContext;
  */
 public class App extends Application {
 
+  /**
+   * This is the entry point for this function
+   *
+   * @param args The arguments
+   */
   public static void main(final String[] args) {
     launch();
   }

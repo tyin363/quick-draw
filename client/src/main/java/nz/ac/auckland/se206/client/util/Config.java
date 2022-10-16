@@ -121,6 +121,8 @@ public class Config {
    * @return The winning placement
    */
   public int getWinPlacement() {
+
+    // Getting current user
     User currentUser = this.userService.getCurrentUser();
 
     // Returning the win placement depending on the accuracy setting
@@ -176,6 +178,8 @@ public class Config {
    * @return The target confidence level
    */
   public double getTargetConfidence() {
+
+    // Getting current user
     User currentUser = this.userService.getCurrentUser();
 
     // Returning the target confidence level depending on the confidence setting

@@ -29,6 +29,8 @@ public class ClientSocketHandler extends Thread {
    */
   public ClientSocketHandler(
       final Server server, final Socket clientSocket, final ObjectMapper objectMapper) {
+
+    // Initialsing client socket handler variables
     this.server = server;
     this.clientSocket = clientSocket;
     this.objectMapper = objectMapper;

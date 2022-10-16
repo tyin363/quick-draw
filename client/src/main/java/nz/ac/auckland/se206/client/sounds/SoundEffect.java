@@ -57,6 +57,8 @@ public class SoundEffect implements TerminationListener {
 
   /** Gets the user volume and sets it if a current user exists */
   private void setUserVolume() {
+
+    // Setting user volume
     if (this.userService.getCurrentUser() != null) {
       this.musicVolume = this.userService.getCurrentUser().getMusicVolume();
       this.soundEffectVolume = this.userService.getCurrentUser().getSoundEffectVolume();

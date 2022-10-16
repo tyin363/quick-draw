@@ -9,6 +9,8 @@ public class GameSettings {
 
   /** An empty constructor is required to deserialize Round from JSON. */
   public GameSettings() {
+
+    // Initialising game setting variables
     this.accuracy = "";
     this.time = 0;
     this.words = "";
@@ -24,6 +26,8 @@ public class GameSettings {
    * @param confidence confidence level setting
    */
   public GameSettings(String accuracy, String words, int time, String confidence) {
+
+    // Initialising game setting variables
     this.accuracy = accuracy;
     this.words = words;
     this.time = time;

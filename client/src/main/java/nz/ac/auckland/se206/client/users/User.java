@@ -36,6 +36,8 @@ public class User {
    * @param username The username of the user
    */
   public User(final String username) {
+
+    // Initialising user variables
     this.id = UUID.randomUUID();
     this.created = new Date();
     this.username = username;
@@ -255,6 +257,8 @@ public class User {
    */
   @JsonIgnore
   public double getWinRate() {
+
+    // If total games is 0
     if (this.getTotalGames() == 0) {
       return 1;
     }

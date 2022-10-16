@@ -38,6 +38,8 @@ public class WordService {
    */
   @Inject
   public WordService(final Logger logger, final Config config) {
+
+    // Initialising word service variables
     this.logger = logger;
     this.config = config;
     this.wordMapping = Collections.unmodifiableMap(this.createWordMapping());
@@ -138,6 +140,8 @@ public class WordService {
       words = this.wordMapping.get(Difficulty.EASY);
       words.addAll(this.wordMapping.get(Difficulty.MEDIUM));
     } else if (difficulty.contains("Hard")) {
+
+      // Select all words if hard
       words = this.wordMapping.get(Difficulty.EASY);
       words.addAll(this.wordMapping.get(Difficulty.MEDIUM));
       words.addAll(this.wordMapping.get(Difficulty.HARD));

@@ -127,6 +127,8 @@ public class ClientSocket implements EnableListener, TerminationListener {
    * @throws IOException If the connection fails
    */
   private void tryConnectToServer() throws IOException {
+
+    // Closing the socket if it isn't null
     if (this.socket != null) {
       this.socket.close();
     }
