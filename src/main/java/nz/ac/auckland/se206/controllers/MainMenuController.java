@@ -3,7 +3,9 @@ package nz.ac.auckland.se206.controllers;
 import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
@@ -31,6 +33,9 @@ public class MainMenuController implements LoadListener {
 
   @FXML private Label messageLabel;
   @FXML private AnchorPane header;
+  @FXML private HBox normalModeBox;
+  @FXML private HBox hiddenModeBox;
+  @FXML private HBox zenModeBox;
   @Inject private SceneManager sceneManager;
   @Inject private SoundEffect soundEffect;
   @Inject private CanvasStateMachine stateMachine;
@@ -38,6 +43,7 @@ public class MainMenuController implements LoadListener {
   /** Hook up the back button action when the view is initialised. */
   @FXML
   private void initialize() {
+    this.addToolTips();
     Helpers.getBackButton(this.header).setOnAction(event -> this.onSwitchBack());
   }
 
@@ -97,5 +103,18 @@ public class MainMenuController implements LoadListener {
     } else {
       this.sceneManager.switchToView(View.SWITCH_USER);
     }
+  }
+
+  /** Helper method to add tool tips to main menu buttons */
+  private void addToolTips() {
+    // Creating main menu button tool tips
+    Tooltip normalModeTip = new Tooltip("Timed speed drawing for a given word");
+    Tooltip hiddenModeTip = new Tooltip("Timed speed drawing for a given definition");
+    Tooltip zenModeTip = new Tooltip("Endless drawing with color!");
+
+    // Setting main menu button tool tips
+    Tooltip.install(this.normalModeBox, normalModeTip);
+    Tooltip.install(this.hiddenModeBox, hiddenModeTip);
+    Tooltip.install(this.zenModeBox, zenModeTip);
   }
 }
