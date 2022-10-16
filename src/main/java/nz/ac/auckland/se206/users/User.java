@@ -285,7 +285,11 @@ public class User {
     return this.id.hashCode();
   }
 
-  /** Equals method for checking the equality of two users */
+  /**
+   * Equals method for checking the equality of two users
+   *
+   * @param o Object
+   */
   @Override
   public boolean equals(final Object o) {
     if (this == o) {
