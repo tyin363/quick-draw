@@ -17,7 +17,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -48,18 +47,16 @@ public class ProfilePageController implements LoadListener {
   @FXML private ImageView profileImageView;
   @FXML private StackPane changeImageOverlay;
   @FXML private Label username;
-
   @FXML private TextField usernameTextField;
-  @FXML private AnchorPane header;
-  @FXML private Button setUsernameButton;
+  @FXML private Button saveUsernameButton;
   @FXML private Button editUsernameButton;
+
+  @FXML private AnchorPane header;
   @FXML private Button cancelButton;
-  @FXML private StackPane usernameStackPane;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
 
-  private double usernameTextFieldWidth = 250;
   private User user;
 
   /** Hook up the back button action when the view is initialised. */
@@ -100,15 +97,15 @@ public class ProfilePageController implements LoadListener {
   @FXML
   private void onCancelEdit() {
     this.setEditUsernameMode(false);
-    this.setUsernameWidth();
   }
 
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
-    this.usernameStackPane.setPrefWidth(this.usernameTextFieldWidth);
     this.usernameTextField.setText(this.user.getUsername());
     this.setEditUsernameMode(true);
+    // Move the cursor to the text field. This can only be done if the text field is visible.
+    this.usernameTextField.requestFocus();
   }
 
   /** Prompts the user to select a file to choose a profile picture */
@@ -138,24 +135,19 @@ public class ProfilePageController implements LoadListener {
   }
 
   /**
-   * Sets the username of the user. When the username is set, the option to set the username will be
+   * Sets the username of the user. When the username is set, the text-field and save button will be
    * hidden.
    */
   @FXML
-  private void onSetUsername() {
-
-    // Do not allow null to be a username
+  private void onSaveUsername() {
+    // Do not allow them to set an empty username
     if (!this.usernameTextField.getText().isBlank()) {
       this.username.setText(this.usernameTextField.getText());
       this.user.setUsername(this.usernameTextField.getText());
       this.userService.saveUser(this.user);
 
-      // Clear text field after use
-      this.usernameTextField.clear();
-
-      // Set username elements
+      // Hide edit username elements
       this.setEditUsernameMode(false);
-      this.setUsernameWidth();
     }
   }
 
@@ -175,30 +167,20 @@ public class ProfilePageController implements LoadListener {
     this.changeImageOverlay.setVisible(false);
   }
 
-  /** This method sets the width of the stackpane which the username label is in. */
-  private void setUsernameWidth() {
-    final Text tmpText = new Text(this.user.getUsername());
-    tmpText.setFont(this.username.getFont());
-
-    // Add extra 10 size to be sure
-    final double textWidth = tmpText.getLayoutBounds().getWidth() + 10;
-    this.usernameStackPane.setPrefWidth(textWidth);
-  }
-
   /**
-   * This sets the visibility of elements concerned with editing the username
+   * This sets the visibility of elements concerned with editing the username.
    *
-   * @param isEdit The boolean value that will determines visibility of elements
+   * @param isEditing Whether the username is being edited
    */
-  private void setEditUsernameMode(final boolean isEdit) {
+  private void setEditUsernameMode(final boolean isEditing) {
     // Visibility of default elements are visible
-    this.editUsernameButton.setVisible(!isEdit);
-    this.username.setVisible(!isEdit);
+    this.editUsernameButton.setVisible(!isEditing);
+    this.username.setVisible(!isEditing);
 
     // Visibility of edit username elements are opposite of default
-    this.setUsernameButton.setVisible(isEdit);
-    this.usernameTextField.setVisible(isEdit);
-    this.cancelButton.setVisible(isEdit);
+    this.saveUsernameButton.setVisible(isEditing);
+    this.usernameTextField.setVisible(isEditing);
+    // this.cancelButton.setVisible(isEditing);
   }
 
   /**
@@ -208,10 +190,6 @@ public class ProfilePageController implements LoadListener {
    */
   @Override
   public void onLoad() {
-
-    // Set visible and invisible initial nodes
-    // this.setEditUsernameMode(false);
-
     // Sanity check, this should never be true.
     if (this.userService.getCurrentUser() == null) {
       return;
@@ -221,10 +199,10 @@ public class ProfilePageController implements LoadListener {
     this.renderRoundHistory();
     this.renderCurrentUserStatistics();
     this.renderUserProfilePicture(this.user.getProfilePicture());
-    this.username.setText(this.user.getUsername());
 
-    // Set fire to current win streak if 1 or above
-    // this.fireStackPane.setVisible(this.user.getCurrentWinStreak() > 0);
+    // Set the username and hide the edit username elements
+    this.username.setText(this.user.getUsername());
+    this.setEditUsernameMode(false);
   }
 
   /** Renders the current users statistics and updates the win/loss bar. */

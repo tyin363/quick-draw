@@ -152,6 +152,10 @@
   -fx-font-weight: bold;
 }
 
+.username-text-field {
+  -fx-font-weight: bold;
+}
+
 .change-image-overlay > Pane {
   -fx-background-color: white;
   -fx-opacity: 65%;
