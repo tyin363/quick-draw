@@ -27,7 +27,7 @@ public class WordDefinitionController implements LoadListener {
   @Inject private HiddenMode hiddenMode;
   @Inject private Logger logger;
 
-  private double maxWidth = 660;
+  private double maxWidth = 640;
   private double defaultFontSize = 40;
 
   /** This will recolour the previous definition buttons to a light gray. */

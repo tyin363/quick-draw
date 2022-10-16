@@ -261,6 +261,7 @@ public class HiddenMode implements TerminationListener {
               Platform.runLater(
                   () -> {
                     target.setText("Sorry! There was no definition for " + queryWord);
+                    numberOfDefinitions.setText("");
                     HiddenMode.this.definitions.add(
                         "Sorry! There was no definition for " + queryWord);
                     HiddenMode.this.changeFontDynamically(target, maxWidth, fontSize);
