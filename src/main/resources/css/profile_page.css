@@ -172,7 +172,14 @@
   -fx-background-color: -fx-gray-50;
   -fx-pref-height: 20px;
   -fx-max-height: 20px;
-  -fx-min-width: 20px;
+}
+
+.badge > .clock-icon {
+  -fx-pref-width: 20px;
+}
+
+.badge > .fire-curved-icon {
+  -fx-pref-width: 15px;
 }
 
 .achieved-badge.bronze {

@@ -1,11 +1,6 @@
 package nz.ac.auckland.se206.badges;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import nz.ac.auckland.se206.users.User;
 
 public enum Badge {
@@ -29,20 +24,6 @@ public enum Badge {
   STREAK_SILVER(user -> user.getBestWinStreak() >= 10, "Win 10 games in a row", "Streak II"),
   STREAK_GOLD(user -> user.getBestWinStreak() >= 20, "Win 20 games in a row", "Streak III"),
   STREAK_PLATINUM(user -> user.getBestWinStreak() >= 40, "Win 40 games in a row", "Streak IV");
-
-  private static final Map<String, List<Badge>> BADGE_GROUPINGS =
-      Arrays.stream(Badge.values()).collect(Collectors.groupingBy(Badge::getBadgeGroup));
-
-  /**
-   * Retrieves a list of all the badges in the given group. If the group doesn't exist an empty list
-   * is returned.
-   *
-   * @param group The group to retrieve badges for
-   * @return The list of badges in the group
-   */
-  public static List<Badge> getBadgesForGroup(final String group) {
-    return BADGE_GROUPINGS.getOrDefault(group, Collections.emptyList());
-  }
 
   private final Predicate<User> hasAchievedBadge;
   private final String description;
@@ -108,5 +89,15 @@ public enum Badge {
    */
   public String getBadgeGroup() {
     return this.name().split("_")[0].toLowerCase();
+  }
+
+  /**
+   * Retrieves the badge's tier. This is the second part of the enum name after the underscore in
+   * lowercase.
+   *
+   * @return The badge's tier
+   */
+  public String getBadgeTier() {
+    return this.name().split("_")[1].toLowerCase();
   }
 }

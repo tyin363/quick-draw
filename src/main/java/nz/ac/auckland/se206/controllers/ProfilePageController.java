@@ -2,8 +2,10 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,6 +24,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.badges.Badge;
+import nz.ac.auckland.se206.components.profile.DisplayBadge;
 import nz.ac.auckland.se206.components.profile.RoundEntry;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
@@ -61,6 +65,7 @@ public class ProfilePageController implements LoadListener {
   @Inject private Logger logger;
 
   private User user;
+  private List<DisplayBadge> displayBadges;
 
   /** Perform once off initialisations for this controller. */
   @FXML
@@ -90,7 +95,21 @@ public class ProfilePageController implements LoadListener {
     this.renderBadges();
   }
 
-  private void renderBadges() {}
+  /** Render all the badges that can be achieved. */
+  private void renderBadges() {
+    // Create all the display badges and group them by their badge group (Either speed or streak)
+    final Map<String, List<DisplayBadge>> badges =
+        Arrays.stream(Badge.values())
+            .map(DisplayBadge::new)
+            .collect(Collectors.groupingBy(display -> display.getBadge().getBadgeGroup()));
+    this.speedBadgesContainer.getChildren().addAll(badges.get("speed"));
+    this.streakBadgesContainer.getChildren().addAll(badges.get("streak"));
+
+    // Store all the display badges in a list for easy access later
+    this.displayBadges = new ArrayList<>();
+    this.displayBadges.addAll(badges.get("speed"));
+    this.displayBadges.addAll(badges.get("streak"));
+  }
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
