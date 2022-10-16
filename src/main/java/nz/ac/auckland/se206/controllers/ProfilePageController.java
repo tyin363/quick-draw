@@ -60,7 +60,7 @@ public class ProfilePageController implements LoadListener {
 
   private User user;
 
-  /** Hook up the back button action when the view is initialised. */
+  /** Perform once off initialisations for this controller. */
   @FXML
   private void initialize() {
     Helpers.getBackButton(this.header).setOnAction(event -> this.onSwitchBack());
@@ -123,7 +123,7 @@ public class ProfilePageController implements LoadListener {
     this.saveUsernameButton.setDisable(newUsername.isBlank());
   }
 
-  /** Prompts the user to select a file to choose a profile picture */
+  /** Prompts the user to select a file to choose a profile picture. */
   @FXML
   private void onChangeProfilePicture() {
 
@@ -167,16 +167,14 @@ public class ProfilePageController implements LoadListener {
   }
 
   /**
-   * This method will display the change image text prompt on top of the profile image of the user
+   * This method will display the change image text prompt on top of the profile image of the user.
    */
   @FXML
   private void onEnterImage() {
     this.changeImageOverlay.setVisible(true);
   }
 
-  /**
-   * This method will display the change image text prompt on top of the profile image of the user
-   */
+  /** This method will hide the change image text prompt on top of the profile image of the user. */
   @FXML
   private void onExitImage() {
     this.changeImageOverlay.setVisible(false);
