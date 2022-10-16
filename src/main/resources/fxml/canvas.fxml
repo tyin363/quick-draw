@@ -61,31 +61,37 @@
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
               </HBox.margin>
               <children>
-                        <GridPane GridPane.rowIndex="2">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.00466918945312" minWidth="10.0" prefWidth="167.57351684570312" />
-                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="105.60443115234375" minWidth="10.0" prefWidth="50.426483154296875" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                            <children>
-                              <ImageView fx:id="confidenceLevelImage" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                              <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="225.0" text="Target">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <styleClass>
-                                    <String fx:value="confidence" />
-                                    <String fx:value="bg-lightgray-100" />
-                                    <String fx:value="prediction-container" />
-                                 </styleClass>
-                              </Label>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.00466918945312" minWidth="10.0" prefWidth="167.57351684570312" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="105.60443115234375" minWidth="10.0" prefWidth="50.426483154296875" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <ImageView fx:id="confidenceLevelImage" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="225.0" styleClass="confidence" text="Target">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </GridPane>
                            </children>
-                        </GridPane>
+                           <styleClass>
+                              <String fx:value="bg-lightgray-100" />
+                              <String fx:value="prediction-container" />
+                           </styleClass>
+                        </HBox>
                         <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                   <font>
                     <Font name="SansSerif Regular" size="24.0" />
