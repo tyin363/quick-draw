@@ -507,12 +507,11 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.currentWordConfidenceLevel = confidenceLevel;
   }
 
-  /*
+  /**
    * This retrieves the label with the word hint on it
    *
    * @return The label with the word hint
    */
-
   public Label getHintLabel() {
     return this.hintLabel;
   }
