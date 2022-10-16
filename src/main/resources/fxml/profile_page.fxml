@@ -142,9 +142,9 @@
                                     </StackPane>
                                  </children>
                               </HBox>
-                              <AnchorPane>
+                              <HBox spacing="24.0">
                                  <children>
-                                    <VBox alignment="CENTER_LEFT" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <VBox alignment="CENTER_LEFT" spacing="4.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="Profile Picture">
                                              <styleClass>
@@ -155,21 +155,17 @@
                                           <Label styleClass="secondary-label" text="Change your profile picture." />
                                        </children>
                                     </VBox>
-                                    <HBox alignment="CENTER_RIGHT" layoutX="373.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" onAction="#onChangeProfilePicture" text="Change">
-                                             <styleClass>
-                                                <String fx:value="profile-btn" />
-                                                <String fx:value="btn-primary" />
-                                             </styleClass>
-                                          </Button>
-                                       </children>
-                                    </HBox>
+                                    <Button mnemonicParsing="false" onAction="#onChangeProfilePicture" text="Change">
+                                       <styleClass>
+                                          <String fx:value="profile-btn" />
+                                          <String fx:value="btn-primary" />
+                                       </styleClass>
+                                    </Button>
                                  </children>
-                              </AnchorPane>
-                              <AnchorPane>
+                              </HBox>
+                              <HBox spacing="24.0">
                                  <children>
-                                    <VBox alignment="CENTER_LEFT" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <VBox alignment="CENTER_LEFT" spacing="4.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label text="User Profile">
                                              <styleClass>
@@ -180,18 +176,14 @@
                                           <Label styleClass="secondary-label" text="WARNING: This action cannot be undone." />
                                        </children>
                                     </VBox>
-                                    <HBox alignment="CENTER_RIGHT" layoutX="373.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" onAction="#onDeleteProfile" text="Delete">
-                                             <styleClass>
-                                                <String fx:value="profile-btn" />
-                                                <String fx:value="btn-danger" />
-                                             </styleClass>
-                                          </Button>
-                                       </children>
-                                    </HBox>
+                                    <Button mnemonicParsing="false" onAction="#onDeleteProfile" text="Delete">
+                                       <styleClass>
+                                          <String fx:value="profile-btn" />
+                                          <String fx:value="btn-danger" />
+                                       </styleClass>
+                                    </Button>
                                  </children>
-                              </AnchorPane>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>
