@@ -53,6 +53,7 @@ public class Server implements TerminationListener, EnableListener {
         // This will wait until a client connects.
         final ClientSocketHandler client =
             new ClientSocketHandler(this, this.serverSocket.accept(), this.objectMapper);
+        this.logger.info("Client connected from {}", client.getSocket().getInetAddress());
         this.clients.add(client);
         client.start();
         this.onClientCountChangeListeners.forEach(Runnable::run);

@@ -122,4 +122,13 @@ public class ClientSocketHandler extends Thread {
       System.out.println(completeDrawingResponse);
     }
   }
+
+  /**
+   * Retrieve the socket for this client handler.
+   *
+   * @return The socket for this client
+   */
+  public Socket getSocket() {
+    return this.clientSocket;
+  }
 }
