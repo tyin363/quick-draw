@@ -33,6 +33,10 @@
   -fx-text-fill: -fx-lightgray-100;
 }
 
+.round-entry > HBox {
+  -fx-min-width: 60px;
+}
+
 .eye-icon {
   -fx-min-width: 18px;
   -fx-max-height: 14px;
