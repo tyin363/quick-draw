@@ -24,9 +24,17 @@
   -fx-spacing: 8px;
 }
 
+.round-entry {
+  -fx-spacing: 4px;
+}
+
 .round-entry > Label, .round-entry > HBox > Label {
   -fx-font-size: 16px;
   -fx-text-fill: -fx-lightgray-100;
+}
+
+.round-entry > HBox {
+  -fx-min-width: 60px;
 }
 
 .eye-icon {
@@ -148,4 +156,52 @@
 
 .discard-changes-icon:hover {
   -fx-background-color: white;
+}
+
+/* Badges */
+
+.badge {
+  -fx-background-color: -fx-gray-25;
+  -fx-background-radius: 15px;
+  -fx-pref-height: 30px;
+  -fx-pref-width: 130px;
+  -fx-max-width: 130px;
+  -fx-padding: 4px 12px;
+  -fx-spacing: 4px;
+}
+
+.badge > Label {
+  -fx-text-fill: -fx-gray-50;
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+}
+
+.badge > Pane {
+  -fx-background-color: -fx-gray-50;
+  -fx-pref-height: 20px;
+  -fx-max-height: 20px;
+}
+
+.badge > .clock-icon {
+  -fx-pref-width: 20px;
+}
+
+.badge > .fire-curved-icon {
+  -fx-pref-width: 15px;
+}
+
+.achieved-badge.bronze {
+  -fx-background-color: -fx-bronze;
+}
+
+.achieved-badge.silver {
+  -fx-background-color: -fx-silver;
+}
+
+.achieved-badge.gold {
+  -fx-background-color: -fx-gold;
+}
+
+.achieved-badge.platinum {
+  -fx-background-color: -fx-platinum;
 }
