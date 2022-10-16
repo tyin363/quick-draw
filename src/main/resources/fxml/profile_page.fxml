@@ -111,11 +111,20 @@
                                           </Label>
                                           <StackPane alignment="CENTER_LEFT">
                                              <children>
-                                                <TextField fx:id="usernameTextField" styleClass="username-text-field">
+                                                <HBox fx:id="editUsernameContainer" alignment="CENTER_LEFT" spacing="16.0">
                                                    <StackPane.margin>
                                                       <Insets />
                                                    </StackPane.margin>
-                                                </TextField>
+                                                   <children>
+                                                      <TextField fx:id="usernameTextField" styleClass="username-text-field" HBox.hgrow="ALWAYS" />
+                                                      <Pane fx:id="discardUsernameChanges" onMouseClicked="#onDiscardUsernameChanges" prefHeight="200.0" prefWidth="200.0">
+                                                         <styleClass>
+                                                            <String fx:value="cross-icon" />
+                                                            <String fx:value="discard-changes-icon" />
+                                                         </styleClass>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
                                                 <Label fx:id="username" styleClass="secondary-title" text="Username" />
                                              </children>
                                              <VBox.margin>

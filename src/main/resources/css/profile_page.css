@@ -166,3 +166,14 @@
   -fx-font-size: 28px;
   -fx-font-weight: bold;
 }
+
+.discard-changes-icon {
+  -fx-background-color: -fx-lightgray-100;
+  -fx-pref-height: 20px;
+  -fx-max-height: 20px;
+  -fx-pref-width: 20px;
+}
+
+.discard-changes-icon:hover {
+  -fx-background-color: white;
+}

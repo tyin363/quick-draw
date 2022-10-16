@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -48,11 +49,11 @@ public class ProfilePageController implements LoadListener {
   @FXML private StackPane changeImageOverlay;
   @FXML private Label username;
   @FXML private TextField usernameTextField;
+  @FXML private HBox editUsernameContainer;
   @FXML private Button saveUsernameButton;
   @FXML private Button editUsernameButton;
-
+  @FXML private Pane discardUsernameChanges;
   @FXML private AnchorPane header;
-  @FXML private Button cancelButton;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
@@ -79,6 +80,10 @@ public class ProfilePageController implements LoadListener {
     rect.setArcWidth(10);
     rect.setArcHeight(10);
     this.profilePictureContainer.setClip(rect);
+
+    // Add a tooltip to the discard username changes button
+    final Tooltip tooltip = new Tooltip("Discard the current changes to the username");
+    Tooltip.install(this.discardUsernameChanges, tooltip);
   }
 
   /** When the user clicks the back button, take them back to the main menu. */
@@ -93,9 +98,9 @@ public class ProfilePageController implements LoadListener {
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
 
-  /** Delete the current user and then take them back to the switch user view. */
+  /** Discards the current changes to the username. */
   @FXML
-  private void onCancelEdit() {
+  private void onDiscardUsernameChanges() {
     this.setEditUsernameMode(false);
   }
 
@@ -179,7 +184,7 @@ public class ProfilePageController implements LoadListener {
 
     // Visibility of edit username elements are opposite of default
     this.saveUsernameButton.setVisible(isEditing);
-    this.usernameTextField.setVisible(isEditing);
+    this.editUsernameContainer.setVisible(isEditing);
     // this.cancelButton.setVisible(isEditing);
   }
 
