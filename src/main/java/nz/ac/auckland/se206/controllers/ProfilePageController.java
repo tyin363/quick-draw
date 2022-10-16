@@ -47,8 +47,7 @@ public class ProfilePageController implements LoadListener {
   @FXML private StackPane profilePictureContainer;
   @FXML private ImageView profileImageView;
   @FXML private StackPane changeImageOverlay;
-
-  @FXML private Label usernameLabel;
+  @FXML private Label username;
 
   @FXML private TextField usernameTextField;
   @FXML private AnchorPane header;
@@ -92,7 +91,7 @@ public class ProfilePageController implements LoadListener {
 
   /** Delete the current user and then take them back to the switch user view. */
   @FXML
-  private void onDeleteUser() {
+  private void onDeleteProfile() {
     this.userService.deleteUser(this.user);
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
@@ -147,7 +146,7 @@ public class ProfilePageController implements LoadListener {
 
     // Do not allow null to be a username
     if (!this.usernameTextField.getText().isBlank()) {
-      this.usernameLabel.setText(this.usernameTextField.getText());
+      this.username.setText(this.usernameTextField.getText());
       this.user.setUsername(this.usernameTextField.getText());
       this.userService.saveUser(this.user);
 
@@ -179,7 +178,7 @@ public class ProfilePageController implements LoadListener {
   /** This method sets the width of the stackpane which the username label is in. */
   private void setUsernameWidth() {
     final Text tmpText = new Text(this.user.getUsername());
-    tmpText.setFont(this.usernameLabel.getFont());
+    tmpText.setFont(this.username.getFont());
 
     // Add extra 10 size to be sure
     final double textWidth = tmpText.getLayoutBounds().getWidth() + 10;
@@ -194,7 +193,7 @@ public class ProfilePageController implements LoadListener {
   private void setEditUsernameMode(final boolean isEdit) {
     // Visibility of default elements are visible
     this.editUsernameButton.setVisible(!isEdit);
-    this.usernameLabel.setVisible(!isEdit);
+    this.username.setVisible(!isEdit);
 
     // Visibility of edit username elements are opposite of default
     this.setUsernameButton.setVisible(isEdit);
@@ -222,22 +221,10 @@ public class ProfilePageController implements LoadListener {
     this.renderRoundHistory();
     this.renderCurrentUserStatistics();
     this.renderUserProfilePicture(this.user.getProfilePicture());
+    this.username.setText(this.user.getUsername());
 
     // Set fire to current win streak if 1 or above
     // this.fireStackPane.setVisible(this.user.getCurrentWinStreak() > 0);
-
-    //    this.usernameLabel.setText(this.user.getUsername());
-    //    this.setUsernameWidth();
-    //
-    //    // Display past words of user
-    //    for (final Round round : this.user.getPastRounds()) {
-    //      final Label pastWord = new Label();
-    //      pastWord.setText(round.getWord());
-    //      // Add colour to word
-    //      pastWord.getStyleClass().add("text-default");
-    //      pastWord.setStyle("-fx-font-size: 25px;");
-    //      this.pastWordsVbox.getChildren().add(pastWord);
-    //    }
   }
 
   /** Renders the current users statistics and updates the win/loss bar. */

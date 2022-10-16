@@ -81,7 +81,7 @@
                                     <Image url="@../images/defaultUserImage.jpg" />
                                  </image>
                               </ImageView>
-                              <StackPane fx:id="changeImageOverlay" onMouseClicked="#onChangePicture" onMouseExited="#onExitImage" styleClass="change-image-overlay">
+                              <StackPane fx:id="changeImageOverlay" onMouseClicked="#onChangeProfilePicture" onMouseExited="#onExitImage" styleClass="change-image-overlay">
                                  <children>
                                     <Pane StackPane.alignment="CENTER" />
                                     <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" text="Change Image" textAlignment="CENTER">
@@ -138,7 +138,7 @@
                                     </VBox>
                                     <HBox alignment="CENTER_RIGHT" layoutX="373.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Button fx:id="onChangeProfilePicture" mnemonicParsing="false" text="Change">
+                                          <Button mnemonicParsing="false" onAction="#onChangeProfilePicture" text="Change">
                                              <styleClass>
                                                 <String fx:value="profile-btn" />
                                                 <String fx:value="btn-primary" />
@@ -163,7 +163,7 @@
                                     </VBox>
                                     <HBox alignment="CENTER_RIGHT" layoutX="373.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Button fx:id="onDeleteProfile" mnemonicParsing="false" text="Delete">
+                                          <Button mnemonicParsing="false" onAction="#onDeleteProfile" text="Delete">
                                              <styleClass>
                                                 <String fx:value="profile-btn" />
                                                 <String fx:value="btn-danger" />
