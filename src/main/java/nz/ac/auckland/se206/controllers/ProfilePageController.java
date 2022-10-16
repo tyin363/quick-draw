@@ -114,7 +114,7 @@ public class ProfilePageController implements LoadListener {
 
   /** Prompts the user to select a file to choose a profile picture */
   @FXML
-  private void onChangePicture() {
+  private void onChangeProfilePicture() {
 
     final FileChooser fileChooser = new FileChooser();
 

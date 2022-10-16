@@ -4,6 +4,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -24,8 +25,7 @@
       <GridPane hgap="24.0" vgap="24.0" VBox.vgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
-            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="ALWAYS" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,7 +36,7 @@
                <content>
                   <VBox maxHeight="1.7976931348623157E308" prefHeight="486.0" prefWidth="250.0" styleClass="round-history">
                      <children>
-                        <Label text="Round History" />
+                        <Label styleClass="secondary-title" text="Round History" />
                         <VBox fx:id="roundHistoryEntries" prefHeight="200.0" prefWidth="100.0" styleClass="round-history-entries" VBox.vgrow="ALWAYS">
                            <children>
                               <AnchorPane styleClass="round-entry">
@@ -67,7 +67,119 @@
                   </VBox>
                </content>
             </ScrollPane>
-            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="stats-overview" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <VBox alignment="TOP_CENTER" styleClass="profile-container" GridPane.columnIndex="1">
+               <children>
+                  <HBox spacing="24.0">
+                     <children>
+                        <StackPane fx:id="profilePictureContainer" maxHeight="220.0" maxWidth="220.0" minHeight="220.0" minWidth="220.0" prefHeight="220.0" prefWidth="220.0" styleClass="bg-lightgray-100">
+                           <children>
+                              <ImageView fx:id="profileImageView" fitHeight="220.0" fitWidth="220.0" onMouseClicked="#onChangeProfilePicture" onMouseEntered="#onEnterImage" pickOnBounds="true" preserveRatio="true">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <image>
+                                    <Image url="@../images/defaultUserImage.jpg" />
+                                 </image>
+                              </ImageView>
+                              <StackPane fx:id="changeImageOverlay" onMouseClicked="#onChangePicture" onMouseExited="#onExitImage" styleClass="change-image-overlay">
+                                 <children>
+                                    <Pane StackPane.alignment="CENTER" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" text="Change Image" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="28.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </StackPane>
+                           </children>
+                        </StackPane>
+                        <VBox prefHeight="200.0" prefWidth="100.0" styleClass="profile-actions" HBox.hgrow="ALWAYS">
+                           <children>
+                              <AnchorPane>
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Username">
+                                             <styleClass>
+                                                <String fx:value="profile-label" />
+                                                <String fx:value="secondary-label" />
+                                             </styleClass>
+                                          </Label>
+                                          <Label fx:id="username" styleClass="secondary-title" text="Username" />
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_RIGHT" layoutX="373.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Button fx:id="onEditUsername" mnemonicParsing="false" text="Edit">
+                                             <styleClass>
+                                                <String fx:value="profile-btn" />
+                                                <String fx:value="btn-secondary" />
+                                             </styleClass>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane>
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="Profile Picture">
+                                             <styleClass>
+                                                <String fx:value="profile-label" />
+                                                <String fx:value="secondary-label" />
+                                             </styleClass>
+                                          </Label>
+                                          <Label styleClass="secondary-label" text="Change your profile picture." />
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_RIGHT" layoutX="373.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Button fx:id="onChangeProfilePicture" mnemonicParsing="false" text="Change">
+                                             <styleClass>
+                                                <String fx:value="profile-btn" />
+                                                <String fx:value="btn-primary" />
+                                             </styleClass>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane>
+                                 <children>
+                                    <VBox alignment="CENTER_LEFT" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label text="User Profile">
+                                             <styleClass>
+                                                <String fx:value="profile-label" />
+                                                <String fx:value="secondary-label" />
+                                             </styleClass>
+                                          </Label>
+                                          <Label styleClass="secondary-label" text="WARNING: This action cannot be undone." />
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_RIGHT" layoutX="373.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Button fx:id="onDeleteProfile" mnemonicParsing="false" text="Delete">
+                                             <styleClass>
+                                                <String fx:value="profile-btn" />
+                                                <String fx:value="btn-danger" />
+                                             </styleClass>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="stats-overview" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card" HBox.hgrow="ALWAYS">
                      <children>
@@ -81,7 +193,7 @@
                                           <String fx:value="text-green" />
                                        </styleClass>
                                     </Label>
-                                    <Label styleClass="stat-label" text="Win Rate" />
+                                    <Label styleClass="secondary-label" text="Win Rate" />
                                  </children>
                               </VBox>
                               <Pane AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -105,7 +217,7 @@
                                           <String fx:value="text-green" />
                                        </styleClass>
                                     </Label>
-                                    <Label styleClass="stat-label" text="Wins" />
+                                    <Label styleClass="secondary-label" text="Wins" />
                                  </children>
                               </HBox>
                               <HBox fx:id="winBarContainer" prefHeight="6.0">
@@ -116,7 +228,7 @@
                               </HBox>
                               <HBox alignment="TOP_RIGHT" spacing="4.0">
                                  <children>
-                                    <Label styleClass="stat-label" text="Losses">
+                                    <Label styleClass="secondary-label" text="Losses">
                                        <HBox.margin>
                                           <Insets top="3.0" />
                                        </HBox.margin>
@@ -147,7 +259,7 @@
                                                 <String fx:value="text-highlight" />
                                              </styleClass>
                                           </Label>
-                                          <Label fx:id="numRoundsPlayed11" styleClass="stat-label" text="seconds" />
+                                          <Label fx:id="numRoundsPlayed11" styleClass="secondary-label" text="seconds" />
                                        </children>
                                     </HBox>
                                     <Pane AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -158,7 +270,7 @@
                                     </Pane>
                                  </children>
                               </AnchorPane>
-                              <Label styleClass="stat-label" text="Fastest Time" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                              <Label styleClass="secondary-label" text="Fastest Time" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card" VBox.vgrow="ALWAYS">
@@ -179,7 +291,7 @@
                                     </Pane>
                                  </children>
                               </AnchorPane>
-                              <Label styleClass="stat-label" text="Rounds Played" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                              <Label styleClass="secondary-label" text="Rounds Played" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -204,7 +316,7 @@
                                     </Pane>
                                  </children>
                               </AnchorPane>
-                              <Label styleClass="stat-label" text="Current Win Streak" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                              <Label styleClass="secondary-label" text="Current Win Streak" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="stat-card">
@@ -225,42 +337,13 @@
                                     </Pane>
                                  </children>
                               </AnchorPane>
-                              <Label styleClass="stat-label" text="Best Win Streak" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                              <Label styleClass="secondary-label" text="Best Win Streak" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <VBox alignment="TOP_CENTER" GridPane.columnIndex="1">
-               <children>
-                  <StackPane fx:id="profilePictureContainer" maxHeight="220.0" maxWidth="220.0" minHeight="220.0" minWidth="220.0" prefHeight="220.0" prefWidth="220.0" styleClass="bg-lightgray-100">
-                     <children>
-                        <ImageView fx:id="profileImageView" fitHeight="220.0" fitWidth="220.0" onMouseClicked="#onChangePicture" onMouseEntered="#onEnterImage" pickOnBounds="true" preserveRatio="true">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <image>
-                              <Image url="@../images/defaultUserImage.jpg" />
-                           </image>
-                        </ImageView>
-                        <StackPane fx:id="changeImageOverlay" onMouseClicked="#onChangePicture" onMouseExited="#onExitImage" styleClass="change-image-overlay">
-                           <children>
-                              <Pane StackPane.alignment="CENTER" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" text="Change Image" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="System Bold" size="28.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </StackPane>
-                     </children>
-                  </StackPane>
-               </children>
-            </VBox>
          </children>
          <padding>
             <Insets bottom="48.0" left="48.0" right="48.0" top="24.0" />

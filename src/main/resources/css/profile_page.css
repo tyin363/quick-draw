@@ -1,14 +1,51 @@
+/* Generic */
+
+.secondary-label {
+  -fx-font-size: 16px;
+  -fx-text-fill: -fx-lightgray-100;
+}
+
+.secondary-title {
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-text-fill:  -fx-text-default;
+}
+
+.btn-primary {
+  -fx-border-width: 2px;
+  -fx-border-color: -fx-highlight;
+  -fx-background-color: transparent;
+}
+
+.btn-primary:hover {
+  -fx-background-color: -fx-highlight;
+}
+
+.btn-secondary {
+  -fx-background-color: -fx-gray-25;
+}
+
+.btn-secondary:hover {
+  -fx-background-color: -fx-gray-50;
+}
+
+.btn-danger {
+  -fx-border-width: 2px;
+  -fx-border-color: -fx-red;
+  -fx-background-color: transparent;
+}
+
+.btn-danger:hover {
+  -fx-background-color: -fx-red;
+}
+
+/* Round History */
+
 .round-history {
   -fx-spacing: 12px;
   -fx-background-radius: 16px;
   -fx-background-color: -fx-gray-50;
   -fx-padding: 12px 20px;
-}
-
-.round-history > Label {
-  -fx-font-size: 20px;
-  -fx-font-weight: bold;
-  -fx-text-fill: -fx-text-default;
 }
 
 .round-history-entries {
@@ -46,6 +83,8 @@
   -fx-text-fill: -fx-red;
 }
 
+/* Stats */
+
 .stats-overview {
   -fx-pref-height: 260px;
   -fx-padding: 20px 32px;
@@ -75,17 +114,42 @@
   -fx-font-weight: bold;
 }
 
-.stat-label {
-  -fx-font-size: 16px;
-  -fx-text-fill: -fx-lightgray-100;
-}
-
 .stat-icon {
   -fx-pref-width: 20px;
   -fx-min-width: 20px;
   -fx-max-width: 20px;
   -fx-min-height: 20px;
   -fx-background-color: -fx-lightgray-100;
+}
+
+/* Profile */
+
+.profile-container {
+  -fx-spacing: 24px;
+  -fx-padding: 20px 32px;
+  -fx-background-radius: 16px;
+  -fx-background-color: -fx-gray-50;
+}
+
+.profile-actions {
+  -fx-spacing: 24px;
+  -fx-padding: 12px 24px;
+  -fx-background-radius: 10px;
+  -fx-background-color: -fx-gray-75;
+}
+
+.profile-label {
+  -fx-font-weight: bold;
+}
+
+.profile-btn {
+  -fx-pref-height: 36px;
+  -fx-min-width: 100px;
+  -fx-background-radius: 4px;
+  -fx-border-radius: 4px;
+  -fx-font-size: 16px;
+  -fx-text-fill: -fx-text-default;
+  -fx-font-weight: bold;
 }
 
 .change-image-overlay > Pane {
