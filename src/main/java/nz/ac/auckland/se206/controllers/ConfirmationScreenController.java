@@ -13,6 +13,8 @@ import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.Sound;
+import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.WordService;
 
 @Singleton
@@ -25,6 +27,7 @@ public class ConfirmationScreenController implements LoadListener {
 
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
+  @Inject private SoundEffect soundEffect;
   @Inject private HiddenMode hiddenMode;
   @Inject private UserService userService;
   @Inject private CanvasStateMachine stateMachine;
@@ -38,6 +41,8 @@ public class ConfirmationScreenController implements LoadListener {
   /** When the user confirms they are ready, switch to the canvas view. */
   @FXML
   private void onConfirmSwitch() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.SPECIAL_CLICK);
     this.sceneManager.switchToView(View.CANVAS);
   }
 
@@ -72,6 +77,8 @@ public class ConfirmationScreenController implements LoadListener {
    */
   private void onSwitchBack() {
 
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
     this.hiddenMode.clearDefinitions();
 
     // Switching to previous screen depending on the current mode

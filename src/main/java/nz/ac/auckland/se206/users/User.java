@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import javafx.scene.image.Image;
+import nz.ac.auckland.se206.badges.UserBadges;
 
 public class User {
 
@@ -19,7 +20,10 @@ public class User {
   private int gamesLost;
   private int currentWinStreak;
   private int bestWinStreak;
+  private double musicVolume = 0.1;
+  private double soundEffectVolume = 0.3;
   private GameSettings gameSettings;
+  private UserBadges badges;
 
   /** An empty constructor is required to deserialize the user from JSON. */
   public User() {
@@ -37,7 +41,44 @@ public class User {
     this.username = username;
     this.pastRounds = new ArrayList<>();
     this.gameSettings = new GameSettings();
+    this.badges = new UserBadges();
     this.profilePicture = "images/defaultUserImage.jpg";
+  }
+
+  /**
+   * Retrieves the users music volume preference
+   *
+   * @return Users music volume
+   */
+  public double getMusicVolume() {
+    return musicVolume;
+  }
+
+  /**
+   * Sets the users music volume preference
+   *
+   * @param musicVolume The music volume to set
+   */
+  public void setMusicVolume(double musicVolume) {
+    this.musicVolume = musicVolume;
+  }
+
+  /**
+   * Get the users sound effect volume preference
+   *
+   * @return Users sound effect volume
+   */
+  public double getSoundEffectVolume() {
+    return soundEffectVolume;
+  }
+
+  /**
+   * Sets the users sound effect volume preference
+   *
+   * @param soundEffectVolume The sound effect volume to set
+   */
+  public void setSoundEffectVolume(double soundEffectVolume) {
+    this.soundEffectVolume = soundEffectVolume;
   }
 
   /**
@@ -47,6 +88,15 @@ public class User {
    */
   public GameSettings getGameSettings() {
     return this.gameSettings;
+  }
+
+  /**
+   * Retrieves the badges that this user has achieved.
+   *
+   * @return The user's badges
+   */
+  public UserBadges getBadges() {
+    return this.badges;
   }
 
   /**

@@ -197,6 +197,12 @@
                         </VBox>
                      </children>
                   </HBox>
+                  <VBox alignment="CENTER" spacing="16.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <HBox fx:id="speedBadgesContainer" alignment="CENTER" spacing="24.0" />
+                        <HBox fx:id="streakBadgesContainer" alignment="CENTER" spacing="24.0" />
+                     </children>
+                  </VBox>
                </children>
             </VBox>
             <HBox prefHeight="100.0" prefWidth="200.0" styleClass="stats-overview" GridPane.columnIndex="1" GridPane.rowIndex="1">

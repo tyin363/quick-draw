@@ -15,6 +15,8 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.Sound;
+import nz.ac.auckland.se206.util.SoundEffect;
 
 @Singleton
 public class SettingsController implements LoadListener {
@@ -43,6 +45,7 @@ public class SettingsController implements LoadListener {
 
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
+  @Inject private SoundEffect soundEffect;
 
   private User currentUser;
 
@@ -56,6 +59,9 @@ public class SettingsController implements LoadListener {
   /** When the user confirms they are ready, switch to the confirmation screen. */
   @FXML
   private void onConfirmReady() {
+    // Play the click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
+
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
@@ -95,6 +101,9 @@ public class SettingsController implements LoadListener {
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
+    // Play the click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
+
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
@@ -106,6 +115,9 @@ public class SettingsController implements LoadListener {
    */
   @FXML
   private void onSetAccuracy(ActionEvent event) {
+
+    // Play settings click sound effect
+    this.soundEffect.playSound(Sound.SETTINGS_CLICK);
 
     // Storing accuracy setting into current user's data depending on selection
     if (easyAccuracyButton.isSelected()) {
@@ -128,6 +140,9 @@ public class SettingsController implements LoadListener {
    */
   @FXML
   private void onSetWords(ActionEvent event) {
+
+    // Play settings click sound effect
+    this.soundEffect.playSound(Sound.SETTINGS_CLICK);
 
     // Storing word setting into current user's data depending on selection
     if (easyWordsButton.isSelected()) {
@@ -153,6 +168,9 @@ public class SettingsController implements LoadListener {
   @FXML
   private void onSetTime(ActionEvent event) {
 
+    // Play settings click sound effect
+    this.soundEffect.playSound(Sound.SETTINGS_CLICK);
+
     // Storing time setting into current user's data depending on selection
     if (easyTimeButton.isSelected()) {
       currentUser.getGameSettings().setTime(60);
@@ -177,6 +195,9 @@ public class SettingsController implements LoadListener {
    */
   @FXML
   private void onSetConfidence(ActionEvent event) {
+
+    // Play settings click sound effect
+    this.soundEffect.playSound(Sound.SETTINGS_CLICK);
 
     // Storing confidence setting into current user's data depending on selection
     if (easyConfidenceButton.isSelected()) {

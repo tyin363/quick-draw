@@ -2,8 +2,10 @@ package nz.ac.auckland.se206.controllers;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,6 +24,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.badges.Badge;
+import nz.ac.auckland.se206.components.profile.DisplayBadge;
 import nz.ac.auckland.se206.components.profile.RoundEntry;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
@@ -29,6 +33,8 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.Sound;
+import nz.ac.auckland.se206.util.SoundEffect;
 import org.slf4j.Logger;
 
 @Singleton
@@ -53,12 +59,16 @@ public class ProfilePageController implements LoadListener {
   @FXML private Button saveUsernameButton;
   @FXML private Button editUsernameButton;
   @FXML private Pane discardUsernameChanges;
+  @FXML private HBox speedBadgesContainer;
+  @FXML private HBox streakBadgesContainer;
   @FXML private AnchorPane header;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
+  @Inject private SoundEffect soundEffect;
 
   private User user;
+  private List<DisplayBadge> displayBadges;
 
   /** Perform once off initialisations for this controller. */
   @FXML
@@ -84,16 +94,60 @@ public class ProfilePageController implements LoadListener {
     // Add a tooltip to the discard username changes button
     final Tooltip tooltip = new Tooltip("Discard the current changes to the username");
     Tooltip.install(this.discardUsernameChanges, tooltip);
+
+    this.renderBadges();
+  }
+
+  /**
+   * Current user information is retrieved on load
+   *
+   * <p>If current user is null, a new user is created and is set to current user
+   */
+  @Override
+  public void onLoad() {
+    // Sanity check, this should never be true.
+    if (this.userService.getCurrentUser() == null) {
+      return;
+    }
+    this.user = this.userService.getCurrentUser();
+
+    this.renderRoundHistory();
+    this.renderCurrentUserStatistics();
+    this.renderUserProfilePicture(this.user.getProfileImage());
+
+    // Set the username and hide the edit username elements
+    this.username.setText(this.user.getUsername());
+    this.setEditUsernameMode(false);
+    this.displayBadges.forEach(displayBadge -> displayBadge.update(this.user));
+  }
+
+  /** Render all the badges that can be achieved. */
+  private void renderBadges() {
+    // Create all the display badges and group them by their badge group (Either speed or streak)
+    final Map<String, List<DisplayBadge>> badges =
+        Arrays.stream(Badge.values())
+            .map(DisplayBadge::new)
+            .collect(Collectors.groupingBy(display -> display.getBadge().getBadgeGroup()));
+    this.speedBadgesContainer.getChildren().addAll(badges.get("speed"));
+    this.streakBadgesContainer.getChildren().addAll(badges.get("streak"));
+
+    // Store all the display badges in a list for easy access later
+    this.displayBadges = new ArrayList<>();
+    this.displayBadges.addAll(badges.get("speed"));
+    this.displayBadges.addAll(badges.get("streak"));
   }
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
+    this.soundEffect.playSound(Sound.CLICK);
+
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
   /** Delete the current user and then take them back to the switch user view. */
   @FXML
   private void onDeleteProfile() {
+    this.soundEffect.playSound(Sound.CANCEL);
     this.userService.deleteUser(this.user);
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
@@ -101,12 +155,14 @@ public class ProfilePageController implements LoadListener {
   /** Discards the current changes to the username. */
   @FXML
   private void onDiscardUsernameChanges() {
+    this.soundEffect.playSound(Sound.CANCEL);
     this.setEditUsernameMode(false);
   }
 
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
+    this.soundEffect.playSound(Sound.CLICK);
     this.usernameTextField.setText(this.user.getUsername());
     this.setEditUsernameMode(true);
     // Move the cursor to the text field. This can only be done if the text field is visible.
@@ -126,6 +182,9 @@ public class ProfilePageController implements LoadListener {
   /** Prompts the user to select a file to choose a profile picture. */
   @FXML
   private void onChangeProfilePicture() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
+
     final FileChooser fileChooser = new FileChooser();
 
     // Accept only png and jpeg files
@@ -152,6 +211,7 @@ public class ProfilePageController implements LoadListener {
   private void onSaveUsername() {
     // Do not allow them to set an empty username
     if (!this.usernameTextField.getText().isBlank()) {
+      this.soundEffect.playSound(Sound.SETTINGS_CLICK);
       this.username.setText(this.usernameTextField.getText());
       this.user.setUsername(this.usernameTextField.getText());
       this.userService.saveUser(this.user);
@@ -189,28 +249,6 @@ public class ProfilePageController implements LoadListener {
     this.saveUsernameButton.setVisible(isEditing);
     this.editUsernameContainer.setVisible(isEditing);
     // this.cancelButton.setVisible(isEditing);
-  }
-
-  /**
-   * Current user information is retrieved on load
-   *
-   * <p>If current user is null, a new user is created and is set to current user
-   */
-  @Override
-  public void onLoad() {
-    // Sanity check, this should never be true.
-    if (this.userService.getCurrentUser() == null) {
-      return;
-    }
-    this.user = this.userService.getCurrentUser();
-
-    this.renderRoundHistory();
-    this.renderCurrentUserStatistics();
-    this.renderUserProfilePicture(this.user.getProfileImage());
-
-    // Set the username and hide the edit username elements
-    this.username.setText(this.user.getUsername());
-    this.setEditUsernameMode(false);
   }
 
   /** Renders the current users statistics and updates the win/loss bar. */
