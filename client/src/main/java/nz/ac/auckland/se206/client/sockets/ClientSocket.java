@@ -62,7 +62,8 @@ public class ClientSocket implements EnableListener, TerminationListener {
       try {
         this.checkForServer();
         if (!this.isConnected()) {
-          Thread.sleep(10_000); // Only check if the server is up every 10 seconds
+          // Only check if the server is up every 10 seconds
+          Thread.sleep(10_000);
         } else {
           this.handleSocketInput();
         }
@@ -77,16 +78,16 @@ public class ClientSocket implements EnableListener, TerminationListener {
   }
 
   private void handleSocketInput() throws IOException {
-
     final int peek = this.reader.read();
+    // If the server has closed the connection, we'll get a -1
     if (peek == -1) {
       this.logger.info("Lost connection to server");
       this.isConnected = false;
       return;
     }
 
+    // Peek removes the character from the stream, so we need to add it back to form the full line
     final String line = (char) peek + this.reader.readLine();
-    this.logger.info(line);
     final DrawingSessionRequest request =
         this.objectMapper.readValue(line, DrawingSessionRequest.class);
     if (this.userService.getCurrentUser() != null) {
@@ -100,10 +101,21 @@ public class ClientSocket implements EnableListener, TerminationListener {
     this.logger.info("Received drawing session request: {}", request);
   }
 
+  /**
+   * Checks if the client is connected to the server.
+   *
+   * @return If the client is connected to the server
+   */
   public boolean isConnected() {
     return this.socket != null && this.socket.isConnected() && this.isConnected;
   }
 
+  /**
+   * Attempts to connect to the server. If the connection fails then an {@link IOException} is
+   * thrown.
+   *
+   * @throws IOException If the connection fails
+   */
   private void tryConnectToServer() throws IOException {
     if (this.socket != null) {
       this.socket.close();
@@ -117,6 +129,10 @@ public class ClientSocket implements EnableListener, TerminationListener {
     this.isConnected = true;
   }
 
+  /**
+   * Checks if the client is connected to the server. If it is not, then it attempts to connect to
+   * it.
+   */
   private void checkForServer() {
     if (!this.isConnected()) {
       try {
@@ -131,11 +147,13 @@ public class ClientSocket implements EnableListener, TerminationListener {
     }
   }
 
+  /** */
   @Override
   public void onTerminate() {
     this.logger.info("Terminating client socket");
     try {
       this.isStopped = true;
+      // Make sure to close all the threads
       this.handlerThread.interrupt();
       this.socket.close();
     } catch (final IOException e) {
