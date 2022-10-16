@@ -6,23 +6,28 @@ import nz.ac.auckland.se206.users.User;
 public enum Badge {
   SPEED_BRONZE(
       user -> user.getFastestTime() >= 0 && user.getFastestTime() < 30,
-      "Win a game in under 30 seconds"),
+      "Win a game in under 30 seconds",
+      "Speed I"),
   SPEED_SILVER(
       user -> user.getFastestTime() >= 0 && user.getFastestTime() < 15,
-      "Win a game in under 15 seconds"),
+      "Win a game in under 15 seconds",
+      "Speed II"),
   SPEED_GOLD(
       user -> user.getFastestTime() >= 0 && user.getFastestTime() < 5,
-      "Win a game in under 5 seconds"),
+      "Win a game in under 5 seconds",
+      "Speed III"),
   SPEED_PLATINUM(
       user -> user.getFastestTime() >= 0 && user.getFastestTime() < 3,
-      "Win a game in under 3 seconds"),
-  STREAK_BRONZE(user -> user.getBestWinStreak() >= 3, "Win 3 games in a row"),
-  STREAK_SILVER(user -> user.getBestWinStreak() >= 10, "Win 10 games in a row"),
-  STREAK_GOLD(user -> user.getBestWinStreak() >= 20, "Win 20 games in a row"),
-  STREAK_PLATINUM(user -> user.getBestWinStreak() >= 40, "Win 40 games in a row");
+      "Win a game in under 3 seconds",
+      "Speed IV"),
+  STREAK_BRONZE(user -> user.getBestWinStreak() >= 3, "Win 3 games in a row", "Streak I"),
+  STREAK_SILVER(user -> user.getBestWinStreak() >= 10, "Win 10 games in a row", "Streak II"),
+  STREAK_GOLD(user -> user.getBestWinStreak() >= 20, "Win 20 games in a row", "Streak III"),
+  STREAK_PLATINUM(user -> user.getBestWinStreak() >= 40, "Win 40 games in a row", "Streak IV");
 
   private final Predicate<User> hasAchievedBadge;
   private final String description;
+  private final String displayName;
   private final String badgeClassName;
 
   /**
@@ -33,9 +38,12 @@ public enum Badge {
    * @param hasAchievedBadge The predicate to use
    * @param description The description of the badge
    */
-  Badge(final Predicate<User> hasAchievedBadge, final String description) {
+  Badge(
+      final Predicate<User> hasAchievedBadge, final String description, final String displayName) {
     this.hasAchievedBadge = hasAchievedBadge;
     this.description = description;
+    this.displayName = displayName;
+    // The class name is the enum name in lowercase with the underscores replaced with dashes
     this.badgeClassName = this.name().toLowerCase().replace("_", "-");
   }
 
@@ -65,6 +73,15 @@ public enum Badge {
    */
   public String getDescription() {
     return this.description;
+  }
+
+  /**
+   * Retrieves the display name of this badge.
+   *
+   * @return The display name of this badge
+   */
+  public String getDisplayName() {
+    return this.displayName;
   }
 
   /**
