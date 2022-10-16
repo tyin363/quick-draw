@@ -1,71 +1,13 @@
 package nz.ac.auckland.se206.users;
 
-public class Round {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import nz.ac.auckland.se206.users.Round.Mode;
 
-  private final String word;
-  private final int timeTaken;
-  private final boolean wasGuessed;
+public record Round(
+    String word, int timeTaken, @JsonProperty("wasGuessed") boolean wasGuessed, Mode mode) {
 
-  /** An empty constructor is required to deserialize Round from JSON. */
-  public Round() {
-    this.word = "";
-    this.timeTaken = 0;
-    this.wasGuessed = false;
-  }
-
-  /**
-   * A constructor for game rounds for the user
-   *
-   * @param word given word in the round
-   * @param timeTaken time take in the round
-   * @param wasGuessed if word was guessed in the round
-   */
-  public Round(final String word, final int timeTaken, final boolean wasGuessed) {
-    this.word = word;
-    this.timeTaken = timeTaken;
-    this.wasGuessed = wasGuessed;
-  }
-
-  /**
-   * Retrieve the word that was being drawn in this round.
-   *
-   * @return The word that was being drawn in this round
-   */
-  public String getWord() {
-    return this.word;
-  }
-
-  /**
-   * Retrieve the time taken in seconds to draw the word in this round. If the word wasn't guessed,
-   * this will always be the maximum time.
-   *
-   * @return The time taken in seconds to draw the word in this round
-   */
-  public int getTimeTaken() {
-    return this.timeTaken;
-  }
-
-  /**
-   * If the word was guessed in the round.
-   *
-   * @return If the word was guessed in the round
-   */
-  public boolean wasGuessed() {
-    return this.wasGuessed;
-  }
-
-  /**
-   * Changed string message for Round object to print word, time taken and if it word was guessed
-   */
-  @Override
-  public String toString() {
-
-    // Formatting Round string message to include word, time taken and if it was guessed
-    return "Word: "
-        + this.word
-        + "; Time Taken: "
-        + this.timeTaken
-        + "; Was Guessed: "
-        + this.wasGuessed;
+  public enum Mode {
+    NORMAL,
+    HIDDEN
   }
 }

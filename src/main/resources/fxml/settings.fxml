@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -108,7 +109,11 @@
                         <Insets bottom="50.0" left="25.0" right="25.0" />
                      </VBox.margin>
                   </GridPane>
-                  <Button fx:id="readyButton" alignment="CENTER" mnemonicParsing="false" onAction="#onConfirmReady" styleClass="btn" text="Ready" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="readyButton" alignment="CENTER" mnemonicParsing="false" onAction="#onConfirmReady" text="Ready" VBox.vgrow="ALWAYS">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-primary" />
+                     </styleClass></Button>
                </children>
             </VBox>
          </children>
