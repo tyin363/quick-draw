@@ -24,14 +24,11 @@ import org.slf4j.Logger;
 @Singleton
 public class WordService {
 
-  @Inject private UserService userService;
-
   private final Map<Difficulty, List<String>> wordMapping;
   private final Random random = new Random();
-
   private final Logger logger;
   private final Config config;
-
+  @Inject private UserService userService;
   private String targetWord;
 
   /**
@@ -81,11 +78,11 @@ public class WordService {
    *
    * @param difficulty The difficulty of the word to select from
    */
-  public void selectRandomTarget(String difficulty) {
+  public void selectRandomTarget(final String difficulty) {
     List<String> words = this.getWordSelection(difficulty);
     // Remove user's past words from the new word selection
-    for (Round round : this.userService.getCurrentUser().getPastRounds()) {
-      words.remove(round.getWord());
+    for (final Round round : this.userService.getCurrentUser().getPastRounds()) {
+      words.remove(round.word());
     }
 
     // If the new word selection is empty let playable words be any from the given difficulty
@@ -120,7 +117,7 @@ public class WordService {
    * @param difficulty
    * @return word selection
    */
-  public List<String> getWordSelection(String difficulty) {
+  public List<String> getWordSelection(final String difficulty) {
 
     // Initialising word selection
     List<String> words = null;
