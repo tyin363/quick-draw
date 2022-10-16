@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.components.profile;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
@@ -32,6 +33,7 @@ public class DisplayBadge extends HBox {
     Tooltip.install(this, new Tooltip(badge.getDescription()));
     this.getStyleClass().addAll("badge", badge.getBadgeTier());
     this.getChildren().addAll(label, pane);
+    this.setAlignment(Pos.CENTER);
     this.badge = badge;
   }
 
@@ -40,7 +42,7 @@ public class DisplayBadge extends HBox {
    *
    * @param user The user to update the badge with respect to
    */
-  public void updateBadge(final User user) {
+  public void update(final User user) {
     if (this.badge.hasAchievedBadge(user)) {
       this.getStyleClass().add("achieved-badge");
     } else {

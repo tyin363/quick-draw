@@ -95,6 +95,29 @@ public class ProfilePageController implements LoadListener {
     this.renderBadges();
   }
 
+  /**
+   * Current user information is retrieved on load
+   *
+   * <p>If current user is null, a new user is created and is set to current user
+   */
+  @Override
+  public void onLoad() {
+    // Sanity check, this should never be true.
+    if (this.userService.getCurrentUser() == null) {
+      return;
+    }
+    this.user = this.userService.getCurrentUser();
+
+    this.renderRoundHistory();
+    this.renderCurrentUserStatistics();
+    this.renderUserProfilePicture(this.user.getProfileImage());
+
+    // Set the username and hide the edit username elements
+    this.username.setText(this.user.getUsername());
+    this.setEditUsernameMode(false);
+    this.displayBadges.forEach(displayBadge -> displayBadge.update(this.user));
+  }
+
   /** Render all the badges that can be achieved. */
   private void renderBadges() {
     // Create all the display badges and group them by their badge group (Either speed or streak)
@@ -214,28 +237,6 @@ public class ProfilePageController implements LoadListener {
     this.saveUsernameButton.setVisible(isEditing);
     this.editUsernameContainer.setVisible(isEditing);
     // this.cancelButton.setVisible(isEditing);
-  }
-
-  /**
-   * Current user information is retrieved on load
-   *
-   * <p>If current user is null, a new user is created and is set to current user
-   */
-  @Override
-  public void onLoad() {
-    // Sanity check, this should never be true.
-    if (this.userService.getCurrentUser() == null) {
-      return;
-    }
-    this.user = this.userService.getCurrentUser();
-
-    this.renderRoundHistory();
-    this.renderCurrentUserStatistics();
-    this.renderUserProfilePicture(this.user.getProfileImage());
-
-    // Set the username and hide the edit username elements
-    this.username.setText(this.user.getUsername());
-    this.setEditUsernameMode(false);
   }
 
   /** Renders the current users statistics and updates the win/loss bar. */

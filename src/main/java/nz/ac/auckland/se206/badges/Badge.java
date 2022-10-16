@@ -18,7 +18,7 @@ public enum Badge {
       "Speed III"),
   SPEED_PLATINUM(
       user -> user.getFastestTime() >= 0 && user.getFastestTime() < 2,
-      "Win a game in under 2 seconds",
+      "Win a game in 1 second",
       "Speed IV"),
   STREAK_BRONZE(user -> user.getBestWinStreak() >= 3, "Win 3 games in a row", "Streak I"),
   STREAK_SILVER(user -> user.getBestWinStreak() >= 10, "Win 10 games in a row", "Streak II"),
