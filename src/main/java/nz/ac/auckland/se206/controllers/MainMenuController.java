@@ -14,6 +14,8 @@ import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
 import nz.ac.auckland.se206.statemachine.states.NormalCanvasState;
 import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.Sound;
+import nz.ac.auckland.se206.util.SoundEffect;
 
 @Singleton
 public class MainMenuController implements LoadListener {
@@ -30,6 +32,7 @@ public class MainMenuController implements LoadListener {
   @FXML private Label messageLabel;
   @FXML private AnchorPane header;
   @Inject private SceneManager sceneManager;
+  @Inject private SoundEffect soundEffect;
   @Inject private CanvasStateMachine stateMachine;
 
   /** Hook up the back button action when the view is initialised. */
@@ -50,6 +53,7 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartNormal() {
+    this.soundEffect.playSound(Sound.CLICK);
     this.stateMachine.switchState(NormalCanvasState.class);
     this.sceneManager.switchToView(View.SETTINGS);
   }
@@ -60,6 +64,8 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartZenMode() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
     this.stateMachine.switchState(ZenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
@@ -70,6 +76,8 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartHidden() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
     this.stateMachine.switchState(HiddenModeState.class);
     this.sceneManager.switchToView(View.SETTINGS);
   }
@@ -79,6 +87,9 @@ public class MainMenuController implements LoadListener {
    * just at the profile page, in which case go back to that page.
    */
   private void onSwitchBack() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
+
     final View previousView = this.sceneManager.getPreviousView();
     // Only switch back to the profile page if they were just on it
     if (previousView == View.PROFILE_PAGE) {

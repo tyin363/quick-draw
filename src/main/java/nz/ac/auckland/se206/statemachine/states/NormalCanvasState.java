@@ -14,11 +14,15 @@ import nz.ac.auckland.se206.users.Round.Mode;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Config;
+import nz.ac.auckland.se206.util.Music;
+import nz.ac.auckland.se206.util.Sound;
+import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.WordService;
 
 @Singleton(injectSuper = true)
 public class NormalCanvasState extends CanvasState implements TerminationListener {
 
+  @Inject protected SoundEffect soundEffect;
   @Inject protected TextToSpeech textToSpeech;
   @Inject protected UserService userService;
   @Inject protected WordService wordService;
@@ -33,6 +37,11 @@ public class NormalCanvasState extends CanvasState implements TerminationListene
    */
   @Override
   public void onLoad() {
+
+    // Set Background music
+    this.soundEffect.terminateBackgroundMusic();
+    this.soundEffect.playBackgroundMusic(Music.CANVAS_MUSIC);
+
     this.canvasController.getGameOverActionsContainer().setVisible(false);
 
     // Getting the time depending time setting and setting the respective time label
@@ -100,9 +109,19 @@ public class NormalCanvasState extends CanvasState implements TerminationListene
     final Round round =
         new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed, this.getMode());
 
+    // Play sound effect and music based on if the user won or lost
+    this.soundEffect.terminateBackgroundMusic();
+    if (wasGuessed) {
+      this.soundEffect.playSound(Sound.WIN);
+      this.soundEffect.playBackgroundMusic(Music.WIN_MUSIC);
+    } else {
+      this.soundEffect.playSound(Sound.LOSE);
+      this.soundEffect.playBackgroundMusic(Music.LOSE_MUSIC);
+    }
     this.canvasController.getPredictionHandler().stopPredicting();
     this.timer.stop();
     this.canvasController.disableBrush();
+
     // Prevent the user from clearing their drawing
     this.canvasController.getClearPane().setDisable(true);
     final String message = this.getConclusionMessage(wasGuessed);
