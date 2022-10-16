@@ -1,5 +1,22 @@
 # SE206 - 2022 - Beta & Final Releases
 
+## Running
+
+You can specify a `config.json` file in the roots of the `client` and `server` folder to 
+configure the server being connected to. The `config.json` file should look like this:
+```json
+{
+    "host": "192.1.this.is.fake.100",
+    "port": 8080
+}
+```
+
+To run either the client and server you must do: 
+1. `.\mvnw.cmd install -pl client -am`
+2. `.\mvnw.cmd clean javafx:run -pl client`
+
+The same applies for the server, but replace `client` with `server`.
+
 ## Summary
 
 - [Dependency Injection](#dependency-injection)
