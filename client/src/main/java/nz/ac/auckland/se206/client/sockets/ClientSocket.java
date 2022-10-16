@@ -14,6 +14,8 @@ import nz.ac.auckland.se206.core.listeners.TerminationListener;
 import nz.ac.auckland.se206.core.models.ActionResponse;
 import nz.ac.auckland.se206.core.models.ActionResponse.Action;
 import nz.ac.auckland.se206.core.models.DrawingSessionRequest;
+import nz.ac.auckland.se206.core.sockets.ServerConfig;
+import nz.ac.auckland.se206.core.sockets.ServerConfigService;
 import org.slf4j.Logger;
 
 @Singleton
@@ -21,6 +23,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
 
   @Inject private ObjectMapper objectMapper;
   @Inject private DrawingSessionService drawingSessionService;
+  @Inject private ServerConfigService configService;
   @Inject private Logger logger;
   private Socket socket;
   private PrintWriter writer;
@@ -129,7 +132,8 @@ public class ClientSocket implements EnableListener, TerminationListener {
     }
     this.logger.info("Trying to connect to server");
     // Establish a connection to the server and create a reader/writer
-    this.socket = new Socket("localhost", 5001);
+    final ServerConfig config = this.configService.getConfig();
+    this.socket = new Socket(config.host(), config.port());
     this.writer = new PrintWriter(this.socket.getOutputStream(), true);
     final InputStream input = this.socket.getInputStream();
     this.reader = new BufferedReader(new InputStreamReader(input));
