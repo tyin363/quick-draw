@@ -2,19 +2,32 @@ package nz.ac.auckland.se206.statemachine.states;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.components.canvas.ZenPenOptions;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
+import nz.ac.auckland.se206.util.Music;
+import nz.ac.auckland.se206.util.SoundEffect;
 
 @Singleton(injectSuper = true)
 public class ZenModeState extends CanvasState implements EnableListener {
-
+  @Inject private SoundEffect soundEffect;
   private ZenPenOptions zenPenOptions;
   private VBox oldToolContainerContent;
+
+  /** When the zen mode canvas state is loaded play its exclusive music */
+  @Override
+  public void onLoad() {
+
+    // Set Background music
+    this.soundEffect.terminateBackgroundMusic();
+    this.soundEffect.playBackgroundMusic(Music.CANVAS_MUSIC);
+  }
 
   /** Switch the UI elements to the Zen Mode UI. */
   @Override
   public void onEnter() {
+
     // Swap out the old tool container content with the zen mode version
     final VBox toolContainer = this.canvasController.getToolContainer();
     toolContainer.getChildren().clear();

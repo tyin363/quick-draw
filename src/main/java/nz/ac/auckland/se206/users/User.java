@@ -19,6 +19,8 @@ public class User {
   private int gamesLost;
   private int currentWinStreak;
   private int bestWinStreak;
+  private double musicVolume = 0.1;
+  private double soundEffectVolume = 0.3;
   private GameSettings gameSettings;
 
   /** An empty constructor is required to deserialize the user from JSON. */
@@ -38,6 +40,42 @@ public class User {
     this.pastRounds = new ArrayList<>();
     this.gameSettings = new GameSettings();
     this.profilePicture = "images/defaultUserImage.jpg";
+  }
+
+  /**
+   * Retrieves the users music volume preference
+   *
+   * @return Users music volume
+   */
+  public double getMusicVolume() {
+    return musicVolume;
+  }
+
+  /**
+   * Sets the users music volume preference
+   *
+   * @param musicVolume The music volume to set
+   */
+  public void setMusicVolume(double musicVolume) {
+    this.musicVolume = musicVolume;
+  }
+
+  /**
+   * Get the users sound effect volume preference
+   *
+   * @return Users sound effect volume
+   */
+  public double getSoundEffectVolume() {
+    return soundEffectVolume;
+  }
+
+  /**
+   * Sets the users sound effect volume preference
+   *
+   * @param soundEffectVolume The sound effect volume to set
+   */
+  public void setSoundEffectVolume(double soundEffectVolume) {
+    this.soundEffectVolume = soundEffectVolume;
   }
 
   /**

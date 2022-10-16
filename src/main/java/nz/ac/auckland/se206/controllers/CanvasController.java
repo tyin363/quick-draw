@@ -34,6 +34,9 @@ import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.util.BrushType;
 import nz.ac.auckland.se206.util.Config;
+import nz.ac.auckland.se206.util.Music;
+import nz.ac.auckland.se206.util.Sound;
+import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.WordService;
 import org.slf4j.Logger;
 
@@ -73,11 +76,13 @@ public class CanvasController implements LoadListener, TerminationListener {
   @Inject private Config config;
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
+  @Inject private SoundEffect soundEffect;
   @Inject private CanvasStateMachine stateMachine;
   @Inject private HiddenMode hiddenMode;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
+  private HeaderController headerController;
   private boolean isUpdatingPredictions;
   private Color penColour = Color.BLACK;
   private Label[] predictionLabels;
@@ -156,6 +161,11 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @throws IOException If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException {
+
+    // Disable header buttons in canvas controller
+    this.headerController = this.sceneManager.getSubController(HeaderController.class);
+    this.headerController.disableButtons();
+
     Tooltip.install(this.eraserPane, new Tooltip(this.eraserPane.getAccessibleHelp()));
     Tooltip.install(this.penPane, new Tooltip(this.penPane.getAccessibleHelp()));
     Tooltip.install(this.clearPane, new Tooltip(this.clearPane.getAccessibleHelp()));
@@ -238,6 +248,8 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onSave() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
     if (this.saveCurrentSnapshotOnFile()) {
       this.saveButton.setDisable(true);
     }
@@ -249,6 +261,12 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onRestart() {
+
+    // Play music and sounds
+    this.soundEffect.playSound(Sound.CLICK);
+    this.soundEffect.terminateBackgroundMusic();
+    this.soundEffect.playBackgroundMusic(Music.MAIN_MUSIC);
+
     // Hidden mode exclusive
     this.hiddenMode.clearDefinitions();
     this.hintLabel.setText(null);
@@ -378,6 +396,12 @@ public class CanvasController implements LoadListener, TerminationListener {
   /** Clears the canvas and switches back to the Main Menu Screen */
   @FXML
   private void onReturnToMainMenu() {
+
+    // Play music and sounds
+    this.soundEffect.playSound(Sound.CLICK);
+    this.soundEffect.terminateBackgroundMusic();
+    this.soundEffect.playBackgroundMusic(Music.MAIN_MUSIC);
+
     // Hidden mode exclusive
     this.hiddenMode.clearDefinitions();
     this.hintLabel.setText(null);
