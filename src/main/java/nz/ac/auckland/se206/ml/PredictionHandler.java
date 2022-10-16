@@ -89,36 +89,7 @@ public class PredictionHandler implements TerminationListener {
             // another thread.
             List<Classifications.Classification> predictions =
                 PredictionHandler.this.model.getPredictions(snapshot, 345);
-
-            // Finding current word in prediction list
-            for (Classification prediction : predictions) {
-              String targetWord = wordService.getTargetWord().replace(" ", "_");
-              if (prediction.getClassName().equals(targetWord)) {
-                double probability = prediction.getProbability();
-                double currentProbability = canvasController.getCurrentWordConfidenceLevel();
-                // Changing confidence level image depending on the current word's confidence
-                // level
-                if (currentProbability != 0.0) {
-                  if (probability > currentProbability) {
-                    canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-                    canvasController.getTargetWordConfidenceLabel().setTextFill(Color.GREEN);
-                    File upArrowFile = new File("src/main/resources/images/upArrow.png");
-                    canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
-                  } else if (probability < currentProbability) {
-                    canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-                    canvasController.getTargetWordConfidenceLabel().setTextFill(Color.RED);
-                    File downArrowFile = new File("src/main/resources/images/downArrow.png");
-                    canvasController.setConfidenceImage(
-                        new Image(downArrowFile.toURI().toString()));
-                  } else {
-                    canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
-                    canvasController.resetConfidenceImage();
-                  }
-                } else {
-                  canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-                }
-              }
-            }
+            PredictionHandler.this.changeConfidenceImage(predictions);
             return PredictionHandler.this.model.getPredictions(snapshot, NUMBER_OF_PREDICTIONS);
           }
         };
@@ -158,5 +129,44 @@ public class PredictionHandler implements TerminationListener {
   @Override
   public void onTerminate() {
     this.stopPredicting();
+  }
+
+  /**
+   * This changes the confidence level image depending on the current word's confidence level
+   *
+   * @param predictions list of predictions
+   */
+  public void changeConfidenceImage(List<Classifications.Classification> predictions) {
+    // Finding current word in prediction list
+    for (Classification prediction : predictions) {
+      String targetWord = wordService.getTargetWord().replace(" ", "_");
+      if (prediction.getClassName().equals(targetWord)) {
+
+        // Retrieving the current and previous confidence level of the current word
+        double probability = prediction.getProbability();
+        double currentProbability = canvasController.getCurrentWordConfidenceLevel();
+
+        // Changing confidence level image depending on the current word's confidence
+        // level
+        if (currentProbability != 0.0) {
+          if (probability > currentProbability) {
+            canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.GREEN);
+            File upArrowFile = new File("src/main/resources/images/upArrow.png");
+            canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
+          } else if (probability < currentProbability) {
+            canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.RED);
+            File downArrowFile = new File("src/main/resources/images/downArrow.png");
+            canvasController.setConfidenceImage(new Image(downArrowFile.toURI().toString()));
+          } else {
+            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
+            canvasController.resetConfidenceImage();
+          }
+        } else {
+          canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+        }
+      }
+    }
   }
 }
