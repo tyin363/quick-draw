@@ -288,7 +288,7 @@ public class User {
   /**
    * Equals method for checking the equality of two users
    *
-   * @param o Object
+   * @param o The object to check
    */
   @Override
   public boolean equals(final Object o) {
