@@ -8,6 +8,13 @@
   -fx-gray-50: #36393E;
   -fx-gray-75: #282B30;
   -fx-gray-100: #1E2124;
+  -fx-green: #57F287;
+  -fx-orange: #FF8737;
+  -fx-red: #ED4245;
+  -fx-bronze: #ffb671;
+  -fx-silver: #C0C0C0;
+  -fx-gold: #fff173;
+  -fx-platinum: #c0ffff;
 }
 
 /* Background colours */
@@ -40,6 +47,14 @@
   -fx-background-color: -fx-lightgray-100;
 }
 
+.bg-green {
+  -fx-background-color: -fx-green;
+}
+
+.bg-red {
+  -fx-background-color: -fx-red;
+}
+
 /* Text Colours */
 
 .text-highlight {
@@ -56,4 +71,16 @@
 
 .text-lightgray-100 {
   -fx-text-fill: -fx-lightgray-100;
+}
+
+.text-green {
+  -fx-text-fill: -fx-green;
+}
+
+.text-red {
+  -fx-text-fill: -fx-red;
+}
+
+.text-orange {
+  -fx-text-fill: -fx-orange;
 }
