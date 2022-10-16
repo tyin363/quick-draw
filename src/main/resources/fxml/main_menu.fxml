@@ -34,7 +34,7 @@
                   </Pane>
                   <VBox alignment="CENTER" fillWidth="false" spacing="24.0">
                      <children>
-                        <HBox alignment="CENTER" onMouseClicked="#onStartNormal" spacing="8.0">
+                        <HBox fx:id="normalModeBox" alignment="CENTER" onMouseClicked="#onStartNormal" spacing="8.0">
                            <children>
                               <Label text="Normal" />
                               <Pane styleClass="eye-icon" />
@@ -45,7 +45,7 @@
                               <String fx:value="mode-button" />
                            </styleClass>
                         </HBox>
-                        <HBox alignment="CENTER" onMouseClicked="#onStartHidden" spacing="8.0">
+                        <HBox fx:id="hiddenModeBox" alignment="CENTER" onMouseClicked="#onStartHidden" spacing="8.0">
                            <children>
                               <Label text="Hidden" />
                               <Pane styleClass="eye-slash-icon" />
@@ -56,7 +56,7 @@
                               <String fx:value="mode-button" />
                            </styleClass>
                         </HBox>
-                        <HBox alignment="CENTER" onMouseClicked="#onStartZenMode" spacing="8.0">
+                        <HBox fx:id="zenModeBox" alignment="CENTER" onMouseClicked="#onStartZenMode" spacing="8.0">
                            <children>
                               <Label text="Zen" />
                               <Pane styleClass="palette-icon" />

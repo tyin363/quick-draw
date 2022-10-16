@@ -7,6 +7,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
@@ -321,6 +322,29 @@ public class SettingsController implements LoadListener {
     Tooltip hardConfidenceTip = new Tooltip("Your drawing's confidence level must be at least 25%");
     Tooltip masterConfidenceTip =
         new Tooltip("Your drawing's confidence level must be at least 50%");
+
+    // Setting accuracy delay for tool tips
+    easyAccuracyTip.setShowDelay(Duration.millis(100));
+    mediumAccuracyTip.setShowDelay(Duration.millis(100));
+    hardAccuracyTip.setShowDelay(Duration.millis(100));
+
+    // Setting words delay for tool tips
+    easyWordsTip.setShowDelay(Duration.millis(100));
+    mediumWordsTip.setShowDelay(Duration.millis(100));
+    hardWordsTip.setShowDelay(Duration.millis(100));
+    masterWordsTip.setShowDelay(Duration.millis(100));
+
+    // Setting time delay for tool tips
+    easyTimeTip.setShowDelay(Duration.millis(100));
+    mediumTimeTip.setShowDelay(Duration.millis(100));
+    hardTimeTip.setShowDelay(Duration.millis(100));
+    masterTimeTip.setShowDelay(Duration.millis(100));
+
+    // Setting confidence delay for tool tips
+    easyAccuracyTip.setShowDelay(Duration.millis(100));
+    mediumConfidenceTip.setShowDelay(Duration.millis(100));
+    hardConfidenceTip.setShowDelay(Duration.millis(100));
+    masterConfidenceTip.setShowDelay(Duration.millis(100));
 
     // Setting accuracy tool tips
     this.easyAccuracyButton.setTooltip(easyAccuracyTip);

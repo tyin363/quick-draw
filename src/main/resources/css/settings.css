@@ -66,3 +66,8 @@
 .master {
   -fx-border-color: -fx-highlight;
 }
+
+.tool-tips {
+  -fx-font-size: 10px;
+  -fx-font-weight: bold;
+}
