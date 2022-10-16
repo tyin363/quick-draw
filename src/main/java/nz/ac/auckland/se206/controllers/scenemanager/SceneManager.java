@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 @Singleton
 public class SceneManager {
 
-  public record ViewControllers(Parent parent, List<Object> controllers) {}
+  private record ViewControllers(Parent parent, List<Object> controllers) {}
 
   private final Map<View, ViewControllers> views = new EnumMap<>(View.class);
 
