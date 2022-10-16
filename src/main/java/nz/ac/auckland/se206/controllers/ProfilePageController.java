@@ -113,6 +113,16 @@ public class ProfilePageController implements LoadListener {
     this.usernameTextField.requestFocus();
   }
 
+  /**
+   * Whenever the user types in the username text field, check if the username is valid. If it
+   * isn't, then disable the save button.
+   */
+  @FXML
+  private void onChangeUsername() {
+    final String newUsername = this.usernameTextField.getText();
+    this.saveUsernameButton.setDisable(newUsername.isBlank());
+  }
+
   /** Prompts the user to select a file to choose a profile picture */
   @FXML
   private void onChangeProfilePicture() {

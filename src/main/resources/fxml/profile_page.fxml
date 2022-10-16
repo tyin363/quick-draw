@@ -116,7 +116,7 @@
                                                       <Insets />
                                                    </StackPane.margin>
                                                    <children>
-                                                      <TextField fx:id="usernameTextField" styleClass="username-text-field" HBox.hgrow="ALWAYS" />
+                                                      <TextField fx:id="usernameTextField" onKeyTyped="#onChangeUsername" styleClass="username-text-field" HBox.hgrow="ALWAYS" />
                                                       <Pane fx:id="discardUsernameChanges" onMouseClicked="#onDiscardUsernameChanges" prefHeight="200.0" prefWidth="200.0">
                                                          <styleClass>
                                                             <String fx:value="cross-icon" />
