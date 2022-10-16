@@ -33,6 +33,8 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.Sound;
+import nz.ac.auckland.se206.util.SoundEffect;
 import org.slf4j.Logger;
 
 @Singleton
@@ -63,6 +65,7 @@ public class ProfilePageController implements LoadListener {
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Logger logger;
+  @Inject private SoundEffect soundEffect;
 
   private User user;
   private List<DisplayBadge> displayBadges;
@@ -136,12 +139,15 @@ public class ProfilePageController implements LoadListener {
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
+    this.soundEffect.playSound(Sound.CLICK);
+
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
   /** Delete the current user and then take them back to the switch user view. */
   @FXML
   private void onDeleteProfile() {
+    this.soundEffect.playSound(Sound.CANCEL);
     this.userService.deleteUser(this.user);
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
@@ -149,12 +155,14 @@ public class ProfilePageController implements LoadListener {
   /** Discards the current changes to the username. */
   @FXML
   private void onDiscardUsernameChanges() {
+    this.soundEffect.playSound(Sound.CANCEL);
     this.setEditUsernameMode(false);
   }
 
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
+    this.soundEffect.playSound(Sound.CLICK);
     this.usernameTextField.setText(this.user.getUsername());
     this.setEditUsernameMode(true);
     // Move the cursor to the text field. This can only be done if the text field is visible.
@@ -174,6 +182,9 @@ public class ProfilePageController implements LoadListener {
   /** Prompts the user to select a file to choose a profile picture. */
   @FXML
   private void onChangeProfilePicture() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
+
     final FileChooser fileChooser = new FileChooser();
 
     // Accept only png and jpeg files
@@ -200,6 +211,7 @@ public class ProfilePageController implements LoadListener {
   private void onSaveUsername() {
     // Do not allow them to set an empty username
     if (!this.usernameTextField.getText().isBlank()) {
+      this.soundEffect.playSound(Sound.SETTINGS_CLICK);
       this.username.setText(this.usernameTextField.getText());
       this.user.setUsername(this.usernameTextField.getText());
       this.userService.saveUser(this.user);
