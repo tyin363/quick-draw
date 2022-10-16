@@ -43,7 +43,7 @@ public class User {
   }
 
   /**
-   * <<<<<<< HEAD Get the users music volume preference
+   * Retrieves the users music volume preference
    *
    * @return Users music volume
    */
@@ -79,8 +79,7 @@ public class User {
   }
 
   /**
-   * Returns whether the user has previously had to draw the specified word. ======= Retrieves the
-   * game settings for this user. >>>>>>> main
+   * Retrieves the game settings for this user.
    *
    * @return The game settings for this user
    */

@@ -136,6 +136,7 @@ public class SoundEffect implements TerminationListener {
     }
   }
 
+  /** On termination of the game, the music will stop */
   @Override
   public void onTerminate() {
     terminate();
