@@ -65,24 +65,37 @@
                            <children>
                               <GridPane>
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.00466918945312" minWidth="10.0" prefWidth="167.57351684570312" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="105.60443115234375" minWidth="10.0" prefWidth="50.426483154296875" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.00466918945312" minWidth="10.0" prefWidth="40.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.00466918945312" minWidth="10.0" prefWidth="130.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="105.60443115234375" minWidth="10.0" prefWidth="40.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <ImageView fx:id="confidenceLevelImage" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="225.0" styleClass="confidence" text="Target">
+                                    <Pane fx:id="confidenceIcon" prefHeight="48.0" prefWidth="41.0" GridPane.columnIndex="2">
+                                       <styleClass>
+                                          <String fx:value="icon" />
+                                          <String fx:value="dash-icon" />
+                                       </styleClass>
+                                       <children>
+                                          <Pane layoutX="13.0" layoutY="19.0" prefHeight="200.0" prefWidth="200.0">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </Pane>
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                    </Pane>
+                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="214.0" styleClass="confidence" text="Target" GridPane.columnIndex="1">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                        <opaqueInsets>
                                           <Insets />
                                        </opaqueInsets>
-                                       <padding>
-                                          <Insets left="20.0" />
-                                       </padding>
                                     </Label>
                                  </children>
                               </GridPane>
@@ -104,7 +117,7 @@
                 </Label>
                 <Pane maxWidth="521.0" prefHeight="342.0" prefWidth="516.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
                   <children>
-                    <Canvas fx:id="canvas" height="293.0" styleClass="bg-highlight" width="516.0">
+                    <Canvas fx:id="canvas" height="293.0" layoutX="-8.0" styleClass="bg-highlight" width="516.0">
                       <cursor>
                         <Cursor fx:constant="HAND" />
                       </cursor>
@@ -133,7 +146,10 @@
                               </HBox>
                            </children>
                         </StackPane>
-                <VBox prefHeight="200.0" prefWidth="100.0" />
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fx:id="confidenceLevelImage" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                           </children></VBox>
                 <VBox fx:id="predictionVertBox" alignment="CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
                   <styleClass>
                     <String fx:value="prediction-container" />

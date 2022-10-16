@@ -5,7 +5,6 @@ import ai.djl.modality.Classifications;
 import ai.djl.modality.Classifications.Classification;
 import ai.djl.translate.TranslateException;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
@@ -14,7 +13,6 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -151,17 +149,18 @@ public class PredictionHandler implements TerminationListener {
         if (currentProbability != 0.0) {
           if (probability > currentProbability) {
             canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.GREEN);
-            File upArrowFile = new File("src/main/resources/images/upArrow.png");
-            canvasController.setConfidenceImage(new Image(upArrowFile.toURI().toString()));
+            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("3aa55d"));
+            canvasController.getConfidenceIcon().getStyleClass().remove(1);
+            canvasController.getConfidenceIcon().getStyleClass().add("up-icon");
           } else if (probability < currentProbability) {
             canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.RED);
-            File downArrowFile = new File("src/main/resources/images/downArrow.png");
-            canvasController.setConfidenceImage(new Image(downArrowFile.toURI().toString()));
+            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("ed4245"));
+            canvasController.getConfidenceIcon().getStyleClass().remove(1);
+            canvasController.getConfidenceIcon().getStyleClass().add("down-icon");
           } else {
             canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
-            canvasController.resetConfidenceImage();
+            canvasController.getConfidenceIcon().getStyleClass().remove(1);
+            canvasController.getConfidenceIcon().getStyleClass().add("dash-icon");
           }
         } else {
           canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());

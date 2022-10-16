@@ -15,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -65,10 +64,10 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Label targetWordLabel;
   @FXML private Label mainLabel;
   @FXML private Label targetWordConfidenceLabel;
-  @FXML private ImageView confidenceLevelImage;
   @FXML private AnchorPane wordDefinition;
   @FXML private Label hintLabel;
   @FXML private HBox hintsHbox;
+  @FXML private Pane confidenceIcon;
 
   @Inject private Logger logger;
   @Inject private Config config;
@@ -134,7 +133,6 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.targetWordLabel.setVisible(true);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
     this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
-    this.resetConfidenceImage();
     this.predictionHandler.startPredicting();
 
     // Clear any previous predictions
@@ -203,7 +201,8 @@ public class CanvasController implements LoadListener, TerminationListener {
   private void onClear() {
     this.setCurrentWordConfidenceLevel(0.00);
     this.targetWordConfidenceLabel.setTextFill(Color.BLACK);
-    this.resetConfidenceImage();
+    this.confidenceIcon.getStyleClass().remove(1);
+    this.confidenceIcon.getStyleClass().add("dash-icon");
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     this.clearPredictions();
 
@@ -487,20 +486,6 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.currentWordConfidenceLevel = confidenceLevel;
   }
 
-  /**
-   * Sets the confidence level image of the current word
-   *
-   * @param image
-   */
-  public void setConfidenceImage(Image image) {
-    this.confidenceLevelImage.setImage(image);
-  }
-
-  /** Reset the confidence level of the current word to the equal sign */
-  public void resetConfidenceImage() {
-    File equalFile = new File("src/main/resources/images/equal.png");
-    this.confidenceLevelImage.setImage(new Image(equalFile.toURI().toString()));
-  }
   /*
    * This retrieves the label with the word hint on it
    *
@@ -546,5 +531,14 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   public Label getTargetWordConfidenceLabel() {
     return this.targetWordConfidenceLabel;
+  }
+
+  /**
+   * This retrieves the current confidence icon
+   *
+   * @return confidence icon
+   */
+  public Pane getConfidenceIcon() {
+    return this.confidenceIcon;
   }
 }
