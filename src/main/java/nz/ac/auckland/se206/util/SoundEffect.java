@@ -36,6 +36,8 @@ public class SoundEffect {
    * @param volume The volume of the sound effect
    */
   private void playSound(String soundLocation) {
+    // Set volume
+    getUserVolume();
 
     // Play sound effect
     soundEffect = new Media(new File(soundLocation).toURI().toString());
@@ -71,6 +73,8 @@ public class SoundEffect {
     if (this.userService.getCurrentUser() != null) {
       this.musicVolume = this.userService.getCurrentUser().getMusicVolume();
       this.soundEffectVolume = this.userService.getCurrentUser().getSoundEffectVolume();
+      System.out.println("music " + this.musicVolume);
+      System.out.println("sound effect " + this.soundEffectVolume);
     }
   }
 
@@ -162,6 +166,15 @@ public class SoundEffect {
    */
   public MediaPlayer getBackgroundMediaPlayer() {
     return backgroundMediaPlayer;
+  }
+
+  /**
+   * Get the media player responsible for playing the sound effects
+   *
+   * @return The media player that plays sound effects
+   */
+  public MediaPlayer getMediaPlayer() {
+    return mediaPlayer;
   }
 
   /**

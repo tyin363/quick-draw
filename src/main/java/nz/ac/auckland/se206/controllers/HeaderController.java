@@ -32,7 +32,8 @@ public class HeaderController implements LoadListener {
   @FXML private ImageView profilePicture;
   @FXML private Label username;
   @FXML private Label switchUserLabel;
-  @FXML private Slider volumeSlider;
+  @FXML private Slider musicVolumeSlider;
+  @FXML private Slider soundEffectVolumeSlider;
 
   private User currentUser;
 
@@ -57,6 +58,7 @@ public class HeaderController implements LoadListener {
   public void onLoad() {
     final User newCurrentUser = this.userService.getCurrentUser();
     soundEffect.getBackgroundMediaPlayer().setVolume(newCurrentUser.getMusicVolume());
+    soundEffect.getMediaPlayer().setVolume(newCurrentUser.getSoundEffectVolume());
     // If the user hasn't changed, don't bother trying to update the profile picture.
     if (newCurrentUser == null || newCurrentUser.equals(this.currentUser)) {
       return;
@@ -66,22 +68,49 @@ public class HeaderController implements LoadListener {
     this.renderUserProfile(this.currentUser);
 
     // Add volume slider functionality
-    this.volumeSlider
+    this.soundEffectVolumeSlider
         .valueProperty()
         .addListener(
             new ChangeListener<Number>() {
               @Override
               public void changed(
                   ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                soundEffect.getBackgroundMediaPlayer().setVolume(volumeSlider.getValue() / 500);
+                soundEffect
+                    .getMediaPlayer()
+                    .setVolume(soundEffectVolumeSlider.getValue() / (500 / 3));
               }
             });
 
     // Save volume preference of user
-    this.volumeSlider.setOnMouseReleased(
+    this.soundEffectVolumeSlider.setOnMouseReleased(
         event -> {
-          this.currentUser.setMusicVolume(volumeSlider.getValue() / 500);
-          this.soundEffect.getBackgroundMediaPlayer().setVolume(volumeSlider.getValue() / 500);
+          this.currentUser.setSoundEffectVolume(soundEffectVolumeSlider.getValue() / (500 / 3));
+          this.soundEffect
+              .getMediaPlayer()
+              .setVolume(soundEffectVolumeSlider.getValue() / (500 / 3));
+          System.out.println(this.soundEffect.getSoundEffectVolume());
+          this.userService.saveUser(this.currentUser);
+        });
+
+    // Add volume slider functionality
+    this.musicVolumeSlider
+        .valueProperty()
+        .addListener(
+            new ChangeListener<Number>() {
+              @Override
+              public void changed(
+                  ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                soundEffect
+                    .getBackgroundMediaPlayer()
+                    .setVolume(musicVolumeSlider.getValue() / 500);
+              }
+            });
+
+    // Save volume preference of user
+    this.musicVolumeSlider.setOnMouseReleased(
+        event -> {
+          this.currentUser.setMusicVolume(musicVolumeSlider.getValue() / 500);
+          this.soundEffect.getBackgroundMediaPlayer().setVolume(musicVolumeSlider.getValue() / 500);
           this.userService.saveUser(this.currentUser);
         });
   }
@@ -89,7 +118,8 @@ public class HeaderController implements LoadListener {
   /** Update the profile picture and username to match the specified user. */
   private void renderUserProfile(final User user) {
     // Set the current user's information
-    this.volumeSlider.setValue(user.getMusicVolume() * 500);
+    this.musicVolumeSlider.setValue(user.getMusicVolume() * 500);
+    this.soundEffectVolumeSlider.setValue(user.getSoundEffectVolume() * (500 / 3));
     this.username.setText(user.getUsername());
     this.profilePicture.setVisible(true);
     final File file = new File(user.getProfilePicture());
