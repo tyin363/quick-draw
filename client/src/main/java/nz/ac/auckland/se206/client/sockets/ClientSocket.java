@@ -7,29 +7,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import javafx.application.Platform;
-import nz.ac.auckland.se206.client.statemachine.CanvasStateMachine;
-import nz.ac.auckland.se206.client.statemachine.states.DefaultCanvasState;
-import nz.ac.auckland.se206.client.users.UserService;
-import nz.ac.auckland.se206.client.util.View;
-import nz.ac.auckland.se206.client.words.WordService;
 import nz.ac.auckland.se206.core.annotations.Inject;
 import nz.ac.auckland.se206.core.annotations.Singleton;
 import nz.ac.auckland.se206.core.listeners.EnableListener;
 import nz.ac.auckland.se206.core.listeners.TerminationListener;
 import nz.ac.auckland.se206.core.models.ActionResponse;
 import nz.ac.auckland.se206.core.models.DrawingSessionRequest;
-import nz.ac.auckland.se206.core.scenemanager.SceneManager;
 import org.slf4j.Logger;
 
 @Singleton
 public class ClientSocket implements EnableListener, TerminationListener {
 
   @Inject private ObjectMapper objectMapper;
-  @Inject private WordService wordService;
-  @Inject private SceneManager sceneManager;
-  @Inject private UserService userService;
-  @Inject private CanvasStateMachine stateMachine;
+  @Inject private DrawingSessionService drawingSessionService;
   @Inject private Logger logger;
   private Socket socket;
   private PrintWriter writer;
@@ -38,25 +28,42 @@ public class ClientSocket implements EnableListener, TerminationListener {
   private boolean isConnected = true;
   private boolean isStopped = false;
 
-  public void send(final ActionResponse.Action action, final Object value) {
+  /**
+   * Send a payload to the server. If the specific action doesn't have a payload, then null can be
+   * used instead.
+   *
+   * @param action The action describing the payload being sent
+   * @param payload The payload to send or null if there is no payload
+   */
+  public void send(final ActionResponse.Action action, final Object payload) {
+    // Check to make sure the socket is connected
     if (!this.isConnected() || this.writer == null) {
       this.logger.warn("Cannot send message to server, not connected");
       return;
     }
     try {
+      // The action is used to specify what payload is being sent.
       this.writer.println(this.objectMapper.writeValueAsString(new ActionResponse(action)));
-      this.writer.println(this.objectMapper.writeValueAsString(value));
+      // Check that there is a payload to send.
+      if (payload != null) {
+        this.writer.println(this.objectMapper.writeValueAsString(payload));
+      }
     } catch (final IOException e) {
       this.logger.error("Failed to send data to server", e);
     }
   }
 
+  /** Creates a new thread for handling incoming messages from the server. */
   @Override
   public void onEnable() {
     this.handlerThread = new Thread(this::handleSocketConnection);
     this.handlerThread.start();
   }
 
+  /**
+   * A function that is run on a separate thread which continuously reads from the socket. If the
+   * connection to the server is lost, it also attempts to reconnect every 10 seconds.
+   */
   private void handleSocketConnection() {
     while (!this.isStopped) {
       try {
@@ -77,6 +84,12 @@ public class ClientSocket implements EnableListener, TerminationListener {
     }
   }
 
+  /**
+   * Checks if it's received a {@link DrawingSessionRequest} from the service and if so, updates the
+   * {@link DrawingSessionService}.
+   *
+   * @throws IOException If there is an error reading from the socket
+   */
   private void handleSocketInput() throws IOException {
     final int peek = this.reader.read();
     // If the server has closed the connection, we'll get a -1
@@ -90,14 +103,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
     final String line = (char) peek + this.reader.readLine();
     final DrawingSessionRequest request =
         this.objectMapper.readValue(line, DrawingSessionRequest.class);
-    if (this.userService.getCurrentUser() != null) {
-      this.wordService.setTargetWord(request.word());
-      Platform.runLater(
-          () -> {
-            this.stateMachine.switchState(DefaultCanvasState.class);
-            this.sceneManager.switchToView(View.CANVAS);
-          });
-    }
+    this.drawingSessionService.setDrawingSession(request);
     this.logger.info("Received drawing session request: {}", request);
   }
 

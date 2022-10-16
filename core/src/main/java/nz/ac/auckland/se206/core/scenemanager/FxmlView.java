@@ -10,6 +10,7 @@ public interface FxmlView {
    * @throws UnsupportedOperationException If this method is not overridden, and it's not an enum.
    */
   default String getFxml() {
+    // If this an enum, use the enum name in lowercase
     if (this instanceof Enum<?> enumView) {
       return enumView.name().toLowerCase();
     }
