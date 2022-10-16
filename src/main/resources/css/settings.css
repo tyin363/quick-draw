@@ -34,33 +34,17 @@
 }
 
 .easy {
-  -fx-border-color: #3aa55d;
-}
-
-.easy:selected {
-  -fx-border-color: #3ba25c;
+  -fx-border-color: -fx-green;
 }
 
 .medium {
-  -fx-border-color: #c68218;
-}
-
-.medium:selected {
-  -fx-border-color: #cb8516;
+  -fx-border-color: -fx-orange;
 }
 
 .hard {
-  -fx-border-color: #ed4245;
-}
-
-.hard:selected {
-  -fx-border-color: #ed4245;
+  -fx-border-color: -fx-red;
 }
 
 .master {
   -fx-border-color: -fx-highlight;
-}
-
-.master:selected {
-  -fx-border-color: -fx-highlight-lightened;
 }
