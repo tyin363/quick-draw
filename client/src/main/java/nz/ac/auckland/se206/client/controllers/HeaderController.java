@@ -13,7 +13,9 @@ import nz.ac.auckland.se206.client.util.View;
 import nz.ac.auckland.se206.core.annotations.Controller;
 import nz.ac.auckland.se206.core.annotations.Inject;
 import nz.ac.auckland.se206.core.listeners.LoadListener;
+import nz.ac.auckland.se206.core.models.DrawingSessionRequest;
 import nz.ac.auckland.se206.core.scenemanager.SceneManager;
+import org.slf4j.Logger;
 
 /**
  * Note: This cannot be annotated with @Singleton as a new instance is created for every view it's
@@ -25,6 +27,7 @@ public class HeaderController implements LoadListener {
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private DrawingSessionService drawingSessionService;
+  @Inject private Logger logger;
 
   @FXML private ImageView profilePicture;
   @FXML private Label username;
@@ -42,9 +45,18 @@ public class HeaderController implements LoadListener {
     final Circle circle = new Circle(radius, radius, radius);
     this.profilePicture.setClip(circle);
     this.userService.addUserSavedListener(this::renderUserProfile);
+    this.drawingSessionService.addDrawingSessionListener(this::onDrawingSession);
   }
 
-  private void onDrawingSession() {}
+  /**
+   * When a drawing session is started, log the request. Note that this will be called on a
+   * different thread.
+   *
+   * @param request The request that was sent from the server
+   */
+  private void onDrawingSession(final DrawingSessionRequest request) {
+    this.logger.info(request.toString());
+  }
 
   /**
    * Everytime the view this is within is switched to check if the user has changed and if it has,
