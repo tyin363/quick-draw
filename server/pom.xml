@@ -3,6 +3,67 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>server</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <release>17</release>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.8.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.0.0-M7</version>
+      </plugin>
+      <plugin>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <configuration>
+          <mainClass>nz.ac.auckland.se206.server.App</mainClass>
+          <release>17</release>
+        </configuration>
+        <executions>
+          <execution>
+            <configuration>
+              <mainClass>nz.ac.auckland.se206.server.App</mainClass>
+              <options>
+                <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005
+                </option>
+              </options>
+              <release>17</release>
+            </configuration>
+            <id>debug</id>
+          </execution>
+        </executions>
+        <groupId>org.openjfx</groupId>
+        <version>0.0.3</version>
+      </plugin>
+      <plugin>
+        <artifactId>git-code-format-maven-plugin</artifactId>
+        <configuration>
+          <googleJavaFormatOptions>
+            <aosp>false</aosp>
+            <fixImportsOnly>false</fixImportsOnly>
+            <skipRemovingUnusedImports>false</skipRemovingUnusedImports>
+            <skipSortingImports>false</skipSortingImports>
+          </googleJavaFormatOptions>
+        </configuration>
+        <executions>
+          <!-- On commit, format the modified java files -->
+          <execution>
+            <goals>
+              <goal>install-hooks</goal>
+            </goals>
+            <id>install-formatter-hook</id>
+          </execution>
+        </executions>
+        <groupId>com.cosium.code</groupId>
+        <version>3.4</version>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <artifactId>javafx-controls</artifactId>

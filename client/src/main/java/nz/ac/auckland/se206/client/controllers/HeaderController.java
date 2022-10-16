@@ -73,12 +73,14 @@ public class HeaderController implements LoadListener {
     Platform.runLater(() -> this.drawingSessionPopup.setVisible(true));
   }
 
+  /** Accept the current drawing session request. */
   @FXML
   private void onAcceptSession() {
     this.drawingSessionService.acceptSession();
     this.drawingSessionPopup.setVisible(false);
   }
 
+  /** Reject the current drawing session request. */
   @FXML
   private void onDeclineSession() {
     this.drawingSessionService.declineSession();
