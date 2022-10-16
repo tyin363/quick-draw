@@ -19,6 +19,7 @@
     <dependency>
       <artifactId>javafx-media</artifactId>
       <groupId>org.openjfx</groupId>
+      <version>18.0.1</version>
     </dependency>
     <dependency>
       <artifactId>javafx-swing</artifactId>

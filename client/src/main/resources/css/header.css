@@ -24,3 +24,22 @@
   -fx-border-radius: 30px;
   -fx-background-radius: 30px;
 }
+
+.drawing-session-request {
+  -fx-border-radius: 10px;
+  -fx-border-width: 2px;
+  -fx-border-color: -fx-green;
+}
+
+.drawing-session-request > Label {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+}
+
+.accept {
+  -fx-text-fill: -fx-green;
+}
+
+.decline {
+  -fx-text-fill: -fx-red;
+}

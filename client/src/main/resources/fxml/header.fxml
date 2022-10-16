@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="70.0" minHeight="70.0" prefHeight="70.0" prefWidth="541.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.client.controllers.HeaderController">
+<AnchorPane maxHeight="70.0" minHeight="70.0" prefHeight="70.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.client.controllers.HeaderController">
    <children>
       <HBox maxHeight="70.0" minHeight="70.0" prefHeight="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -22,7 +22,7 @@
                   <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
                </padding>
                <children>
-                  <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Button fx:id="backButton" maxHeight="25.0" maxWidth="13.0" minHeight="25.0" minWidth="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="13.0">
                            <styleClass>
@@ -30,6 +30,15 @@
                               <String fx:value="back-btn" />
                            </styleClass>
                         </Button>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="24.0" styleClass="drawing-session-request">
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </HBox.margin>
+                           <children>
+                              <Label styleClass="accept" text="Accept" />
+                              <Label styleClass="decline" text="Decline" />
+                           </children>
+                        </HBox>
                      </children>
                   </HBox>
                </children>
