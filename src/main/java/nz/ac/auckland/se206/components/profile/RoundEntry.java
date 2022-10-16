@@ -26,6 +26,7 @@ public class RoundEntry extends HBox {
     wordLabel.setMaxWidth(Double.MAX_VALUE);
     HBox.setHgrow(wordLabel, Priority.ALWAYS);
 
+    // Adding word label and content to round entry
     this.getChildren().addAll(wordLabel, content);
   }
 
@@ -40,6 +41,7 @@ public class RoundEntry extends HBox {
     final Label timeLabel = new Label(round.timeTaken() + "s");
     final Pane icon = new Pane();
 
+    // Getting icon's style class
     icon.getStyleClass().add(round.mode() == Mode.NORMAL ? "eye-icon" : "eye-slash-icon");
 
     // Adjust the styling depending on the round result
