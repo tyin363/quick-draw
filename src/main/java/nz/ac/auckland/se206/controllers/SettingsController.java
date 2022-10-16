@@ -7,6 +7,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
@@ -17,27 +18,32 @@ import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.util.Sound;
 import nz.ac.auckland.se206.util.SoundEffect;
-import nz.ac.auckland.se206.words.WordService;
 
 @Singleton
 public class SettingsController implements LoadListener {
 
   @FXML private AnchorPane header;
-  @FXML private RadioButton easyAccuracyButton, mediumAccuracyButton, hardAccuracyButton;
-  @FXML private RadioButton easyWordsButton, mediumWordsButton, hardWordsButton, masterWordsButton;
-  @FXML private RadioButton easyTimeButton, mediumTimeButton, hardTimeButton, masterTimeButton;
-  @FXML
-  private RadioButton easyConfidenceButton,
-      mediumConfidenceButton,
-      hardConfidenceButton,
-      masterConfidenceButton;
+  @FXML private RadioButton easyAccuracyButton;
+  @FXML private RadioButton mediumAccuracyButton;
+  @FXML private RadioButton hardAccuracyButton;
+  @FXML private RadioButton easyWordsButton;
+  @FXML private RadioButton mediumWordsButton;
+  @FXML private RadioButton hardWordsButton;
+  @FXML private RadioButton masterWordsButton;
+  @FXML private RadioButton easyTimeButton;
+  @FXML private RadioButton mediumTimeButton;
+  @FXML private RadioButton hardTimeButton;
+  @FXML private RadioButton masterTimeButton;
+  @FXML private RadioButton easyConfidenceButton;
+  @FXML private RadioButton mediumConfidenceButton;
+  @FXML private RadioButton hardConfidenceButton;
+  @FXML private RadioButton masterConfidenceButton;
   @FXML private ToggleGroup accuracy;
   @FXML private ToggleGroup words;
   @FXML private ToggleGroup time;
   @FXML private ToggleGroup confidence;
   @FXML private Button readyButton;
 
-  @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private SoundEffect soundEffect;
@@ -321,6 +327,29 @@ public class SettingsController implements LoadListener {
     Tooltip hardConfidenceTip = new Tooltip("Your drawing's confidence level must be at least 25%");
     Tooltip masterConfidenceTip =
         new Tooltip("Your drawing's confidence level must be at least 50%");
+
+    // Setting accuracy delay for tool tips
+    easyAccuracyTip.setShowDelay(Duration.millis(100));
+    mediumAccuracyTip.setShowDelay(Duration.millis(100));
+    hardAccuracyTip.setShowDelay(Duration.millis(100));
+
+    // Setting words delay for tool tips
+    easyWordsTip.setShowDelay(Duration.millis(100));
+    mediumWordsTip.setShowDelay(Duration.millis(100));
+    hardWordsTip.setShowDelay(Duration.millis(100));
+    masterWordsTip.setShowDelay(Duration.millis(100));
+
+    // Setting time delay for tool tips
+    easyTimeTip.setShowDelay(Duration.millis(100));
+    mediumTimeTip.setShowDelay(Duration.millis(100));
+    hardTimeTip.setShowDelay(Duration.millis(100));
+    masterTimeTip.setShowDelay(Duration.millis(100));
+
+    // Setting confidence delay for tool tips
+    easyAccuracyTip.setShowDelay(Duration.millis(100));
+    mediumConfidenceTip.setShowDelay(Duration.millis(100));
+    hardConfidenceTip.setShowDelay(Duration.millis(100));
+    masterConfidenceTip.setShowDelay(Duration.millis(100));
 
     // Setting accuracy tool tips
     this.easyAccuracyButton.setTooltip(easyAccuracyTip);

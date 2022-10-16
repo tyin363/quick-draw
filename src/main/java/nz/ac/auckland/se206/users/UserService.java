@@ -162,7 +162,7 @@ public class UserService implements EnableListener {
   /**
    * Sets the current user in play
    *
-   * @param current user
+   * @param user current user
    */
   public void setCurrentUser(final User user) {
     this.currentUser = user;
