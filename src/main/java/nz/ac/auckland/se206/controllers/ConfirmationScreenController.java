@@ -44,12 +44,15 @@ public class ConfirmationScreenController implements LoadListener {
   /** Everytime this scene is switched to select a new random word. */
   @Override
   public void onLoad() {
+
+    // Checking if selected mode is hidden and get the definition instead if it is
     final boolean isHiddenMode = this.hiddenMode.isHiddenMode();
     this.wordDefinition.setVisible(isHiddenMode);
     this.targetWordLabel.setVisible(!this.hiddenMode.isHiddenMode());
+
+    // Choosing and setting a random word depending on the word difficulty setting
     this.wordService.selectRandomTarget(
         this.userService.getCurrentUser().getGameSettings().getWords());
-
     this.targetWordLabel.setText(this.wordService.getTargetWord());
 
     // Change time label depending on if zen or normal mode is selected

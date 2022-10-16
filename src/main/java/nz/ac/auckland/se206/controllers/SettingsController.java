@@ -21,14 +21,21 @@ import nz.ac.auckland.se206.words.WordService;
 public class SettingsController implements LoadListener {
 
   @FXML private AnchorPane header;
-  @FXML private RadioButton easyAccuracyButton, mediumAccuracyButton, hardAccuracyButton;
-  @FXML private RadioButton easyWordsButton, mediumWordsButton, hardWordsButton, masterWordsButton;
-  @FXML private RadioButton easyTimeButton, mediumTimeButton, hardTimeButton, masterTimeButton;
-  @FXML
-  private RadioButton easyConfidenceButton,
-      mediumConfidenceButton,
-      hardConfidenceButton,
-      masterConfidenceButton;
+  @FXML private RadioButton easyAccuracyButton;
+  @FXML private RadioButton mediumAccuracyButton;
+  @FXML private RadioButton hardAccuracyButton;
+  @FXML private RadioButton easyWordsButton;
+  @FXML private RadioButton mediumWordsButton;
+  @FXML private RadioButton hardWordsButton;
+  @FXML private RadioButton masterWordsButton;
+  @FXML private RadioButton easyTimeButton;
+  @FXML private RadioButton mediumTimeButton;
+  @FXML private RadioButton hardTimeButton;
+  @FXML private RadioButton masterTimeButton;
+  @FXML private RadioButton easyConfidenceButton;
+  @FXML private RadioButton mediumConfidenceButton;
+  @FXML private RadioButton hardConfidenceButton;
+  @FXML private RadioButton masterConfidenceButton;
   @FXML private ToggleGroup accuracy;
   @FXML private ToggleGroup words;
   @FXML private ToggleGroup time;

@@ -61,7 +61,11 @@ public class WordDefinitionController implements LoadListener {
   /** The previous definition of the given word will be shown. */
   @FXML
   private void onClickPrevious() {
-    this.hiddenMode.previousDefinition();
+
+    // Showing the previous definition of the given word
+    this.hiddenMode.showPreviousDefinition();
+
+    // Setting the hidden mode definition elements for the previous definition
     this.hiddenMode.setElements(
         this.targetWordLabel,
         this.numberOfDefinitionLabel,
@@ -74,7 +78,11 @@ public class WordDefinitionController implements LoadListener {
   /** The next definition of the given word will be shown. */
   @FXML
   private void onClickNext() {
-    this.hiddenMode.nextDefinition();
+
+    // Showing the next definition of the given word
+    this.hiddenMode.showNextDefinition();
+
+    // Setting the hidden mode definition elements for the next definition
     this.hiddenMode.setElements(
         this.targetWordLabel,
         this.numberOfDefinitionLabel,
