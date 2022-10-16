@@ -25,6 +25,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javax.imageio.ImageIO;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.components.canvas.PredictionEntry;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
@@ -85,7 +86,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   private HeaderController headerController;
   private boolean isUpdatingPredictions;
   private Color penColour = Color.BLACK;
-  private Label[] predictionLabels;
+  private PredictionEntry[] predictionEntries;
   private double currentWordConfidenceLevel;
 
   // Mouse coordinates
@@ -186,14 +187,15 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.canvas.setOnMouseDragged(e -> this.selectedBrushType.accept(e));
 
     this.predictionHandler =
-        new PredictionHandler(this::getCurrentSnapshot, this::onPredictSuccess, wordService, this);
+        new PredictionHandler(
+            this::getCurrentSnapshot, this::onPredictSuccess, this.wordService, this);
 
-    // Generate the labels for all the predictions
-    this.predictionLabels = new Label[this.config.getNumberOfPredictions()];
+    // Generate the entries for all the predictions
+    this.predictionEntries = new PredictionEntry[this.config.getNumberOfPredictions()];
     for (int i = 0; i < this.config.getNumberOfPredictions(); i++) {
-      this.predictionLabels[i] = new Label();
-      this.predictionVertBox.getChildren().add(this.predictionLabels[i]);
+      this.predictionEntries[i] = new PredictionEntry();
     }
+    this.predictionVertBox.getChildren().addAll(this.predictionEntries);
   }
 
   /** This method is called when the "Get Hint" button is pressed and gets a hint. */
@@ -261,7 +263,15 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onRestart() {
+    this.handleLeave();
+    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+  }
 
+  /**
+   * Handles the cleanup when leaving the canvas view, including the changing of the music back to
+   * the main menu music.
+   */
+  private void handleLeave() {
     // Play music and sounds
     this.soundEffect.playSound(Sound.CLICK);
     this.soundEffect.terminateBackgroundMusic();
@@ -273,7 +283,6 @@ public class CanvasController implements LoadListener, TerminationListener {
 
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
-    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
   /**
@@ -303,9 +312,8 @@ public class CanvasController implements LoadListener, TerminationListener {
       // Make the text colour more blue if it's more confident in the prediction.
       final Color textColour =
           Color.BLACK.interpolate(this.config.getHighlight(), prediction.getProbability() * 10);
-      this.predictionLabels[i].setText(
-          guess + " " + String.format("%.0f", prediction.getProbability() * 100) + "%");
-      this.predictionLabels[i].setTextFill(textColour);
+      this.predictionEntries[i].update(guess, (int) (prediction.getProbability() * 100));
+      this.predictionEntries[i].setTextColour(textColour);
     }
   }
 
@@ -386,28 +394,17 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.predictionHandler.stopPredicting();
   }
 
-  /** Clears any prediction text by setting all prediction labels to an empty string */
+  /** Clears any prediction text by resetting all the prediction entries */
   private void clearPredictions() {
-    for (final Label predictionLabel : this.predictionLabels) {
-      predictionLabel.setText("");
+    for (final PredictionEntry predictionLabel : this.predictionEntries) {
+      predictionLabel.reset();
     }
   }
 
   /** Clears the canvas and switches back to the Main Menu Screen */
   @FXML
   private void onReturnToMainMenu() {
-
-    // Play music and sounds
-    this.soundEffect.playSound(Sound.CLICK);
-    this.soundEffect.terminateBackgroundMusic();
-    this.soundEffect.playBackgroundMusic(Music.MAIN_MUSIC);
-
-    // Hidden mode exclusive
-    this.hiddenMode.clearDefinitions();
-    this.hintLabel.setText(null);
-
-    this.onClear();
-    this.stateMachine.getCurrentState().onLeave();
+    this.handleLeave();
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
@@ -504,9 +501,9 @@ public class CanvasController implements LoadListener, TerminationListener {
   /**
    * Sets the confidence level of the current word
    *
-   * @param confidence level
+   * @param confidenceLevel The new confidence level
    */
-  public void setCurrentWordConfidenceLevel(double confidenceLevel) {
+  public void setCurrentWordConfidenceLevel(final double confidenceLevel) {
     this.currentWordConfidenceLevel = confidenceLevel;
   }
 

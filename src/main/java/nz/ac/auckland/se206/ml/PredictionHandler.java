@@ -85,7 +85,7 @@ public class PredictionHandler implements TerminationListener {
           protected List<Classifications.Classification> call() throws TranslateException {
             // Using the snapshot retrieved from the main thread, perform the prediction on
             // another thread.
-            List<Classifications.Classification> predictions =
+            final List<Classifications.Classification> predictions =
                 PredictionHandler.this.model.getPredictions(snapshot, 345);
             PredictionHandler.this.changeConfidenceImage(predictions);
             return PredictionHandler.this.model.getPredictions(snapshot, NUMBER_OF_PREDICTIONS);
@@ -134,42 +134,42 @@ public class PredictionHandler implements TerminationListener {
    *
    * @param predictions list of predictions
    */
-  public void changeConfidenceImage(List<Classifications.Classification> predictions) {
+  public void changeConfidenceImage(final List<Classifications.Classification> predictions) {
     // Finding current word in prediction list
-    for (Classification prediction : predictions) {
-      String targetWord = wordService.getTargetWord().replace(" ", "_");
+    for (final Classification prediction : predictions) {
+      final String targetWord = this.wordService.getTargetWord().replace(" ", "_");
       if (prediction.getClassName().equals(targetWord)) {
 
         // Retrieving the current and previous confidence level of the current word
-        double probability = prediction.getProbability();
-        double currentProbability = canvasController.getCurrentWordConfidenceLevel();
+        final double probability = prediction.getProbability();
+        final double currentProbability = this.canvasController.getCurrentWordConfidenceLevel();
 
         // Changing confidence level image depending on the current word's confidence
         // level
         if (currentProbability != 0.0) {
           if (probability > currentProbability) {
 
-            // If confidence level increases show a up arrow icon
-            canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("3aa55d"));
-            canvasController.getConfidenceIcon().getStyleClass().remove(1);
-            canvasController.getConfidenceIcon().getStyleClass().add("up-icon");
+            // If confidence level increases show an up arrow icon
+            this.canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+            this.canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("3aa55d"));
+            this.canvasController.getConfidenceIcon().getStyleClass().remove(1);
+            this.canvasController.getConfidenceIcon().getStyleClass().add("up-icon");
           } else if (probability < currentProbability) {
 
             // If confidence level decreases show a down arrow icon
-            canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
-            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("ed4245"));
-            canvasController.getConfidenceIcon().getStyleClass().remove(1);
-            canvasController.getConfidenceIcon().getStyleClass().add("down-icon");
+            this.canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+            this.canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("ED4245"));
+            this.canvasController.getConfidenceIcon().getStyleClass().remove(1);
+            this.canvasController.getConfidenceIcon().getStyleClass().add("down-icon");
           } else {
 
             // If confidence level s show a dash icon
-            canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
-            canvasController.getConfidenceIcon().getStyleClass().remove(1);
-            canvasController.getConfidenceIcon().getStyleClass().add("dash-icon");
+            this.canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
+            this.canvasController.getConfidenceIcon().getStyleClass().remove(1);
+            this.canvasController.getConfidenceIcon().getStyleClass().add("dash-icon");
           }
         } else {
-          canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+          this.canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
         }
       }
     }

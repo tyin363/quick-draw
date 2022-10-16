@@ -54,7 +54,7 @@
               <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="targetWordConfidenceLabel" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="confidence" text="Target" wrapText="true" HBox.hgrow="ALWAYS">
+                              <Label fx:id="targetWordConfidenceLabel" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="confidence" text="Target" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -64,8 +64,8 @@
                               </Label>
                               <Pane fx:id="confidenceIcon">
                                  <styleClass>
-                                    <String fx:value="dash-icon" />
                                     <String fx:value="confidence-icon" />
+                                    <String fx:value="dash-icon" />
                                  </styleClass>
                               </Pane>
                            </children>
