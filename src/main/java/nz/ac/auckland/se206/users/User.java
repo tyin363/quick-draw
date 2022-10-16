@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import javafx.scene.image.Image;
 
 public class User {
 
@@ -149,6 +150,22 @@ public class User {
    */
   public String getProfilePicture() {
     return this.profilePicture;
+  }
+
+  /**
+   * Retrieves the users profile picture as an Image object. If the profile picture is invalid or
+   * doesn't exist then it will return the default profile picture.
+   *
+   * @return The users profile picture as an Image object
+   */
+  @JsonIgnore
+  public Image getProfileImage() {
+    try {
+      return new Image(this.profilePicture);
+    } catch (final IllegalArgumentException e) {
+      // If the path is invalid or the file doesn't exist, use the default profile picture.
+      return new Image("images/defaultUserImage.jpg");
+    }
   }
 
   /**

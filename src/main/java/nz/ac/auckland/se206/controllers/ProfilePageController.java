@@ -126,7 +126,6 @@ public class ProfilePageController implements LoadListener {
   /** Prompts the user to select a file to choose a profile picture. */
   @FXML
   private void onChangeProfilePicture() {
-
     final FileChooser fileChooser = new FileChooser();
 
     // Accept only png and jpeg files
@@ -137,15 +136,11 @@ public class ProfilePageController implements LoadListener {
 
     final File file = fileChooser.showOpenDialog(this.sceneManager.getStage());
     if (file != null) {
-      try {
-        // Set the chosen file as profile picture
-        final String absolutePath = file.getAbsolutePath();
-        this.renderUserProfilePicture(absolutePath);
-        this.user.setProfilePicture(absolutePath);
-        this.userService.saveUser(this.user);
-      } catch (final SecurityException e) {
-        this.logger.error("Error loading image", e);
-      }
+      // Set the chosen file as profile picture
+      final String absolutePath = file.getAbsolutePath();
+      this.renderUserProfilePicture(new Image(absolutePath));
+      this.user.setProfilePicture(absolutePath);
+      this.userService.saveUser(this.user);
     }
   }
 
@@ -211,7 +206,7 @@ public class ProfilePageController implements LoadListener {
 
     this.renderRoundHistory();
     this.renderCurrentUserStatistics();
-    this.renderUserProfilePicture(this.user.getProfilePicture());
+    this.renderUserProfilePicture(this.user.getProfileImage());
 
     // Set the username and hide the edit username elements
     this.username.setText(this.user.getUsername());
@@ -269,19 +264,11 @@ public class ProfilePageController implements LoadListener {
   }
 
   /**
-   * Renders the image at the path specified as the users profile picture.
+   * Renders the users profile picture from the given image.
    *
-   * @param absolutePath The absolute path to the image
+   * @param image The image to render
    */
-  private void renderUserProfilePicture(final String absolutePath) {
-    Image image;
-    try {
-      image = new Image(absolutePath);
-    } catch (final IllegalArgumentException e) {
-      // If the path is invalid or the file doesn't exist, use the default profile picture.
-      this.logger.warn("Error loading image: {}", absolutePath);
-      image = new Image("images/defaultUserImage.jpg");
-    }
+  private void renderUserProfilePicture(final Image image) {
     this.profileImageView.setImage(image);
     this.changeImageOverlay.setVisible(false);
   }
