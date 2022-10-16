@@ -54,10 +54,10 @@ public class ApplicationContext extends InstanceFactory {
    * bindings for {@link ObjectMapper} and a supplier for {@link Logger}.
    */
   public ApplicationContext() {
+    this.registerSupplier(Logger.class, LoggerFactory::getLogger);
     this.bind(this);
     this.bind(InstanceFactory.class, this); // Allow you to inject this as an InstanceFactory
     this.bind(new ObjectMapper());
-    this.registerSupplier(Logger.class, LoggerFactory::getLogger);
   }
 
   /**

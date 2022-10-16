@@ -31,7 +31,11 @@
                         </Label>
                      </children>
                   </StackPane>
-              <Button mnemonicParsing="false" onAction="#onConfirmSwitch" prefHeight="25.0" prefWidth="137.0" styleClass="btn" text="Ready!" />
+              <Button mnemonicParsing="false" onAction="#onConfirmSwitch" prefHeight="25.0" prefWidth="137.0" text="Ready!">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-primary" />
+                     </styleClass></Button>
             </children>
           </VBox>
          </children>

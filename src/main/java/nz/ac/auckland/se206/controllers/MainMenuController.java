@@ -10,8 +10,8 @@ import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
-import nz.ac.auckland.se206.statemachine.states.DefaultCanvasState;
 import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
+import nz.ac.auckland.se206.statemachine.states.NormalCanvasState;
 import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.util.Helpers;
 
@@ -49,8 +49,8 @@ public class MainMenuController implements LoadListener {
    * timer starts.
    */
   @FXML
-  private void onStartGame() {
-    this.stateMachine.switchState(DefaultCanvasState.class);
+  private void onStartNormal() {
+    this.stateMachine.switchState(NormalCanvasState.class);
     this.sceneManager.switchToView(View.SETTINGS);
   }
 

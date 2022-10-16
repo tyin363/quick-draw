@@ -1,9 +1,7 @@
 package nz.ac.auckland.se206.controllers;
 
-import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
 import nz.ac.auckland.se206.annotations.Controller;
@@ -64,17 +62,7 @@ public class HeaderController implements LoadListener {
     // Set the current user's information
     this.username.setText(user.getUsername());
     this.profilePicture.setVisible(true);
-    final File file = new File(user.getProfilePicture());
-
-    // Check that the profile picture exists
-    if (file.exists()) {
-      final Image image = new Image(file.toURI().toString());
-      this.profilePicture.setImage(image);
-      return;
-    }
-
-    // If the user doesn't have a profile picture, or it doesn't exist, hide the image.
-    this.profilePicture.setVisible(false);
+    this.profilePicture.setImage(user.getProfileImage());
   }
 
   /** When the user clicks on the profile picture, take them to the profile page view. */
