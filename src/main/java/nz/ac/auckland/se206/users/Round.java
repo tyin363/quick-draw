@@ -16,9 +16,9 @@ public class Round {
   /**
    * A constructor for game rounds for the user
    *
-   * @param word
-   * @param timeTaken
-   * @param wasGuessed
+   * @param word given word in the round
+   * @param timeTaken time take in the round
+   * @param wasGuessed if word was guessed in the round
    */
   public Round(final String word, final int timeTaken, final boolean wasGuessed) {
     this.word = word;

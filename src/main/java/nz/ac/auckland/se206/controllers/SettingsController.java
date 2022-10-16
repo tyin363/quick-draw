@@ -15,7 +15,6 @@ import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
-import nz.ac.auckland.se206.words.WordService;
 
 @Singleton
 public class SettingsController implements LoadListener {
@@ -42,7 +41,6 @@ public class SettingsController implements LoadListener {
   @FXML private ToggleGroup confidence;
   @FXML private Button readyButton;
 
-  @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
 

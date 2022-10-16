@@ -41,6 +41,7 @@ public class DictionaryLookup {
       final String subMessage = jsonObj.getString("message");
       throw new WordNotFoundException(query, title, subMessage);
     } catch (final ClassCastException e) {
+      System.out.println("Dictionary Lookup Class Cast Exception Catch Section Called");
     }
     final JSONArray jArray = (JSONArray) new JSONTokener(jsonString).nextValue();
     final List<WordEntry> entries = new ArrayList<WordEntry>();

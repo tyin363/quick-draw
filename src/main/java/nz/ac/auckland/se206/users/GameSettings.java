@@ -1,10 +1,10 @@
 package nz.ac.auckland.se206.users;
 
 public class GameSettings {
-  public String accuracy;
-  public String words;
-  public int time;
-  public String confidence;
+  private String accuracy;
+  private String words;
+  private int time;
+  private String confidence;
 
   /** An empty constructor is required to deserialize Round from JSON. */
   public GameSettings() {
@@ -17,10 +17,10 @@ public class GameSettings {
   /**
    * A constructor for the user's game settings
    *
-   * @param accuracy
-   * @param words
-   * @param time
-   * @param confidence
+   * @param accuracy accuracy setting
+   * @param words words setting
+   * @param time time setting
+   * @param confidence confidence level setting
    */
   public GameSettings(String accuracy, String words, int time, String confidence) {
     this.accuracy = accuracy;
@@ -41,7 +41,7 @@ public class GameSettings {
   /**
    * Sets the user's current accuracy setting
    *
-   * @return accuracy setting
+   * @param accuracy accuracy setting
    */
   public void setAccuracy(String accuracy) {
     this.accuracy = accuracy;
@@ -59,7 +59,7 @@ public class GameSettings {
   /**
    * Sets the user's current words setting
    *
-   * @return words setting
+   * @param words words setting
    */
   public void setWords(String words) {
     this.words = words;
@@ -77,7 +77,7 @@ public class GameSettings {
   /**
    * Sets the user's current time setting
    *
-   * @return time setting
+   * @param time time setting
    */
   public void setTime(int time) {
     this.time = time;
@@ -93,9 +93,9 @@ public class GameSettings {
   }
 
   /**
-   * Sets the user's confidence words setting
+   * Sets the user's current confidence setting
    *
-   * @return confidence setting
+   * @param confidence confidence setting
    */
   public void setConfidence(String confidence) {
     this.confidence = confidence;

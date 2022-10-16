@@ -34,7 +34,6 @@ import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.util.BrushType;
 import nz.ac.auckland.se206.util.Config;
-import nz.ac.auckland.se206.words.Difficulty;
 import nz.ac.auckland.se206.words.WordService;
 import org.slf4j.Logger;
 
