@@ -40,22 +40,13 @@ public class User {
     this.profilePicture = "images/defaultUserImage.jpg";
   }
 
+  /**
+   * Retrieves the game settings for this user.
+   *
+   * @return The game settings for this user
+   */
   public GameSettings getGameSettings() {
     return this.gameSettings;
-  }
-
-  public void setGameSettings(final GameSettings gameSettings) {
-    this.gameSettings = gameSettings;
-  }
-
-  /**
-   * Returns whether the user has previously had to draw the specified word.
-   *
-   * @param word The word to check.
-   * @return Whether the user has previously had to draw the specified word.
-   */
-  public boolean hasHadWord(final String word) {
-    return this.pastRounds.stream().anyMatch(round -> round.word().equals(word));
   }
 
   /**
