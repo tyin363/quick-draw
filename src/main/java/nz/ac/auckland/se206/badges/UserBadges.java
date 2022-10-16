@@ -48,7 +48,7 @@ public class UserBadges {
 
   /**
    * Retrieves an immutable list of all the badges that this user has. If the user has no badges
-   * then an empty list will be returned. It will never contain {@link Badge#NONE}.
+   * then an empty list will be returned.
    *
    * @return The list of badges
    */
