@@ -45,7 +45,7 @@ public class RoundEntry extends HBox {
     icon.getStyleClass().add(round.mode() == Mode.NORMAL ? "eye-icon" : "eye-slash-icon");
 
     // Adjust the styling depending on the round result
-    container.setAlignment(Pos.CENTER);
+    container.setAlignment(Pos.CENTER_RIGHT);
     container.setSpacing(round.mode() == Mode.NORMAL ? 6 : 4);
     container.getStyleClass().add(round.wasGuessed() ? "round-won" : "round-lost");
     container.getChildren().addAll(timeLabel, icon);
