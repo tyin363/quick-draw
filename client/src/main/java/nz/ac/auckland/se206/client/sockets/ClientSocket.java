@@ -12,6 +12,7 @@ import nz.ac.auckland.se206.core.annotations.Singleton;
 import nz.ac.auckland.se206.core.listeners.EnableListener;
 import nz.ac.auckland.se206.core.listeners.TerminationListener;
 import nz.ac.auckland.se206.core.models.ActionResponse;
+import nz.ac.auckland.se206.core.models.ActionResponse.Action;
 import nz.ac.auckland.se206.core.models.DrawingSessionRequest;
 import org.slf4j.Logger;
 
@@ -158,6 +159,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
   public void onTerminate() {
     this.logger.info("Terminating client socket");
     try {
+      this.send(Action.TERMINATE_CONNECTION, null);
       this.isStopped = true;
       // Make sure to close all the threads
       this.handlerThread.interrupt();

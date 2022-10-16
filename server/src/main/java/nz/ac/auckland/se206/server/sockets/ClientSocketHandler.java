@@ -20,6 +20,13 @@ public class ClientSocketHandler extends Thread {
   private PrintWriter writer;
   private ActionResponse.Action action = null;
 
+  /**
+   * Constructs a new ClientSocketHandler with the given server and client socket.
+   *
+   * @param server The server instance
+   * @param clientSocket The connected client socket
+   * @param objectMapper The object mapper to use for serialisation/deserialisation
+   */
   public ClientSocketHandler(
       final Server server, final Socket clientSocket, final ObjectMapper objectMapper) {
     this.server = server;
@@ -27,34 +34,17 @@ public class ClientSocketHandler extends Thread {
     this.objectMapper = objectMapper;
   }
 
+  /** The main loop for handling incoming messages from the client. */
   @Override
   public void run() {
     try {
+      // Retrieve the input and output streams from the socket
       final InputStream input = this.clientSocket.getInputStream();
       this.reader = new BufferedReader(new InputStreamReader(input));
       this.writer = new PrintWriter(this.clientSocket.getOutputStream(), true);
 
       while (!this.clientSocket.isClosed()) {
-        // Modified from:
-        // https://www.alpharithms.com/detecting-client-disconnections-java-sockets-091416/
-        final int peek = this.reader.read();
-        if (peek == -1) {
-          // The client has disconnected
-          break;
-        }
-
-        final String line = (char) peek + this.reader.readLine();
-        if (this.action == null) {
-          final ActionResponse actionResponse =
-              this.objectMapper.readValue(line, ActionResponse.class);
-          this.action = actionResponse.action();
-          if (this.action == ActionResponse.Action.TERMINATE_CONNECTION) {
-            break;
-          }
-        } else {
-          this.handleResponse(this.action, line);
-          this.action = null;
-        }
+        this.handleSocketInput();
       }
     } catch (final IOException ignored) {
       // We've likely lost connection to the client
@@ -62,14 +52,49 @@ public class ClientSocketHandler extends Thread {
     this.close();
   }
 
+  /**
+   * Checks if the client has sent an action and if so, will parse the payload corresponding to it.
+   *
+   * @throws IOException If the connection to the client has been lost or terminated.
+   */
+  private void handleSocketInput() throws IOException {
+    // Modified from:
+    // https://www.alpharithms.com/detecting-client-disconnections-java-sockets-091416/
+    final int peek = this.reader.read();
+    if (peek == -1) {
+      // The client has disconnected
+      throw new IOException("Client connection lost");
+    }
+
+    final String line = (char) peek + this.reader.readLine();
+    if (this.action == null) {
+      final ActionResponse response = this.objectMapper.readValue(line, ActionResponse.class);
+      if (this.action == ActionResponse.Action.TERMINATE_CONNECTION) {
+        throw new IOException("Client disconnected");
+      }
+      // Store the action, so we know what payload to expect.
+      this.action = response.action();
+    } else {
+      this.handleResponse(this.action, line);
+      this.action = null;
+    }
+  }
+
+  /**
+   * Sends a drawing session request to the client.
+   *
+   * @param request The drawing session request to send
+   */
   public void sendDrawingSessionRequest(final DrawingSessionRequest request) {
     try {
+      // Send the request to the client
       this.writer.println(this.objectMapper.writeValueAsString(request));
     } catch (final IOException e) {
       e.printStackTrace();
     }
   }
 
+  /** Closes the connection to the client and removes this handler from the server. */
   public void close() {
     try {
       this.clientSocket.close();
@@ -77,9 +102,17 @@ public class ClientSocketHandler extends Thread {
     } catch (final IOException e) {
       e.printStackTrace();
     }
+    // Remove this handler from the server.
     this.server.removeClient(this);
   }
 
+  /**
+   * Handle the response payload from the client based on the previously retrieved action.
+   *
+   * @param action The action to handle
+   * @param line The payload to handle
+   * @throws IOException If there is an error parsing the payload
+   */
   private void handleResponse(final ActionResponse.Action action, final String line)
       throws IOException {
     if (action == ActionResponse.Action.COMPLETE_DRAWING) {
