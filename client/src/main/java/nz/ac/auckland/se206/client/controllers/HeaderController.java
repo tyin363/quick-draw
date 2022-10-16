@@ -1,5 +1,6 @@
 package nz.ac.auckland.se206.client.controllers;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
@@ -21,7 +23,6 @@ import nz.ac.auckland.se206.core.annotations.Inject;
 import nz.ac.auckland.se206.core.listeners.LoadListener;
 import nz.ac.auckland.se206.core.models.DrawingSessionRequest;
 import nz.ac.auckland.se206.core.scenemanager.SceneManager;
-import org.slf4j.Logger;
 
 /**
  * Note: This cannot be annotated with @Singleton as a new instance is created for every view it's
@@ -34,7 +35,6 @@ public class HeaderController implements LoadListener {
   @Inject private UserService userService;
   @Inject private DrawingSessionService drawingSessionService;
   @Inject private SoundEffect soundEffect;
-  @Inject private Logger logger;
 
   @FXML private ImageView profilePicture;
   @FXML private Label username;
@@ -43,6 +43,7 @@ public class HeaderController implements LoadListener {
   @FXML private Slider soundEffectVolumeSlider;
   @FXML private Pane profilePicturePane;
   @FXML private Button backButton;
+  @FXML private HBox drawingSessionPopup;
   private User currentUser;
 
   /**
@@ -57,6 +58,9 @@ public class HeaderController implements LoadListener {
     this.profilePicture.setClip(circle);
     this.userService.addUserSavedListener(this::renderUserProfile);
     this.drawingSessionService.addDrawingSessionListener(this::onDrawingSession);
+    this.drawingSessionService.addRespondSessionListener(
+        () -> this.drawingSessionPopup.setVisible(false));
+    this.drawingSessionPopup.setVisible(false);
   }
 
   /**
@@ -66,7 +70,18 @@ public class HeaderController implements LoadListener {
    * @param request The request that was sent from the server
    */
   private void onDrawingSession(final DrawingSessionRequest request) {
-    this.logger.info(request.toString());
+    Platform.runLater(() -> this.drawingSessionPopup.setVisible(true));
+  }
+
+  @FXML
+  private void onAcceptSession() {
+    this.drawingSessionService.acceptSession();
+    this.drawingSessionPopup.setVisible(false);
+  }
+
+  @FXML
+  private void onDeclineSession() {
+    this.drawingSessionService.declineSession();
   }
 
   /**
