@@ -24,7 +24,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button maxHeight="25.0" maxWidth="13.0" minHeight="25.0" minWidth="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="13.0">
+                        <Button fx:id="backButton" maxHeight="25.0" maxWidth="13.0" minHeight="25.0" minWidth="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="13.0">
                            <styleClass>
                               <String fx:value="left-icon" />
                               <String fx:value="back-btn" />
@@ -87,7 +87,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <Pane maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="60.0">
+                        <Pane fx:id="profilePicturePane" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="60.0">
                            <children>
                               <ImageView fx:id="profilePicture" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#onClickProfile" pickOnBounds="true" preserveRatio="true" />
                            </children>

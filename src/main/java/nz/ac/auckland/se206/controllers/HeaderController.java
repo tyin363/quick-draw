@@ -4,10 +4,12 @@ import java.io.File;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import nz.ac.auckland.se206.annotations.Controller;
@@ -35,7 +37,8 @@ public class HeaderController implements LoadListener {
   @FXML private Label switchUserLabel;
   @FXML private Slider musicVolumeSlider;
   @FXML private Slider soundEffectVolumeSlider;
-
+  @FXML private Pane profilePicturePane;
+  @FXML private Button backButton;
   private User currentUser;
 
   /**
@@ -58,12 +61,13 @@ public class HeaderController implements LoadListener {
   @Override
   public void onLoad() {
     final User newCurrentUser = this.userService.getCurrentUser();
-    soundEffect.getBackgroundMediaPlayer().setVolume(newCurrentUser.getMusicVolume());
-    soundEffect.getMediaPlayer().setVolume(newCurrentUser.getSoundEffectVolume());
     // If the user hasn't changed, don't bother trying to update the profile picture.
     if (newCurrentUser == null || newCurrentUser.equals(this.currentUser)) {
       return;
     }
+    // Set audio volume
+    soundEffect.getBackgroundMediaPlayer().setVolume(newCurrentUser.getMusicVolume());
+    soundEffect.getMediaPlayer().setVolume(newCurrentUser.getSoundEffectVolume());
 
     this.currentUser = newCurrentUser;
     this.renderUserProfile(this.currentUser);
@@ -150,8 +154,9 @@ public class HeaderController implements LoadListener {
 
   /** Buttons are disabled and will not be able to be clicked */
   public void disableButtons() {
-    this.profilePicture.setMouseTransparent(true);
-    this.switchUserLabel.setMouseTransparent(true);
+    this.profilePicturePane.setMouseTransparent(true);
+    this.switchUserLabel.setVisible(false);
+    this.backButton.setVisible(false);
   }
 
   /** When the user clicks on the profile picture, take them to the profile page view. */

@@ -79,7 +79,7 @@ public class CanvasController implements LoadListener, TerminationListener {
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
-
+  private HeaderController headerController;
   private boolean isUpdatingPredictions;
   private Color penColour = Color.BLACK;
 
@@ -156,9 +156,8 @@ public class CanvasController implements LoadListener, TerminationListener {
   public void initialize() throws ModelException, IOException {
 
     // Disable header buttons in canvas controller
-    final HeaderController headerController =
-        this.sceneManager.getSubController(HeaderController.class);
-    headerController.disableButtons();
+    this.headerController = this.sceneManager.getSubController(HeaderController.class);
+    this.headerController.disableButtons();
 
     Tooltip.install(this.eraserPane, new Tooltip(this.eraserPane.getAccessibleHelp()));
     Tooltip.install(this.penPane, new Tooltip(this.penPane.getAccessibleHelp()));
