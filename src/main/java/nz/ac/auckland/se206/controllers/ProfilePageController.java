@@ -134,6 +134,9 @@ public class ProfilePageController implements LoadListener {
   /** Prompts the user to select a file to choose a profile picture. */
   @FXML
   private void onChangeProfilePicture() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
+
     final FileChooser fileChooser = new FileChooser();
 
     // Accept only png and jpeg files
