@@ -9,7 +9,6 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
 import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
-import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
 import nz.ac.auckland.se206.statemachine.states.NormalCanvasState;
@@ -19,7 +18,7 @@ import nz.ac.auckland.se206.util.Sound;
 import nz.ac.auckland.se206.util.SoundEffect;
 
 @Singleton
-public class MainMenuController implements LoadListener, TerminationListener {
+public class MainMenuController implements LoadListener {
 
   private final Random random = new Random();
   private final String[] messages = {
@@ -98,10 +97,5 @@ public class MainMenuController implements LoadListener, TerminationListener {
     } else {
       this.sceneManager.switchToView(View.SWITCH_USER);
     }
-  }
-
-  @Override
-  public void onTerminate() {
-    this.soundEffect.terminate();
   }
 }
