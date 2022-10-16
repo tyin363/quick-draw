@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -81,7 +80,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                     </Pane>
-                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="214.0" styleClass="confidence" text="Target" GridPane.columnIndex="1">
+                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="214.0" styleClass="confidence" text="Target" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1">
                                        <font>
                                           <Font size="20.0" />
                                        </font>

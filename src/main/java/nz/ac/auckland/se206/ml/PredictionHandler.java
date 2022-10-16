@@ -148,16 +148,22 @@ public class PredictionHandler implements TerminationListener {
         // level
         if (currentProbability != 0.0) {
           if (probability > currentProbability) {
+
+            // If confidence level increases show a up arrow icon
             canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
             canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("3aa55d"));
             canvasController.getConfidenceIcon().getStyleClass().remove(1);
             canvasController.getConfidenceIcon().getStyleClass().add("up-icon");
           } else if (probability < currentProbability) {
+
+            // If confidence level decreases show a down arrow icon
             canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
             canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("ed4245"));
             canvasController.getConfidenceIcon().getStyleClass().remove(1);
             canvasController.getConfidenceIcon().getStyleClass().add("down-icon");
           } else {
+
+            // If confidence level s show a dash icon
             canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
             canvasController.getConfidenceIcon().getStyleClass().remove(1);
             canvasController.getConfidenceIcon().getStyleClass().add("dash-icon");
