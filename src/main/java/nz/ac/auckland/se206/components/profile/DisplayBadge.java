@@ -44,7 +44,10 @@ public class DisplayBadge extends HBox {
    */
   public void update(final User user) {
     if (this.badge.hasAchievedBadge(user)) {
-      this.getStyleClass().add("achieved-badge");
+      // Only add the achieved-badge class if it isn't already added
+      if (!this.getStyleClass().contains("achieved-badge")) {
+        this.getStyleClass().add("achieved-badge");
+      }
     } else {
       this.getStyleClass().remove("achieved-badge");
     }
