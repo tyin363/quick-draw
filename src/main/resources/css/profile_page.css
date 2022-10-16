@@ -24,6 +24,10 @@
   -fx-spacing: 8px;
 }
 
+.round-entry {
+  -fx-spacing: 4px;
+}
+
 .round-entry > Label, .round-entry > HBox > Label {
   -fx-font-size: 16px;
   -fx-text-fill: -fx-lightgray-100;

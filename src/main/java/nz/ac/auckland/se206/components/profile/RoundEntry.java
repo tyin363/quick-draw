@@ -2,13 +2,13 @@ package nz.ac.auckland.se206.components.profile;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import nz.ac.auckland.se206.users.Round;
 import nz.ac.auckland.se206.users.Round.Mode;
 
-public class RoundEntry extends AnchorPane {
+public class RoundEntry extends HBox {
 
   /**
    * Creates a new RoundEntry component from the given round.
@@ -17,12 +17,15 @@ public class RoundEntry extends AnchorPane {
    */
   public RoundEntry(final Round round) {
     this.getStyleClass().add("round-entry");
+    this.setAlignment(Pos.CENTER);
+
     final Label wordLabel = new Label(round.word());
     final HBox content = this.renderTimeAndMode(round);
 
-    // Anchor the labels to the left and right of this entry
-    AnchorPane.setLeftAnchor(wordLabel, 0D);
-    AnchorPane.setRightAnchor(content, 0D);
+    // Make the word label take up all the space it can so that the content box gets right aligned.
+    wordLabel.setMaxWidth(Double.MAX_VALUE);
+    HBox.setHgrow(wordLabel, Priority.ALWAYS);
+
     this.getChildren().addAll(wordLabel, content);
   }
 
