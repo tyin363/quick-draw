@@ -3,9 +3,15 @@ package nz.ac.auckland.se206.client.controllers;
 import java.util.Random;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.util.Duration;
+import nz.ac.auckland.se206.client.sounds.Sound;
+import nz.ac.auckland.se206.client.sounds.SoundEffect;
 import nz.ac.auckland.se206.client.statemachine.CanvasStateMachine;
-import nz.ac.auckland.se206.client.statemachine.states.DefaultCanvasState;
+import nz.ac.auckland.se206.client.statemachine.states.HiddenModeState;
+import nz.ac.auckland.se206.client.statemachine.states.NormalCanvasState;
 import nz.ac.auckland.se206.client.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.client.util.Helpers;
 import nz.ac.auckland.se206.client.util.View;
@@ -29,13 +35,17 @@ public class MainMenuController implements LoadListener {
 
   @FXML private Label messageLabel;
   @FXML private AnchorPane header;
-
+  @FXML private HBox normalModeBox;
+  @FXML private HBox hiddenModeBox;
+  @FXML private HBox zenModeBox;
   @Inject private SceneManager sceneManager;
+  @Inject private SoundEffect soundEffect;
   @Inject private CanvasStateMachine stateMachine;
 
   /** Hook up the back button action when the view is initialised. */
   @FXML
   private void initialize() {
+    this.addToolTips();
     Helpers.getBackButton(this.header).setOnAction(event -> this.onSwitchBack());
   }
 
@@ -46,13 +56,14 @@ public class MainMenuController implements LoadListener {
   }
 
   /**
-   * Switch to the confirmation screen, where the user will have time to think about the word before
-   * the timer starts.
+   * Switch to the settings screen, where the user will have time to think about the word before the
+   * timer starts.
    */
   @FXML
-  private void onStartGame() {
-    this.stateMachine.switchState(DefaultCanvasState.class);
-    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+  private void onStartNormal() {
+    this.soundEffect.playSound(Sound.CLICK);
+    this.stateMachine.switchState(NormalCanvasState.class);
+    this.sceneManager.switchToView(View.SETTINGS);
   }
 
   /**
@@ -61,8 +72,22 @@ public class MainMenuController implements LoadListener {
    */
   @FXML
   private void onStartZenMode() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
     this.stateMachine.switchState(ZenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+  }
+
+  /**
+   * Switch to the confirmation screen, where the user will have time to think about the word before
+   * the timer starts.
+   */
+  @FXML
+  private void onStartHidden() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
+    this.stateMachine.switchState(HiddenModeState.class);
+    this.sceneManager.switchToView(View.SETTINGS);
   }
 
   /**
@@ -71,11 +96,32 @@ public class MainMenuController implements LoadListener {
    */
   private void onSwitchBack() {
     final FxmlView previousView = this.sceneManager.getPreviousView();
+
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
+
     // Only switch back to the profile page if they were just on it
     if (previousView == View.PROFILE_PAGE) {
       this.sceneManager.switchToView(View.PROFILE_PAGE);
     } else {
       this.sceneManager.switchToView(View.SWITCH_USER);
     }
+  }
+
+  /** Helper method to add tool tips to main menu buttons */
+  private void addToolTips() {
+    // Creating main menu button tool tips
+    final Tooltip normalModeTip = new Tooltip("Timed speed drawing for a given word");
+    final Tooltip hiddenModeTip = new Tooltip("Timed speed drawing for a given definition");
+    final Tooltip zenModeTip = new Tooltip("Endless drawing with color!");
+
+    normalModeTip.setShowDelay(Duration.millis(100));
+    hiddenModeTip.setShowDelay(Duration.millis(100));
+    zenModeTip.setShowDelay(Duration.millis(100));
+
+    // Setting main menu button tool tips
+    Tooltip.install(this.normalModeBox, normalModeTip);
+    Tooltip.install(this.hiddenModeBox, hiddenModeTip);
+    Tooltip.install(this.zenModeBox, zenModeTip);
   }
 }

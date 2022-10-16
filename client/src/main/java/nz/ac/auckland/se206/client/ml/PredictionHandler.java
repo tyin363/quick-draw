@@ -2,6 +2,7 @@ package nz.ac.auckland.se206.client.ml;
 
 import ai.djl.ModelException;
 import ai.djl.modality.Classifications;
+import ai.djl.modality.Classifications.Classification;
 import ai.djl.translate.TranslateException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,7 +14,10 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import nz.ac.auckland.se206.client.controllers.CanvasController;
+import nz.ac.auckland.se206.client.words.WordService;
 import nz.ac.auckland.se206.core.listeners.TerminationListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +30,8 @@ public class PredictionHandler implements TerminationListener {
   private final Timeline timeline;
   private final DoodlePrediction model;
   private Task<List<Classifications.Classification>> backgroundTask;
+  private final WordService wordService;
+  private final CanvasController canvasController;
 
   /**
    * Constructs a new prediction handler which will generate predictions every second in the
@@ -38,9 +44,12 @@ public class PredictionHandler implements TerminationListener {
    */
   public PredictionHandler(
       final Supplier<BufferedImage> snapshotSupplier,
-      final Consumer<List<Classifications.Classification>> onSuccess)
+      final Consumer<List<Classifications.Classification>> onSuccess,
+      final WordService wordService,
+      final CanvasController canvasController)
       throws ModelException, IOException, URISyntaxException {
-
+    this.wordService = wordService;
+    this.canvasController = canvasController;
     this.model = new DoodlePrediction();
     // Create a timeline that performs a prediction every second indefinitely.
     this.timeline =
@@ -75,6 +84,9 @@ public class PredictionHandler implements TerminationListener {
           protected List<Classifications.Classification> call() throws TranslateException {
             // Using the snapshot retrieved from the main thread, perform the prediction on
             // another thread.
+            final List<Classifications.Classification> predictions =
+                PredictionHandler.this.model.getPredictions(snapshot, 345);
+            PredictionHandler.this.changeConfidenceImage(predictions);
             return PredictionHandler.this.model.getPredictions(snapshot, NUMBER_OF_PREDICTIONS);
           }
         };
@@ -114,5 +126,51 @@ public class PredictionHandler implements TerminationListener {
   @Override
   public void onTerminate() {
     this.stopPredicting();
+  }
+
+  /**
+   * This changes the confidence level image depending on the current word's confidence level
+   *
+   * @param predictions list of predictions
+   */
+  public void changeConfidenceImage(final List<Classifications.Classification> predictions) {
+    // Finding current word in prediction list
+    for (final Classification prediction : predictions) {
+      final String targetWord = this.wordService.getTargetWord().replace(" ", "_");
+      if (prediction.getClassName().equals(targetWord)) {
+
+        // Retrieving the current and previous confidence level of the current word
+        final double probability = prediction.getProbability();
+        final double currentProbability = this.canvasController.getCurrentWordConfidenceLevel();
+
+        // Changing confidence level image depending on the current word's confidence
+        // level
+        if (currentProbability != 0.0) {
+          if (probability > currentProbability) {
+
+            // If confidence level increases show an up arrow icon
+            this.canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+            this.canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("3aa55d"));
+            this.canvasController.getConfidenceIcon().getStyleClass().remove(1);
+            this.canvasController.getConfidenceIcon().getStyleClass().add("up-icon");
+          } else if (probability < currentProbability) {
+
+            // If confidence level decreases show a down arrow icon
+            this.canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+            this.canvasController.getTargetWordConfidenceLabel().setTextFill(Color.web("ED4245"));
+            this.canvasController.getConfidenceIcon().getStyleClass().remove(1);
+            this.canvasController.getConfidenceIcon().getStyleClass().add("down-icon");
+          } else {
+
+            // If confidence level s show a dash icon
+            this.canvasController.getTargetWordConfidenceLabel().setTextFill(Color.BLACK);
+            this.canvasController.getConfidenceIcon().getStyleClass().remove(1);
+            this.canvasController.getConfidenceIcon().getStyleClass().add("dash-icon");
+          }
+        } else {
+          this.canvasController.setCurrentWordConfidenceLevel(prediction.getProbability());
+        }
+      }
+    }
   }
 }

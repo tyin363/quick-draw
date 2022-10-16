@@ -5,7 +5,9 @@ import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import nz.ac.auckland.se206.client.components.UserProfile;
+import nz.ac.auckland.se206.client.components.profile.UserProfile;
+import nz.ac.auckland.se206.client.sounds.Sound;
+import nz.ac.auckland.se206.client.sounds.SoundEffect;
 import nz.ac.auckland.se206.client.users.User;
 import nz.ac.auckland.se206.client.users.UserService;
 import nz.ac.auckland.se206.client.util.Config;
@@ -21,6 +23,7 @@ public class SwitchUserController implements LoadListener {
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
   @Inject private Config config;
+  @Inject private SoundEffect soundEffect;
 
   @FXML private GridPane userGrid;
   @FXML private Button newUser;
@@ -51,6 +54,7 @@ public class SwitchUserController implements LoadListener {
       // Setting current user and switching to main menu when user profile is clicked
       profile.setOnMouseClicked(
           event -> {
+            this.soundEffect.playSound(Sound.CLICK);
             this.userService.setCurrentUser(user);
             this.sceneManager.switchToView(View.MAIN_MENU);
           });
@@ -72,6 +76,8 @@ public class SwitchUserController implements LoadListener {
    */
   @FXML
   private void onAddUser() {
+    this.soundEffect.playSound(Sound.CLICK);
+
     final List<User> users = this.userService.getUsers();
     int newUserValue = 1;
 

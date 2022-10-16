@@ -1,0 +1,11 @@
+.cycle-btn > Button {
+	-fx-min-width: 35px;
+	-fx-max-width: 35px;
+	-fx-max-height: 60px;
+	-fx-min-height: 60px;
+}
+
+.cycle-btn > Label {
+	-fx-text-fill: -fx-lightgray-100;
+	-fx-font-size: 24px;
+}

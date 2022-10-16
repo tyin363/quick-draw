@@ -3,36 +3,23 @@ package nz.ac.auckland.se206.client.statemachine.states;
 import ai.djl.modality.Classifications.Classification;
 import java.util.List;
 import nz.ac.auckland.se206.client.controllers.CanvasController;
+import nz.ac.auckland.se206.core.annotations.Inject;
 
 public abstract class CanvasState {
 
-  protected CanvasController canvasController;
-
-  /**
-   * Create an instance of a canvas state with a reference to the canvas controller whose UI will be
-   * modified by this state.
-   *
-   * @param canvasController The canvas controller instance
-   */
-  public CanvasState(final CanvasController canvasController) {
-    this.canvasController = canvasController;
-  }
+  @Inject protected CanvasController canvasController;
 
   /** Called when the state machine switches to this state. */
-  public void onEnter() {
-  }
+  public void onEnter() {}
 
   /** Called when the state machine switches away from this state. */
-  public void onExit() {
-  }
+  public void onExit() {}
 
   /** Called when the canvas view is loaded. */
-  public void onLoad() {
-  }
+  public void onLoad() {}
 
   /** Called when the canvas view is left */
-  public void onLeave() {
-  }
+  public void onLeave() {}
 
   /**
    * If the canvas controller is showing predictions, this will be passed the predictions.

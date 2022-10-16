@@ -1,12 +1,11 @@
 package nz.ac.auckland.se206.core.scenemanager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +19,7 @@ import org.slf4j.Logger;
 @Singleton
 public class SceneManager {
 
-  public record ViewControllers(Parent parent, Set<Object> controllers) {}
+  private record ViewControllers(Parent parent, List<Object> controllers) {}
 
   private final Map<FxmlView, ViewControllers> views = new HashMap<>();
 
@@ -47,6 +46,7 @@ public class SceneManager {
    * @param preLoadViews All the views to preload
    */
   public void initialise(final FxmlView startingView, final FxmlView... preLoadViews) {
+
     // Prevent you from trying to initialise the SceneManager twice
     if (this.scene != null) {
       throw new UnsupportedOperationException("The scene manager has already been initialised");
@@ -84,7 +84,7 @@ public class SceneManager {
       // Use custom controller factory to support dependency injection within the controller.
       fxmlLoader.setControllerFactory(this.applicationContext);
       final Parent parent = fxmlLoader.load();
-      this.views.put(view, new ViewControllers(parent, new HashSet<>()));
+      this.views.put(view, new ViewControllers(parent, new ArrayList<>()));
 
       final Object controller = fxmlLoader.getController();
       // Cache the view so that we only have to load it once.
@@ -104,7 +104,7 @@ public class SceneManager {
   /**
    * Switches the scene to the given view. If it has not currently been loaded then it will attempt
    * to load the fxml file. If there is an error while trying to load it then it will remain on the
-   * current view.
+   * current view. The scenes will all have the same base background music except the canvas scene.
    *
    * @param view The view to switch to
    */
@@ -123,6 +123,24 @@ public class SceneManager {
     final ViewControllers viewControllers = this.views.get(view);
     this.invokeLoadListener(viewControllers);
     this.scene.setRoot(viewControllers.parent());
+  }
+
+  /**
+   * Retrieves the first sub-controller for the currently loading view. This can only be called in
+   * the initialize method of a controller.
+   *
+   * @param type The class of the sub-controller to find
+   * @param <T> The type of the sub-controller
+   * @return The sub-controller if it exists, otherwise null
+   */
+  public <T> T getSubController(final Class<T> type) {
+    // Iterate through all the sub-controllers which have just been loaded.
+    for (final Object controller : this.controllers) {
+      if (type.isInstance(controller)) {
+        return type.cast(controller);
+      }
+    }
+    return null;
   }
 
   /**
@@ -170,7 +188,7 @@ public class SceneManager {
   }
 
   /**
-   * Get the previous view.
+   * Get the previous view of the current screen.
    *
    * @return The previous view
    */

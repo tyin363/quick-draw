@@ -223,10 +223,33 @@ Windows:
 ## Attributions
 External resources used:  
 - "[fire - solid](https://fontawesome.com/icons/fire?f=classic&s=solid)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
-- "[angle-left - solid](https://fontawesome.com/icons/angle-left?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
+- "[chevron-left - solid](https://fontawesome.com/icons/chevron-left?s=solid&f=classic)" by [Font 
+  Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
+- "[chevron-right - solid](https://fontawesome.com/icons/chevron-right?s=solid&f=classic)" by [Font 
+  Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[eraser - solid](https://fontawesome.com/icons/eraser?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[Clock - regular](https://fontawesome.com/icons/clock?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[Fire flame curved - solid](https://fontawesome.com/icons/fire-flame-curved?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[plus - solid](https://fontawesome.com/icons/plus?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[Pen - solid](https://fontawesome.com/icons/pen?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
 - "[User - regular](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
+- "[square-caret-up](https://fontawesome.com/icons/square-caret-up?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
+- "[square-caret-down](https://fontawesome.com/icons/square-caret-down?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
+- "[square-minus](https://fontawesome.com/icons/square-minus?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/). Has been resized and recoloured.
+- QuickDraw Logo by [Font Space](https://www.fontspace.com/) is licensed under Freeware, Non-Commercial.
+- Pencil GIF by [Steffi Lynn](http://www.steffilynn.com/giphy) is free to use in any way.
+- Pixel Peeker Polka – faster by Kevin MacLeod | https://incompetech.com/
+- "[Circle-check - regular](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/circle-check?s=regular&f=classic). Has been resized and recoloured.
+- "[Fire-flame-simple - regular](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/fire-flame-simple?s=solid&f=classic). Has been resized and recoloured.
+- "[Eye-slash - solid](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/eye-slash?s=solid&f=classic). Has been resized and recoloured.
+- "[Eye - solid](https://fontawesome.com/icons/user?s=regular&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/eye?s=solid&f=classic). Has been resized and recoloured.
+- "[Xmark - solid](https://fontawesome.com/icons/xmark?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/eye?s=solid&f=classic). Has been resized and recoloured.
+- "[Palette - solid](https://fontawesome.com/icons/xmark?s=solid&f=classic)" by [Font Awesome](https://fontawesome.com) is licensed under [CC BY 4.0 license](https://fontawesome.com/icons/palette?s=solid&f=classic). Has been resized and recoloured.
+
+Music promoted by https://www.chosic.com/free-music/all/
+Creative Commons CC BY 3.0
+https://creativecommons.org/licenses/by/3.0/
+- Exit the Premises by Kevin MacLeod | https://incompetech.com/
+Music promoted by https://www.chosic.com/free-music/all/
+Creative Commons CC BY 3.0
+https://creativecommons.org/licenses/by/3.0/

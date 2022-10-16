@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -23,7 +24,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javax.imageio.ImageIO;
+import nz.ac.auckland.se206.client.components.canvas.PredictionEntry;
+import nz.ac.auckland.se206.client.hiddenmode.HiddenMode;
 import nz.ac.auckland.se206.client.ml.PredictionHandler;
+import nz.ac.auckland.se206.client.sounds.Music;
+import nz.ac.auckland.se206.client.sounds.Sound;
+import nz.ac.auckland.se206.client.sounds.SoundEffect;
 import nz.ac.auckland.se206.client.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.client.util.BrushType;
 import nz.ac.auckland.se206.client.util.Config;
@@ -54,6 +60,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Canvas canvas;
   @FXML private VBox predictionVertBox;
   @FXML private HBox gameOverActionsContainer;
+  @FXML private HBox defaultHbox;
   @FXML private VBox toolContainer;
   @FXML private Pane eraserPane;
   @FXML private Pane penPane;
@@ -61,19 +68,27 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private Button saveButton;
   @FXML private Label targetWordLabel;
   @FXML private Label mainLabel;
-  private Label[] predictionLabels;
+  @FXML private Label targetWordConfidenceLabel;
+  @FXML private AnchorPane wordDefinition;
+  @FXML private Label hintLabel;
+  @FXML private HBox hintsHbox;
+  @FXML private Pane confidenceIcon;
 
   @Inject private Logger logger;
   @Inject private Config config;
   @Inject private WordService wordService;
   @Inject private SceneManager sceneManager;
+  @Inject private SoundEffect soundEffect;
   @Inject private CanvasStateMachine stateMachine;
+  @Inject private HiddenMode hiddenMode;
 
   private GraphicsContext graphic;
   private PredictionHandler predictionHandler;
-
+  private HeaderController headerController;
   private boolean isUpdatingPredictions;
   private Color penColour = Color.BLACK;
+  private PredictionEntry[] predictionEntries;
+  private double currentWordConfidenceLevel;
 
   // Mouse coordinates
   private double currentX;
@@ -120,8 +135,11 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @Override
   public void onLoad() {
+    this.setCurrentWordConfidenceLevel(0.00);
+    this.targetWordConfidenceLabel.setTextFill(Color.BLACK);
+    this.targetWordLabel.setVisible(true);
     this.targetWordLabel.setText(this.wordService.getTargetWord());
-
+    this.targetWordConfidenceLabel.setText(this.wordService.getTargetWord());
     this.predictionHandler.startPredicting();
 
     // Clear any previous predictions
@@ -145,11 +163,16 @@ public class CanvasController implements LoadListener, TerminationListener {
    * @throws IOException If the model cannot be found on the file system.
    */
   public void initialize() throws ModelException, IOException, URISyntaxException {
+    // Disable header buttons in canvas controller
+    this.headerController = this.sceneManager.getSubController(HeaderController.class);
+    this.headerController.disableButtons();
     Tooltip.install(this.eraserPane, new Tooltip(this.eraserPane.getAccessibleHelp()));
     Tooltip.install(this.penPane, new Tooltip(this.penPane.getAccessibleHelp()));
     Tooltip.install(this.clearPane, new Tooltip(this.clearPane.getAccessibleHelp()));
 
     this.graphic = this.canvas.getGraphicsContext2D();
+    // Initially make the word definition visible
+    this.wordDefinition.setVisible(false);
 
     // save coordinates when mouse is pressed on the canvas
     this.canvas.setOnMousePressed(
@@ -163,19 +186,34 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.canvas.setOnMouseDragged(e -> this.selectedBrushType.accept(e));
 
     this.predictionHandler =
-        new PredictionHandler(this::getCurrentSnapshot, this::onPredictSuccess);
+        new PredictionHandler(
+            this::getCurrentSnapshot, this::onPredictSuccess, this.wordService, this);
 
-    // Generate the labels for all the predictions
-    this.predictionLabels = new Label[this.config.getNumberOfPredictions()];
+    // Generate the entries for all the predictions
+    this.predictionEntries = new PredictionEntry[this.config.getNumberOfPredictions()];
     for (int i = 0; i < this.config.getNumberOfPredictions(); i++) {
-      this.predictionLabels[i] = new Label();
-      this.predictionVertBox.getChildren().add(this.predictionLabels[i]);
+      this.predictionEntries[i] = new PredictionEntry();
     }
+    this.predictionVertBox.getChildren().addAll(this.predictionEntries);
+  }
+
+  /** This method is called when the "Get Hint" button is pressed and gets a hint. */
+  @FXML
+  private void onGetHint() {
+    if (this.targetWordLabel == null) {
+      return;
+    }
+    final char firstCharacter = this.targetWordLabel.getText().toUpperCase().charAt(0);
+    this.hintLabel.setText("The word starts with: " + firstCharacter);
   }
 
   /** This method is called when the "Clear" button is pressed and clears the canvas. */
   @FXML
   private void onClear() {
+    this.setCurrentWordConfidenceLevel(0.00);
+    this.targetWordConfidenceLabel.setTextFill(Color.BLACK);
+    this.confidenceIcon.getStyleClass().remove(1);
+    this.confidenceIcon.getStyleClass().add("dash-icon");
     this.graphic.clearRect(0, 0, this.canvas.getWidth(), this.canvas.getHeight());
     this.clearPredictions();
 
@@ -211,6 +249,8 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onSave() {
+    // Play click sound effect
+    this.soundEffect.playSound(Sound.CLICK);
     if (this.saveCurrentSnapshotOnFile()) {
       this.saveButton.setDisable(true);
     }
@@ -222,9 +262,26 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   @FXML
   private void onRestart() {
+    this.handleLeave();
+    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
+  }
+
+  /**
+   * Handles the cleanup when leaving the canvas view, including the changing of the music back to
+   * the main menu music.
+   */
+  private void handleLeave() {
+    // Play music and sounds
+    this.soundEffect.playSound(Sound.CLICK);
+    this.soundEffect.terminateBackgroundMusic();
+    this.soundEffect.playBackgroundMusic(Music.MAIN_MUSIC);
+
+    // Hidden mode exclusive
+    this.hiddenMode.clearDefinitions();
+    this.hintLabel.setText(null);
+
     this.onClear();
     this.stateMachine.getCurrentState().onLeave();
-    this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
 
   /**
@@ -254,9 +311,8 @@ public class CanvasController implements LoadListener, TerminationListener {
       // Make the text colour more blue if it's more confident in the prediction.
       final Color textColour =
           Color.BLACK.interpolate(this.config.getHighlight(), prediction.getProbability() * 10);
-
-      this.predictionLabels[i].setText(guess);
-      this.predictionLabels[i].setTextFill(textColour);
+      this.predictionEntries[i].update(guess, (int) (prediction.getProbability() * 100));
+      this.predictionEntries[i].setTextColour(textColour);
     }
   }
 
@@ -337,18 +393,17 @@ public class CanvasController implements LoadListener, TerminationListener {
     this.predictionHandler.stopPredicting();
   }
 
-  /** Clears any prediction text by setting all prediction labels to an empty string */
+  /** Clears any prediction text by resetting all the prediction entries */
   private void clearPredictions() {
-    for (final Label predictionLabel : this.predictionLabels) {
-      predictionLabel.setText("");
+    for (final PredictionEntry predictionLabel : this.predictionEntries) {
+      predictionLabel.reset();
     }
   }
 
   /** Clears the canvas and switches back to the Main Menu Screen */
   @FXML
   private void onReturnToMainMenu() {
-    this.onClear();
-    this.stateMachine.getCurrentState().onLeave();
+    this.handleLeave();
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
 
@@ -431,5 +486,79 @@ public class CanvasController implements LoadListener, TerminationListener {
    */
   public PredictionHandler getPredictionHandler() {
     return this.predictionHandler;
+  }
+
+  /**
+   * Retrieves the confidence level of the current word
+   *
+   * @return current word confidence level
+   */
+  public double getCurrentWordConfidenceLevel() {
+    return this.currentWordConfidenceLevel;
+  }
+
+  /**
+   * Sets the confidence level of the current word
+   *
+   * @param confidenceLevel The new confidence level
+   */
+  public void setCurrentWordConfidenceLevel(final double confidenceLevel) {
+    this.currentWordConfidenceLevel = confidenceLevel;
+  }
+
+  /*
+   * This retrieves the label with the word hint on it
+   *
+   * @return The label with the word hint
+   */
+
+  public Label getHintLabel() {
+    return this.hintLabel;
+  }
+
+  /**
+   * This retrieves the Hbox containing the hints elements
+   *
+   * @return The Hbox containing the hints elements
+   */
+  public HBox getHintsHbox() {
+    return this.hintsHbox;
+  }
+
+  /**
+   * This retrieves the Anchor pane responsible for displaying the word definitions in the hidden
+   * game mode
+   *
+   * @return The anchor pane for hidden game mode
+   */
+  public AnchorPane getWordDefinition() {
+    return this.wordDefinition;
+  }
+
+  /**
+   * This retrieves the Hbox that contains the normal game mode elements
+   *
+   * @return Normal game mode Hbox
+   */
+  public HBox getDefaultHbox() {
+    return this.defaultHbox;
+  }
+
+  /**
+   * This retrieves the target word confidence label
+   *
+   * @return target word confidence label
+   */
+  public Label getTargetWordConfidenceLabel() {
+    return this.targetWordConfidenceLabel;
+  }
+
+  /**
+   * This retrieves the current confidence icon
+   *
+   * @return confidence icon
+   */
+  public Pane getConfidenceIcon() {
+    return this.confidenceIcon;
   }
 }

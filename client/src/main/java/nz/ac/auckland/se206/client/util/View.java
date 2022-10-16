@@ -8,7 +8,8 @@ public enum View implements FxmlView {
   CONFIRMATION_SCREEN,
   CANVAS,
   PROFILE_PAGE,
-  SWITCH_USER;
+  SWITCH_USER,
+  SETTINGS;
 
   private final String fxml;
 

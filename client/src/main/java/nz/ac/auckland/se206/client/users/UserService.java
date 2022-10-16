@@ -150,10 +150,20 @@ public class UserService implements EnableListener {
     this.users.values().stream().map(User::toString).forEach(this.logger::info);
   }
 
+  /**
+   * Retrieves the current user in play
+   *
+   * @return current user
+   */
   public User getCurrentUser() {
     return this.currentUser;
   }
 
+  /**
+   * Sets the current user in play
+   *
+   * @param user current user
+   */
   public void setCurrentUser(final User user) {
     this.currentUser = user;
   }

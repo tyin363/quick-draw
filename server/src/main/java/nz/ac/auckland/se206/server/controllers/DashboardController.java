@@ -46,7 +46,4 @@ public class DashboardController {
   private void onChange() {
     this.startSession.setDisable(this.targetWord.getText().isBlank());
   }
-
-  @FXML
-  private void onRandomWord() {}
 }

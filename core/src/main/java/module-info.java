@@ -1,5 +1,6 @@
 open module SE206Core {
   requires javafx.graphics;
+  requires javafx.media;
   requires javafx.fxml;
   requires org.slf4j;
   requires com.fasterxml.jackson.databind;
@@ -11,5 +12,4 @@ open module SE206Core {
   exports nz.ac.auckland.se206.core.scenemanager;
   exports nz.ac.auckland.se206.core.models;
   exports nz.ac.auckland.se206.core.sockets;
-  exports nz.ac.auckland.se206.core.words;
 }

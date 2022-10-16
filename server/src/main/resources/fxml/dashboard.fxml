@@ -33,12 +33,6 @@
                   <Label text="Lecturer Dashboard" />
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#onRandomWord" text="Random Word">
-                           <styleClass>
-                              <String fx:value="btn" />
-                              <String fx:value="btn-outline-primary" />
-                           </styleClass>
-                        </Button>
                         <TextField fx:id="targetWord" onKeyTyped="#onChange" prefWidth="250.0" promptText="Target word..." />
                         <Button fx:id="startSession" disable="true" mnemonicParsing="false" onAction="#onStartSession" text="Start Session">
                            <styleClass>

@@ -78,17 +78,16 @@ public class WordService {
    *
    * @param difficulty The difficulty of the word to select from
    */
-  public void selectRandomTarget(final Difficulty difficulty) {
-    List<String> words = this.wordMapping.get(difficulty);
-
+  public void selectRandomTarget(final String difficulty) {
+    List<String> words = this.getWordSelection(difficulty);
     // Remove user's past words from the new word selection
     for (final Round round : this.userService.getCurrentUser().getPastRounds()) {
-      words.remove(round.getWord());
+      words.remove(round.word());
     }
 
     // If the new word selection is empty let playable words be any from the given difficulty
     if (words.size() == 0) {
-      words = this.wordMapping.get(difficulty);
+      words = this.getWordSelection(difficulty);
     }
 
     this.targetWord = words.get(this.random.nextInt(words.size()));
@@ -119,5 +118,32 @@ public class WordService {
    */
   public Map<Difficulty, List<String>> getWordMapping() {
     return this.wordMapping;
+  }
+
+  /**
+   * Retrieves the selection of words depending on words difficulty setting
+   *
+   * @param difficulty difficulty setting
+   * @return word selection
+   */
+  public List<String> getWordSelection(final String difficulty) {
+
+    // Initialising word selection
+    List<String> words;
+
+    // Setting word selection depending on words difficulty setting
+    if (difficulty.contains("Easy")) {
+      words = this.wordMapping.get(Difficulty.EASY);
+    } else if (difficulty.contains("Medium")) {
+      words = this.wordMapping.get(Difficulty.EASY);
+      words.addAll(this.wordMapping.get(Difficulty.MEDIUM));
+    } else if (difficulty.contains("Hard")) {
+      words = this.wordMapping.get(Difficulty.EASY);
+      words.addAll(this.wordMapping.get(Difficulty.MEDIUM));
+      words.addAll(this.wordMapping.get(Difficulty.HARD));
+    } else {
+      words = this.wordMapping.get(Difficulty.HARD);
+    }
+    return words;
   }
 }

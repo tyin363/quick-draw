@@ -3,6 +3,9 @@ package nz.ac.auckland.se206.client;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import nz.ac.auckland.se206.client.sockets.ClientSocket;
+import nz.ac.auckland.se206.client.sounds.Music;
+import nz.ac.auckland.se206.client.sounds.SoundEffect;
+import nz.ac.auckland.se206.client.speech.TextToSpeech;
 import nz.ac.auckland.se206.client.util.View;
 import nz.ac.auckland.se206.core.di.ApplicationContext;
 
@@ -24,8 +27,11 @@ public class App extends Application {
    */
   @Override
   public void start(final Stage stage) {
-    final ApplicationContext applicationContext =
+    final ApplicationContext context =
         ApplicationContext.start(stage, View.SWITCH_USER, View.values());
-    applicationContext.get(ClientSocket.class);
+    context.get(ClientSocket.class);
+    context.get(TextToSpeech.class);
+    // Initialise background music
+    context.get(SoundEffect.class).playBackgroundMusic(Music.MAIN_MUSIC);
   }
 }

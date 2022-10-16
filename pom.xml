@@ -81,6 +81,11 @@
         <version>18.0.1</version>
       </dependency>
       <dependency>
+        <artifactId>javafx-media</artifactId>
+        <groupId>org.openjfx</groupId>
+        <version>18.0.1</version>
+      </dependency>
+      <dependency>
         <artifactId>junit-jupiter-engine</artifactId>
         <groupId>org.junit.jupiter</groupId>
         <scope>test</scope>
