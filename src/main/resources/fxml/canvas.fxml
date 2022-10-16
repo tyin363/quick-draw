@@ -52,49 +52,33 @@
                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
               </HBox.margin>
               <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0" GridPane.rowIndex="2">
                            <children>
-                              <GridPane>
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.00466918945312" minWidth="10.0" prefWidth="40.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.00466918945312" minWidth="10.0" prefWidth="130.0" />
-                                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="105.60443115234375" minWidth="10.0" prefWidth="40.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Pane fx:id="confidenceIcon" prefHeight="48.0" prefWidth="41.0" GridPane.columnIndex="2">
-                                       <styleClass>
-                                          <String fx:value="icon" />
-                                          <String fx:value="dash-icon" />
-                                       </styleClass>
-                                       <children>
-                                          <Pane layoutX="2.0" layoutY="19.0" prefHeight="200.0" prefWidth="200.0">
-                                             <opaqueInsets>
-                                                <Insets />
-                                             </opaqueInsets>
-                                          </Pane>
-                                       </children>
-                                       <GridPane.margin>
-                                          <Insets />
-                                       </GridPane.margin>
-                                    </Pane>
-                                    <Label fx:id="targetWordConfidenceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="214.0" styleClass="confidence" text="Target" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                    </Label>
-                                 </children>
-                              </GridPane>
+                              <Label fx:id="targetWordConfidenceLabel" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="confidence" text="Target" wrapText="true" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Label>
+                              <Pane fx:id="confidenceIcon">
+                                 <styleClass>
+                                    <String fx:value="dash-icon" />
+                                    <String fx:value="confidence-icon" />
+                                 </styleClass>
+                              </Pane>
                            </children>
                            <styleClass>
                               <String fx:value="bg-lightgray-100" />
                               <String fx:value="prediction-container" />
                            </styleClass>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets left="12.0" right="12.0" />
+                           </padding>
                         </HBox>
                         <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                   <font>
