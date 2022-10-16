@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Circle;
 import nz.ac.auckland.se206.annotations.Controller;
 import nz.ac.auckland.se206.annotations.Inject;
@@ -67,7 +68,7 @@ public class HeaderController implements LoadListener {
     this.currentUser = newCurrentUser;
     this.renderUserProfile(this.currentUser);
 
-    // Add volume slider functionality
+    // Add sound effect volume slider functionality
     this.soundEffectVolumeSlider
         .valueProperty()
         .addListener(
@@ -84,15 +85,10 @@ public class HeaderController implements LoadListener {
     // Save volume preference of user
     this.soundEffectVolumeSlider.setOnMouseReleased(
         event -> {
-          this.currentUser.setSoundEffectVolume(soundEffectVolumeSlider.getValue() / (500 / 3));
-          this.soundEffect
-              .getMediaPlayer()
-              .setVolume(soundEffectVolumeSlider.getValue() / (500 / 3));
-          System.out.println(this.soundEffect.getSoundEffectVolume());
-          this.userService.saveUser(this.currentUser);
+          setVolumePreference(soundEffectVolumeSlider, this.soundEffect.getMediaPlayer(), 500 / 3);
         });
 
-    // Add volume slider functionality
+    // Add music volume slider functionality
     this.musicVolumeSlider
         .valueProperty()
         .addListener(
@@ -105,14 +101,31 @@ public class HeaderController implements LoadListener {
                     .setVolume(musicVolumeSlider.getValue() / 500);
               }
             });
-
     // Save volume preference of user
     this.musicVolumeSlider.setOnMouseReleased(
         event -> {
-          this.currentUser.setMusicVolume(musicVolumeSlider.getValue() / 500);
-          this.soundEffect.getBackgroundMediaPlayer().setVolume(musicVolumeSlider.getValue() / 500);
-          this.userService.saveUser(this.currentUser);
+          setVolumePreference(musicVolumeSlider, this.soundEffect.getBackgroundMediaPlayer(), 500);
         });
+  }
+
+  /**
+   * Sets the user volume preference and changes the volume
+   *
+   * @param slider The volume slider
+   * @param player The media player responsible for playing sound
+   * @param factor The conversion rate of sound
+   */
+  private void setVolumePreference(Slider slider, MediaPlayer player, double factor) {
+    // Set user volume according to its slider
+    if (slider == musicVolumeSlider) {
+      this.currentUser.setMusicVolume(slider.getValue() / factor);
+    } else {
+      this.currentUser.setSoundEffectVolume(slider.getValue() / factor);
+    }
+
+    // Set the media player volume
+    player.setVolume(slider.getValue() / factor);
+    this.userService.saveUser(this.currentUser);
   }
 
   /** Update the profile picture and username to match the specified user. */
