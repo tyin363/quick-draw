@@ -1,8 +1,6 @@
 package nz.ac.auckland.se206.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,11 +36,7 @@ public class User {
     this.username = username;
     this.pastRounds = new ArrayList<>();
     this.gameSettings = new GameSettings();
-    final URL url = User.class.getResource("/images/defaultUserImage.jpg");
-    if (url != null) {
-      // TODO: Test with space in string
-      this.profilePicture = new File(url.getPath()).getAbsolutePath();
-    }
+    this.profilePicture = "images/defaultUserImage.jpg";
   }
 
   public GameSettings getGameSettings() {

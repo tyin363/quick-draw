@@ -274,7 +274,14 @@ public class ProfilePageController implements LoadListener {
    * @param absolutePath The absolute path to the image
    */
   private void renderUserProfilePicture(final String absolutePath) {
-    final Image image = new Image(absolutePath);
+    Image image;
+    try {
+      image = new Image(absolutePath);
+    } catch (final IllegalArgumentException e) {
+      // If the path is invalid or the file doesn't exist, use the default profile picture.
+      this.logger.warn("Error loading image: {}", absolutePath);
+      image = new Image("images/defaultUserImage.jpg");
+    }
     this.profileImageView.setImage(image);
     this.changeImageOverlay.setVisible(false);
   }
