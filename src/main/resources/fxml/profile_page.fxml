@@ -167,7 +167,7 @@
                                     <Button mnemonicParsing="false" onAction="#onChangeProfilePicture" text="Change">
                                        <styleClass>
                                           <String fx:value="profile-btn" />
-                                          <String fx:value="btn-primary" />
+                                          <String fx:value="btn-outline-primary" />
                                        </styleClass>
                                     </Button>
                                  </children>
@@ -188,7 +188,7 @@
                                     <Button mnemonicParsing="false" onAction="#onDeleteProfile" text="Delete">
                                        <styleClass>
                                           <String fx:value="profile-btn" />
-                                          <String fx:value="btn-danger" />
+                                          <String fx:value="btn-outline-danger" />
                                        </styleClass>
                                     </Button>
                                  </children>

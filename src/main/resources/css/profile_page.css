@@ -11,34 +11,6 @@
   -fx-text-fill:  -fx-text-default;
 }
 
-.btn-primary {
-  -fx-border-width: 2px;
-  -fx-border-color: -fx-highlight;
-  -fx-background-color: transparent;
-}
-
-.btn-primary:hover {
-  -fx-background-color: -fx-highlight;
-}
-
-.btn-secondary {
-  -fx-background-color: -fx-gray-25;
-}
-
-.btn-secondary:hover {
-  -fx-background-color: -fx-gray-50;
-}
-
-.btn-danger {
-  -fx-border-width: 2px;
-  -fx-border-color: -fx-red;
-  -fx-background-color: transparent;
-}
-
-.btn-danger:hover {
-  -fx-background-color: -fx-red;
-}
-
 /* Round History */
 
 .round-history {

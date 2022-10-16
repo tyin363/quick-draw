@@ -49,7 +49,7 @@ public class MainMenuController implements LoadListener {
    * timer starts.
    */
   @FXML
-  private void onStartGame() {
+  private void onStartNormal() {
     this.stateMachine.switchState(NormalCanvasState.class);
     this.sceneManager.switchToView(View.SETTINGS);
   }
