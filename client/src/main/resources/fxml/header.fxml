@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="70.0" minHeight="70.0" prefHeight="70.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.client.controllers.HeaderController">
+   <children>
+      <HBox maxHeight="70.0" minHeight="70.0" prefHeight="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane HBox.hgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button fx:id="backButton" maxHeight="25.0" maxWidth="13.0" minHeight="25.0" minWidth="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="13.0">
+                           <styleClass>
+                              <String fx:value="left-icon" />
+                              <String fx:value="back-btn" />
+                           </styleClass>
+                        </Button>
+                        <HBox fx:id="drawingSessionPopup" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="24.0" styleClass="drawing-session-request">
+                           <HBox.margin>
+                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                           </HBox.margin>
+                           <children>
+                              <Label onMouseClicked="#onAcceptSession" styleClass="accept" text="Accept" />
+                              <Label onMouseClicked="#onDeclineSession" styleClass="decline" text="Decline" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane>
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="SFX">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Slider fx:id="soundEffectVolumeSlider" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="text-default" text="Music">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Slider fx:id="musicVolumeSlider" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
+                     </padding>
+                     <children>
+                        <VBox alignment="CENTER_RIGHT" spacing="5.0">
+                           <children>
+                              <Label fx:id="username" contentDisplay="RIGHT" styleClass="text-default" text="Username">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="switchUserLabel" contentDisplay="RIGHT" onMouseClicked="#onSwitchUser" text="Switch User">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="16.0" />
+                                 </font>
+                                 <styleClass>
+                                    <String fx:value="text-lightgray-100" />
+                                    <String fx:value="switch-user" />
+                                 </styleClass>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <Pane fx:id="profilePicturePane" maxHeight="60.0" maxWidth="60.0" minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="60.0">
+                           <children>
+                              <ImageView fx:id="profilePicture" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#onClickProfile" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                           <styleClass>
+                              <String fx:value="hover-border" />
+                              <String fx:value="profile-border" />
+                           </styleClass>
+                        </Pane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@../css/header.css" />
+      <URL value="@../css/colours.css" />
+      <URL value="@../css/styles.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="bg-gray-50" />
+      <String fx:value="header" />
+   </styleClass>
+</AnchorPane>

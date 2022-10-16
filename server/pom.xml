@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <artifactId>quick-draw</artifactId>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>server</artifactId>
   <build>
     <plugins>
       <plugin>
@@ -20,13 +21,13 @@
       <plugin>
         <artifactId>javafx-maven-plugin</artifactId>
         <configuration>
-          <mainClass>nz.ac.auckland.se206.client.App</mainClass>
+          <mainClass>nz.ac.auckland.se206.server.App</mainClass>
           <release>17</release>
         </configuration>
         <executions>
           <execution>
             <configuration>
-              <mainClass>nz.ac.auckland.se206.client.App</mainClass>
+              <mainClass>nz.ac.auckland.se206.server.App</mainClass>
               <options>
                 <option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005
                 </option>
@@ -63,63 +64,57 @@
       </plugin>
     </plugins>
   </build>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <artifactId>javafx-controls</artifactId>
-        <groupId>org.openjfx</groupId>
-        <version>18.0.1</version>
-      </dependency>
-      <dependency>
-        <artifactId>javafx-fxml</artifactId>
-        <groupId>org.openjfx</groupId>
-        <version>18.0.1</version>
-      </dependency>
-      <dependency>
-        <artifactId>javafx-graphics</artifactId>
-        <groupId>org.openjfx</groupId>
-        <version>18.0.1</version>
-      </dependency>
-      <dependency>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <groupId>org.junit.jupiter</groupId>
-        <scope>test</scope>
-        <version>5.8.1</version>
-      </dependency>
-      <dependency>
-        <artifactId>slf4j-api</artifactId>
-        <groupId>org.slf4j</groupId>
-        <version>1.7.36</version>
-      </dependency>
-      <dependency>
-        <artifactId>logback-core</artifactId>
-        <groupId>ch.qos.logback</groupId>
-        <version>1.2.9</version>
-      </dependency>
-      <dependency>
-        <artifactId>logback-classic</artifactId>
-        <groupId>ch.qos.logback</groupId>
-        <version>1.2.11</version>
-      </dependency>
-      <dependency>
-        <artifactId>jackson-databind</artifactId>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <version>2.14.0-rc1</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-  <groupId>nz.ac.auckland.se206</groupId>
+  <dependencies>
+    <dependency>
+      <artifactId>javafx-controls</artifactId>
+      <groupId>org.openjfx</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>javafx-fxml</artifactId>
+      <groupId>org.openjfx</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>javafx-graphics</artifactId>
+      <groupId>org.openjfx</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>logback-core</artifactId>
+      <groupId>ch.qos.logback</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>logback-classic</artifactId>
+      <groupId>ch.qos.logback</groupId>
+    </dependency>
+    <dependency>
+      <groupId>nz.ac.auckland.se206</groupId>
+      <artifactId>core</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+  </dependencies>
   <modelVersion>4.0.0</modelVersion>
-  <modules>
-    <module>client</module>
-    <module>core</module>
-    <module>server</module>
-  </modules>
-  <packaging>pom</packaging>
+
+  <parent>
+    <artifactId>quick-draw</artifactId>
+    <groupId>nz.ac.auckland.se206</groupId>
+    <version>2.0.0</version>
+  </parent>
+
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  <version>2.0.0</version>
 </project>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nz.ac.auckland.se206.client.controllers.MainMenuController">
+  <children>
+    <fx:include fx:id="header" maxHeight="80.0" minHeight="80.0" minWidth="80.0" source="header.fxml" />
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="38.0" VBox.vgrow="ALWAYS">
+         <children>
+          <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="440.0" prefWidth="1150.0" spacing="40.0" HBox.hgrow="ALWAYS">
+            <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="641.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Logo.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="115.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/logoGif.gif" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" fillWidth="false" spacing="24.0">
+                     <children>
+                        <HBox fx:id="normalModeBox" alignment="CENTER" onMouseClicked="#onStartNormal" spacing="8.0">
+                           <children>
+                              <Label text="Normal" />
+                              <Pane styleClass="eye-icon" />
+                           </children>
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-outline-primary" />
+                              <String fx:value="mode-button" />
+                           </styleClass>
+                        </HBox>
+                        <HBox fx:id="hiddenModeBox" alignment="CENTER" onMouseClicked="#onStartHidden" spacing="8.0">
+                           <children>
+                              <Label text="Hidden" />
+                              <Pane styleClass="eye-slash-icon" />
+                           </children>
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-outline-primary" />
+                              <String fx:value="mode-button" />
+                           </styleClass>
+                        </HBox>
+                        <HBox fx:id="zenModeBox" alignment="CENTER" onMouseClicked="#onStartZenMode" spacing="8.0">
+                           <children>
+                              <Label text="Zen" />
+                              <Pane styleClass="palette-icon" />
+                           </children>
+                           <styleClass>
+                              <String fx:value="btn" />
+                              <String fx:value="btn-outline-primary" />
+                              <String fx:value="mode-button" />
+                           </styleClass>
+                        </HBox>
+                     </children>
+                  </VBox>
+              <Label fx:id="messageLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="64.0" prefWidth="1044.0" styleClass="text-default" text="Some message goes here" wrapText="true">
+                <font>
+                  <Font name="SansSerif Italic" size="18.0" />
+                </font>
+              </Label>
+            </children>
+          </VBox>
+         </children>
+      </HBox>
+  </children>
+  <stylesheets>
+    <URL value="@../css/styles.css" />
+    <URL value="@../css/colours.css" />
+      <URL value="@../css/main_menu.css" />
+  </stylesheets>
+   <styleClass>
+      <String fx:value="bg-gray-25" />
+      <String fx:value="root-element" />
+   </styleClass>
+</VBox>

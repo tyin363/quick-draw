@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" prefHeight="550.0" prefWidth="750.0"
+  xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="nz.ac.auckland.se206.client.controllers.CanvasController">
+  <children>
+      <fx:include source="header.fxml" />
+    <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+      <children>
+        <StackPane prefHeight="198.0" prefWidth="1150.0">
+               <children>
+                  <HBox fx:id="defaultHbox" alignment="CENTER" prefHeight="171.0" prefWidth="1150.0" spacing="5.0">
+                <children>
+                  <Label alignment="CENTER_RIGHT" text="You are drawing:" textFill="WHITE">
+                    <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <font>
+                      <Font size="32.0" />
+                    </font>
+                  </Label>
+                  <Label fx:id="targetWordLabel" alignment="CENTER_RIGHT" text="Target" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                      <Font name="SansSerif Bold" size="42.0" />
+                    </font>
+                  </Label>
+                </children>
+              </HBox>
+              <fx:include fx:id="wordDefinition" source="word_definition.fxml" />
+               </children>
+            </StackPane>
+            <HBox alignment="CENTER" prefHeight="483.0" prefWidth="1150.0" styleClass="bg-gray-25">
+          <children>
+            <Pane minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
+            <GridPane alignment="TOP_CENTER" hgap="20.0" prefHeight="431.0" prefWidth="690.0" vgap="20.0" HBox.hgrow="ALWAYS">
+              <HBox.margin>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+              </HBox.margin>
+              <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="targetWordConfidenceLabel" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" styleClass="confidence" text="Target" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Label>
+                              <Pane fx:id="confidenceIcon">
+                                 <styleClass>
+                                    <String fx:value="confidence-icon" />
+                                    <String fx:value="dash-icon" />
+                                 </styleClass>
+                              </Pane>
+                           </children>
+                           <styleClass>
+                              <String fx:value="bg-lightgray-100" />
+                              <String fx:value="prediction-container" />
+                           </styleClass>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <padding>
+                              <Insets left="12.0" right="12.0" />
+                           </padding>
+                        </HBox>
+                        <Label fx:id="mainLabel" contentDisplay="CENTER" styleClass="text-default" text="60 Seconds" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <font>
+                    <Font name="SansSerif Regular" size="24.0" />
+                  </font>
+                </Label>
+                        <Label styleClass="text-default" text="Predictions" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <font>
+                    <Font name="SansSerif Regular" size="24.0" />
+                  </font>
+                </Label>
+                <Pane maxWidth="521.0" prefHeight="342.0" prefWidth="516.0" styleClass="card" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER">
+                  <children>
+                    <Canvas fx:id="canvas" height="293.0" layoutX="-8.0" styleClass="bg-highlight" width="516.0">
+                      <cursor>
+                        <Cursor fx:constant="HAND" />
+                      </cursor>
+                    </Canvas>
+                  </children>
+                </Pane>
+                <Pane minHeight="0.0" minWidth="0.0" />
+                <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                      <HBox fx:id="gameOverActionsContainer" alignment="CENTER" prefHeight="30.0" prefWidth="516.0" spacing="20.0">
+                        <children>
+                          <Button fx:id="saveButton" mnemonicParsing="false" onAction="#onSave" text="Save">
+                                       <styleClass>
+                                          <String fx:value="btn" />
+                                          <String fx:value="btn-primary" />
+                                       </styleClass></Button>
+                          <Button mnemonicParsing="false" onAction="#onRestart" text="Play Again">
+                                       <styleClass>
+                                          <String fx:value="btn" />
+                                          <String fx:value="btn-primary" />
+                                       </styleClass></Button>
+                          <Button mnemonicParsing="false" onAction="#onReturnToMainMenu" text=" Main Menu">
+                                       <styleClass>
+                                          <String fx:value="btn" />
+                                          <String fx:value="btn-primary" />
+                                       </styleClass></Button>
+                        </children>
+                      </HBox>
+                              <HBox fx:id="hintsHbox" alignment="CENTER" prefHeight="43.0" prefWidth="1150.0" spacing="10.0" visible="false">
+                                 <children>
+                                    <Button minWidth="119.0" mnemonicParsing="false" onAction="#onGetHint" prefHeight="37.0" prefWidth="119.0" text="Get Hint">
+                                       <styleClass>
+                                          <String fx:value="btn" />
+                                          <String fx:value="btn-primary" />
+                                       </styleClass></Button>
+                                    <Label fx:id="hintLabel" prefHeight="49.0" prefWidth="375.0" styleClass="text-default">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fx:id="confidenceLevelImage" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+                           </children></VBox>
+                <VBox fx:id="predictionVertBox" alignment="CENTER" minWidth="182.0" prefHeight="325.0" prefWidth="182.0" spacing="5.0" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                  <styleClass>
+                    <String fx:value="prediction-container" />
+                    <String fx:value="bg-lightgray-100" />
+                  </styleClass>
+                </VBox>
+                <VBox GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <children>
+                    <VBox fx:id="toolContainer" alignment="CENTER_LEFT" fillWidth="false" VBox.vgrow="ALWAYS">
+                      <children>
+                        <VBox alignment="CENTER" fillWidth="false" styleClass="vertical-pen-options">
+                          <children>
+                            <Pane fx:id="eraserPane" accessibleHelp="Select the eraser" accessibleRole="BUTTON" onMouseClicked="#onSelectEraser">
+                              <children>
+                                <Pane layoutX="7.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
+                              </children>
+                              <styleClass>
+                                <String fx:value="eraser-icon" />
+                                <String fx:value="icon" />
+                              </styleClass>
+                            </Pane>
+                            <Pane fx:id="penPane" accessibleHelp="Select the pen brush" accessibleRole="BUTTON" onMouseClicked="#onSelectPen" styleClass="icon">
+                              <children>
+                                <Pane layoutX="8.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" styleClass="pen-icon" />
+                              </children>
+                            </Pane>
+                            <Pane fx:id="clearPane" accessibleHelp="Clear the canvas" accessibleRole="BUTTON" onMouseClicked="#onClear">
+                              <children>
+                                <Pane layoutX="10.0" layoutY="7.0" prefHeight="25.0" prefWidth="83.0" />
+                              </children>
+                              <styleClass>
+                                <String fx:value="icon" />
+                                <String fx:value="trashcan-icon" />
+                              </styleClass>
+                            </Pane>
+                          </children>
+                        </VBox>
+                      </children>
+                    </VBox>
+                  </children>
+                </VBox>
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="363.0" minWidth="10.0" prefWidth="220.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.0" minWidth="10.0" prefWidth="516.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="516.0" minWidth="-Infinity" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="94.0" minHeight="20.0" prefHeight="20.0" vgrow="NEVER" />
+                <RowConstraints maxHeight="293.0" minHeight="230.0" prefHeight="293.0" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="61.0" vgrow="NEVER" />
+              </rowConstraints>
+            </GridPane>
+            <Pane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" HBox.hgrow="ALWAYS" />
+          </children>
+          <opaqueInsets>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+          </opaqueInsets>
+        </HBox>
+      </children>
+    </VBox>
+  </children>
+  <styleClass>
+    <String fx:value="bg-gray-25" />
+    <String fx:value="root-element" />
+  </styleClass>
+  <stylesheets>
+    <URL value="@../css/styles.css" />
+    <URL value="@../css/colours.css" />
+    <URL value="@../css/zen_mode.css" />
+    <URL value="@../css/canvas.css" />
+  </stylesheets>
+</VBox>

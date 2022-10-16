@@ -715,5 +715,6 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/git,java,maven,linux,macos,eclipse,windows,netbeans,intellij+all,visualstudio,visualstudiocode
 
-!src/main/resources/ml/doodle_mobilenet.zip
+!client/src/main/resources/ml/doodle_mobilenet.zip
 UserData/
+config.json
