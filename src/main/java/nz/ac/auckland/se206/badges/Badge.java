@@ -35,6 +35,7 @@ public enum Badge {
    *
    * @param hasAchievedBadge The predicate to use
    * @param description The description of the badge
+   * @param displayName The display name
    */
   Badge(
       final Predicate<User> hasAchievedBadge, final String description, final String displayName) {

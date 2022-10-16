@@ -114,13 +114,13 @@ public class WordService {
   /**
    * Retrieves the selection of words depending on words difficulty setting
    *
-   * @param difficulty
+   * @param difficulty difficulty setting
    * @return word selection
    */
   public List<String> getWordSelection(final String difficulty) {
 
     // Initialising word selection
-    List<String> words = null;
+    List<String> words;
 
     // Setting word selection depending on words difficulty setting
     if (difficulty.contains("Easy")) {

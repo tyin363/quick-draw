@@ -69,7 +69,6 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML private AnchorPane wordDefinition;
   @FXML private Label hintLabel;
   @FXML private HBox hintsHbox;
-  private Label[] predictionLabels;
 
   @Inject private Logger logger;
   @Inject private Config config;
@@ -84,6 +83,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   private HeaderController headerController;
   private boolean isUpdatingPredictions;
   private Color penColour = Color.BLACK;
+  private Label[] predictionLabels;
 
   // Mouse coordinates
   private double currentX;

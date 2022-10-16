@@ -196,20 +196,22 @@ public class HiddenMode implements TerminationListener {
       final Node nextDefinitionVbox) {
     // Update the displayed definitions and buttons
     target.setText(this.getDefinitions().get(this.definitionIndex));
+
+    // Dynamically change the font size depending on the definition length
     this.changeFontDynamically(target, maxWidth, defaultFontSize);
     this.checkForPreviousAndNext(previousDefinitionVbox, nextDefinitionVbox);
     this.setNumberOfDefinitions(numberOfDefinitionLabel);
   }
 
   /** The previous definition of the given word will be shown. */
-  public void previousDefinition() {
+  public void showPreviousDefinition() {
     if (this.definitionIndex - 1 >= 0) {
       this.decrementIndex();
     }
   }
 
   /** The next definition of the given word will be shown. */
-  public void nextDefinition() {
+  public void showNextDefinition() {
     if (this.definitionIndex + 1 <= this.getDefinitions().size() - 1) {
       this.incrementIndex();
     }

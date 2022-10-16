@@ -51,6 +51,7 @@ public class UserProfile extends VBox {
     container.getStyleClass().add("profile-picture");
     container.setAlignment(Pos.CENTER);
 
+    // Checking if profie picture is null
     if (user.getProfilePicture() != null) {
       final ImageView imageView = new ImageView(user.getProfileImage());
       imageView.setFitHeight(220);

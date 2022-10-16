@@ -122,6 +122,8 @@ public class Config {
    */
   public int getWinPlacement() {
     User currentUser = this.userService.getCurrentUser();
+
+    // Returning the win placement depending on the accuracy setting
     if (currentUser.getGameSettings().getAccuracy().contentEquals("Easy")) {
       return 3;
     } else if (currentUser.getGameSettings().getAccuracy().contentEquals("Medium")) {
@@ -175,6 +177,8 @@ public class Config {
    */
   public double getTargetConfidence() {
     User currentUser = this.userService.getCurrentUser();
+
+    // Returning the target confidence level depending on the confidence setting
     if (currentUser.getGameSettings().getConfidence().contentEquals("Easy")) {
       return 0.01;
     } else if (currentUser.getGameSettings().getConfidence().contentEquals("Medium")) {
