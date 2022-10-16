@@ -1,11 +1,31 @@
 package nz.ac.auckland.se206.badges;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Arrays;
 import java.util.List;
+import nz.ac.auckland.se206.badges.serialization.UserBadgesDeserializer;
+import nz.ac.auckland.se206.badges.serialization.UserBadgesSerializer;
 
+@JsonSerialize(using = UserBadgesSerializer.class)
+@JsonDeserialize(using = UserBadgesDeserializer.class)
 public class UserBadges {
 
   private int bitFlag;
+
+  /** Creates a new instance of the User Badges class with no badges. */
+  public UserBadges() {
+    this.bitFlag = 0;
+  }
+
+  /**
+   * Constructs a new instance of the User Badges class with the given bit flag.
+   *
+   * @param bitFlag The bit flag to use
+   */
+  public UserBadges(final int bitFlag) {
+    this.bitFlag = bitFlag;
+  }
 
   /**
    * Determines if the user has the given badge by checking if the badges bit flag is set.
@@ -34,6 +54,15 @@ public class UserBadges {
    */
   public List<Badge> getBadges() {
     return Arrays.stream(Badge.values()).filter(this::hasBadge).toList();
+  }
+
+  /**
+   * Retrieves the underlying bit flag for this user's badges.
+   *
+   * @return The bit flag
+   */
+  public int getBitFlag() {
+    return this.bitFlag;
   }
 
   /**
