@@ -8,6 +8,11 @@ import nz.ac.auckland.se206.badges.UserBadges;
 
 public class UserBadgesSerializer extends StdSerializer<UserBadges> {
 
+  /** Creates a new instance of the User Badges Serializer. */
+  protected UserBadgesSerializer() {
+    this(null);
+  }
+
   /**
    * Creates a new instance of the User Badges Serializer.
    *

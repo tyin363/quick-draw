@@ -8,6 +8,11 @@ import nz.ac.auckland.se206.badges.UserBadges;
 
 public class UserBadgesDeserializer extends StdDeserializer<UserBadges> {
 
+  /** Creates a new instance of the User Badges Deserializer. */
+  protected UserBadgesDeserializer() {
+    this(null);
+  }
+
   /**
    * Creates a new instance of the User Badges Deserializer with the given value type.
    *
