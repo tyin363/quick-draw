@@ -75,6 +75,7 @@ public class ProfilePageController implements LoadListener {
   /** Delete the current user and then take them back to the switch user view. */
   @FXML
   private void onDeleteUser() {
+    this.soundEffect.playCancelSound();
     this.userService.deleteUser(this.user);
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
@@ -82,6 +83,7 @@ public class ProfilePageController implements LoadListener {
   /** Delete the current user and then take them back to the switch user view. */
   @FXML
   private void onCancelEdit() {
+    this.soundEffect.playCancelSound();
     setEditUsernameMode(false);
     setUsernameWidth();
   }
@@ -89,6 +91,7 @@ public class ProfilePageController implements LoadListener {
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
+    this.soundEffect.playClickSound();
     this.usernameStackPane.setPrefWidth(usernameTextFieldWidth);
     this.usernameTextField.setText(this.user.getUsername());
     setEditUsernameMode(true);
@@ -130,6 +133,8 @@ public class ProfilePageController implements LoadListener {
 
     // Do not allow null to be a username
     if (!this.usernameTextField.getText().isBlank()) {
+      this.soundEffect.playSettingsClickSound();
+
       this.usernameLabel.setText(this.usernameTextField.getText());
       this.user.setUsername(this.usernameTextField.getText());
       this.userService.saveUser(this.user);
@@ -175,6 +180,7 @@ public class ProfilePageController implements LoadListener {
    * @param isEdit The boolean value that will determines visibility of elements
    */
   private void setEditUsernameMode(boolean isEdit) {
+
     // Visibility of default elements are visible
     this.editUsernameButton.setVisible(!isEdit);
     this.usernameLabel.setVisible(!isEdit);
