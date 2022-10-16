@@ -32,6 +32,7 @@ public class DisplayBadge extends HBox {
 
     // Add a tooltip describing what the badge is awarded for
     Tooltip badgeToolTip = new Tooltip(badge.getDescription());
+    badgeToolTip.setStyle("-fx-font-weight: bold; -fx-font-size: 16px");
 
     // Reducing show delay for badge tool tip
     badgeToolTip.setShowDelay(Duration.millis(100));
