@@ -1,13 +1,11 @@
 package nz.ac.auckland.se206.controllers;
 
-import java.io.File;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.MediaPlayer;
@@ -140,17 +138,7 @@ public class HeaderController implements LoadListener {
     this.soundEffectVolumeSlider.setValue(user.getSoundEffectVolume() * (500 / 3));
     this.username.setText(user.getUsername());
     this.profilePicture.setVisible(true);
-    final File file = new File(user.getProfilePicture());
-
-    // Check that the profile picture exists
-    if (file.exists()) {
-      final Image image = new Image(file.toURI().toString());
-      this.profilePicture.setImage(image);
-      return;
-    }
-
-    // If the user doesn't have a profile picture, or it doesn't exist, hide the image.
-    this.profilePicture.setVisible(false);
+    this.profilePicture.setImage(user.getProfileImage());
   }
 
   /** Buttons are disabled and will not be able to be clicked */

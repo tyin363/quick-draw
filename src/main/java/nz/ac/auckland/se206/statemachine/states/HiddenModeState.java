@@ -3,9 +3,10 @@ package nz.ac.auckland.se206.statemachine.states;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.hiddenmode.HiddenMode;
+import nz.ac.auckland.se206.users.Round.Mode;
 
 @Singleton(injectSuper = true)
-public class HiddenModeState extends DefaultCanvasState {
+public class HiddenModeState extends NormalCanvasState {
 
   @Inject private HiddenMode hiddenMode;
 
@@ -60,5 +61,15 @@ public class HiddenModeState extends DefaultCanvasState {
   protected String getConclusionMessage(final boolean wasGuessed) {
     return "%s The word was %s."
         .formatted(super.getConclusionMessage(wasGuessed), this.wordService.getTargetWord());
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @return {@inheritDoc}
+   */
+  @Override
+  protected Mode getMode() {
+    return Mode.HIDDEN;
   }
 }

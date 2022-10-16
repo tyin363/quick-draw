@@ -10,6 +10,7 @@ import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.speech.TextToSpeech;
 import nz.ac.auckland.se206.users.Round;
+import nz.ac.auckland.se206.users.Round.Mode;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Config;
@@ -19,7 +20,7 @@ import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.WordService;
 
 @Singleton(injectSuper = true)
-public class DefaultCanvasState extends CanvasState implements TerminationListener {
+public class NormalCanvasState extends CanvasState implements TerminationListener {
 
   @Inject protected SoundEffect soundEffect;
   @Inject protected TextToSpeech textToSpeech;
@@ -105,7 +106,8 @@ public class DefaultCanvasState extends CanvasState implements TerminationListen
     final User currentUser = this.userService.getCurrentUser();
 
     // Get current round
-    final Round round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
+    final Round round =
+        new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed, this.getMode());
 
     // Play sound effect and music based on if the user won or lost
     this.soundEffect.terminateBackgroundMusic();
@@ -144,6 +146,15 @@ public class DefaultCanvasState extends CanvasState implements TerminationListen
    */
   protected String getConclusionMessage(final boolean wasGuessed) {
     return wasGuessed ? "You Win!" : "Time up!";
+  }
+
+  /**
+   * Retrieves the current mode of the game.
+   *
+   * @return The current mode of the game
+   */
+  protected Mode getMode() {
+    return Mode.NORMAL;
   }
 
   /** When the application is terminated, make sure to stop the timer. */

@@ -11,8 +11,8 @@ import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
-import nz.ac.auckland.se206.statemachine.states.DefaultCanvasState;
 import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
+import nz.ac.auckland.se206.statemachine.states.NormalCanvasState;
 import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.util.Helpers;
 import nz.ac.auckland.se206.util.Sound;
@@ -53,10 +53,9 @@ public class MainMenuController implements LoadListener, TerminationListener {
    * timer starts.
    */
   @FXML
-  private void onStartGame() {
-    // Play click sound effect
+  private void onStartNormal() {
     this.soundEffect.playSound(Sound.CLICK);
-    this.stateMachine.switchState(DefaultCanvasState.class);
+    this.stateMachine.switchState(NormalCanvasState.class);
     this.sceneManager.switchToView(View.SETTINGS);
   }
 

@@ -1,11 +1,9 @@
-package nz.ac.auckland.se206.components;
+package nz.ac.auckland.se206.components.profile;
 
-import java.io.File;
 import java.util.Arrays;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -54,19 +52,13 @@ public class UserProfile extends VBox {
     container.setAlignment(Pos.CENTER);
 
     if (user.getProfilePicture() != null) {
-      final File file = new File(user.getProfilePicture());
-      // Ensure that the image exists. If it doesn't then fall back to the abbreviated username
-      // profile picture instead. It might not exist if a user accidentally deletes it or moves it.
-      if (file.exists()) {
-        final Image image = new Image(file.toURI().toString());
-        final ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(220);
-        imageView.setFitWidth(220);
-        imageView.setPreserveRatio(true);
+      final ImageView imageView = new ImageView(user.getProfileImage());
+      imageView.setFitHeight(220);
+      imageView.setFitWidth(220);
+      imageView.setPreserveRatio(true);
 
-        container.getChildren().add(imageView);
-        return container;
-      }
+      container.getChildren().add(imageView);
+      return container;
     }
 
     // If they don't have a profile picture then render the abbreviated username profile picture

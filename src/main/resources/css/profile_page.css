@@ -1,0 +1,151 @@
+/* Generic */
+
+.secondary-label {
+  -fx-font-size: 16px;
+  -fx-text-fill: -fx-lightgray-100;
+}
+
+.secondary-title {
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-text-fill:  -fx-text-default;
+}
+
+/* Round History */
+
+.round-history {
+  -fx-spacing: 12px;
+  -fx-background-radius: 16px;
+  -fx-background-color: -fx-gray-50;
+  -fx-padding: 12px 20px;
+}
+
+.round-history-entries {
+  -fx-spacing: 8px;
+}
+
+.round-entry > Label, .round-entry > HBox > Label {
+  -fx-font-size: 16px;
+  -fx-text-fill: -fx-lightgray-100;
+}
+
+.eye-icon {
+  -fx-min-width: 18px;
+  -fx-max-height: 14px;
+}
+
+.eye-slash-icon {
+  -fx-max-height: 16px;
+  -fx-pref-width: 20px;
+}
+
+.round-won > Pane {
+  -fx-background-color: -fx-green;
+}
+
+.round-won > Label {
+  -fx-text-fill: -fx-green;
+}
+
+.round-lost > Pane {
+  -fx-background-color: -fx-red;
+}
+
+.round-lost > Label {
+  -fx-text-fill: -fx-red;
+}
+
+/* Stats */
+
+.stats-overview {
+  -fx-pref-height: 260px;
+  -fx-padding: 20px 32px;
+  -fx-spacing: 24px;
+  -fx-background-radius: 16px;
+  -fx-background-color: -fx-gray-50;
+}
+
+.stats-column {
+  -fx-spacing: 16px;
+}
+
+.stat-card {
+  -fx-pref-width: 220px;
+  -fx-padding: 12px 16px;
+  -fx-background-radius: 10px;
+  -fx-background-color: -fx-gray-75;
+}
+
+.stat-primary {
+  -fx-font-size: 40px;
+  -fx-font-weight: bold;
+}
+
+.stat-secondary {
+  -fx-font-size: 32px;
+  -fx-font-weight: bold;
+}
+
+.stat-icon {
+  -fx-pref-width: 20px;
+  -fx-min-width: 20px;
+  -fx-max-width: 20px;
+  -fx-min-height: 20px;
+  -fx-background-color: -fx-lightgray-100;
+}
+
+/* Profile */
+
+.profile-container {
+  -fx-spacing: 24px;
+  -fx-padding: 20px 32px;
+  -fx-background-radius: 16px;
+  -fx-background-color: -fx-gray-50;
+}
+
+.profile-actions {
+  -fx-spacing: 24px;
+  -fx-padding: 12px 24px;
+  -fx-background-radius: 10px;
+  -fx-background-color: -fx-gray-75;
+}
+
+.profile-label {
+  -fx-font-weight: bold;
+}
+
+.profile-btn {
+  -fx-pref-height: 36px;
+  -fx-min-width: 100px;
+  -fx-background-radius: 4px;
+  -fx-border-radius: 4px;
+  -fx-font-size: 16px;
+  -fx-text-fill: -fx-text-default;
+  -fx-font-weight: bold;
+}
+
+.username-text-field {
+  -fx-font-weight: bold;
+}
+
+.change-image-overlay > Pane {
+  -fx-background-color: white;
+  -fx-opacity: 65%;
+}
+
+.change-image-overlay > Label {
+  -fx-text-fill: -fx-gray-50;
+  -fx-font-size: 28px;
+  -fx-font-weight: bold;
+}
+
+.discard-changes-icon {
+  -fx-background-color: -fx-lightgray-100;
+  -fx-pref-height: 20px;
+  -fx-max-height: 20px;
+  -fx-pref-width: 20px;
+}
+
+.discard-changes-icon:hover {
+  -fx-background-color: white;
+}
