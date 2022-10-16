@@ -36,11 +36,10 @@ public class SoundEffect implements TerminationListener {
    * This method plays a sound effect given the file location of the sound effect and its volume.
    *
    * @param soundLocation The location of the sound file
-   * @param volume The volume of the sound effect
    */
   private void playSound(String soundLocation) {
     // Set volume
-    getUserVolume();
+    setUserVolume();
 
     // Play sound effect
     soundEffect = new Media(new File(soundLocation).toURI().toString());
@@ -52,12 +51,11 @@ public class SoundEffect implements TerminationListener {
   /**
    * This method plays a sound effect given the file location of the sound effect and its volume.
    *
-   * @param soundLocation The location of the sound file
-   * @param volume The volume of the sound effect
+   * @param music The location of the sound file =
    */
   private void playBackgroundMusic(String music) {
     // Set volume
-    getUserVolume();
+    setUserVolume();
 
     // Play music
     soundEffect = new Media(new File(music).toURI().toString());
@@ -66,13 +64,13 @@ public class SoundEffect implements TerminationListener {
     backgroundMediaPlayer.play();
 
     // Loop if music is the main or canvas music
-    if (music == mainMusic || music == defaultCanvasMusic) {
+    if (music.equals(mainMusic) || music.equals(defaultCanvasMusic)) {
       backgroundMediaPlayer.setCycleCount(Integer.MAX_VALUE);
     }
   }
 
   /** Gets the user volume and sets it if a current user exists */
-  private void getUserVolume() {
+  private void setUserVolume() {
     if (this.userService.getCurrentUser() != null) {
       this.musicVolume = this.userService.getCurrentUser().getMusicVolume();
       this.soundEffectVolume = this.userService.getCurrentUser().getSoundEffectVolume();
