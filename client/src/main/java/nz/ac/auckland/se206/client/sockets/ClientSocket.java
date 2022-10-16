@@ -153,7 +153,7 @@ public class ClientSocket implements EnableListener, TerminationListener {
     }
   }
 
-  /** */
+  /** When the application is closed, make sure to stop all the threads. */
   @Override
   public void onTerminate() {
     this.logger.info("Terminating client socket");
