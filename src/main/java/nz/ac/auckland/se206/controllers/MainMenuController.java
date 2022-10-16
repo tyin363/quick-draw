@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.SceneManager;
@@ -111,6 +112,10 @@ public class MainMenuController implements LoadListener {
     Tooltip normalModeTip = new Tooltip("Timed speed drawing for a given word");
     Tooltip hiddenModeTip = new Tooltip("Timed speed drawing for a given definition");
     Tooltip zenModeTip = new Tooltip("Endless drawing with color!");
+
+    normalModeTip.setShowDelay(Duration.millis(100));
+    hiddenModeTip.setShowDelay(Duration.millis(100));
+    zenModeTip.setShowDelay(Duration.millis(100));
 
     // Setting main menu button tool tips
     Tooltip.install(this.normalModeBox, normalModeTip);
