@@ -5,10 +5,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
+import nz.ac.auckland.se206.controllers.scenemanager.listeners.TerminationListener;
 import nz.ac.auckland.se206.users.UserService;
 
 @Singleton
-public class SoundEffect {
+public class SoundEffect implements TerminationListener {
   @Inject private UserService userService;
 
   private Media soundEffect;
@@ -200,5 +201,11 @@ public class SoundEffect {
     if (!(this.backgroundMediaPlayer == null)) {
       this.backgroundMediaPlayer.stop();
     }
+  }
+
+  @Override
+  public void onTerminate() {
+    terminate();
+    terminateBackgroundMusic();
   }
 }
