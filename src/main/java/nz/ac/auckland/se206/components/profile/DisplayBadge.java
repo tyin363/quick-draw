@@ -6,6 +6,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.util.Duration;
 import nz.ac.auckland.se206.badges.Badge;
 import nz.ac.auckland.se206.users.User;
 
@@ -30,7 +31,12 @@ public class DisplayBadge extends HBox {
     pane.getStyleClass().add(isSpeed ? "clock-icon" : "fire-curved-icon");
 
     // Add a tooltip describing what the badge is awarded for
-    Tooltip.install(this, new Tooltip(badge.getDescription()));
+    Tooltip badgeToolTip = new Tooltip(badge.getDescription());
+    badgeToolTip.setStyle("-fx-font-weight: bold; -fx-font-size: 16px");
+
+    // Reducing show delay for badge tool tip
+    badgeToolTip.setShowDelay(Duration.millis(100));
+    Tooltip.install(this, badgeToolTip);
     this.getStyleClass().addAll("badge", badge.getBadgeTier());
     this.getChildren().addAll(label, pane);
     this.setAlignment(Pos.CENTER);
