@@ -30,7 +30,7 @@
                               <String fx:value="back-btn" />
                            </styleClass>
                         </Button>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="24.0" styleClass="drawing-session-request">
+                        <HBox fx:id="drawingSessionPopup" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="24.0" styleClass="drawing-session-request">
                            <HBox.margin>
                               <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                            </HBox.margin>

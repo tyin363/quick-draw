@@ -36,6 +36,10 @@
   -fx-font-weight: bold;
 }
 
+.drawing-session-request > Label:hover {
+  -fx-underline: true;
+}
+
 .accept {
   -fx-text-fill: -fx-green;
 }
