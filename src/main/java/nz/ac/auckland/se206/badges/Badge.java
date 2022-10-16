@@ -1,6 +1,11 @@
 package nz.ac.auckland.se206.badges;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import nz.ac.auckland.se206.users.User;
 
 public enum Badge {
@@ -17,23 +22,35 @@ public enum Badge {
       "Win a game in under 5 seconds",
       "Speed III"),
   SPEED_PLATINUM(
-      user -> user.getFastestTime() >= 0 && user.getFastestTime() < 3,
-      "Win a game in under 3 seconds",
+      user -> user.getFastestTime() >= 0 && user.getFastestTime() < 2,
+      "Win a game in under 2 seconds",
       "Speed IV"),
   STREAK_BRONZE(user -> user.getBestWinStreak() >= 3, "Win 3 games in a row", "Streak I"),
   STREAK_SILVER(user -> user.getBestWinStreak() >= 10, "Win 10 games in a row", "Streak II"),
   STREAK_GOLD(user -> user.getBestWinStreak() >= 20, "Win 20 games in a row", "Streak III"),
   STREAK_PLATINUM(user -> user.getBestWinStreak() >= 40, "Win 40 games in a row", "Streak IV");
 
+  private static final Map<String, List<Badge>> BADGE_GROUPINGS =
+      Arrays.stream(Badge.values()).collect(Collectors.groupingBy(Badge::getBadgeGroup));
+
+  /**
+   * Retrieves a list of all the badges in the given group. If the group doesn't exist an empty list
+   * is returned.
+   *
+   * @param group The group to retrieve badges for
+   * @return The list of badges in the group
+   */
+  public static List<Badge> getBadgesForGroup(final String group) {
+    return BADGE_GROUPINGS.getOrDefault(group, Collections.emptyList());
+  }
+
   private final Predicate<User> hasAchievedBadge;
   private final String description;
   private final String displayName;
-  private final String badgeClassName;
 
   /**
    * Constructs a new badge with the given predicate that determines if the user has achieved the
-   * badge. The class name for this badge is the same as the enum name in lowercase with the
-   * underscores replaced with dashes.
+   * badge.
    *
    * @param hasAchievedBadge The predicate to use
    * @param description The description of the badge
@@ -43,8 +60,6 @@ public enum Badge {
     this.hasAchievedBadge = hasAchievedBadge;
     this.description = description;
     this.displayName = displayName;
-    // The class name is the enum name in lowercase with the underscores replaced with dashes
-    this.badgeClassName = this.name().toLowerCase().replace("_", "-");
   }
 
   /**
@@ -55,15 +70,6 @@ public enum Badge {
    */
   public int getBitFlag() {
     return 1 << this.ordinal();
-  }
-
-  /**
-   * Retrieves the class name of this badge. This is used to display the badge in the UI.
-   *
-   * @return The class name of this badge
-   */
-  public String getBadgeClassName() {
-    return this.badgeClassName;
   }
 
   /**
@@ -92,5 +98,15 @@ public enum Badge {
    */
   public boolean hasAchievedBadge(final User user) {
     return this.hasAchievedBadge.test(user);
+  }
+
+  /**
+   * Retrieves the badge's group. This is the first part of the enum name before the underscore in
+   * lowercase.
+   *
+   * @return The badge's group
+   */
+  public String getBadgeGroup() {
+    return this.name().split("_")[0].toLowerCase();
   }
 }

@@ -53,6 +53,8 @@ public class ProfilePageController implements LoadListener {
   @FXML private Button saveUsernameButton;
   @FXML private Button editUsernameButton;
   @FXML private Pane discardUsernameChanges;
+  @FXML private HBox speedBadgesContainer;
+  @FXML private HBox streakBadgesContainer;
   @FXML private AnchorPane header;
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
@@ -84,7 +86,11 @@ public class ProfilePageController implements LoadListener {
     // Add a tooltip to the discard username changes button
     final Tooltip tooltip = new Tooltip("Discard the current changes to the username");
     Tooltip.install(this.discardUsernameChanges, tooltip);
+
+    this.renderBadges();
   }
+
+  private void renderBadges() {}
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
