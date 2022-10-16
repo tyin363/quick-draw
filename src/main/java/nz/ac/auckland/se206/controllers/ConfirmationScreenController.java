@@ -83,6 +83,8 @@ public class ConfirmationScreenController implements LoadListener {
 
     // Switching to previous screen depending on the current mode
     this.sceneManager.switchToView(View.MAIN_MENU);
+
+    // Return to previous screen depending on current mode
     if (this.stateMachine.getCurrentState().getClass() == ZenModeState.class) {
       this.sceneManager.switchToView(View.MAIN_MENU);
     } else {

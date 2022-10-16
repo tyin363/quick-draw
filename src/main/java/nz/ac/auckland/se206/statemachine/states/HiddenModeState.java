@@ -37,6 +37,7 @@ public class HiddenModeState extends NormalCanvasState {
   public void onLoad() {
     super.onLoad();
     this.canvasController.getHintsHbox().setVisible(true);
+    this.canvasController.getTargetWordConfidenceLabel().setText("Hidden");
   }
 
   /**
