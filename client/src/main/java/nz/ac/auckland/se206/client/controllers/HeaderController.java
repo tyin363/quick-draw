@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import nz.ac.auckland.se206.client.sockets.DrawingSessionService;
 import nz.ac.auckland.se206.client.users.User;
 import nz.ac.auckland.se206.client.users.UserService;
 import nz.ac.auckland.se206.client.util.View;
@@ -23,6 +24,7 @@ public class HeaderController implements LoadListener {
 
   @Inject private SceneManager sceneManager;
   @Inject private UserService userService;
+  @Inject private DrawingSessionService drawingSessionService;
 
   @FXML private ImageView profilePicture;
   @FXML private Label username;
@@ -41,6 +43,8 @@ public class HeaderController implements LoadListener {
     this.profilePicture.setClip(circle);
     this.userService.addUserSavedListener(this::renderUserProfile);
   }
+
+  private void onDrawingSession() {}
 
   /**
    * Everytime the view this is within is switched to check if the user has changed and if it has,

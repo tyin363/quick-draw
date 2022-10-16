@@ -167,7 +167,9 @@ public class ClientSocket implements EnableListener, TerminationListener {
       this.isStopped = true;
       // Make sure to close all the threads
       this.handlerThread.interrupt();
-      this.socket.close();
+      if (this.socket != null) {
+        this.socket.close();
+      }
     } catch (final IOException e) {
       this.logger.error("Failed to close socket", e);
     }
