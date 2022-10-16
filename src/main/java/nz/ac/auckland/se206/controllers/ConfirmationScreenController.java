@@ -13,6 +13,7 @@ import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.Sound;
 import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.WordService;
 
@@ -41,7 +42,7 @@ public class ConfirmationScreenController implements LoadListener {
   @FXML
   private void onConfirmSwitch() {
     // Play click sound effect
-    this.soundEffect.playSpecialClickSound();
+    this.soundEffect.playSound(Sound.SPECIAL_CLICK);
     this.sceneManager.switchToView(View.CANVAS);
   }
 
@@ -73,7 +74,7 @@ public class ConfirmationScreenController implements LoadListener {
    */
   private void onSwitchBack() {
     // Play click sound effect
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
 
     this.hiddenMode.clearDefinitions();
     this.sceneManager.switchToView(View.MAIN_MENU);

@@ -19,6 +19,7 @@ import nz.ac.auckland.se206.controllers.scenemanager.View;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
+import nz.ac.auckland.se206.util.Sound;
 import nz.ac.auckland.se206.util.SoundEffect;
 
 /**
@@ -162,14 +163,14 @@ public class HeaderController implements LoadListener {
   /** When the user clicks on the profile picture, take them to the profile page view. */
   @FXML
   private void onClickProfile() {
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
     this.sceneManager.switchToView(View.PROFILE_PAGE);
   }
 
   /** When the user clicks on the switch user text, take them to the switch user view. */
   @FXML
   private void onSwitchUser() {
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
 }

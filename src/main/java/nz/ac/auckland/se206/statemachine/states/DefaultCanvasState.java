@@ -13,6 +13,8 @@ import nz.ac.auckland.se206.users.Round;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Config;
+import nz.ac.auckland.se206.util.Music;
+import nz.ac.auckland.se206.util.Sound;
 import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.WordService;
 
@@ -37,7 +39,7 @@ public class DefaultCanvasState extends CanvasState implements TerminationListen
 
     // Set Background music
     this.soundEffect.terminateBackgroundMusic();
-    this.soundEffect.playDefaultCanvasMusic();
+    this.soundEffect.playBackgroundMusic(Music.CANVAS_MUSIC);
 
     this.canvasController.getGameOverActionsContainer().setVisible(false);
 
@@ -104,18 +106,20 @@ public class DefaultCanvasState extends CanvasState implements TerminationListen
 
     // Get current round
     final Round round = new Round(this.wordService.getTargetWord(), timeTaken, wasGuessed);
+
     // Play sound effect and music based on if the user won or lost
     this.soundEffect.terminateBackgroundMusic();
     if (wasGuessed) {
-      this.soundEffect.playVictorySound();
-      this.soundEffect.playVictoryMusic();
+      this.soundEffect.playSound(Sound.WIN);
+      this.soundEffect.playBackgroundMusic(Music.WIN_MUSIC);
     } else {
-      this.soundEffect.playLoseSound();
-      this.soundEffect.playLoseMusic();
+      this.soundEffect.playSound(Sound.LOSE);
+      this.soundEffect.playBackgroundMusic(Music.LOSE_MUSIC);
     }
     this.canvasController.getPredictionHandler().stopPredicting();
     this.timer.stop();
     this.canvasController.disableBrush();
+
     // Prevent the user from clearing their drawing
     this.canvasController.getClearPane().setDisable(true);
     final String message = this.getConclusionMessage(wasGuessed);

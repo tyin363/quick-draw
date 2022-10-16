@@ -34,6 +34,8 @@ import nz.ac.auckland.se206.ml.PredictionHandler;
 import nz.ac.auckland.se206.statemachine.CanvasStateMachine;
 import nz.ac.auckland.se206.util.BrushType;
 import nz.ac.auckland.se206.util.Config;
+import nz.ac.auckland.se206.util.Music;
+import nz.ac.auckland.se206.util.Sound;
 import nz.ac.auckland.se206.util.SoundEffect;
 import nz.ac.auckland.se206.words.WordService;
 import org.slf4j.Logger;
@@ -238,7 +240,7 @@ public class CanvasController implements LoadListener, TerminationListener {
   @FXML
   private void onSave() {
     // Play click sound effect
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
     if (this.saveCurrentSnapshotOnFile()) {
       this.saveButton.setDisable(true);
     }
@@ -252,9 +254,9 @@ public class CanvasController implements LoadListener, TerminationListener {
   private void onRestart() {
 
     // Play music and sounds
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
     this.soundEffect.terminateBackgroundMusic();
-    this.soundEffect.playMainMusic();
+    this.soundEffect.playBackgroundMusic(Music.MAIN_MUSIC);
 
     // Hidden mode exclusive
     this.hiddenMode.clearDefinitions();
@@ -388,9 +390,9 @@ public class CanvasController implements LoadListener, TerminationListener {
   private void onReturnToMainMenu() {
 
     // Play music and sounds
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
     this.soundEffect.terminateBackgroundMusic();
-    this.soundEffect.playMainMusic();
+    this.soundEffect.playBackgroundMusic(Music.MAIN_MUSIC);
 
     // Hidden mode exclusive
     this.hiddenMode.clearDefinitions();

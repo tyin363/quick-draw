@@ -6,6 +6,7 @@ import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.components.canvas.ZenPenOptions;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.EnableListener;
+import nz.ac.auckland.se206.util.Music;
 import nz.ac.auckland.se206.util.SoundEffect;
 
 @Singleton(injectSuper = true)
@@ -20,7 +21,7 @@ public class ZenModeState extends CanvasState implements EnableListener {
 
     // Set Background music
     this.soundEffect.terminateBackgroundMusic();
-    this.soundEffect.playDefaultCanvasMusic();
+    this.soundEffect.playBackgroundMusic(Music.CANVAS_MUSIC);
   }
 
   /** Switch the UI elements to the Zen Mode UI. */

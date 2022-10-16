@@ -15,6 +15,7 @@ import nz.ac.auckland.se206.statemachine.states.DefaultCanvasState;
 import nz.ac.auckland.se206.statemachine.states.HiddenModeState;
 import nz.ac.auckland.se206.statemachine.states.ZenModeState;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.Sound;
 import nz.ac.auckland.se206.util.SoundEffect;
 
 @Singleton
@@ -54,7 +55,7 @@ public class MainMenuController implements LoadListener, TerminationListener {
   @FXML
   private void onStartGame() {
     // Play click sound effect
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
     this.stateMachine.switchState(DefaultCanvasState.class);
     this.sceneManager.switchToView(View.SETTINGS);
   }
@@ -66,7 +67,7 @@ public class MainMenuController implements LoadListener, TerminationListener {
   @FXML
   private void onStartZenMode() {
     // Play click sound effect
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
     this.stateMachine.switchState(ZenModeState.class);
     this.sceneManager.switchToView(View.CONFIRMATION_SCREEN);
   }
@@ -78,7 +79,7 @@ public class MainMenuController implements LoadListener, TerminationListener {
   @FXML
   private void onStartHidden() {
     // Play click sound effect
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
     this.stateMachine.switchState(HiddenModeState.class);
     this.sceneManager.switchToView(View.SETTINGS);
   }
@@ -89,7 +90,7 @@ public class MainMenuController implements LoadListener, TerminationListener {
    */
   private void onSwitchBack() {
     // Play click sound effect
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
 
     final View previousView = this.sceneManager.getPreviousView();
     // Only switch back to the profile page if they were just on it

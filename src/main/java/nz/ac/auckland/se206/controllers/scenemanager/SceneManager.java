@@ -14,6 +14,7 @@ import nz.ac.auckland.se206.App;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
 import nz.ac.auckland.se206.controllers.scenemanager.listeners.LoadListener;
+import nz.ac.auckland.se206.util.Music;
 import nz.ac.auckland.se206.util.SoundEffect;
 import org.slf4j.Logger;
 
@@ -50,7 +51,7 @@ public class SceneManager {
   protected void initialise(final boolean lazyLoading, final View startingView) {
 
     // Initialise background music
-    this.soundEffect.playMainMusic();
+    this.soundEffect.playBackgroundMusic(Music.MAIN_MUSIC);
 
     // Prevent you from trying to initialise the SceneManager twice
     if (this.scene != null) {

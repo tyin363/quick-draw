@@ -28,6 +28,7 @@ import nz.ac.auckland.se206.users.Round;
 import nz.ac.auckland.se206.users.User;
 import nz.ac.auckland.se206.users.UserService;
 import nz.ac.auckland.se206.util.Helpers;
+import nz.ac.auckland.se206.util.Sound;
 import nz.ac.auckland.se206.util.SoundEffect;
 import org.slf4j.Logger;
 
@@ -67,7 +68,7 @@ public class ProfilePageController implements LoadListener {
 
   /** When the user clicks the back button, take them back to the main menu. */
   private void onSwitchBack() {
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
 
     this.sceneManager.switchToView(View.MAIN_MENU);
   }
@@ -75,7 +76,7 @@ public class ProfilePageController implements LoadListener {
   /** Delete the current user and then take them back to the switch user view. */
   @FXML
   private void onDeleteUser() {
-    this.soundEffect.playCancelSound();
+    this.soundEffect.playSound(Sound.CANCEL);
     this.userService.deleteUser(this.user);
     this.sceneManager.switchToView(View.SWITCH_USER);
   }
@@ -83,7 +84,7 @@ public class ProfilePageController implements LoadListener {
   /** Delete the current user and then take them back to the switch user view. */
   @FXML
   private void onCancelEdit() {
-    this.soundEffect.playCancelSound();
+    this.soundEffect.playSound(Sound.CANCEL);
     setEditUsernameMode(false);
     setUsernameWidth();
   }
@@ -91,7 +92,7 @@ public class ProfilePageController implements LoadListener {
   /** Enables the user's username to be edited. The option to edit the username will be unhidden. */
   @FXML
   private void onEditUsername() {
-    this.soundEffect.playClickSound();
+    this.soundEffect.playSound(Sound.CLICK);
     this.usernameStackPane.setPrefWidth(usernameTextFieldWidth);
     this.usernameTextField.setText(this.user.getUsername());
     setEditUsernameMode(true);
@@ -133,7 +134,7 @@ public class ProfilePageController implements LoadListener {
 
     // Do not allow null to be a username
     if (!this.usernameTextField.getText().isBlank()) {
-      this.soundEffect.playSettingsClickSound();
+      this.soundEffect.playSound(Sound.SETTINGS_CLICK);
 
       this.usernameLabel.setText(this.usernameTextField.getText());
       this.user.setUsername(this.usernameTextField.getText());

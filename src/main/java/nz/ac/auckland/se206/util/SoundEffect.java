@@ -1,7 +1,5 @@
 package nz.ac.auckland.se206.util;
 
-import java.io.File;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import nz.ac.auckland.se206.annotations.Inject;
 import nz.ac.auckland.se206.annotations.Singleton;
@@ -12,59 +10,46 @@ import nz.ac.auckland.se206.users.UserService;
 public class SoundEffect implements TerminationListener {
   @Inject private UserService userService;
 
-  private Media soundEffect;
+  private Sound soundEffect;
+  private Music music;
   private MediaPlayer mediaPlayer;
   private MediaPlayer backgroundMediaPlayer;
-  private String mainMusic = "src/main/resources/sounds/Pixel-Peeker-Polka-faster.mp3";
-  private String defaultCanvasMusic = "src/main/resources/sounds/Exit-the-Premises.mp3";
-  private String winSound = "src/main/resources/sounds/mixkit-achievement-bell-600.wav";
-  private String loseSound = "src/main/resources/sounds/mixkit-negative-answer-lose-2032.wav";
-  private String victoryMusic = "src/main/resources/sounds/Victory.mp3";
-  private String clickSound = "src/main/resources/sounds/mixkit-select-click-1109.wav";
-  private String LoseMusic =
-      "src/main/resources/sounds/Loyalty_Freak_Music_-_05_-_We_all_gonna_die_.mp3";
-  private String specialClickSound =
-      "src/main/resources/sounds/mixkit-quick-win-video-game-notification-269.wav";
-  private String settingsClickSound =
-      "src/main/resources/sounds/mixkit-modern-technology-select-3124.wav";
-  private String cancelSound =
-      "src/main/resources/sounds/mixkit-negative-tone-interface-tap-2569.wav";
   private double musicVolume = 0.1;
   private double soundEffectVolume = 0.3;
 
   /**
-   * This method plays a sound effect given the file location of the sound effect and its volume.
+   * This plays the sound effect given the Sound enum
    *
-   * @param soundLocation The location of the sound file
+   * @param sound The Sound enum
    */
-  private void playSound(String soundLocation) {
+  public void playSound(final Sound sound) {
     // Set volume
     setUserVolume();
 
     // Play sound effect
-    soundEffect = new Media(new File(soundLocation).toURI().toString());
-    mediaPlayer = new MediaPlayer(soundEffect);
-    mediaPlayer.setVolume(soundEffectVolume);
-    mediaPlayer.play();
+    this.soundEffect = sound;
+    this.mediaPlayer = new MediaPlayer(soundEffect.getMedia());
+    this.mediaPlayer.setVolume(soundEffectVolume);
+    this.mediaPlayer.play();
   }
 
   /**
-   * This method plays a sound effect given the file location of the sound effect and its volume.
+   * This plays the background music given the Music enum
    *
-   * @param music The location of the sound file =
+   * @param sound The Music enum
    */
-  private void playBackgroundMusic(String music) {
+  public void playBackgroundMusic(final Music sound) {
     // Set volume
     setUserVolume();
 
     // Play music
-    soundEffect = new Media(new File(music).toURI().toString());
-    backgroundMediaPlayer = new MediaPlayer(soundEffect);
-    backgroundMediaPlayer.setVolume(musicVolume);
-    backgroundMediaPlayer.play();
+    this.music = sound;
+    this.backgroundMediaPlayer = new MediaPlayer(music.getMedia());
+    this.backgroundMediaPlayer.setVolume(musicVolume);
+    this.backgroundMediaPlayer.play();
 
     // Loop if music is the main or canvas music
-    if (music.equals(mainMusic) || music.equals(defaultCanvasMusic)) {
+    if (music.equals(Music.CANVAS_MUSIC) || music.equals(Music.MAIN_MUSIC)) {
       backgroundMediaPlayer.setCycleCount(Integer.MAX_VALUE);
     }
   }
@@ -111,56 +96,6 @@ public class SoundEffect implements TerminationListener {
    */
   public void setSoundEffectVolume(double soundEffectVolume) {
     this.soundEffectVolume = soundEffectVolume;
-  }
-
-  /** This method plays the default canvas background music of the game. */
-  public void playDefaultCanvasMusic() {
-    playBackgroundMusic(defaultCanvasMusic);
-  }
-
-  /** This method plays the main background music of the game. */
-  public void playMainMusic() {
-    playBackgroundMusic(mainMusic);
-  }
-
-  /** This method plays the canvas victory background music of the game. */
-  public void playVictoryMusic() {
-    playBackgroundMusic(victoryMusic);
-  }
-
-  /** This method plays the canvas losing background music of the game. */
-  public void playLoseMusic() {
-    playBackgroundMusic(LoseMusic);
-  }
-
-  /** This method plays the click sound effect of the game. */
-  public void playClickSound() {
-    playSound(clickSound);
-  }
-
-  /** This method plays the special click sound effect of the game. */
-  public void playSpecialClickSound() {
-    playSound(specialClickSound);
-  }
-
-  /** This method plays the special click sound effect of the game. */
-  public void playCancelSound() {
-    playSound(cancelSound);
-  }
-
-  /** This method plays the canvas victory sound effect of the game. */
-  public void playVictorySound() {
-    playSound(winSound);
-  }
-
-  /** This method plays the canvas lose sound effect of the game. */
-  public void playLoseSound() {
-    playSound(loseSound);
-  }
-
-  /** This method plays the settings click sound effect of the game. */
-  public void playSettingsClickSound() {
-    playSound(settingsClickSound);
   }
 
   /**
