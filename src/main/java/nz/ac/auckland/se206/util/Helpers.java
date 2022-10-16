@@ -1,6 +1,6 @@
 package nz.ac.auckland.se206.util;
 
-import java.io.File;
+import java.net.URL;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -31,7 +31,11 @@ public class Helpers {
    */
   public static Media loadSound(final String filename) {
     // All sounds are stored in the resources/sounds folder
-    File file = new File("src/main/resources/sounds/" + filename);
-    return new Media(file.toURI().toString());
+    final URL url = Helpers.class.getResource("/sounds/" + filename);
+    if (url != null) {
+      return new Media(url.toExternalForm());
+    } else {
+      throw new IllegalArgumentException("Couldn't load sound: " + filename);
+    }
   }
 }
