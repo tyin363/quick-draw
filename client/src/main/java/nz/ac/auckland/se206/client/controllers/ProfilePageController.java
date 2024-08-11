@@ -1,6 +1,7 @@
 package nz.ac.auckland.se206.client.controllers;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -195,10 +196,11 @@ public class ProfilePageController implements LoadListener {
 
     final File file = fileChooser.showOpenDialog(this.sceneManager.getStage());
     if (file != null) {
-      // Set the chosen file as profile picture
-      final String absolutePath = file.getAbsolutePath();
-      this.renderUserProfilePicture(new Image(absolutePath));
-      this.user.setProfilePicture(absolutePath);
+      // Use Path instead of String for file path
+      final Path path = file.toPath();
+      System.out.println(path.toAbsolutePath());
+      this.renderUserProfilePicture(new Image(path.toUri().toString()));
+      this.user.setProfilePicture(path.toString());
       this.userService.saveUser(this.user);
     }
   }
