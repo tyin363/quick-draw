@@ -12,8 +12,15 @@ configure the server being connected to. The `config.json` file should look like
 ```
 
 To run either the client and server you must do: 
+
+For Windows:
 1. `.\mvnw.cmd install -pl client -am`
 2. `.\mvnw.cmd clean javafx:run -pl client`
+
+For macOS and Linux:
+1. `./mvnw install -pl client -am`
+2. `./mvnw clean javafx:run -pl client`
+
 
 The same applies for the server, but replace `client` with `server`.
 
